@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flare_flutter: ^1.6.2
+  pedantic: ^1.8.0+1
 
   cupertino_icons: ^0.1.2
 
