@@ -1,21 +1,23 @@
+import 'package:flutter/material.dart';
 import 'package:conferenceapp/agenda/agenda_page.dart';
 import 'package:conferenceapp/bottom_navigation/bottom_bar_title.dart';
 import 'package:conferenceapp/my_schedule/my_schedule_page.dart';
 import 'package:conferenceapp/profile/profile_page.dart';
-import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
 
-void main() => runApp(MyApp());
-
 class MyApp extends StatelessWidget {
+  const MyApp({Key key, this.title}) : super(key: key);
+
+  final String title;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Europe',
+      title: title,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Europe'),
+      home: MyHomePage(title: title),
     );
   }
 }
