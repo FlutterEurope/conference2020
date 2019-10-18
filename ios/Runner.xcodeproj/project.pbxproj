@@ -178,6 +178,7 @@
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
 			buildPhases = (
 				35767170EB37EBC0B74FE589 /* [CP] Check Pods Manifest.lock */,
+				B4B739B4235A5949008D3BE6 /* Copy Google Services */,
 				9740EEB61CF901F6004384FC /* Run Script */,
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
@@ -314,6 +315,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build\n";
+		};
+		B4B739B4235A5949008D3BE6 /* Copy Google Services */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Google Services";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp Runner/$GOOGLE Runner/GoogleService-Info.plist\n";
 		};
 		BF838F6D2355C3E6008F275E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
