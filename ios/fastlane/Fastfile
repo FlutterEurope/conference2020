@@ -3,15 +3,13 @@
 default_platform(:ios)
 
 platform :ios do
-  lane :prepare do
-    badge(
-      dark: false,
-      alpha: true,
-    )
+  before_all do
+    ENV['KEYCHAIN_NAME'] = "TempKeychain.keychain"
   end
 
   desc "Submit a new build to Firebase App Distribution"
   lane :tst do
+    badge
     register_devices(
         devices_file: "../devices.txt",
         team_id: ENV["APPLE_DEVELOPER_TEAM_ID"],
@@ -21,6 +19,7 @@ platform :ios do
       type: "adhoc",
       force_for_new_devices: true,
     )
+    import_certificates
     automatic_code_signing(
       use_automatic_signing: false
     )

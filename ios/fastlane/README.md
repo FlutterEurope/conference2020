@@ -32,8 +32,6 @@ fastlane ios prod
 ```
 Deploy a new version to the AppStore
 
-Deploy a new version to the AppStore
-
 ----
 
 This README.md is auto-generated and will be re-generated every time [fastlane](https://fastlane.tools) is run.

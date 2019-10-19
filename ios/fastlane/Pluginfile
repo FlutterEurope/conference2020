@@ -4,3 +4,4 @@
 
 gem 'fastlane-plugin-firebase_app_distribution'
 gem 'signet', '0.11.0'
+gem 'fastlane-plugin-badge'
