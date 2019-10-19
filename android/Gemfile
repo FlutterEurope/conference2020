@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
+gem "google-api-client", "0.32.1"
 gem "fastlane"
 
 plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
