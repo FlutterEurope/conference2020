@@ -14,15 +14,17 @@ dependencies:
   firebase_core: ^0.4.0+9
   firebase_analytics: ^5.0.2
   firebase_messaging: ^5.1.6
+  flutter_bloc: ^0.22.1
+  intl: ^0.16.0
+  bloc: ^0.16.1
+  line_icons: ^0.2.0
 
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_driver:
-    sdk: flutter
-  test: 1.6.2
+  test:
 
 flutter:
 
@@ -30,17 +32,17 @@ flutter:
 
   assets:
    - assets/flare/
-  #  - images/a_dot_ham.jpeg
+   - assets/
 
 
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: PTSans
+      fonts:
+        - asset: assets/PT_Sans/PTSans-Bold.ttf
+          weight: 600
+        - asset: assets/PT_Sans/PTSans-Regular.ttf
+          weight: 400
+        - asset: assets/PT_Sans/PTSans-Italic.ttf
+          # weight: 500
+        - asset: assets/PT_Sans/PTSans-BoldItalic.ttf
+          # weight: 600
