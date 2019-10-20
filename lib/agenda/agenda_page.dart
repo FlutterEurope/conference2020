@@ -1,6 +1,10 @@
+import 'package:conferenceapp/agenda/bloc/bloc.dart';
 import 'package:conferenceapp/agenda/talk_card.dart';
-import 'package:conferenceapp/model/speaker.dart';
+import 'package:conferenceapp/model/mock_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'day_selector.dart';
 
 class AgendaPage extends StatelessWidget {
   const AgendaPage({
@@ -9,61 +13,64 @@ class AgendaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ListView(
+    return BlocBuilder(
+      bloc: BlocProvider.of<AgendaBloc>(context),
+      builder: (context, AgendaState state) => Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          DaySelectorContainer(),
+          state is PopulatedAgendaState
+              ? PopulatedAgendaTable(state)
+              : LoadingAgendaTable(),
+        ],
+      ),
+    );
+  }
+}
+
+class LoadingAgendaTable extends StatelessWidget {
+  const LoadingAgendaTable({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+}
+
+class PopulatedAgendaTable extends StatelessWidget {
+  const PopulatedAgendaTable(
+    this.state, {
+    Key key,
+  }) : super(key: key);
+  final PopulatedAgendaState state;
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: ListView.builder(
         padding: EdgeInsets.symmetric(
           horizontal: 12.0,
           vertical: 16.0,
         ),
-        //TODO: replace with builder
-        children: <Widget>[
-          Hours('9:00', '9:45'),
-          TalkCard(
-            speakers: [
-              Speaker('John Nowak', ''),
-              Speaker('Stacey Kovalsky', ''),
-            ],
-            room: 'A',
-            color: Colors.blue,
-            level: 2,
+        itemCount: state.talks.length,
+        itemBuilder: (context, index) {
+          final _talk = state.talks[index];
+          final isFirstInHour = _talk.dateTime.compareTo(
+                  state.talks[index - 1 >= 0 ? index - 1 : 0]?.dateTime) !=
+              0;
+          return TalkCard(
+            talk: _talk,
             isFavorite: false,
-            title: 'Why should you consider Flutter',
-          ),
-          SizedBox(height: 16.0),
-          TalkCard(
-            speakers: [
-              Speaker('John Nowak', ''),
-              Speaker('Stacey Kovalsky', ''),
-            ],
-            room: 'B',
-            color: Colors.deepOrange,
-            level: 3,
-            isFavorite: true,
-            title: 'Sample long title of the next talk on this conference',
-          ),
-          Hours('10:00', '10:45'),
-          TalkCard(
-            speakers: [
-              Speaker('Stacey Kovalsky', ''),
-            ],
-            room: 'A',
-            color: Colors.blue,
-            level: 2,
-            isFavorite: false,
-            title: 'Why should you consider Flutter for your next app',
-          ),
-          SizedBox(height: 16.0),
-          TalkCard(
-            speakers: [
-              Speaker('John Nowak', ''),
-            ],
-            room: 'B',
-            color: Colors.deepOrange,
-            level: 3,
-            isFavorite: true,
-            title: 'Sample short title',
-          ),
-        ],
+            first: isFirstInHour,
+          );
+        },
       ),
     );
   }
