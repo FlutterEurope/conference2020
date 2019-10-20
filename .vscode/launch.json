@@ -10,7 +10,10 @@
             "type": "dart",
             "flutterMode": "debug",
             "program": "lib/main_dev.dart",
-            "args": ["--flavor dev"]
+            "args": [
+                "--flavor",
+                "dev"
+            ],
         },
         {
             "name": "Flutter Test",
@@ -18,7 +21,10 @@
             "type": "dart",
             "flutterMode": "debug",
             "program": "lib/main_tst.dart",
-            "args": ["--flavor tst"]
+            "args": [
+                "--flavor",
+                "tst"
+            ],
         },
         {
             "name": "Flutter Release",
@@ -26,7 +32,10 @@
             "type": "dart",
             "flutterMode": "release",
             "program": "lib/main_tst.dart",
-            "args": ["--flavor tst"]
+            "args": [
+                "--flavor",
+                "tst"
+            ],
         },
     ]
 }
