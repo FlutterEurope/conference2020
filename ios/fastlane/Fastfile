@@ -19,7 +19,6 @@ platform :ios do
       type: "adhoc",
       force_for_new_devices: true,
     )
-    import_certificates
     automatic_code_signing(
       use_automatic_signing: false
     )
