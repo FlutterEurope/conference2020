@@ -18,6 +18,7 @@ platform :ios do
     match(
       type: "adhoc",
       force_for_new_devices: true,
+      keychain_name: ENV['KEYCHAIN_NAME']
     )
     automatic_code_signing(
       use_automatic_signing: false
@@ -33,7 +34,7 @@ platform :ios do
     increment_build_number(
       build_number: ENV["BUILD_NUMBER"]
     )
-    build_app(
+    build_ios_app(
       scheme: "tst",
       configuration: "Release-tst",
       xcargs: "-allowProvisioningUpdates",
