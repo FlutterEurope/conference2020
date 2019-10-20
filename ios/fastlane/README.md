@@ -16,11 +16,6 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## iOS
-### ios prepare
-```
-fastlane ios prepare
-```
-
 ### ios tst
 ```
 fastlane ios tst

@@ -9,7 +9,7 @@ platform :ios do
 
   desc "Submit a new build to Firebase App Distribution"
   lane :tst do
-    badge
+    add_badge(dark: true)
     register_devices(
         devices_file: "../devices.txt",
         team_id: ENV["APPLE_DEVELOPER_TEAM_ID"],
