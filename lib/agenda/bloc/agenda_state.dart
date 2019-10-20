@@ -10,6 +10,8 @@ class LoadingAgendaState extends AgendaState {}
 
 class PopulatedAgendaState extends AgendaState {
   PopulatedAgendaState(this.selectedDay, this.talks);
-  final int selectedDay;
+  final DateTime selectedDay;
   final List<Talk> talks;
 }
+
+class ErrorAgendaState extends AgendaState {}

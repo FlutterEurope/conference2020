@@ -21,12 +21,16 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
 
   Stream<AgendaState> mapSwitchToState(SwitchDay event) async* {
     yield PopulatedAgendaState(event.day,
-        talks.where((t) => t.dateTime.day == 22 + event.day).toList());
+        talks.where((t) => t.dateTime.day == event.day.day).toList());
   }
 
   Stream<AgendaState> mapInitToState(InitAgenda event) async* {
+    yield LoadingAgendaState();
     await Future.delayed(Duration(seconds: 1));
     yield PopulatedAgendaState(
-        1, talks.where((t) => t.dateTime.day == 23).toList());
+        talks.first.dateTime,
+        talks
+            .where((t) => t.dateTime.day == talks.first.dateTime.day)
+            .toList());
   }
 }

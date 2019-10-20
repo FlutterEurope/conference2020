@@ -1,6 +1,5 @@
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
 import 'package:conferenceapp/agenda/talk_card.dart';
-import 'package:conferenceapp/model/mock_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

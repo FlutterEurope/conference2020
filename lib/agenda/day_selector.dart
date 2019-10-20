@@ -65,7 +65,8 @@ class DaySelector extends StatelessWidget {
                     type: MaterialType.transparency,
                     child: InkWell(
                       onTap: () {
-                        BlocProvider.of<AgendaBloc>(context).add(SwitchDay(1));
+                        BlocProvider.of<AgendaBloc>(context)
+                            .add(SwitchDay(DateTime(2020, 1, 23)));
                       },
                       child: Container(
                         child: Padding(
@@ -90,7 +91,8 @@ class DaySelector extends StatelessWidget {
                     type: MaterialType.transparency,
                     child: InkWell(
                       onTap: () {
-                        BlocProvider.of<AgendaBloc>(context).add(SwitchDay(2));
+                        BlocProvider.of<AgendaBloc>(context)
+                            .add(SwitchDay(DateTime(2020, 1, 23)));
                       },
                       child: Container(
                         child: Padding(

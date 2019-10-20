@@ -5,7 +5,7 @@ abstract class AgendaEvent {}
 
 class SwitchDay extends AgendaEvent {
   SwitchDay(this.day);
-  final int day;
+  final DateTime day;
 }
 
 class InitAgenda extends AgendaEvent {}
