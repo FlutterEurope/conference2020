@@ -36,19 +36,22 @@ class DaySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final firstDay = DateTime(2020, 1, 23);
+    final secondDay = DateTime(2020, 1, 24);
     return BlocBuilder<AgendaBloc, AgendaState>(
       builder: (context, state) {
-        final selectedDay =
-            state is PopulatedAgendaState ? state.selectedDay : 0;
+        final selectedDay = state is PopulatedAgendaState
+            ? state.selectedDay
+            : firstDay;
         return Stack(
           children: <Widget>[
             AnimatedPositioned(
               top: 0,
               bottom: 0,
-              left: selectedDay == 1
+              left: selectedDay == firstDay
                   ? 0
                   : (MediaQuery.of(context).size.width - 24.0) / 2.0,
-              right: selectedDay == 1
+              right: selectedDay == firstDay
                   ? (MediaQuery.of(context).size.width - 24.0) / 2.0
                   : 0,
               duration: Duration(milliseconds: 200),
@@ -66,7 +69,7 @@ class DaySelector extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         BlocProvider.of<AgendaBloc>(context)
-                            .add(SwitchDay(DateTime(2020, 1, 23)));
+                            .add(SwitchDay(firstDay));
                       },
                       child: Container(
                         child: Padding(
@@ -75,7 +78,7 @@ class DaySelector extends StatelessWidget {
                             child: Text(
                               'Day 1',
                               style: TextStyle(
-                                color: selectedDay == 1
+                                color: selectedDay == firstDay
                                     ? Colors.blue
                                     : Colors.white,
                               ),
@@ -92,7 +95,7 @@ class DaySelector extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         BlocProvider.of<AgendaBloc>(context)
-                            .add(SwitchDay(DateTime(2020, 1, 23)));
+                            .add(SwitchDay(secondDay));
                       },
                       child: Container(
                         child: Padding(
@@ -101,7 +104,7 @@ class DaySelector extends StatelessWidget {
                             child: Text(
                               'Day 2',
                               style: TextStyle(
-                                color: selectedDay == 2
+                                color: selectedDay == secondDay
                                     ? Colors.blue
                                     : Colors.white,
                               ),
