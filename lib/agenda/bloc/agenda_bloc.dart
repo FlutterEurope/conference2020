@@ -25,12 +25,10 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   }
 
   Stream<AgendaState> mapInitToState(InitAgenda event) async* {
+    final firstDay = DateTime(2020, 1, 23);
     yield LoadingAgendaState();
     await Future.delayed(Duration(seconds: 1));
     yield PopulatedAgendaState(
-        talks.first.dateTime,
-        talks
-            .where((t) => t.dateTime.day == talks.first.dateTime.day)
-            .toList());
+        firstDay, talks.where((t) => t.dateTime.day == firstDay.day).toList());
   }
 }

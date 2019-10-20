@@ -43,6 +43,7 @@ class DaySelector extends StatelessWidget {
         final selectedDay = state is PopulatedAgendaState
             ? state.selectedDay
             : firstDay;
+
         return Stack(
           children: <Widget>[
             AnimatedPositioned(
@@ -104,7 +105,7 @@ class DaySelector extends StatelessWidget {
                             child: Text(
                               'Day 2',
                               style: TextStyle(
-                                color: selectedDay == secondDay
+                                color: selectedDay != firstDay
                                     ? Colors.blue
                                     : Colors.white,
                               ),
