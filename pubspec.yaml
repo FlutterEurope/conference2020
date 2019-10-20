@@ -11,12 +11,18 @@ dependencies:
     sdk: flutter
   flare_flutter: ^1.6.2
   pedantic: ^1.8.0+1
+  firebase_core: ^0.4.0+9
+  firebase_analytics: ^5.0.2
+  firebase_messaging: ^5.1.6
 
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_driver:
+    sdk: flutter
+  test: 1.6.2
 
 flutter:
 
