@@ -1,6 +1,7 @@
 import 'package:conferenceapp/model/author.dart';
 import 'package:conferenceapp/model/room.dart';
 import 'package:conferenceapp/model/talk.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -18,101 +19,156 @@ class TalkCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hourFormat = DateFormat.Hm();
     const topPadding = 12.0;
-    final hourStyle = TextStyle(
-      fontSize: 16,
-      color: Theme.of(context).primaryColor,
-    );
+
     return Padding(
       padding: EdgeInsets.only(top: first ? 16.0 : 4.0),
-      child: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 30,
-              offset: Offset(0, 10),
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: -10,
-            )
-          ],
-          color: Theme.of(context).cardColor,
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: topPadding + 2, left: 12.0),
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+      child: TalkCardDecoration(
+        child: InkWell(
+          onTap: () {},
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              LeftTalkContainer(
+                talk: talk,
+                topPadding: topPadding,
+              ),
+              Flexible(
+                child: Stack(
                   children: <Widget>[
-                    Text(
-                      hourFormat.format(talk.dateTime),
-                      style: hourStyle,
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: topPadding,
+                        bottom: topPadding,
+                        left: 16,
+                        right: 16,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: TalkTitle(title: talk.title),
+                          ),
+                          SizedBox(height: 8.0),
+                          for (var speaker in talk.authors)
+                            TalkSpeaker(speaker: speaker),
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 4),
-                    Text(
-                      hourFormat.format(talk.dateTime.add(talk.duration)),
-                      style: hourStyle,
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: Triangle(
+                        talk.room,
+                        color: talk.room.name == 'A'
+                            ? Theme.of(context).primaryColor
+                            : Theme.of(context).accentColor,
+                      ),
                     ),
-                    SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        for (int i = 0; i < talk.level; i++)
-                          FlutterLogo(size: 12),
-                      ],
-                    )
+                    FavoriteButton(isFavorite: isFavorite)
                   ],
                 ),
               ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TalkCardDecoration extends StatelessWidget {
+  const TalkCardDecoration({Key key, this.child}) : super(key: key);
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 30,
+            offset: Offset(0, 10),
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: -10,
+          )
+        ],
+      ),
+      child: Material(
+        color: Theme.of(context).cardColor,
+        child: child,
+      ),
+    );
+  }
+}
+
+class FavoriteButton extends StatelessWidget {
+  const FavoriteButton({
+    Key key,
+    @required this.isFavorite,
+  }) : super(key: key);
+
+  final bool isFavorite;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 0,
+      right: 0,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Icon(
+          isFavorite ? Icons.favorite : Icons.favorite_border,
+          color: Colors.red,
+        ),
+      ),
+    );
+  }
+}
+
+class LeftTalkContainer extends StatelessWidget {
+  const LeftTalkContainer({
+    Key key,
+    @required this.topPadding,
+    @required this.talk,
+  }) : super(key: key);
+
+  final double topPadding;
+  final Talk talk;
+
+  @override
+  Widget build(BuildContext context) {
+    final hourFormat = DateFormat.Hm();
+    final hourStyle = TextStyle(
+      fontSize: 16,
+      color: Theme.of(context).brightness == Brightness.light
+          ? Theme.of(context).primaryColor
+          : Theme.of(context).primaryColorLight,
+    );
+    return Padding(
+      padding: EdgeInsets.only(top: topPadding + 2, left: 12.0),
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              hourFormat.format(talk.dateTime),
+              style: hourStyle,
             ),
-            Flexible(
-              child: Stack(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: topPadding,
-                      bottom: topPadding,
-                      left: 16,
-                      right: 16,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: TalkTitle(title: talk.title),
-                        ),
-                        SizedBox(height: 8.0),
-                        for (var speaker in talk.authors)
-                          TalkSpeaker(speaker: speaker),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: Triangle(
-                      talk.room,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_border,
-                        color: Colors.red,
-                      ),
-                    ),
-                  )
-                ],
-              ),
+            SizedBox(height: 2),
+            Text(
+              hourFormat.format(talk.dateTime.add(talk.duration)),
+              style: hourStyle,
             ),
+            SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                for (int i = 0; i < talk.level; i++) FlutterLogo(size: 12),
+              ],
+            )
           ],
         ),
       ),
@@ -136,8 +192,12 @@ class TalkSpeaker extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           CircleAvatar(
+            key: ValueKey(speaker.avatar),
             radius: 12,
-            backgroundImage: NetworkImage(speaker.avatar),
+            backgroundImage: ExtendedNetworkImageProvider(
+              speaker.avatar,
+              cache: true,
+            ),
           ),
           SizedBox(width: 10),
           Flexible(
