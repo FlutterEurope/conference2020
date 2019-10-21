@@ -27,7 +27,9 @@ class BottomBarTitle extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.blue,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Theme.of(context).primaryColor
+                          : Theme.of(context).accentColor,
                     ),
                     height: 5,
                     width: 5,
