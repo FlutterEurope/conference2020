@@ -1,10 +1,46 @@
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatelessWidget {
+import 'settings_toggle.dart';
+
+class ProfilePage extends StatefulWidget {
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(child: Text('Profile page')),
+      child: Center(
+        child: Column(
+          children: <Widget>[
+            SettingsToggle(
+              title: 'Dark Theme',
+              onChanged: (_) => changeBrightness(),
+              value: Theme.of(context).brightness == Brightness.dark,
+            ),
+            SettingsToggle(
+              title: 'Reminders',
+              onChanged: (_) {},
+              value: false,
+            ),
+            SettingsToggle(
+              title: 'Push Notifications from organizers',
+              onChanged: (_) {},
+              value: false,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void changeBrightness() {
+    DynamicTheme.of(context).setBrightness(
+      Theme.of(context).brightness == Brightness.dark
+          ? Brightness.light
+          : Brightness.dark,
     );
   }
 }
