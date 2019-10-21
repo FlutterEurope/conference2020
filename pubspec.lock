@@ -28,7 +28,7 @@ packages:
       name: bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.16.1"
+    version: "1.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -78,6 +78,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
+  dynamic_theme:
+    dependency: "direct main"
+    description:
+      name: dynamic_theme
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   firebase_analytics:
     dependency: "direct main"
     description:
@@ -124,7 +131,7 @@ packages:
       name: flutter_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.22.1"
+    version: "1.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -333,6 +340,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.22.4"
+  shared_preferences:
+    dependency: transitive
+    description:
+      name: shared_preferences
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.3+5"
   shelf:
     dependency: transitive
     description:
