@@ -1,3 +1,4 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 
 class AccountAvatar extends StatelessWidget {
@@ -7,10 +8,16 @@ class AccountAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: CircleAvatar(
-        backgroundImage: NetworkImage('https://picsum.photos/id/433/200/200'),
+    return IconButton(
+      onPressed: () {},
+      icon: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: CircleAvatar(
+          backgroundImage: ExtendedNetworkImageProvider(
+            'https://picsum.photos/id/433/100/100',
+            cache: true,
+          ),
+        ),
       ),
     );
   }
