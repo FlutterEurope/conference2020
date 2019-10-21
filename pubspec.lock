@@ -85,6 +85,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  extended_image:
+    dependency: "direct main"
+    description:
+      name: extended_image
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.4"
+  extended_image_library:
+    dependency: transitive
+    description:
+      name: extended_image_library
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.8"
   firebase_analytics:
     dependency: "direct main"
     description:
@@ -165,6 +179,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.0+2"
+  http_client_helper:
+    dependency: transitive
+    description:
+      name: http_client_helper
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.1"
   http_multi_server:
     dependency: transitive
     description:
@@ -291,6 +312,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.4"
+  path_provider:
+    dependency: transitive
+    description:
+      name: path_provider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.0"
   pedantic:
     dependency: "direct main"
     description:

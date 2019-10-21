@@ -19,6 +19,7 @@ dependencies:
   bloc: ^1.0.0
   line_icons: ^0.2.0
   dynamic_theme: ^1.0.1
+  extended_image: ^0.6.4
 
   cupertino_icons: ^0.1.2
 
