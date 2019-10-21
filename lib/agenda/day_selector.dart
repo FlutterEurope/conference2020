@@ -10,13 +10,13 @@ class DaySelectorContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue,
+      color: Theme.of(context).primaryColor,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
-              color: Colors.white,
+              color: Theme.of(context).dividerColor,
               style: BorderStyle.solid,
               width: 2,
             ),
@@ -40,9 +40,8 @@ class DaySelector extends StatelessWidget {
     final secondDay = DateTime(2020, 1, 24);
     return BlocBuilder<AgendaBloc, AgendaState>(
       builder: (context, state) {
-        final selectedDay = state is PopulatedAgendaState
-            ? state.selectedDay
-            : firstDay;
+        final selectedDay =
+            state is PopulatedAgendaState ? state.selectedDay : firstDay;
 
         return Stack(
           children: <Widget>[
@@ -57,7 +56,7 @@ class DaySelector extends StatelessWidget {
                   : 0,
               duration: Duration(milliseconds: 200),
               child: Container(
-                color: Colors.white,
+                color: Theme.of(context).dividerColor,
               ),
               curve: Curves.easeOut,
             ),
@@ -80,8 +79,8 @@ class DaySelector extends StatelessWidget {
                               'Day 1',
                               style: TextStyle(
                                 color: selectedDay == firstDay
-                                    ? Colors.blue
-                                    : Colors.white,
+                                    ? Theme.of(context).primaryColor
+                                    : Theme.of(context).dividerColor,
                               ),
                             ),
                           ),
@@ -106,8 +105,8 @@ class DaySelector extends StatelessWidget {
                               'Day 2',
                               style: TextStyle(
                                 color: selectedDay != firstDay
-                                    ? Colors.blue
-                                    : Colors.white,
+                                    ? Theme.of(context).primaryColor
+                                    : Theme.of(context).dividerColor,
                               ),
                             ),
                           ),
