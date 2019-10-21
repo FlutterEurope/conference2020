@@ -36,7 +36,9 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           centerTitle: true,
           title: Image.asset(
-            'assets/logo_negative.png',
+            Theme.of(context).brightness == Brightness.light
+                ? 'assets/logo_negative.png'
+                : 'assets/logo_negative_dark.png',
             height: 48,
           ),
           elevation: 0,
