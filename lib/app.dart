@@ -14,12 +14,16 @@ class MyApp extends StatelessWidget {
       data: (brightness) => ThemeData(
         primarySwatch: Colors.blue,
         accentColor: brightness == Brightness.light
-            ? Colors.blue[200]
-            : Colors.blue[500],
+            ? Colors.orange[300]
+            : Colors.orange[800],
+        toggleableActiveColor: Colors.orange[800],
         dividerColor:
             brightness == Brightness.light ? Colors.white : Colors.white54,
         brightness: brightness,
         fontFamily: 'PTSans',
+        bottomAppBarTheme: Theme.of(context).bottomAppBarTheme.copyWith(
+              elevation: 0,
+            ),
       ),
       themedWidgetBuilder: (context, theme) => MaterialApp(
         title: title,
