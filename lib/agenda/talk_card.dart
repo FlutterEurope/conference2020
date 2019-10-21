@@ -22,7 +22,7 @@ class TalkCard extends StatelessWidget {
     const topPadding = 12.0;
     final hourStyle = TextStyle(
       fontSize: 16,
-      color: Colors.grey,
+      color: Theme.of(context).primaryColor,
     );
     return Padding(
       padding: EdgeInsets.only(top: first ? 16.0 : 4.0),
@@ -36,7 +36,7 @@ class TalkCard extends StatelessWidget {
               spreadRadius: -10,
             )
           ],
-          color: Colors.white,
+          color: Theme.of(context).cardColor,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +96,7 @@ class TalkCard extends StatelessWidget {
                     right: 0,
                     child: Triangle(
                       talk.room,
-                      color: Colors.blue,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                   Positioned(
