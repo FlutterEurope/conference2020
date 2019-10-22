@@ -47,7 +47,7 @@ void main() {
       expectLater(
           bloc,
           emitsInOrder([
-            isA<InitialAgendaState>(),
+            // isA<InitialAgendaState>(),
             isA<PopulatedAgendaState>().having(
               (x) => x.selectedDay,
               'selected day',
