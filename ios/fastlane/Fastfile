@@ -59,7 +59,8 @@ platform :ios do
       app: ENV["FIREBASE_IOS_TEST_APP_ID"],
       ipa_path: "Runner.ipa",
       firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
-      release_notes: ENV["CHANGELOG"]
+      release_notes: ENV["CHANGELOG"],
+      testers: ENV["FIREBASE_TESTERS"]
     )
   end
 

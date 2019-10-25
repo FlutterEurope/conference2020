@@ -9,7 +9,8 @@ desc "Submit a new build to Firebase App Distribution"
       app: ENV["FIREBASE_ANDROID_TEST_APP_ID"],
       apk_path: ENV["APK_PATH"],
       release_notes: ENV["CHANGELOG"],
-      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"]
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
+      testers: ENV["FIREBASE_TESTERS"]
     )
   end
 
