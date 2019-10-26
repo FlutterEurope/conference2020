@@ -7,12 +7,16 @@ platform :ios do
     if is_ci?
       puts "This is CI run. Setting custom keychain."
       ENV['KEYCHAIN_NAME'] = "TempKeychain.keychain"
+      delete_keychain(
+        name: ENV['KEYCHAIN_NAME']
+      )
       create_keychain(
         name: ENV['KEYCHAIN_NAME'],
         password: ENV['KEYCHAIN_NAME'],
         default_keychain: true,
         unlock: true,
         timeout: 3600,
+        require_create: true
       )
       puts ENV['KEYCHAIN_NAME']
     end
