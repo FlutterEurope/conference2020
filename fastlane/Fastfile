@@ -4,7 +4,8 @@ default_platform(:ios)
 
 platform :ios do
   before_all do
-    if is_ci
+    if is_ci?
+      puts "This is CI run. Setting custom keychain."
       ENV['KEYCHAIN_NAME'] = "TempKeychain.keychain"
       create_keychain(
         name: ENV['KEYCHAIN_NAME'],
@@ -13,6 +14,7 @@ platform :ios do
         unlock: true,
         timeout: 3600,
       )
+      puts ENV['KEYCHAIN_NAME']
     end
   end
 
@@ -126,7 +128,7 @@ end
 
 
 def finish_build
-  if is_ci
+  if is_ci?
     add_git_tag(
       grouping: "fastlane-builds",
       prefix: ENV["FASTLANE_LANE_NAME"],
