@@ -7,9 +7,7 @@ platform :ios do
     if is_ci?
       puts "This is CI run. Setting custom keychain."
       ENV['KEYCHAIN_NAME'] = "build.keychain"
-      # delete_keychain(
-      #   name: ENV['KEYCHAIN_NAME']
-      # )
+
       create_keychain(
         name: ENV['KEYCHAIN_NAME'],
         password: ENV['KEYCHAIN_NAME'],
@@ -18,7 +16,6 @@ platform :ios do
         timeout: 3600,
         # require_create: true
       )
-      puts ENV['KEYCHAIN_NAME']
     end
   end
 
