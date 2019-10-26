@@ -18,7 +18,7 @@ platform :ios do
   lane :tst do
     add_badge(dark: true)
     register_devices(
-        devices_file: "../devices.txt",
+        devices_file: "./.fastlane/devices.txt",
         team_id: ENV["APPLE_DEVELOPER_TEAM_ID"],
         username: ENV["FASTLANE_EMAIL"]
     )
@@ -35,12 +35,6 @@ platform :ios do
       profile: ENV["sigh_#{ENV["APP_ID"]}_adhoc_profile-path"],
       build_configuration: "Release-tst",
       code_signing_identity: "iPhone Distribution"
-    )
-    increment_version_number(
-      version_number: ENV["VERSION_NUMBER"]
-    )
-    increment_build_number(
-      build_number: ENV["BUILD_NUMBER"]
     )
     build_ios_app(
       scheme: "tst",
@@ -59,9 +53,10 @@ platform :ios do
       app: ENV["FIREBASE_IOS_TEST_APP_ID"],
       ipa_path: "Runner.ipa",
       firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
-      release_notes: ENV["CHANGELOG"],
-      testers: ENV["FIREBASE_TESTERS"]
+      release_notes: ENV["FL_CHANGELOG"],
+      groups: ENV["FIREBASE_TESTERS"]
     )
+    finish_build
   end
 
   desc "Deploy a new version to the AppStore"
@@ -76,12 +71,6 @@ platform :ios do
       profile: ENV["sigh_#{ENV["APP_ID"]}_appstore_profile-path"],
       build_configuration: "Release-prod",
       code_signing_identity: "iPhone Distribution"
-    )
-    increment_version_number(
-      version_number: ENV["VERSION_NUMBER"]
-    )
-    increment_build_number(
-      build_number: ENV["BUILD_NUMBER"]
     )
     build_app(
       scheme: "prod",
@@ -102,6 +91,43 @@ platform :ios do
       skip_waiting_for_build_processing: true,
       team_id: ENV["APP_STORE_CONNECT_TEAM_ID"],
       ipa: "Runner.ipa"
+    )
+    finish_build
+  end
+end
+
+platform :android do
+desc "Submit a new build to Firebase App Distribution"
+  lane :tst do
+    firebase_app_distribution(
+      app: ENV["FIREBASE_ANDROID_TEST_APP_ID"],
+      apk_path: ENV["APK_PATH"],
+      release_notes: ENV["FL_CHANGELOG"],
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
+      groups: ENV["FIREBASE_TESTERS"]
+    )
+    finish_build
+  end
+
+  desc "Deploy a new version to the Google Play"
+  lane :prod do
+    upload_to_play_store(
+      track: 'internal',
+      json_key: ENV["GOOGLE_SERVICE_ACCOUNT_KEY"],
+      package_name: ENV["APP_ID"],
+      aab: ENV["AAB_PATH"]
+    )
+    finish_build
+  end
+end
+
+
+def finish_build
+  if is_ci
+    add_git_tag(
+      grouping: "fastlane-builds",
+      prefix: ENV["FASTLANE_LANE_NAME"],
+      build_number: ENV["FL_BUILD_NUMBER"]
     )
   end
 end
