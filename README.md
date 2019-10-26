@@ -2,6 +2,7 @@
 
 * Default Build: [![Codemagic build status](https://api.codemagic.io/apps/5dad72c1db229636b8c072a6/5dad72c1db229636b8c072a5/status_badge.svg)](https://codemagic.io/apps/5dad72c1db229636b8c072a6/5dad72c1db229636b8c072a5/latest_build)
 * Tests: [![Codemagic build status](https://api.codemagic.io/apps/5dad72c1db229636b8c072a6/5dad72c1db229636b8c072a5/status_badge.svg)](https://codemagic.io/apps/5dad72c1db229636b8c072a6/5dad72c1db229636b8c072a5/latest_build)
+* Deploy to stores: [![Codemagic build status](https://api.codemagic.io/apps/5dad72c1db229636b8c072a6/5db3500825dc3f4dd757c499/status_badge.svg)](https://codemagic.io/apps/5dad72c1db229636b8c072a6/5db3500825dc3f4dd757c499/latest_build)
 
 This is repository of [Flutter Europe](https://fluttereurope.dev/) official conference app.
 
