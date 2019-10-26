@@ -1,5 +1,6 @@
 import 'package:conferenceapp/agenda/agenda_page.dart';
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
+import 'package:conferenceapp/agenda/repository/mock_talks_repository.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:conferenceapp/bottom_navigation/bottom_bar_title.dart';
 import 'package:conferenceapp/my_schedule/my_schedule_page.dart';
@@ -32,7 +33,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      builder: (context) => AgendaBloc(MockTalksRepository())..add(InitAgenda()),
+      builder: (context) =>
+          AgendaBloc(MockTalksRepository())..add(InitAgenda()),
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
