@@ -4,14 +4,16 @@ default_platform(:ios)
 
 platform :ios do
   before_all do
-    ENV['KEYCHAIN_NAME'] = "TempKeychain.keychain"
-    create_keychain(
-      name: ENV['KEYCHAIN_NAME'],
-      password: ENV['KEYCHAIN_NAME'],
-      default_keychain: true,
-      unlock: true,
-      timeout: 3600,
-    )
+    if is_ci
+      ENV['KEYCHAIN_NAME'] = "TempKeychain.keychain"
+      create_keychain(
+        name: ENV['KEYCHAIN_NAME'],
+        password: ENV['KEYCHAIN_NAME'],
+        default_keychain: true,
+        unlock: true,
+        timeout: 3600,
+      )
+    end
   end
 
   desc "Submit a new build to Firebase App Distribution"
