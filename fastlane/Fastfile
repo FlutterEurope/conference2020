@@ -79,7 +79,8 @@ platform :ios do
     update_project_provisioning(
       profile: ENV["sigh_#{ENV["APP_ID"]}_appstore_profile-path"],
       build_configuration: "Release-prod",
-      code_signing_identity: "iPhone Distribution"
+      code_signing_identity: "iPhone Distribution",
+      xcodeproj: "ios/Runner.xcodeproj"
     )
     build_app(
       scheme: "prod",
