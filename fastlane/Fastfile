@@ -127,7 +127,7 @@ def finish_build
     add_git_tag(
       grouping: "fastlane-builds",
       prefix: ENV["FASTLANE_LANE_NAME"],
-      build_number: ENV["FL_BUILD_NUMBER"]
+      build_number: ENV["BUILD_NUMBER"]
     )
   end
 end
