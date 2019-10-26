@@ -1,7 +1,7 @@
 # Flutter Europe conference app
 
-* Default Build: [![Codemagic build status](https://api.codemagic.io/apps/5da4ce9b9f20ef349b12739c/5da4ce9b9f20ef349b12739b/status_badge.svg)](https://codemagic.io/apps/5da4ce9b9f20ef349b12739c/5da4ce9b9f20ef349b12739b/latest_build)
-* Tests: [![Codemagic build status](https://api.codemagic.io/apps/5da4ce9b9f20ef349b12739c/5dad759b813e332b9124b997/status_badge.svg)](https://codemagic.io/apps/5da4ce9b9f20ef349b12739c/5dad759b813e332b9124b997/latest_build)
+* Default Build: [![Codemagic build status](https://api.codemagic.io/apps/5dad72c1db229636b8c072a6/5dad72c1db229636b8c072a5/status_badge.svg)](https://codemagic.io/apps/5dad72c1db229636b8c072a6/5dad72c1db229636b8c072a5/latest_build)
+* Tests: [![Codemagic build status](https://api.codemagic.io/apps/5dad72c1db229636b8c072a6/5dad72c1db229636b8c072a5/status_badge.svg)](https://codemagic.io/apps/5dad72c1db229636b8c072a6/5dad72c1db229636b8c072a5/latest_build)
 
 This is repository of [Flutter Europe](https://fluttereurope.dev/) official conference app.
 
