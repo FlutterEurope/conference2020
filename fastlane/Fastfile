@@ -76,6 +76,10 @@ platform :ios do
       use_automatic_signing: false,
       path: "ios/Runner.xcodeproj"
     )
+    update_project_team(
+      path: "ios/Runner.xcodeproj",
+      teamid: ENV["APPLE_DEVELOPER_TEAM_ID"],
+    )
     update_project_provisioning(
       profile: ENV["sigh_#{ENV["APP_ID"]}_appstore_profile-path"],
       build_configuration: "Release-prod",
