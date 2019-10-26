@@ -1,0 +1,3 @@
+Your companion app during Flutter Europe conference.
+
+This app will help you navigate during Flutter Europe conference.
