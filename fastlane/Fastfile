@@ -20,7 +20,7 @@ platform :ios do
   lane :tst do
     add_badge(dark: true)
     register_devices(
-        devices_file: "./.fastlane/devices.txt",
+        devices_file: "fastlane/devices.txt",
         team_id: ENV["APPLE_DEVELOPER_TEAM_ID"],
         username: ENV["FASTLANE_EMAIL"]
     )
@@ -117,7 +117,8 @@ desc "Submit a new build to Firebase App Distribution"
       track: 'internal',
       json_key: ENV["GOOGLE_SERVICE_ACCOUNT_KEY"],
       package_name: ENV["APP_ID"],
-      aab: ENV["AAB_PATH"]
+      aab: ENV["AAB_PATH"],
+      skip_upload_screenshots: true
     )
     finish_build
   end
