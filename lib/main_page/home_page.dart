@@ -33,8 +33,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      builder: (context) =>
-          AgendaBloc(MockTalksRepository())..add(InitAgenda()),
+      builder: (context) => AgendaBloc(FirestoreTalkRepository())..add(InitAgenda()),
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,

@@ -1,5 +1,5 @@
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
-import 'package:conferenceapp/agenda/repository/talks_repository.dart';
+import 'package:conferenceapp/agenda/repository/mock_talks_repository.dart';
 import 'package:test/test.dart';
 
 void main() {

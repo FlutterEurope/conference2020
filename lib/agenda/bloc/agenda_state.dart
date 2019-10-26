@@ -13,13 +13,12 @@ class PopulatedAgendaState extends AgendaState {
     final dates = talks
         .map((t) => DateTime(t.dateTime.year, t.dateTime.month, t.dateTime.day))
         .toSet() //this removes duplicates
-        .toList();
+        .toList()
+          ..sort((n, m) => n.compareTo(m));
     _talks.addAll({
       for (var i = 0; i < dates.length; i++)
         i: talks
-            .where((t) =>
-                t.dateTime.isAfter(dates[i]) &&
-                t.dateTime.isBefore(dates[i].add(Duration(days: 1))))
+            .where((t) => t.dateTime.isAfter(dates[i]) && t.dateTime.isBefore(dates[i].add(Duration(days: 1))))
             .toList()
     });
   }

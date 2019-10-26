@@ -4,9 +4,10 @@ import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import './bloc.dart';
 
 class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
-  AgendaBloc(this.talkRepository);
+  AgendaBloc(this.talksRepository);
 
-  final TalkRepository talkRepository;
+  final TalkRepository talksRepository;
+  StreamSubscription talksSubscription;
 
   @override
   AgendaState get initialState => InitialAgendaState();
@@ -18,11 +19,26 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
     if (event is InitAgenda) {
       yield* mapInitToState(event);
     }
+    if (event is AgendaUpdated) {
+      yield* mapUpdateToState(event);
+    }
   }
 
   Stream<AgendaState> mapInitToState(InitAgenda event) async* {
+    talksSubscription?.cancel();
     yield LoadingAgendaState();
-    await Future.delayed(Duration(seconds: 1));
-    yield PopulatedAgendaState(talkRepository.talks);
+    talksSubscription = talksRepository.talks().listen(
+          (talks) => add(AgendaUpdated(talks)),
+        );
+  }
+
+  Stream<AgendaState> mapUpdateToState(AgendaUpdated event) async* {
+    yield PopulatedAgendaState(event.talks);
+  }
+
+  @override
+  void close() {
+    talksSubscription?.cancel();
+    super.close();
   }
 }
