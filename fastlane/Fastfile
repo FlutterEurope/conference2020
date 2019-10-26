@@ -33,12 +33,14 @@ platform :ios do
       keychain_password: ENV['KEYCHAIN_NAME']
     )
     automatic_code_signing(
-      use_automatic_signing: false
+      use_automatic_signing: false,
+      path: "ios/Runner.xcodeproj"
     )
     update_project_provisioning(
       profile: ENV["sigh_#{ENV["APP_ID"]}_adhoc_profile-path"],
       build_configuration: "Release-tst",
-      code_signing_identity: "iPhone Distribution"
+      code_signing_identity: "iPhone Distribution",
+      xcodeproj: "ios/Runner.xcodeproj",
     )
     build_ios_app(
       scheme: "tst",
@@ -51,7 +53,8 @@ platform :ios do
           "#{ENV["APP_ID"]}": "match AdHoc #{ENV["APP_ID"]}"
         }
       },
-      output_name: "Runner.ipa"
+      output_name: "Runner.ipa",
+      workspace: "ios/Runner.xcworkspace"
     )
     firebase_app_distribution(
       app: ENV["FIREBASE_IOS_TEST_APP_ID"],
