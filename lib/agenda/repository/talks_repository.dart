@@ -7,7 +7,7 @@ abstract class TalkRepository {
 }
 
 class FirestoreTalkRepository implements TalkRepository {
-  final talksCollection = Firestore.instance.collection('talks');
+  final talksCollection = Firestore.instance.collection('talks').where("public", isEqualTo: true);
 
   @override
   Stream<List<Talk>> talks() {
