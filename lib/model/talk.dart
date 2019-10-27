@@ -12,7 +12,7 @@ part 'talk.g.dart';
   explicitToJson: true,
   anyMap: true,
 )
-class Talk {
+class Talk implements Comparable<Talk> {
   final String title;
   final List<Author> authors;
 
@@ -34,5 +34,10 @@ class Talk {
 
   static int toDurationJson(Duration duration) {
     return duration.inMinutes;
+  }
+
+  @override
+  int compareTo(Talk other) {
+    return dateTime.compareTo(other.dateTime);
   }
 }
