@@ -2,11 +2,26 @@ import 'package:conferenceapp/common/appbar.dart';
 import 'package:conferenceapp/ticket/ticket_detector.dart';
 import 'package:flutter/material.dart';
 
-class AddTicketPage extends StatelessWidget {
+class AddTicketPage extends StatefulWidget {
+  @override
+  _AddTicketPageState createState() => _AddTicketPageState();
+}
+
+class _AddTicketPageState extends State<AddTicketPage> {
+  final ValueNotifier<String> foundNumber = ValueNotifier('');
+
+  @override
+  void initState() {
+    super.initState();
+    foundNumber.addListener(() {
+      print('Notified. We\'ll handle this later');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: FlutterEuropeAppBar(),
+      appBar: FlutterEuropeAppBar(back: true),
       body: Column(
         children: <Widget>[
           Padding(
@@ -31,7 +46,7 @@ class AddTicketPage extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
           ),
-          Flexible(child: TicketDetector()),
+          Flexible(child: TicketDetector(foundNumber)),
         ],
       ),
     );

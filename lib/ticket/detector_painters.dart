@@ -7,7 +7,7 @@ import 'dart:ui' as ui;
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/material.dart';
 
-enum Detector { barcode, face, label, cloudLabel, text, cloudText }
+enum Detector { barcode, text }
 
 class BarcodeDetectorPainter extends CustomPainter {
   BarcodeDetectorPainter(this.absoluteImageSize, this.barcodeLocations);
@@ -45,75 +45,6 @@ class BarcodeDetectorPainter extends CustomPainter {
   }
 }
 
-class FaceDetectorPainter extends CustomPainter {
-  FaceDetectorPainter(this.absoluteImageSize, this.faces);
-
-  final Size absoluteImageSize;
-  final List<Face> faces;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final double scaleX = size.width / absoluteImageSize.width;
-    final double scaleY = size.height / absoluteImageSize.height;
-
-    final Paint paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.0
-      ..color = Colors.red;
-
-    for (Face face in faces) {
-      canvas.drawRect(
-        Rect.fromLTRB(
-          face.boundingBox.left * scaleX,
-          face.boundingBox.top * scaleY,
-          face.boundingBox.right * scaleX,
-          face.boundingBox.bottom * scaleY,
-        ),
-        paint,
-      );
-    }
-  }
-
-  @override
-  bool shouldRepaint(FaceDetectorPainter oldDelegate) {
-    return oldDelegate.absoluteImageSize != absoluteImageSize || oldDelegate.faces != faces;
-  }
-}
-
-class LabelDetectorPainter extends CustomPainter {
-  LabelDetectorPainter(this.absoluteImageSize, this.labels);
-
-  final Size absoluteImageSize;
-  final List<ImageLabel> labels;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final ui.ParagraphBuilder builder = ui.ParagraphBuilder(
-      ui.ParagraphStyle(textAlign: TextAlign.left, fontSize: 23.0, textDirection: TextDirection.ltr),
-    );
-
-    builder.pushStyle(ui.TextStyle(color: Colors.green));
-    for (ImageLabel label in labels) {
-      builder.addText('Label: ${label.text}, '
-          'Confidence: ${label.confidence.toStringAsFixed(2)}\n');
-    }
-    builder.pop();
-
-    canvas.drawParagraph(
-      builder.build()
-        ..layout(ui.ParagraphConstraints(
-          width: size.width,
-        )),
-      const Offset(0.0, 0.0),
-    );
-  }
-
-  @override
-  bool shouldRepaint(LabelDetectorPainter oldDelegate) {
-    return oldDelegate.absoluteImageSize != absoluteImageSize || oldDelegate.labels != labels;
-  }
-}
-
 // Paints rectangles around all the text in the image.
 class TextDetectorPainter extends CustomPainter {
   TextDetectorPainter(this.absoluteImageSize, this.visionText);
@@ -126,36 +57,39 @@ class TextDetectorPainter extends CustomPainter {
     final double scaleX = size.width / absoluteImageSize.width;
     final double scaleY = size.height / absoluteImageSize.height;
 
-    Rect scaleRect(TextContainer container) {
-      return Rect.fromLTRB(
+    RRect scaleRect(TextContainer container) {
+      return RRect.fromLTRBAndCorners(
         container.boundingBox.left * scaleX,
         container.boundingBox.top * scaleY,
         container.boundingBox.right * scaleX,
         container.boundingBox.bottom * scaleY,
+        topLeft: Radius.circular(6.0),
+        topRight: Radius.circular(6.0),
+        bottomLeft: Radius.circular(6.0),
+        bottomRight: Radius.circular(6.0),
       );
     }
 
     final Paint paint = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.0
+      ..strokeWidth = 4.0
       ..strokeJoin = StrokeJoin.round
       ..strokeCap = StrokeCap.round;
 
     for (TextBlock block in visionText.blocks) {
       for (TextLine line in block.lines) {
         for (TextElement element in line.elements) {
-          if (element.text.contains(('OT'))) {
-            paint.color = Colors.deepOrange;
-            canvas.drawRect(scaleRect(element), paint);
-          }
+          paint.color = element.text.length > 7 && element.text.length < 11
+              ? Colors.blue.withOpacity(0.7)
+              : Colors.deepOrange.withOpacity(0.7);
+          canvas.drawRRect(scaleRect(element), paint);
         }
-
-        paint.color = Colors.black12;
-        canvas.drawRect(scaleRect(line), paint);
+        // paint.color = Colors.black12;
+        // canvas.drawRect(scaleRect(line), paint);
       }
 
-      paint.color = Colors.black26;
-      canvas.drawRect(scaleRect(block), paint);
+      // paint.color = Colors.black26;
+      // canvas.drawRect(scaleRect(block), paint);
     }
   }
 

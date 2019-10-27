@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
@@ -7,9 +9,11 @@ import 'scanner_utils.dart';
 import 'detector_painters.dart';
 
 class TicketDetector extends StatefulWidget {
-  const TicketDetector({
+  const TicketDetector(
+    this.foundNumber, {
     Key key,
   }) : super(key: key);
+  final ValueNotifier<String> foundNumber;
 
   @override
   _TicketDetectorState createState() => _TicketDetectorState();
@@ -34,7 +38,7 @@ class _TicketDetectorState extends State<TicketDetector> {
 
     _camera = CameraController(
       description,
-      defaultTargetPlatform == TargetPlatform.iOS ? ResolutionPreset.low : ResolutionPreset.medium,
+      defaultTargetPlatform == TargetPlatform.iOS ? ResolutionPreset.medium : ResolutionPreset.medium,
     );
     await _camera.initialize();
 
@@ -49,10 +53,14 @@ class _TicketDetectorState extends State<TicketDetector> {
         imageRotation: description.sensorOrientation,
       ).then(
         (dynamic results) {
-          if (_currentDetector == null) return;
-          setState(() {
-            _scanResults = results;
-          });
+          if (_currentDetector == null || results == null) return;
+          if (results is VisionText) {
+            final handled = handleScannerResults(results);
+            if (handled) return;
+            setState(() {
+              _scanResults = results;
+            });
+          }
         },
       ).whenComplete(() => _isDetecting = false);
     });
@@ -62,25 +70,6 @@ class _TicketDetectorState extends State<TicketDetector> {
     const Text noResultsText = Text('No results!');
 
     if (_scanResults == null || _camera == null || !_camera.value.isInitialized) {
-      return noResultsText;
-    }
-
-    if (_scanResults.text.contains('OT')) {
-      final _filteredScanRresults = _scanResults.blocks.where((b) => b.text.contains('OT')).toList();
-      if (_filteredScanRresults.length == 1) {
-        try {
-          final result = _filteredScanRresults.firstWhere((n) => n.text.contains('OT') && n.text.length == 9);
-          if (result != null) {
-            print(result.text);
-            setState(() {
-              _isDetecting = false;
-            });
-          }
-        } catch (e) {
-          print(e);
-        }
-      }
-    } else {
       return noResultsText;
     }
 
@@ -99,25 +88,34 @@ class _TicketDetectorState extends State<TicketDetector> {
   }
 
   Widget _buildImage() {
-    return Container(
-      child: _camera == null
-          ? const Center(
-              child: Text(
-                'Initializing Camera...',
-                style: TextStyle(
-                  fontSize: 30.0,
+    return WillPopScope(
+      onWillPop: () async {
+        await _camera.dispose().then((_) {
+          _recognizer.close();
+        });
+        return true;
+      },
+      child: Container(
+        child: _camera == null
+            ? const Center(
+                child: Text(
+                  'Initializing Camera...',
+                  style: TextStyle(
+                    fontSize: 30.0,
+                  ),
+                ),
+              )
+            : AspectRatio(
+                aspectRatio: _camera.value.aspectRatio,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: <Widget>[
+                    CameraPreview(_camera),
+                    _buildResults(),
+                  ],
                 ),
               ),
-            )
-          : AspectRatio(
-              aspectRatio: _camera.value.aspectRatio,
-              child: Stack(
-                fit: StackFit.expand,
-                children: <Widget>[
-                  CameraPreview(_camera),
-                  _buildResults(),
-                ],
-              )),
+      ),
     );
   }
 
@@ -134,5 +132,32 @@ class _TicketDetectorState extends State<TicketDetector> {
 
     _currentDetector = null;
     super.dispose();
+  }
+
+  bool handleScannerResults(VisionText results) {
+    try {
+      final _filteredScanRresults = results.blocks.where((b) => b.text.contains('OT')).toList();
+      if (_filteredScanRresults != null && _filteredScanRresults.length > 0) {
+        for (var text in _filteredScanRresults) {
+          final words = text.text.split(' ');
+          for (var word in words) {
+            final correct = word.length == 9 && word.startsWith('OT');
+
+            if (correct) {
+              final result = word.toUpperCase();
+              print(result);
+              setState(() {
+                widget.foundNumber.value = result;
+              });
+              return true;
+            }
+          }
+        }
+      }
+      print('No results');
+    } catch (e) {
+      // print(e);
+    }
+    return false;
   }
 }
