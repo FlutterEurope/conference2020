@@ -1,9 +1,14 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:conferenceapp/model/mock_data.dart';
+import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import './bloc.dart';
 
 class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
+  AgendaBloc(this.talksRepository);
+
+  final TalkRepository talksRepository;
+  StreamSubscription talksSubscription;
+
   @override
   AgendaState get initialState => InitialAgendaState();
 
@@ -14,21 +19,26 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
     if (event is InitAgenda) {
       yield* mapInitToState(event);
     }
-    if (event is SwitchDay) {
-      yield* mapSwitchToState(event);
+    if (event is AgendaUpdated) {
+      yield* mapUpdateToState(event);
     }
   }
 
-  Stream<AgendaState> mapSwitchToState(SwitchDay event) async* {
-    yield PopulatedAgendaState(event.day,
-        talks.where((t) => t.dateTime.day == event.day.day).toList());
+  Stream<AgendaState> mapInitToState(InitAgenda event) async* {
+    talksSubscription?.cancel();
+    talksSubscription = talksRepository.talks().listen(
+          (talks) => add(AgendaUpdated(talks)),
+        );
+    yield LoadingAgendaState();
   }
 
-  Stream<AgendaState> mapInitToState(InitAgenda event) async* {
-    final firstDay = DateTime(2020, 1, 23);
-    yield LoadingAgendaState();
-    await Future.delayed(Duration(seconds: 1));
-    yield PopulatedAgendaState(
-        firstDay, talks.where((t) => t.dateTime.day == firstDay.day).toList());
+  Stream<AgendaState> mapUpdateToState(AgendaUpdated event) async* {
+    yield PopulatedAgendaState(event.talks);
+  }
+
+  @override
+  void close() {
+    talksSubscription?.cancel();
+    super.close();
   }
 }

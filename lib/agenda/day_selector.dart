@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DaySelectorContainer extends StatelessWidget {
-  const DaySelectorContainer({
+  const DaySelectorContainer(
+    this.pageController,
+    this.index, {
     Key key,
   }) : super(key: key);
+
+  final PageController pageController;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +31,7 @@ class DaySelectorContainer extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(4.0),
           ),
-          child: DaySelector(bgColor),
+          child: DaySelector(bgColor, pageController, index),
         ),
       ),
     );
@@ -35,33 +40,34 @@ class DaySelectorContainer extends StatelessWidget {
 
 class DaySelector extends StatelessWidget {
   const DaySelector(
-    this.bgColor, {
+    this.bgColor,
+    this.pageController,
+    this.index, {
     Key key,
   }) : super(key: key);
 
   final Color bgColor;
+  final PageController pageController;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
-    final firstDay = DateTime(2020, 1, 23);
-    final secondDay = DateTime(2020, 1, 24);
     return BlocBuilder<AgendaBloc, AgendaState>(
       builder: (context, state) {
-        final selectedDay =
-            state is PopulatedAgendaState ? state.selectedDay : firstDay;
+        final selectedDay = index;
 
         return Stack(
           children: <Widget>[
             AnimatedPositioned(
               top: 0,
               bottom: 0,
-              left: selectedDay == firstDay
+              left: selectedDay == 0
                   ? 0
                   : (MediaQuery.of(context).size.width - 24.0) / 2.0,
-              right: selectedDay == firstDay
+              right: selectedDay == 0
                   ? (MediaQuery.of(context).size.width - 24.0) / 2.0
                   : 0,
-              duration: Duration(milliseconds: 200),
+              duration: Duration(milliseconds: 300),
               child: Container(
                 color: bgColor,
               ),
@@ -75,8 +81,11 @@ class DaySelector extends StatelessWidget {
                     type: MaterialType.transparency,
                     child: InkWell(
                       onTap: () {
-                        BlocProvider.of<AgendaBloc>(context)
-                            .add(SwitchDay(firstDay));
+                        pageController.animateToPage(
+                          0,
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.easeOut,
+                        );
                       },
                       child: Container(
                         child: Padding(
@@ -85,7 +94,7 @@ class DaySelector extends StatelessWidget {
                             child: Text(
                               'Day 1',
                               style: TextStyle(
-                                color: selectedDay == firstDay
+                                color: selectedDay == 0
                                     ? Theme.of(context).primaryColor
                                     : bgColor,
                               ),
@@ -101,8 +110,11 @@ class DaySelector extends StatelessWidget {
                     type: MaterialType.transparency,
                     child: InkWell(
                       onTap: () {
-                        BlocProvider.of<AgendaBloc>(context)
-                            .add(SwitchDay(secondDay));
+                        pageController.animateToPage(
+                          1,
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.easeOut,
+                        );
                       },
                       child: Container(
                         child: Padding(
@@ -111,7 +123,7 @@ class DaySelector extends StatelessWidget {
                             child: Text(
                               'Day 2',
                               style: TextStyle(
-                                color: selectedDay != firstDay
+                                color: selectedDay != 0
                                     ? Theme.of(context).primaryColor
                                     : bgColor,
                               ),

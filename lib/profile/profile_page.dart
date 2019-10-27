@@ -1,6 +1,7 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
+import 'authenticator_button.dart';
 import 'settings_toggle.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -30,6 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
               onChanged: (_) {},
               value: false,
             ),
+            AuthenticatorButton(),
           ],
         ),
       ),
@@ -38,9 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void changeBrightness() {
     DynamicTheme.of(context).setBrightness(
-      Theme.of(context).brightness == Brightness.dark
-          ? Brightness.light
-          : Brightness.dark,
+      Theme.of(context).brightness == Brightness.dark ? Brightness.light : Brightness.dark,
     );
   }
 }

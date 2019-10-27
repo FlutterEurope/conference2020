@@ -1,65 +1,89 @@
+import 'dart:async';
+
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
+import 'package:conferenceapp/agenda/repository/talks_repository.dart';
+import 'package:conferenceapp/model/author.dart';
+import 'package:conferenceapp/model/room.dart';
+import 'package:conferenceapp/model/talk.dart';
+import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
+
+class _MockRepository extends Mock implements TalkRepository {}
 
 void main() {
   group('Agenda Bloc tests', () {
     AgendaBloc bloc;
+    TalkRepository mockRepo;
+    final _tempList = [
+      Talk(
+        '',
+        [Author('', '', '', '', '', '', '', 0)],
+        DateTime.now(),
+        Duration(minutes: 1),
+        Room('', 100, 1),
+        0,
+      ),
+    ];
 
     setUp(() {
-      bloc = AgendaBloc();
+      mockRepo = _MockRepository();
+      when(mockRepo.talks()).thenAnswer((_) => Stream.fromIterable([_tempList]));
+      bloc = AgendaBloc(mockRepo);
     });
 
     test('Initial state is correct', () {
       expect(bloc.initialState, isA<InitialAgendaState>());
     });
 
-    test('InitAgenda event populates the state', () {
-      expectLater(
-          bloc,
-          emitsInOrder([
-            isA<InitialAgendaState>(),
-            isA<LoadingAgendaState>(),
-            isA<PopulatedAgendaState>(),
-          ]));
+    test('InitAgenda event subscribes to the repository stream', () async {
+      await initializeBloc(bloc);
 
-      bloc.add(InitAgenda());
+      verify(mockRepo.talks());
     });
 
-    test('InitAgenda event populates the state with default day 1', () {
-      expectLater(
-          bloc,
-          emitsInOrder([
-            isA<InitialAgendaState>(),
-            isA<LoadingAgendaState>(),
-            isA<PopulatedAgendaState>().having(
-              (x) => x.selectedDay.year,
-              'default selected year',
-              2020,
-            ),
-          ]));
+    test('UpdateEvent yields populated state', () async {
+      bloc.add(AgendaUpdated(_tempList));
 
-      bloc.add(InitAgenda());
-    });
-
-    test('SwitchDay event changes the selected day', () {
-      final targetDay = DateTime(2020, 1, 23);
-
-      expectLater(
+      await expectLater(
           bloc,
           emitsInOrder([
             isA<InitialAgendaState>(),
             isA<PopulatedAgendaState>().having(
-              (x) => x.selectedDay,
-              'selected day',
-              targetDay,
+              (e) => e.talks,
+              'talks',
+              hasLength(_tempList.length),
             ),
           ]));
+    });
 
-      bloc.add(SwitchDay(targetDay));
+    test('Populated state talks have the same length as list in repository', () async {
+      await initializeBloc(bloc);
+
+      expectLater(
+          bloc,
+          emitsInOrder([
+            isA<LoadingAgendaState>(),
+            isA<PopulatedAgendaState>().having(
+              (e) => e.talks,
+              'talks',
+              hasLength(_tempList.length),
+            ),
+          ]));
     });
 
     tearDown(() {
       bloc.close();
     });
   });
+}
+
+Future initializeBloc(AgendaBloc bloc) async {
+  bloc.add(InitAgenda());
+
+  await expectLater(
+      bloc,
+      emitsInOrder([
+        isA<InitialAgendaState>(),
+        isA<LoadingAgendaState>(),
+      ]));
 }
