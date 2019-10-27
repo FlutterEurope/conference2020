@@ -9,6 +9,9 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="${appName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="ocr,barcode" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

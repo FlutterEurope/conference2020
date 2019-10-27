@@ -43,6 +43,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       FlatButton(
                         child: Text('From camera'),
                         onPressed: () {
+                          Navigator.pop(context);
                           Navigator.push(context, MaterialPageRoute(builder: (context) => AddTicketPage()));
                         },
                       ),
