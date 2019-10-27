@@ -5,8 +5,11 @@ import 'account_avatar.dart';
 class FlutterEuropeAppBar extends StatelessWidget implements PreferredSizeWidget {
   FlutterEuropeAppBar({
     Key key,
+    this.back = false,
   })  : preferredSize = Size.fromHeight(kToolbarHeight),
         super(key: key);
+
+  final bool back;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,7 @@ class FlutterEuropeAppBar extends StatelessWidget implements PreferredSizeWidget
               ),
       ),
       elevation: 0,
-      leading: AccountAvatar(),
+      leading: back ? null : AccountAvatar(),
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.search),
