@@ -6,15 +6,13 @@ platform :ios do
   before_all do
     if is_ci?
       puts "This is CI run. Setting custom keychain."
-      ENV['KEYCHAIN_NAME'] = "build.keychain"
-
+      ENV['KEYCHAIN_NAME'] = "Temp.keychain"
       create_keychain(
         name: ENV['KEYCHAIN_NAME'],
         password: ENV['KEYCHAIN_NAME'],
         default_keychain: true,
         unlock: true,
         timeout: 3600,
-        # require_create: true
       )
     end
   end
@@ -71,14 +69,22 @@ platform :ios do
   lane :prod do
     match(
       type: "appstore",
+      keychain_name: ENV['KEYCHAIN_NAME'],
+      keychain_password: ENV['KEYCHAIN_NAME']
     )
     automatic_code_signing(
-      use_automatic_signing: false
+      use_automatic_signing: false,
+      path: "ios/Runner.xcodeproj"
+    )
+    update_project_team(
+      path: "ios/Runner.xcodeproj",
+      teamid: ENV["APPLE_DEVELOPER_TEAM_ID"],
     )
     update_project_provisioning(
       profile: ENV["sigh_#{ENV["APP_ID"]}_appstore_profile-path"],
       build_configuration: "Release-prod",
-      code_signing_identity: "iPhone Distribution"
+      code_signing_identity: "iPhone Distribution",
+      xcodeproj: "ios/Runner.xcodeproj"
     )
     build_app(
       scheme: "prod",
@@ -91,7 +97,8 @@ platform :ios do
           "#{ENV["APP_ID"]}": "match AppStore #{ENV["APP_ID"]}"
         }
       },
-      output_name: "Runner.ipa"
+      output_name: "Runner.ipa",
+      workspace: "ios/Runner.xcworkspace"
     )
     upload_to_testflight(
       app_identifier: ENV["APP_ID"],

@@ -5,32 +5,22 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.008786">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.011265">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: is_ci" time="0.002238">
+      <testcase classname="fastlane.lanes" name="1: is_ci" time="0.002931">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: create_keychain" time="0.240891">
+      <testcase classname="fastlane.lanes" name="2: create_keychain" time="0.198334">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: add_badge" time="3.811436">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="4: register_devices" time="5.346362">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="5: match" time="20.161707">
+      <testcase classname="fastlane.lanes" name="3: add_badge" time="0.360544">
         
       </testcase>
     
