@@ -1,3 +1,4 @@
+import 'package:conferenceapp/ticket/add_ticket_page.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +31,29 @@ class _ProfilePageState extends State<ProfilePage> {
               title: 'Push Notifications from organizers',
               onChanged: (_) {},
               value: false,
+            ),
+            FlatButton(
+              child: Text('Add your ticket'),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (context) => SimpleDialog(
+                    children: <Widget>[
+                      FlatButton(
+                        child: Text('From camera'),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => AddTicketPage()));
+                        },
+                      ),
+                      FlatButton(
+                        child: Text('Manually'),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
             AuthenticatorButton(),
           ],
