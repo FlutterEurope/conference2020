@@ -2,14 +2,13 @@ import 'package:conferenceapp/agenda/agenda_page.dart';
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:conferenceapp/bottom_navigation/bottom_bar_title.dart';
+import 'package:conferenceapp/common/appbar.dart';
 import 'package:conferenceapp/my_schedule/my_schedule_page.dart';
 import 'package:conferenceapp/notifications/notifications_page.dart';
 import 'package:conferenceapp/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
-
-import 'account_avatar.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -35,23 +34,7 @@ class _HomePageState extends State<HomePage> {
           AgendaBloc(RepositoryProvider.of<TalkRepository>(context))
             ..add(InitAgenda()),
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Image.asset(
-            Theme.of(context).brightness == Brightness.light
-                ? 'assets/logo_negative.png'
-                : 'assets/logo_negative_dark.png',
-            height: 48,
-          ),
-          elevation: 0,
-          leading: AccountAvatar(),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {},
-            ),
-          ],
-        ),
+        appBar: FlutterEuropeAppBar(),
         bottomNavigationBar: createBottomNavigation(),
         body: IndexedStack(
           index: _currentIndex,
