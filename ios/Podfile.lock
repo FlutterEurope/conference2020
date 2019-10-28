@@ -260,15 +260,6 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - Protobuf
-  trunk:
-    - BoringSSL-GRPC
-    - FirebaseAuth
-    - FirebaseAuthInterop
-    - FirebaseFirestore
-    - "gRPC-C++"
-    - gRPC-Core
-    - GTMSessionFetcher
-    - leveldb-library
 
 EXTERNAL SOURCES:
   camera:
