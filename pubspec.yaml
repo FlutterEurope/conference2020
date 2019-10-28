@@ -29,6 +29,12 @@ dependencies:
 
   cupertino_icons: ^0.1.2
 
+# dependency_overrides:
+#   extended_image_library:
+#     git:
+#         url: https://github.com/fluttercandies/extended_image_library.git
+#         ref: dev
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
