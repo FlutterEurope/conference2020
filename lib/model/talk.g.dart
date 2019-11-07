@@ -8,6 +8,7 @@ part of 'talk.dart';
 
 Talk _$TalkFromJson(Map json) {
   return Talk(
+    json['id'] as String,
     json['title'] as String,
     (json['authors'] as List)
         .map((e) => Author.fromJson(Map<String, dynamic>.from(e as Map)))
@@ -20,6 +21,7 @@ Talk _$TalkFromJson(Map json) {
 }
 
 Map<String, dynamic> _$TalkToJson(Talk instance) => <String, dynamic>{
+  'id': instance.id,
       'title': instance.title,
       'authors': instance.authors.map((e) => e.toJson()).toList(),
       'dateTime': FirestoreUtils.toJson(instance.dateTime),

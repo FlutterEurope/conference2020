@@ -13,6 +13,7 @@ part 'talk.g.dart';
   anyMap: true,
 )
 class Talk {
+  final String id;
   final String title;
   final List<Author> authors;
 
@@ -24,8 +25,11 @@ class Talk {
   final Room room;
   final int level;
 
-  Talk(this.title, this.authors, this.dateTime, this.duration, this.room, this.level);
+  Talk(this.id, this.title, this.authors, this.dateTime, this.duration,
+      this.room, this.level);
+
   factory Talk.fromJson(Map<String, dynamic> json) => _$TalkFromJson(json);
+
   Map<String, dynamic> toJson() => _$TalkToJson(this);
 
   static Duration durationFromJson(int duration) {

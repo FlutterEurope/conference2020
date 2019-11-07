@@ -1,6 +1,8 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
+
 import './bloc.dart';
 
 class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {

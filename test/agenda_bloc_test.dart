@@ -16,6 +16,7 @@ void main() {
     TalkRepository mockRepo;
     final _tempList = [
       Talk(
+        'id1',
         '',
         [Author('', '', '', '', '', '', '', 0)],
         DateTime.now(),
@@ -27,7 +28,8 @@ void main() {
 
     setUp(() {
       mockRepo = _MockRepository();
-      when(mockRepo.talks()).thenAnswer((_) => Stream.fromIterable([_tempList]));
+      when(mockRepo.talks())
+          .thenAnswer((_) => Stream.fromIterable([_tempList]));
       bloc = AgendaBloc(mockRepo);
     });
 
@@ -56,7 +58,8 @@ void main() {
           ]));
     });
 
-    test('Populated state talks have the same length as list in repository', () async {
+    test('Populated state talks have the same length as list in repository',
+            () async {
       await initializeBloc(bloc);
 
       expectLater(

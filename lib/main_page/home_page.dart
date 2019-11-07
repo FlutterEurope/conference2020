@@ -1,12 +1,10 @@
 import 'package:conferenceapp/agenda/agenda_page.dart';
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
-import 'package:conferenceapp/agenda/repository/mock_talks_repository.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:conferenceapp/bottom_navigation/bottom_bar_title.dart';
 import 'package:conferenceapp/my_schedule/my_schedule_page.dart';
 import 'package:conferenceapp/notifications/notifications_page.dart';
 import 'package:conferenceapp/profile/profile_page.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
@@ -33,7 +31,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      builder: (context) => AgendaBloc(FirestoreTalkRepository())..add(InitAgenda()),
+      builder: (context) =>
+      AgendaBloc(RepositoryProvider.of<TalkRepository>(context))
+        ..add(InitAgenda()),
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,

@@ -1,8 +1,10 @@
 import 'package:conferenceapp/model/author.dart';
 import 'package:conferenceapp/model/room.dart';
 import 'package:conferenceapp/model/talk.dart';
+import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class TalkCard extends StatelessWidget {
@@ -66,7 +68,7 @@ class TalkCard extends StatelessWidget {
                             : Theme.of(context).accentColor,
                       ),
                     ),
-                    FavoriteButton(isFavorite: isFavorite)
+                    FavoriteButton(isFavorite: isFavorite, talkId: talk.id),
                   ],
                 ),
               ),
@@ -108,18 +110,28 @@ class FavoriteButton extends StatelessWidget {
   const FavoriteButton({
     Key key,
     @required this.isFavorite,
+    @required this.talkId,
   }) : super(key: key);
 
   final bool isFavorite;
+  final String talkId;
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
       bottom: 0,
       right: 0,
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Icon(
+      child: IconButton(
+        onPressed: () {
+          final favoritesRepo =
+          RepositoryProvider.of<FavoritesRepository>(context);
+          if (isFavorite) {
+            favoritesRepo.removeTalkFromFavorites(talkId);
+          } else {
+            favoritesRepo.addTalkToFavorites(talkId);
+          }
+        },
+        icon: Icon(
           isFavorite ? Icons.favorite : Icons.favorite_border,
           color: Colors.red,
         ),
@@ -274,6 +286,7 @@ class ShapesPainter extends CustomPainter {
   final Color color;
 
   ShapesPainter(this.color);
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint();
