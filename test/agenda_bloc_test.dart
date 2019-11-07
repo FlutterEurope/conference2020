@@ -78,6 +78,106 @@ void main() {
       bloc.close();
     });
   });
+
+  group('AgendaPopulatedState tests', () {
+    final _authors = [Author('', '', '', '', '', '', '', 0)];
+    final _duration = Duration(minutes: 45);
+    final _room = Room('', 100, 1);
+    Talk _tempTalk({int day = 23, hour = 9}) {
+      print(hour);
+      return Talk(
+        'id1',
+        '',
+        _authors,
+        DateTime(2020, 1, day, hour, 0),
+        _duration,
+        _room,
+        0,
+      );
+    }
+
+    Iterable<Talk> _getMockList(int count,
+        {bool singleDay = true, bool sorted = true}) {
+      final _list = List<Talk>();
+      if (singleDay && sorted) {
+        assert(count < 23, "Can't request for more than 23 hours.");
+        _list.addAll({
+          for (var i = 0; i < count; i++) _tempTalk(hour: i),
+        });
+      }
+      if (!singleDay && sorted) {
+        assert(count < 30, "Can't request for more than 30 days.");
+        _list.addAll({
+          for (var i = 0; i < count; i++) _tempTalk(day: i + 1),
+        });
+      }
+      if (singleDay && !sorted) {
+        assert(count < 23, "Can't request for more than 23 hours.");
+        _list.addAll({
+          for (var i = count; i > 0; i--) _tempTalk(hour: i),
+        });
+      }
+      if (!singleDay && !sorted) {
+        assert(count < 30, "Can't request for more than 30 days.");
+        _list.addAll({
+          for (var i = count; i > 0; i--) _tempTalk(day: i + 1),
+        });
+      }
+
+      return _list;
+    }
+
+    test('Passing empty talk list to state results with empty map', () {
+      final state = PopulatedAgendaState(_getMockList(0));
+      expect(state.talks, isNotNull);
+      expect(state.talks, isEmpty);
+      expect(state.talks, isA<Map<int, List<Talk>>>());
+    });
+
+    test('Passing 1 talk list to state results with 1 talk map', () {
+      final state = PopulatedAgendaState(_getMockList(1));
+      expect(state.talks, isNotNull);
+      expect(state.talks, hasLength(1));
+      expect(state.talks.values.first, hasLength(1));
+      expect(state.talks, isA<Map<int, List<Talk>>>());
+    });
+
+    test('Passing sorted talk list to state results with map with sorted talks',
+        () {
+      final length = 10;
+      final state = PopulatedAgendaState(_getMockList(length, sorted: true));
+      expect(state.talks, isNotNull);
+      expect(state.talks.values.first, hasLength(length));
+      expect(state.talks, isA<Map<int, List<Talk>>>());
+      assert(state.talks.values.first[0].dateTime
+          .isBefore(state.talks.values.first[1].dateTime));
+    });
+
+    test(
+        'Passing unsorted talk list to state results with map with sorted talks',
+        () {
+      final state = PopulatedAgendaState(
+          _getMockList(10, sorted: false, singleDay: true));
+      expect(state.talks, isNotNull);
+      expect(state.talks.values.first, hasLength(10));
+      expect(state.talks, isA<Map<int, List<Talk>>>());
+      assert(state.talks.values.first[0].dateTime
+          .isBefore(state.talks.values.first[1].dateTime));
+    });
+
+    test(
+        'Passing unsorted talk list with several days results with map with sorted talks per day',
+        () {
+      final state = PopulatedAgendaState(
+          _getMockList(10, sorted: false, singleDay: false));
+      expect(state.talks, isNotNull);
+      expect(state.talks, hasLength(10));
+      expect(state.talks.values.first, hasLength(1));
+      expect(state.talks, isA<Map<int, List<Talk>>>());
+      assert(state.talks.values.first[0].dateTime
+          .isBefore(state.talks.values.last[0].dateTime));
+    });
+  });
 }
 
 Future initializeBloc(AgendaBloc bloc) async {
