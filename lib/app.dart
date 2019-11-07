@@ -25,30 +25,28 @@ class MyApp extends StatelessWidget {
             : Colors.orange[800],
         toggleableActiveColor: Colors.orange[800],
         dividerColor:
-        brightness == Brightness.light ? Colors.white : Colors.white54,
+            brightness == Brightness.light ? Colors.white : Colors.white54,
         brightness: brightness,
         fontFamily: 'PTSans',
         bottomAppBarTheme: Theme.of(context).bottomAppBarTheme.copyWith(
-          elevation: 0,
-        ),
+              elevation: 0,
+            ),
       ),
       themedWidgetBuilder: (context, theme) {
         return RepositoryProvider(
           builder: (_) => AuthRepository(FirebaseAuth.instance),
           child: RepositoryProvider(
-            builder: (context) =>
-                UserRepository(
-                  RepositoryProvider.of<AuthRepository>(context),
-                  Firestore.instance,
-                ),
+            builder: (context) => UserRepository(
+              RepositoryProvider.of<AuthRepository>(context),
+              Firestore.instance,
+            ),
             child: RepositoryProvider<TalkRepository>(
               builder: (_) => FirestoreTalkRepository(),
               child: RepositoryProvider(
-                builder: (context) =>
-                    FavoritesRepository(
-                      RepositoryProvider.of<TalkRepository>(context),
-                      RepositoryProvider.of<UserRepository>(context),
-                    ),
+                builder: (context) => FavoritesRepository(
+                  RepositoryProvider.of<TalkRepository>(context),
+                  RepositoryProvider.of<UserRepository>(context),
+                ),
                 child: MaterialApp(
                   title: title,
                   theme: theme,

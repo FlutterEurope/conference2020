@@ -21,7 +21,7 @@ Talk _$TalkFromJson(Map json) {
 }
 
 Map<String, dynamic> _$TalkToJson(Talk instance) => <String, dynamic>{
-  'id': instance.id,
+      'id': instance.id,
       'title': instance.title,
       'authors': instance.authors.map((e) => e.toJson()).toList(),
       'dateTime': FirestoreUtils.toJson(instance.dateTime),

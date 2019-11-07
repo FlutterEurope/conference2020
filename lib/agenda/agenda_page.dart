@@ -110,7 +110,7 @@ class PopulatedAgendaDayList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favoritesRepository =
-    RepositoryProvider.of<FavoritesRepository>(context);
+        RepositoryProvider.of<FavoritesRepository>(context);
     return StreamBuilder<List<Talk>>(
       stream: favoritesRepository.favoriteTalks,
       builder: (context, snapshot) {
@@ -123,7 +123,7 @@ class PopulatedAgendaDayList extends StatelessWidget {
           itemBuilder: (context, index) {
             final _talk = talks[index];
             final isFirstInHour = _talk.dateTime.compareTo(
-                talks[index - 1 >= 0 ? index - 1 : 0]?.dateTime) !=
+                    talks[index - 1 >= 0 ? index - 1 : 0]?.dateTime) !=
                 0;
             final favoriteTalks = snapshot.data ?? [];
             final bool isFavorite = favoriteTalks.any((t) => t.id == _talk.id);

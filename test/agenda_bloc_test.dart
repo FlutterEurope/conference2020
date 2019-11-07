@@ -59,7 +59,7 @@ void main() {
     });
 
     test('Populated state talks have the same length as list in repository',
-            () async {
+        () async {
       await initializeBloc(bloc);
 
       expectLater(

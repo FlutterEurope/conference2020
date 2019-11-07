@@ -124,7 +124,7 @@ class FavoriteButton extends StatelessWidget {
       child: IconButton(
         onPressed: () {
           final favoritesRepo =
-          RepositoryProvider.of<FavoritesRepository>(context);
+              RepositoryProvider.of<FavoritesRepository>(context);
           if (isFavorite) {
             favoritesRepo.removeTalkFromFavorites(talkId);
           } else {

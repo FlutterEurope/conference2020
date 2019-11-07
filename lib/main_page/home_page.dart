@@ -32,8 +32,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       builder: (context) =>
-      AgendaBloc(RepositoryProvider.of<TalkRepository>(context))
-        ..add(InitAgenda()),
+          AgendaBloc(RepositoryProvider.of<TalkRepository>(context))
+            ..add(InitAgenda()),
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
