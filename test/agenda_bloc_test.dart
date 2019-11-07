@@ -16,6 +16,7 @@ void main() {
     TalkRepository mockRepo;
     final _tempList = [
       Talk(
+        'id1',
         '',
         [Author('', '', '', '', '', '', '', 0)],
         DateTime.now(),
@@ -27,7 +28,8 @@ void main() {
 
     setUp(() {
       mockRepo = _MockRepository();
-      when(mockRepo.talks()).thenAnswer((_) => Stream.fromIterable([_tempList]));
+      when(mockRepo.talks())
+          .thenAnswer((_) => Stream.fromIterable([_tempList]));
       bloc = AgendaBloc(mockRepo);
     });
 
@@ -56,7 +58,8 @@ void main() {
           ]));
     });
 
-    test('Populated state talks have the same length as list in repository', () async {
+    test('Populated state talks have the same length as list in repository',
+        () async {
       await initializeBloc(bloc);
 
       expectLater(
@@ -83,6 +86,7 @@ void main() {
     Talk _tempTalk({int day = 23, hour = 9}) {
       print(hour);
       return Talk(
+        'id1',
         '',
         _authors,
         DateTime(2020, 1, day, hour, 0),
@@ -92,7 +96,8 @@ void main() {
       );
     }
 
-    Iterable<Talk> _getMockList(int count, {bool singleDay = true, bool sorted = true}) {
+    Iterable<Talk> _getMockList(int count,
+        {bool singleDay = true, bool sorted = true}) {
       final _list = List<Talk>();
       if (singleDay && sorted) {
         assert(count < 23, "Can't request for more than 23 hours.");
@@ -137,30 +142,40 @@ void main() {
       expect(state.talks, isA<Map<int, List<Talk>>>());
     });
 
-    test('Passing sorted talk list to state results with map with sorted talks', () {
+    test('Passing sorted talk list to state results with map with sorted talks',
+        () {
       final length = 10;
       final state = PopulatedAgendaState(_getMockList(length, sorted: true));
       expect(state.talks, isNotNull);
       expect(state.talks.values.first, hasLength(length));
       expect(state.talks, isA<Map<int, List<Talk>>>());
-      assert(state.talks.values.first[0].dateTime.isBefore(state.talks.values.first[1].dateTime));
+      assert(state.talks.values.first[0].dateTime
+          .isBefore(state.talks.values.first[1].dateTime));
     });
 
-    test('Passing unsorted talk list to state results with map with sorted talks', () {
-      final state = PopulatedAgendaState(_getMockList(10, sorted: false, singleDay: true));
+    test(
+        'Passing unsorted talk list to state results with map with sorted talks',
+        () {
+      final state = PopulatedAgendaState(
+          _getMockList(10, sorted: false, singleDay: true));
       expect(state.talks, isNotNull);
       expect(state.talks.values.first, hasLength(10));
       expect(state.talks, isA<Map<int, List<Talk>>>());
-      assert(state.talks.values.first[0].dateTime.isBefore(state.talks.values.first[1].dateTime));
+      assert(state.talks.values.first[0].dateTime
+          .isBefore(state.talks.values.first[1].dateTime));
     });
 
-    test('Passing unsorted talk list with several days results with map with sorted talks per day', () {
-      final state = PopulatedAgendaState(_getMockList(10, sorted: false, singleDay: false));
+    test(
+        'Passing unsorted talk list with several days results with map with sorted talks per day',
+        () {
+      final state = PopulatedAgendaState(
+          _getMockList(10, sorted: false, singleDay: false));
       expect(state.talks, isNotNull);
       expect(state.talks, hasLength(10));
       expect(state.talks.values.first, hasLength(1));
       expect(state.talks, isA<Map<int, List<Talk>>>());
-      assert(state.talks.values.first[0].dateTime.isBefore(state.talks.values.last[0].dateTime));
+      assert(state.talks.values.first[0].dateTime
+          .isBefore(state.talks.values.last[0].dateTime));
     });
   });
 }

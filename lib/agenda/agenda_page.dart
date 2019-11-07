@@ -1,6 +1,7 @@
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
 import 'package:conferenceapp/agenda/talk_card.dart';
 import 'package:conferenceapp/model/talk.dart';
+import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -108,21 +109,30 @@ class PopulatedAgendaDayList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.symmetric(
-        horizontal: 12.0,
-        vertical: 16.0,
-      ),
-      itemCount: talks.length,
-      itemBuilder: (context, index) {
-        final _talk = talks[index];
-        final isFirstInHour = _talk.dateTime
-                .compareTo(talks[index - 1 >= 0 ? index - 1 : 0]?.dateTime) !=
-            0;
-        return TalkCard(
-          talk: _talk,
-          isFavorite: false,
-          first: isFirstInHour,
+    final favoritesRepository =
+        RepositoryProvider.of<FavoritesRepository>(context);
+    return StreamBuilder<List<Talk>>(
+      stream: favoritesRepository.favoriteTalks,
+      builder: (context, snapshot) {
+        return ListView.builder(
+          padding: EdgeInsets.symmetric(
+            horizontal: 12.0,
+            vertical: 16.0,
+          ),
+          itemCount: talks.length,
+          itemBuilder: (context, index) {
+            final _talk = talks[index];
+            final isFirstInHour = _talk.dateTime.compareTo(
+                    talks[index - 1 >= 0 ? index - 1 : 0]?.dateTime) !=
+                0;
+            final favoriteTalks = snapshot.data ?? [];
+            final bool isFavorite = favoriteTalks.any((t) => t.id == _talk.id);
+            return TalkCard(
+              talk: _talk,
+              isFavorite: isFavorite,
+              first: isFirstInHour,
+            );
+          },
         );
       },
     );
