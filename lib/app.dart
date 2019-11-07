@@ -33,30 +33,51 @@ class MyApp extends StatelessWidget {
             ),
       ),
       themedWidgetBuilder: (context, theme) {
-        return RepositoryProvider(
-          builder: (_) => AuthRepository(FirebaseAuth.instance),
-          child: RepositoryProvider(
-            builder: (context) => UserRepository(
-              RepositoryProvider.of<AuthRepository>(context),
-              Firestore.instance,
-            ),
-            child: RepositoryProvider<TalkRepository>(
-              builder: (_) => FirestoreTalkRepository(),
-              child: RepositoryProvider(
-                builder: (context) => FavoritesRepository(
-                  RepositoryProvider.of<TalkRepository>(context),
-                  RepositoryProvider.of<UserRepository>(context),
-                ),
-                child: MaterialApp(
-                  title: title,
-                  theme: theme,
-                  home: HomePage(title: title),
-                ),
-              ),
-            ),
+        return RepositoryProviders(
+          child: MaterialApp(
+            title: title,
+            theme: theme,
+            home: HomePage(title: title),
           ),
         );
       },
+    );
+  }
+}
+
+class RepositoryProviders extends StatelessWidget {
+  final Widget child;
+
+  const RepositoryProviders({Key key, @required this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return RepositoryProvider(
+      builder: (_) => AuthRepository(FirebaseAuth.instance),
+      child: RepositoryProvider(
+        builder: _userRepositoryBuilder,
+        child: RepositoryProvider<TalkRepository>(
+          builder: (_) => FirestoreTalkRepository(),
+          child: RepositoryProvider(
+            builder: _favoritesRepositoryBuilder,
+            child: child,
+          ),
+        ),
+      ),
+    );
+  }
+
+  UserRepository _userRepositoryBuilder(BuildContext context) {
+    return UserRepository(
+      RepositoryProvider.of<AuthRepository>(context),
+      Firestore.instance,
+    );
+  }
+
+  FavoritesRepository _favoritesRepositoryBuilder(BuildContext context) {
+    return FavoritesRepository(
+      RepositoryProvider.of<TalkRepository>(context),
+      RepositoryProvider.of<UserRepository>(context),
     );
   }
 }

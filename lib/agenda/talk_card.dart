@@ -122,21 +122,22 @@ class FavoriteButton extends StatelessWidget {
       bottom: 0,
       right: 0,
       child: IconButton(
-        onPressed: () {
-          final favoritesRepo =
-              RepositoryProvider.of<FavoritesRepository>(context);
-          if (isFavorite) {
-            favoritesRepo.removeTalkFromFavorites(talkId);
-          } else {
-            favoritesRepo.addTalkToFavorites(talkId);
-          }
-        },
+        onPressed: () => _onPressed(context),
         icon: Icon(
           isFavorite ? Icons.favorite : Icons.favorite_border,
           color: Colors.red,
         ),
       ),
     );
+  }
+
+  void _onPressed(BuildContext context) {
+    final favoritesRepo = RepositoryProvider.of<FavoritesRepository>(context);
+    if (isFavorite) {
+      favoritesRepo.removeTalkFromFavorites(talkId);
+    } else {
+      favoritesRepo.addTalkToFavorites(talkId);
+    }
   }
 }
 
