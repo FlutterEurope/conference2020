@@ -8,12 +8,15 @@ import 'package:camera/camera.dart';
 import 'scanner_utils.dart';
 import 'detector_painters.dart';
 
+typedef void TextDetected(String number);
+
 class TicketDetector extends StatefulWidget {
-  const TicketDetector(
-    this.foundNumber, {
+  const TicketDetector({
     Key key,
+    this.onDetected,
   }) : super(key: key);
-  final ValueNotifier<String> foundNumber;
+
+  final TextDetected onDetected;
 
   @override
   _TicketDetectorState createState() => _TicketDetectorState();
@@ -147,7 +150,7 @@ class _TicketDetectorState extends State<TicketDetector> {
               final result = word.toUpperCase();
               print(result);
               setState(() {
-                widget.foundNumber.value = result;
+                widget.onDetected(result);
               });
               return true;
             }

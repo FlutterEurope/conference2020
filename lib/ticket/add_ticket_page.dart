@@ -8,14 +8,9 @@ class AddTicketPage extends StatefulWidget {
 }
 
 class _AddTicketPageState extends State<AddTicketPage> {
-  final ValueNotifier<String> foundNumber = ValueNotifier('');
-
   @override
   void initState() {
     super.initState();
-    foundNumber.addListener(() {
-      print('Notified. We\'ll handle this later');
-    });
   }
 
   @override
@@ -46,8 +41,68 @@ class _AddTicketPageState extends State<AddTicketPage> {
               style: TextStyle(fontSize: 20),
             ),
           ),
-          Flexible(child: TicketDetector(foundNumber)),
+          Flexible(child: TicketDetector(onDetected: (String orderNo) {
+            print('Navigating to ticket page with $orderNo');
+            Navigator.push(context, MaterialPageRoute(builder: (context) => TicketCompleteDataPage(orderNo)));
+          })),
         ],
+      ),
+    );
+  }
+}
+
+class TicketCompleteDataPage extends StatelessWidget {
+  TicketCompleteDataPage(this.orderNo);
+
+  final String orderNo;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: FlutterEuropeAppBar(back: true),
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Detected order number is:',
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                initialValue: orderNo,
+                decoration: InputDecoration(
+                  hintText: 'Order number',
+                  labelText: 'Order number',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                keyboardType: TextInputType.text,
+                textCapitalization: TextCapitalization.characters,
+                keyboardAppearance: Theme.of(context).brightness,
+                initialValue: orderNo,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                keyboardType: TextInputType.emailAddress,
+                keyboardAppearance: Theme.of(context).brightness,
+                decoration: InputDecoration(
+                  hintText: 'E-mail',
+                  labelText: 'E-mail',
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
