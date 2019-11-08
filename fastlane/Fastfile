@@ -41,6 +41,16 @@ platform :ios do
       code_signing_identity: "iPhone Distribution",
       xcodeproj: "ios/Runner.xcodeproj",
     )
+    set_info_plist_value(
+      path: "./ios/Runner/Info.plist",
+      key: "CFBundleVersion",
+      value: ENV["BUILD_NUMBER"]
+    )
+    set_info_plist_value(
+      path: "./ios/Runner/Info.plist",
+      key: "CFBundleShortVersionString",
+      value: ENV["VERSION_NUMBER"]
+    )
     build_ios_app(
       scheme: "tst",
       configuration: "Release-tst",
