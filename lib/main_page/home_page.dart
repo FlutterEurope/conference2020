@@ -3,6 +3,7 @@ import 'package:conferenceapp/agenda/bloc/bloc.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:conferenceapp/bottom_navigation/bottom_bar_title.dart';
 import 'package:conferenceapp/common/appbar.dart';
+import 'package:conferenceapp/main_page/add_ticket_button.dart';
 import 'package:conferenceapp/my_schedule/my_schedule_page.dart';
 import 'package:conferenceapp/notifications/notifications_page.dart';
 import 'package:conferenceapp/profile/profile_page.dart';
@@ -30,19 +31,27 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      builder: (context) =>
-          AgendaBloc(RepositoryProvider.of<TalkRepository>(context))
-            ..add(InitAgenda()),
+      builder: (context) => AgendaBloc(RepositoryProvider.of<TalkRepository>(context))..add(InitAgenda()),
       child: Scaffold(
         appBar: FlutterEuropeAppBar(),
         bottomNavigationBar: createBottomNavigation(),
-        body: IndexedStack(
-          index: _currentIndex,
+        body: Stack(
           children: <Widget>[
-            AgendaPage(),
-            MySchedulePage(),
-            NotificationsPage(),
-            ProfilePage(),
+            IndexedStack(
+              index: _currentIndex,
+              children: <Widget>[
+                AgendaPage(),
+                MySchedulePage(),
+                NotificationsPage(),
+                ProfilePage(),
+              ],
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: AddTicketButton(),
+            ),
           ],
         ),
       ),
