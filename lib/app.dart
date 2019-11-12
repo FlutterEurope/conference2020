@@ -20,6 +20,9 @@ class MyApp extends StatelessWidget {
       defaultBrightness: Brightness.light,
       data: (brightness) => ThemeData(
         primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: brightness == Brightness.light
+            ? Colors.grey[100]
+            : Colors.grey[850],
         accentColor: brightness == Brightness.light
             ? Colors.orange[300]
             : Colors.orange[800],
