@@ -9,14 +9,21 @@ import 'scanner_utils.dart';
 import 'detector_painters.dart';
 
 typedef void TextDetected(String number);
+typedef bool CheckCondition(String word);
 
 class TicketDetector extends StatefulWidget {
   const TicketDetector({
     Key key,
     this.onDetected,
+    this.condition,
+    this.topLimit,
+    this.detectorHeight,
   }) : super(key: key);
 
   final TextDetected onDetected;
+  final CheckCondition condition;
+  final double topLimit;
+  final double detectorHeight;
 
   @override
   _TicketDetectorState createState() => _TicketDetectorState();
@@ -29,6 +36,7 @@ class _TicketDetectorState extends State<TicketDetector> {
   Detector _currentDetector = Detector.text;
   bool _isDetecting = false;
   CameraLensDirection _direction = CameraLensDirection.back;
+  Size _screenSize;
 
   @override
   void initState() {
@@ -37,11 +45,14 @@ class _TicketDetectorState extends State<TicketDetector> {
   }
 
   void _initializeCamera() async {
-    final CameraDescription description = await ScannerUtils.getCamera(_direction);
+    final CameraDescription description =
+        await ScannerUtils.getCamera(_direction);
 
     _camera = CameraController(
       description,
-      defaultTargetPlatform == TargetPlatform.iOS ? ResolutionPreset.medium : ResolutionPreset.medium,
+      defaultTargetPlatform == TargetPlatform.iOS
+          ? ResolutionPreset.medium
+          : ResolutionPreset.medium,
     );
     await _camera.initialize();
 
@@ -72,7 +83,9 @@ class _TicketDetectorState extends State<TicketDetector> {
   Widget _buildResults() {
     const Text noResultsText = Text('No results!');
 
-    if (_scanResults == null || _camera == null || !_camera.value.isInitialized) {
+    if (_scanResults == null ||
+        _camera == null ||
+        !_camera.value.isInitialized) {
       return noResultsText;
     }
 
@@ -104,7 +117,8 @@ class _TicketDetectorState extends State<TicketDetector> {
                 child: Text(
                   'Initializing Camera...',
                   style: TextStyle(
-                    fontSize: 30.0,
+                    fontSize: 20.0,
+                    color: Colors.white,
                   ),
                 ),
               )
@@ -114,7 +128,7 @@ class _TicketDetectorState extends State<TicketDetector> {
                   fit: StackFit.expand,
                   children: <Widget>[
                     CameraPreview(_camera),
-                    _buildResults(),
+                    // _buildResults(),
                   ],
                 ),
               ),
@@ -124,6 +138,7 @@ class _TicketDetectorState extends State<TicketDetector> {
 
   @override
   Widget build(BuildContext context) {
+    _screenSize = MediaQuery.of(context).size;
     return _buildImage();
   }
 
@@ -139,20 +154,23 @@ class _TicketDetectorState extends State<TicketDetector> {
 
   bool handleScannerResults(VisionText results) {
     try {
-      final _filteredScanRresults = results.blocks.where((b) => b.text.contains('OT')).toList();
+      final _filteredScanRresults =
+          results.blocks.where((b) => textWithinBounds(b)).toList();
       if (_filteredScanRresults != null && _filteredScanRresults.length > 0) {
         for (var text in _filteredScanRresults) {
-          final words = text.text.split(' ');
-          for (var word in words) {
-            final correct = word.length == 9 && word.startsWith('OT');
+          final words = text.lines;
+          for (var line in words) {
+            for (var word in line.text.split(' ')) {
+              final correct = widget.condition(word);
 
-            if (correct) {
-              final result = word.toUpperCase();
-              print(result);
-              setState(() {
-                widget.onDetected(result);
-              });
-              return true;
+              if (correct) {
+                final result = word.toUpperCase();
+                print(result);
+                setState(() {
+                  widget.onDetected(result);
+                });
+                return true;
+              }
             }
           }
         }
@@ -161,6 +179,34 @@ class _TicketDetectorState extends State<TicketDetector> {
     } catch (e) {
       // print(e);
     }
+    return false;
+  }
+
+  bool textWithinBounds(TextBlock b) {
+    final Size imageSize = Size(
+      _camera.value.previewSize.height,
+      _camera.value.previewSize.width,
+    );
+    final double scaleY = imageSize.height / _screenSize.height;
+    print(scaleY);
+    for (var l in b.lines) {
+      for (var e in l.elements) {
+        print(
+            '${e.text} ${e.boundingBox.top}/${widget.topLimit + kToolbarHeight} ${e.boundingBox.bottom}/${widget.topLimit + widget.detectorHeight + kToolbarHeight}');
+
+        final result =
+            e.boundingBox.top > (widget.topLimit + kToolbarHeight) * scaleY &&
+                e.boundingBox.bottom <
+                    (widget.topLimit + widget.detectorHeight + kToolbarHeight) *
+                        scaleY;
+
+        if (result == true) {
+          print('TRUE ${e.text}');
+          return true;
+        }
+      }
+    }
+
     return false;
   }
 }
