@@ -1,6 +1,18 @@
+import 'package:conferenceapp/agenda/talk_card.dart';
 import 'package:conferenceapp/common/appbar.dart';
-import 'package:conferenceapp/ticket/ticket_detector.dart';
+import 'package:conferenceapp/common/europe_text_field.dart';
+import 'package:conferenceapp/ticket/scan_ticket_page.dart';
+import 'package:conferenceapp/ticket/ticket_data.dart';
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+
+import 'add_ticket_email_info.dart';
+import 'image_courtesy_text.dart';
+import 'save_ticket_button.dart';
+import 'scan_your_ticket_placeholder.dart';
+import 'ticket_clipper.dart';
+import 'ticket_page_title.dart';
 
 class AddTicketPage extends StatefulWidget {
   @override
@@ -8,102 +20,110 @@ class AddTicketPage extends StatefulWidget {
 }
 
 class _AddTicketPageState extends State<AddTicketPage> {
+  bool scanned = false;
+  TicketData ticketData;
+  TextEditingController orderController;
+  TextEditingController emailController;
+
   @override
   void initState() {
     super.initState();
+    orderController = TextEditingController();
+    emailController = TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: FlutterEuropeAppBar(back: true),
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Target you camera to the e-mail with the ticket or Eventil webpage with your order.',
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'We are looking for order ID which is similar to',
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'OTYYYXXXX',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
-          Flexible(child: TicketDetector(onDetected: (String orderNo) {
-            print('Navigating to ticket page with $orderNo');
-            Navigator.push(context, MaterialPageRoute(builder: (context) => TicketCompleteDataPage(orderNo)));
-          })),
-        ],
-      ),
-    );
-  }
-}
-
-class TicketCompleteDataPage extends StatelessWidget {
-  TicketCompleteDataPage(this.orderNo);
-
-  final String orderNo;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: FlutterEuropeAppBar(back: true),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Detected order number is:',
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                initialValue: orderNo,
-                decoration: InputDecoration(
-                  hintText: 'Order number',
-                  labelText: 'Order number',
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: ClipPath(
+                    clipper: TicketClipper(),
+                    child: TalkCardDecoration(
+                      child: Container(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Container(
+                              color: Theme.of(context).primaryColor,
+                              height: 80,
+                              child: TicketPageTitle(),
+                            ),
+                            GestureDetector(
+                              onTap: onTap,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 40.0,
+                                ),
+                                child: scanned
+                                    ? QrImage(
+                                        backgroundColor: Colors.white,
+                                        data:
+                                            "${ticketData?.orderId} ${ticketData?.email}",
+                                        version: QrVersions.auto,
+                                      )
+                                    : ScanYourTicketPlaceholder(),
+                              ),
+                            ),
+                            EuropeTextFormField(
+                              hint: 'Type or scan order number',
+                              icon: LineIcons.camera,
+                              onTap: onTap,
+                              controller: orderController,
+                            ),
+                            EuropeTextFormField(
+                              hint: 'Type or scan your e-mail',
+                              icon: LineIcons.camera,
+                              onTap: onTap,
+                              controller: emailController,
+                            ),
+                            if (scanned) SaveTicketButton(),
+                            AddTicketEmailInfo(),
+                            Container(
+                              color: Theme.of(context).primaryColor,
+                              height: 50,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                keyboardType: TextInputType.text,
-                textCapitalization: TextCapitalization.characters,
-                keyboardAppearance: Theme.of(context).brightness,
-                initialValue: orderNo,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                keyboardAppearance: Theme.of(context).brightness,
-                decoration: InputDecoration(
-                  hintText: 'E-mail',
-                  labelText: 'E-mail',
-                ),
-              ),
-            ),
-          ],
+              ImageLicenseText(),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  void onTap() async {
+    final result = await Navigator.push<TicketData>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ScanTicketPage(),
+      ),
+    );
+    if (result != null) {
+      ticketData = result;
+      orderController.text = ticketData?.orderId;
+      emailController.text = ticketData?.email?.toLowerCase();
+    }
+
+    setState(() {
+      scanned = result?.filled == true;
+    });
   }
 }
