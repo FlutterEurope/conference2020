@@ -32,30 +32,6 @@ class _ProfilePageState extends State<ProfilePage> {
               onChanged: (_) {},
               value: false,
             ),
-            FlatButton(
-              child: Text('Add your ticket'),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  barrierDismissible: true,
-                  builder: (context) => SimpleDialog(
-                    children: <Widget>[
-                      FlatButton(
-                        child: Text('From camera'),
-                        onPressed: () {
-                          Navigator.pop(context);
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => AddTicketPage()));
-                        },
-                      ),
-                      FlatButton(
-                        child: Text('Manually'),
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
             AuthenticatorButton(),
           ],
         ),
