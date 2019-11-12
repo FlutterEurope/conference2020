@@ -53,8 +53,7 @@ class TalkCard extends StatelessWidget {
                             child: TalkTitle(title: talk.title),
                           ),
                           SizedBox(height: 8.0),
-                          for (var speaker in talk.authors)
-                            TalkSpeaker(speaker: speaker),
+                          for (var speaker in talk.authors) TalkSpeaker(speaker: speaker),
                         ],
                       ),
                     ),
@@ -63,9 +62,7 @@ class TalkCard extends StatelessWidget {
                       right: 0,
                       child: Triangle(
                         talk.room,
-                        color: talk.room.name == 'A'
-                            ? Theme.of(context).primaryColor
-                            : Theme.of(context).accentColor,
+                        color: talk.room.name == 'A' ? Theme.of(context).primaryColor : Theme.of(context).accentColor,
                       ),
                     ),
                     FavoriteButton(isFavorite: isFavorite, talkId: talk.id),

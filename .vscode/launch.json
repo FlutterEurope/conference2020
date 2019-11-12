@@ -16,6 +16,17 @@
             ],
         },
         {
+            "name": "Flutter Dev Release",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "program": "lib/main_dev.dart",
+            "args": [
+                "--flavor",
+                "dev"
+            ],
+        },
+        {
             "name": "Flutter Test",
             "request": "launch",
             "type": "dart",

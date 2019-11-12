@@ -39,8 +39,8 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   }
 
   @override
-  void close() {
+  Future<void> close() {
     talksSubscription?.cancel();
-    super.close();
+    return super.close();
   }
 }
