@@ -558,12 +558,12 @@ packages:
     source: hosted
     version: "0.6.3+1"
   shared_preferences:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.3+5"
+    version: "0.5.4+5"
   shelf:
     dependency: transitive
     description:
