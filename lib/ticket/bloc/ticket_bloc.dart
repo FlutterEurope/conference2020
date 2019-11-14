@@ -41,11 +41,11 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
   }
 
   Stream<TicketState> mapSaveTicketToState(SaveTicket event) async* {
-    if (event.email != null && event.orderId != null) {
+    if (event.ticketData.email != null && event.ticketData.orderId != null) {
       yield TicketLoadingState();
       await Future.delayed(Duration(seconds: 1));
       // fetch from eventil
-      final ticket = Ticket(event.orderId, '', event.email, TicketType.Blind);
+      final ticket = Ticket(event.ticketData.orderId, '', event.ticketData.email, TicketType.Blind);
 
       await ticketRepository.addTicket(ticket);
       yield TicketValidState();

@@ -25,12 +25,18 @@ class _TicketPageState extends State<TicketPage> {
   TicketData ticketData;
   TextEditingController orderController;
   TextEditingController emailController;
+  FocusNode orderNode;
+  FocusNode emailNode;
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
     orderController = TextEditingController();
+    orderNode = FocusNode();
     emailController = TextEditingController();
+    emailNode = FocusNode();
   }
 
   @override
@@ -38,40 +44,58 @@ class _TicketPageState extends State<TicketPage> {
     return BlocBuilder<TicketBloc, TicketState>(
       builder: (context, state) => Scaffold(
         appBar: FlutterEuropeAppBar(back: true, search: false),
-        body: TicketPageWrapper(
-          children: <Widget>[
-            Container(
-              color: Theme.of(context).primaryColor,
-              height: 80,
-              child: TicketPageTitle(),
-            ),
-            if (state is TicketValidState)
-              QrCode(ticketData: ticketData)
-            else
-              NoQrCode(onTap: onTap),
-            EuropeTextFormField(
-              hint: 'Type or scan order number',
-              icon: LineIcons.camera,
-              onTap: onTap,
-              controller: orderController,
-            ),
-            EuropeTextFormField(
-              hint: 'Type or scan your e-mail',
-              icon: LineIcons.camera,
-              onTap: onTap,
-              controller: emailController,
-            ),
-            if (state is TicketErrorState) Text('We have some problems 😅'),
-            if (state is TicketDataFilledState) SaveTicketButton(),
-            AddTicketEmailInfo(),
-            Container(
-              color: Theme.of(context).primaryColor,
-              height: 50,
-            ),
-          ],
+        body: Form(
+          key: _formKey,
+          child: TicketPageWrapper(
+            children: <Widget>[
+              Container(
+                color: Theme.of(context).primaryColor,
+                height: 80,
+                child: TicketPageTitle(),
+              ),
+              if (state is TicketValidState)
+                QrCode(ticketData: ticketData)
+              else
+                NoQrCode(onTap: onTap),
+              EuropeTextFormField(
+                hint: 'Type or scan order number',
+                icon: LineIcons.camera,
+                onTap: onTap,
+                onFieldSubmitted: onOrderSubmitted,
+                controller: orderController,
+                focusNode: orderNode,
+                textCapitalization: TextCapitalization.characters,
+              ),
+              EuropeTextFormField(
+                hint: 'Type or scan your e-mail',
+                icon: LineIcons.camera,
+                onTap: onTap,
+                onFieldSubmitted: onEmailSubmitted,
+                controller: emailController,
+                focusNode: emailNode,
+                keyboardType: TextInputType.emailAddress,
+              ),
+              if (state is TicketErrorState) Text('We have some problems 😅'),
+              if (state is TicketDataFilledState) SaveTicketButton(),
+              AddTicketEmailInfo(),
+              Container(
+                color: Theme.of(context).primaryColor,
+                height: 50,
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    emailNode.dispose();
+    orderController.dispose();
+    orderNode.dispose();
+    super.dispose();
   }
 
   void onTap() async {
@@ -81,15 +105,22 @@ class _TicketPageState extends State<TicketPage> {
         builder: (context) => ScanTicketPage(),
       ),
     );
+    // extract this to react on controller changes as well as scanning
     if (result != null) {
       ticketData = result;
       orderController.text = ticketData?.orderId;
       emailController.text = ticketData?.email?.toLowerCase();
-    }
 
-    setState(() {
-      // scanned = result?.filled == true;
-    });
+      BlocProvider.of<TicketBloc>(context).add(FillTicketData(ticketData));
+    }
+  }
+
+  void onOrderSubmitted(String value) {
+    FocusScope.of(context).requestFocus(emailNode);
+  }
+
+  void onEmailSubmitted(String value) {
+    FocusScope.of(context).nextFocus();
   }
 }
 
