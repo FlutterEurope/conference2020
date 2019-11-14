@@ -3,8 +3,13 @@ import 'package:meta/meta.dart';
 @immutable
 abstract class TicketEvent {}
 
-abstract class AddTicket extends TicketEvent {}
+class FetchTicket extends TicketEvent {}
 
-class AddTicketFromCamera extends AddTicket {}
+class FillTicketData extends TicketEvent {}
 
-class AddTicketManually extends AddTicket {}
+class SaveTicket extends TicketEvent {
+  final String orderId;
+  final String email;
+
+  SaveTicket(this.orderId, this.email);
+}
