@@ -1,4 +1,3 @@
-import 'package:conferenceapp/ticket/add_ticket_page.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -25,12 +24,12 @@ class _ProfilePageState extends State<ProfilePage> {
             SettingsToggle(
               title: 'Reminders',
               onChanged: (_) {},
-              value: false,
+              value: true,
             ),
             SettingsToggle(
               title: 'Push Notifications from organizers',
               onChanged: (_) {},
-              value: false,
+              value: true,
             ),
             AuthenticatorButton(),
           ],
@@ -41,7 +40,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void changeBrightness() {
     DynamicTheme.of(context).setBrightness(
-      Theme.of(context).brightness == Brightness.dark ? Brightness.light : Brightness.dark,
+      Theme.of(context).brightness == Brightness.dark
+          ? Brightness.light
+          : Brightness.dark,
     );
   }
 }
