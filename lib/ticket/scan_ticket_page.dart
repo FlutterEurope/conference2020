@@ -1,10 +1,10 @@
 import 'package:conferenceapp/common/appbar.dart';
 import 'package:flutter/material.dart';
 
-import 'scan_ticker_background.dart';
-import 'scan_ticket_card.dart';
-import 'submit_scanned_ticket_button.dart';
-import 'ticket_detector.dart';
+import 'widgets/scan_ticker_background.dart';
+import 'widgets/scan_ticket_card.dart';
+import 'widgets/submit_scanned_ticket_button.dart';
+import 'image_detection/ticket_detector.dart';
 
 class ScanTicketPage extends StatefulWidget {
   @override
