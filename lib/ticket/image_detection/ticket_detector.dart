@@ -122,12 +122,18 @@ class _TicketDetectorState extends State<TicketDetector> {
                   ),
                 ),
               )
-            : FittedBox(
-                fit: BoxFit.cover,
-                alignment: Alignment.center,
-                child: AspectRatio(
-                  aspectRatio: _camera.value.aspectRatio,
-                  child: CameraPreview(_camera),
+            : AspectRatio(
+                aspectRatio: 1,
+                child: ClipRect(
+                  child: Transform.scale(
+                    scale: 1 / _camera.value.aspectRatio,
+                    child: Center(
+                      child: AspectRatio(
+                        aspectRatio: _camera.value.aspectRatio,
+                        child: CameraPreview(_camera),
+                      ),
+                    ),
+                  ),
                 ),
               ),
       ),
