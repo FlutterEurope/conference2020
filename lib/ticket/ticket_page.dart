@@ -158,9 +158,13 @@ class QrCode extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 260,
-      child: QrImage(
-        backgroundColor: Colors.white,
-        data: "${ticketData?.orderId} ${ticketData?.email}",
+      width: 260,
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: QrImage(
+          data: "${ticketData?.orderId} ${ticketData?.email}",
+        ),
       ),
     );
   }
