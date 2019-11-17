@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:conferenceapp/agenda/bloc/bloc.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:conferenceapp/main_page/home_page.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
+import 'package:conferenceapp/ticket/bloc/bloc.dart';
+import 'package:conferenceapp/ticket/repository/ticket_repository.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -37,13 +40,40 @@ class MyApp extends StatelessWidget {
       ),
       themedWidgetBuilder: (context, theme) {
         return RepositoryProviders(
-          child: MaterialApp(
-            title: title,
-            theme: theme,
-            home: HomePage(title: title),
+          child: BlocProviders(
+            child: MaterialApp(
+              title: title,
+              theme: theme,
+              home: HomePage(title: title),
+            ),
           ),
         );
       },
+    );
+  }
+}
+
+class BlocProviders extends StatelessWidget {
+  const BlocProviders({Key key, this.child}) : super(key: key);
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AgendaBloc>(
+          builder: (BuildContext context) =>
+              AgendaBloc(RepositoryProvider.of<TalkRepository>(context))
+                ..add(InitAgenda()),
+        ),
+        BlocProvider<TicketBloc>(
+          builder: (BuildContext context) =>
+              TicketBloc(RepositoryProvider.of<TicketRepository>(context))
+                ..add(FetchTicket()),
+        ),
+      ],
+      child: child,
     );
   }
 }
@@ -63,7 +93,10 @@ class RepositoryProviders extends StatelessWidget {
           builder: (_) => FirestoreTalkRepository(),
           child: RepositoryProvider(
             builder: _favoritesRepositoryBuilder,
-            child: child,
+            child: RepositoryProvider(
+              builder: _ticketRepositoryBuilder,
+              child: child,
+            ),
           ),
         ),
       ),
@@ -80,6 +113,12 @@ class RepositoryProviders extends StatelessWidget {
   FavoritesRepository _favoritesRepositoryBuilder(BuildContext context) {
     return FavoritesRepository(
       RepositoryProvider.of<TalkRepository>(context),
+      RepositoryProvider.of<UserRepository>(context),
+    );
+  }
+
+  TicketRepository _ticketRepositoryBuilder(BuildContext context) {
+    return TicketRepository(
       RepositoryProvider.of<UserRepository>(context),
     );
   }

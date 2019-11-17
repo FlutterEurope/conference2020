@@ -30,14 +30,15 @@ dependencies:
   flutter_custom_clippers: ^1.1.0
   url_launcher: ^5.2.5
   share: ^0.6.3+1
+  shared_preferences: ^0.5.4+5
 
   cupertino_icons: ^0.1.2
 
-# dependency_overrides:
-#   extended_image_library:
-#     git:
-#         url: https://github.com/fluttercandies/extended_image_library.git
-#         ref: dev
+dependency_overrides:
+  extended_image_library:
+    git:
+        url: https://github.com/fluttercandies/extended_image_library.git
+        ref: dev
 
 dev_dependencies:
   flutter_test:

@@ -8,6 +8,10 @@ class EuropeTextFormField extends StatelessWidget {
     this.onTap,
     this.value,
     this.controller,
+    this.onFieldSubmitted,
+    this.focusNode,
+    this.keyboardType,
+    this.textCapitalization = TextCapitalization.none,
   }) : super(key: key);
 
   final String hint;
@@ -15,6 +19,10 @@ class EuropeTextFormField extends StatelessWidget {
   final VoidCallback onTap;
   final String value;
   final TextEditingController controller;
+  final ValueChanged<String> onFieldSubmitted;
+  final FocusNode focusNode;
+  final TextInputType keyboardType;
+  final TextCapitalization textCapitalization;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +41,11 @@ class EuropeTextFormField extends StatelessWidget {
       ),
       child: TextFormField(
         controller: controller,
+        onFieldSubmitted: onFieldSubmitted,
+        focusNode: focusNode,
+        keyboardType: keyboardType,
+        textInputAction: TextInputAction.next,
+        textCapitalization: textCapitalization,
         keyboardAppearance: Theme.of(context).brightness,
         decoration: InputDecoration(
           filled: true,

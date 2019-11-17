@@ -5,36 +5,40 @@ import 'scan_text_border_container.dart';
 class ScanTicketBackground extends StatelessWidget {
   const ScanTicketBackground({
     Key key,
-    this.topLimit,
     this.detectorHeight,
   }) : super(key: key);
 
-  final double topLimit;
   final double detectorHeight;
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Container(
       child: Column(
         children: <Widget>[
-          Container(
-            color: Colors.black38,
-            height: topLimit,
+          Expanded(
+            child: Container(
+              color: Colors.black38,
+            ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Container(
-                color: Colors.black38,
-                width: 35,
-                height: detectorHeight,
+              Flexible(
+                child: Container(
+                  color: Colors.black38,
+                  height: detectorHeight,
+                ),
               ),
-              Expanded(
+              Container(
+                width: width * 0.8,
                 child: ScanTextBorderContainer(),
               ),
-              Container(
-                color: Colors.black38,
-                width: 35,
-                height: detectorHeight,
+              Flexible(
+                child: Container(
+                  color: Colors.black38,
+                  height: detectorHeight,
+                ),
               ),
             ],
           ),

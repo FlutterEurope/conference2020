@@ -16,14 +16,14 @@ class TicketDetector extends StatefulWidget {
     Key key,
     this.onDetected,
     this.condition,
-    this.topLimit,
     this.detectorHeight,
+    this.overlay,
   }) : super(key: key);
 
   final TextDetected onDetected;
   final CheckCondition condition;
-  final double topLimit;
   final double detectorHeight;
+  final Widget overlay;
 
   @override
   _TicketDetectorState createState() => _TicketDetectorState();
@@ -80,29 +80,6 @@ class _TicketDetectorState extends State<TicketDetector> {
     });
   }
 
-  Widget _buildResults() {
-    const Text noResultsText = Text('No results!');
-
-    if (_scanResults == null ||
-        _camera == null ||
-        !_camera.value.isInitialized) {
-      return noResultsText;
-    }
-
-    CustomPainter painter;
-
-    final Size imageSize = Size(
-      _camera.value.previewSize.height,
-      _camera.value.previewSize.width,
-    );
-
-    painter = TextDetectorPainter(imageSize, _scanResults);
-
-    return CustomPaint(
-      painter: painter,
-    );
-  }
-
   Widget _buildImage() {
     return WillPopScope(
       onWillPop: () async {
@@ -122,15 +99,9 @@ class _TicketDetectorState extends State<TicketDetector> {
                   ),
                 ),
               )
-            : AspectRatio(
-                aspectRatio: _camera.value.aspectRatio,
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: <Widget>[
-                    CameraPreview(_camera),
-                    // _buildResults(),
-                  ],
-                ),
+            : InitializedCamera(
+                camera: _camera,
+                overlay: widget.overlay,
               ),
       ),
     );
@@ -156,10 +127,10 @@ class _TicketDetectorState extends State<TicketDetector> {
     try {
       final _filteredScanRresults =
           results.blocks.where((b) => textWithinBounds(b)).toList();
+
       if (_filteredScanRresults != null && _filteredScanRresults.length > 0) {
         for (var text in _filteredScanRresults) {
-          final words = text.lines;
-          for (var line in words) {
+          for (var line in text.lines) {
             for (var word in line.text.split(' ')) {
               final correct = widget.condition(word);
 
@@ -182,23 +153,41 @@ class _TicketDetectorState extends State<TicketDetector> {
     return false;
   }
 
+  Widget _buildResults() {
+    const Text noResultsText = Text('No results!');
+
+    if (_scanResults == null ||
+        _camera == null ||
+        !_camera.value.isInitialized) {
+      return noResultsText;
+    }
+
+    CustomPainter painter;
+
+    final Size imageSize = Size(
+      _camera.value.previewSize.height,
+      _camera.value.previewSize.width,
+    );
+
+    painter = TextDetectorPainter(imageSize, _scanResults);
+
+    return CustomPaint(
+      painter: painter,
+    );
+  }
+
   bool textWithinBounds(TextBlock b) {
     final Size imageSize = Size(
       _camera.value.previewSize.height,
       _camera.value.previewSize.width,
     );
     final double scaleY = imageSize.height / _screenSize.height;
-    print(scaleY);
+    final double imageHalfY = imageSize.height / 2.0;
     for (var l in b.lines) {
       for (var e in l.elements) {
-        print(
-            '${e.text} ${e.boundingBox.top}/${widget.topLimit + kToolbarHeight} ${e.boundingBox.bottom}/${widget.topLimit + widget.detectorHeight + kToolbarHeight}');
-
         final result =
-            e.boundingBox.top > (widget.topLimit + kToolbarHeight) * scaleY &&
-                e.boundingBox.bottom <
-                    (widget.topLimit + widget.detectorHeight + kToolbarHeight) *
-                        scaleY;
+            e.boundingBox.top > (imageHalfY - widget.detectorHeight / 2) &&
+                e.boundingBox.bottom < (imageHalfY + widget.detectorHeight / 2);
 
         if (result == true) {
           print('TRUE ${e.text}');
@@ -208,5 +197,41 @@ class _TicketDetectorState extends State<TicketDetector> {
     }
 
     return false;
+  }
+}
+
+class InitializedCamera extends StatelessWidget {
+  const InitializedCamera({
+    Key key,
+    @required CameraController camera,
+    @required Widget overlay,
+  })  : _camera = camera,
+        _overlay = overlay,
+        super(key: key);
+
+  final CameraController _camera;
+  final Widget _overlay;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRect(
+      child: Transform.scale(
+        scale: 1 / _camera.value.aspectRatio,
+        child: Center(
+          child: AspectRatio(
+            aspectRatio: _camera.value.aspectRatio,
+            child: Stack(
+              children: <Widget>[
+                CameraPreview(_camera),
+                Transform.scale(
+                  scale: 1 * _camera.value.aspectRatio,
+                  child: _overlay,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

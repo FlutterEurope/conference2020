@@ -69,7 +69,7 @@ android {
             zipAlignEnabled true
             useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            // signingConfig signingConfigs.release
         }
 
         debug {
@@ -78,7 +78,7 @@ android {
             minifyEnabled false
             shrinkResources false
             useProguard false
-            signingConfig signingConfigs.debug
+            // signingConfig signingConfigs.debug
         }
     }
 
@@ -90,16 +90,19 @@ android {
             applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
             manifestPlaceholders = [appName: "Flutter Europe Dev"]
+            signingConfig signingConfigs.debug
         }
         tst {
             dimension "flavor-type"
             applicationIdSuffix ".tst"
             versionNameSuffix "-tst"
             manifestPlaceholders = [appName: "Flutter Europe Tst"]
+            signingConfig signingConfigs.release
         }
         prod {
             dimension "flavor-type"
             manifestPlaceholders = [appName: "Flutter Europe"]
+            signingConfig signingConfigs.release
         }
     }
 }

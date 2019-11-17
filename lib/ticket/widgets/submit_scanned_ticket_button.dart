@@ -6,11 +6,9 @@ class SubmitScannedTicketButton extends StatelessWidget {
   const SubmitScannedTicketButton({
     Key key,
     @required this.orderId,
-    @required this.email,
   }) : super(key: key);
 
   final String orderId;
-  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,7 @@ class SubmitScannedTicketButton extends StatelessWidget {
           ),
           onPressed: () {
             if (Navigator.canPop(context)) {
-              Navigator.maybePop(context, TicketData(orderId, email));
+              Navigator.maybePop(context, TicketData(orderId, null));
             }
           },
         ),

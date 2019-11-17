@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'account_avatar.dart';
 
-class FlutterEuropeAppBar extends StatelessWidget implements PreferredSizeWidget {
+class FlutterEuropeAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   FlutterEuropeAppBar({
     Key key,
     this.back = false,
+    this.search = true,
   })  : preferredSize = Size.fromHeight(kToolbarHeight),
         super(key: key);
 
   final bool back;
+  final bool search;
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +36,12 @@ class FlutterEuropeAppBar extends StatelessWidget implements PreferredSizeWidget
       elevation: 0,
       leading: back ? null : AccountAvatar(),
       actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.search),
-          onPressed: () {},
-        ),
+        search
+            ? IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {},
+              )
+            : Container(),
       ],
     );
   }

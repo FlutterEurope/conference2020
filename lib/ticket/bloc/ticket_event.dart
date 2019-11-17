@@ -1,10 +1,17 @@
+import 'package:conferenceapp/ticket/ticket_data.dart';
 import 'package:meta/meta.dart';
 
 @immutable
 abstract class TicketEvent {}
 
-abstract class AddTicket extends TicketEvent {}
+class FetchTicket extends TicketEvent {}
 
-class AddTicketFromCamera extends AddTicket {}
+class FillTicketData extends TicketEvent {
+  FillTicketData(this.ticketData);
+  final TicketData ticketData;
+}
 
-class AddTicketManually extends AddTicket {}
+class SaveTicket extends TicketEvent {
+  SaveTicket(this.ticketData);
+  final TicketData ticketData;
+}
