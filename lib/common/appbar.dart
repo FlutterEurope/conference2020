@@ -1,6 +1,7 @@
+import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
 import 'package:flutter/material.dart';
-
-import 'account_avatar.dart';
+import 'package:line_icons/line_icons.dart';
+import 'package:provider/provider.dart';
 
 class FlutterEuropeAppBar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -8,11 +9,13 @@ class FlutterEuropeAppBar extends StatelessWidget
     Key key,
     this.back = false,
     this.search = true,
+    this.layoutSelector = false,
   })  : preferredSize = Size.fromHeight(kToolbarHeight),
         super(key: key);
 
   final bool back;
   final bool search;
+  final bool layoutSelector;
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +37,31 @@ class FlutterEuropeAppBar extends StatelessWidget
               ),
       ),
       elevation: 0,
-      leading: back ? null : AccountAvatar(),
+      leading: back
+          ? null
+          : IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {},
+            ),
       actions: <Widget>[
         search
             ? IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {},
+                icon: AnimatedSwitcher(
+                    duration: Duration(milliseconds: 500),
+                    child: Provider.of<AgendaLayoutHelper>(context).isCompact()
+                        ? Icon(
+                            LineIcons.database,
+                            size: 24,
+                            key: ValueKey('icon0'),
+                          )
+                        : Icon(
+                            LineIcons.columns,
+                            size: 22,
+                            key: ValueKey('icon1'),
+                          )),
+                onPressed: () {
+                  Provider.of<AgendaLayoutHelper>(context).toggleCompact();
+                },
               )
             : Container(),
       ],
