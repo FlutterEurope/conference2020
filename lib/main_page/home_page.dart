@@ -63,6 +63,9 @@ class _HomePageState extends State<HomePage> {
           _currentIndex = index;
         });
       },
+      unselectedItemColor: Theme.of(context).brightness == Brightness.light
+          ? Theme.of(context).bottomAppBarTheme.color
+          : Colors.white,
       type: BottomNavigationBarType.fixed,
       selectedFontSize: textSize,
       unselectedFontSize: textSize,
