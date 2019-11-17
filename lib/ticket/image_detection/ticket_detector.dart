@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:conferenceapp/ticket/widgets/scan_ticker_background.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
@@ -17,14 +16,12 @@ class TicketDetector extends StatefulWidget {
     Key key,
     this.onDetected,
     this.condition,
-    this.topLimit,
     this.detectorHeight,
     this.overlay,
   }) : super(key: key);
 
   final TextDetected onDetected;
   final CheckCondition condition;
-  final double topLimit;
   final double detectorHeight;
   final Widget overlay;
 
@@ -185,15 +182,12 @@ class _TicketDetectorState extends State<TicketDetector> {
       _camera.value.previewSize.width,
     );
     final double scaleY = imageSize.height / _screenSize.height;
-    // print(scaleY);
+    final double imageHalfY = imageSize.height / 2.0;
     for (var l in b.lines) {
       for (var e in l.elements) {
-        // print(
-        //     '${e.text} ${e.boundingBox.top}/${widget.topLimit} ${e.boundingBox.bottom}/${widget.topLimit + widget.detectorHeight}');
-
-        final result = e.boundingBox.top > (widget.topLimit) * scaleY &&
-            e.boundingBox.bottom <
-                (widget.topLimit + widget.detectorHeight) * scaleY;
+        final result =
+            e.boundingBox.top > (imageHalfY - widget.detectorHeight / 2) &&
+                e.boundingBox.bottom < (imageHalfY + widget.detectorHeight / 2);
 
         if (result == true) {
           print('TRUE ${e.text}');
@@ -229,7 +223,10 @@ class InitializedCamera extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 CameraPreview(_camera),
-                _overlay,
+                Transform.scale(
+                  scale: 1 * _camera.value.aspectRatio,
+                  child: _overlay,
+                ),
               ],
             ),
           ),

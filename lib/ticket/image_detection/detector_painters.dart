@@ -84,12 +84,12 @@ class TextDetectorPainter extends CustomPainter {
               : Colors.deepOrange.withOpacity(0.7);
           canvas.drawRRect(scaleRect(element), paint);
         }
-        // paint.color = Colors.black12;
-        // canvas.drawRect(scaleRect(line), paint);
+        paint.color = Colors.black12;
+        canvas.drawRRect(scaleRect(line), paint);
       }
 
-      // paint.color = Colors.black26;
-      // canvas.drawRect(scaleRect(block), paint);
+      paint.color = Colors.black26;
+      canvas.drawRRect(scaleRect(block), paint);
     }
   }
 
