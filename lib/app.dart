@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
+import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:conferenceapp/main_page/home_page.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
@@ -11,6 +12,7 @@ import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key key, this.title}) : super(key: key);
@@ -41,10 +43,12 @@ class MyApp extends StatelessWidget {
       themedWidgetBuilder: (context, theme) {
         return RepositoryProviders(
           child: BlocProviders(
-            child: MaterialApp(
-              title: title,
-              theme: theme,
-              home: HomePage(title: title),
+            child: ChangeNotifierProviders(
+              child: MaterialApp(
+                title: title,
+                theme: theme,
+                home: HomePage(title: title),
+              ),
             ),
           ),
         );
@@ -120,6 +124,20 @@ class RepositoryProviders extends StatelessWidget {
   TicketRepository _ticketRepositoryBuilder(BuildContext context) {
     return TicketRepository(
       RepositoryProvider.of<UserRepository>(context),
+    );
+  }
+}
+
+class ChangeNotifierProviders extends StatelessWidget {
+  const ChangeNotifierProviders({Key key, this.child}) : super(key: key);
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<AgendaLayoutHelper>(
+      builder: (_) => AgendaLayoutHelper(false),
+      child: child,
     );
   }
 }
