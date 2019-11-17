@@ -12,25 +12,13 @@ class ScanTicketPage extends StatefulWidget {
 }
 
 class _ScanTicketPageState extends State<ScanTicketPage> {
-  final topLimit = 200.0;
   final detectorHeight = 50.0;
   String orderId;
-  String email;
-  PageController controller;
-  int currentPage = 0;
   bool correctData = false;
 
   @override
   void initState() {
     super.initState();
-    controller = PageController(viewportFraction: 0.8)
-      ..addListener(() {
-        if (controller.page.round() != currentPage) {
-          setState(() {
-            currentPage = controller.page.round();
-          });
-        }
-      });
   }
 
   @override
@@ -49,13 +37,10 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
               left: 0,
               right: 0,
               child: TicketDetector(
-                topLimit: topLimit,
                 detectorHeight: detectorHeight,
-                condition: (word) =>
-                    detectionCondition(word, controller.page.round()),
-                onDetected: (word) => onDetected(word, controller.page.round()),
+                condition: detectionCondition,
+                onDetected: onDetected,
                 overlay: ScanTicketBackground(
-                  topLimit: topLimit,
                   detectorHeight: detectorHeight,
                 ),
               ),
@@ -79,16 +64,10 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
               right: 0,
               child: Container(
                 height: 300,
-                child: PageView(
-                  controller: controller,
-                  children: <Widget>[
-                    ScanTicketCard(
-                      title: 'Order ID',
-                      value: orderId,
-                      hint: 'Swipe right to scan your e-mail',
-                    ),
-                    ScanTicketCard(title: 'E-mail', value: email),
-                  ],
+                child: ScanTicketCard(
+                  title: 'Order ID',
+                  value: orderId,
+                  hint: 'Swipe right to scan your e-mail',
                 ),
               ),
             ),
@@ -99,8 +78,7 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
               child: AnimatedOpacity(
                 opacity: correctData ? 1 : 0,
                 duration: Duration(milliseconds: 500),
-                child:
-                    SubmitScannedTicketButton(orderId: orderId, email: email),
+                child: SubmitScannedTicketButton(orderId: orderId),
               ),
             )
           ],
@@ -109,28 +87,16 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
     );
   }
 
-  bool detectionCondition(String word, int page) {
-    if (page == 0) {
-      return word.startsWith('OT') && word.length == 9;
-    } else {
-      return word.contains('@') && word.length > 5;
-    }
+  bool detectionCondition(String word) {
+    return word.startsWith('OT') && word.length == 9;
   }
 
-  void onDetected(String result, int page) async {
-    if (page == 0) {
-      setState(() {
-        orderId = result;
-      });
-    } else {
-      setState(() {
-        email = result;
-      });
-    }
-    if (orderId != null &&
-        detectionCondition(orderId, 0) &&
-        email != null &&
-        detectionCondition(email, 1)) {
+  void onDetected(String result) async {
+    setState(() {
+      orderId = result;
+    });
+
+    if (orderId != null && detectionCondition(orderId)) {
       setState(() {
         correctData = true;
       });
