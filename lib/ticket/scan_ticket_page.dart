@@ -54,16 +54,10 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
                 condition: (word) =>
                     detectionCondition(word, controller.page.round()),
                 onDetected: (word) => onDetected(word, controller.page.round()),
-              ),
-            ),
-            Positioned(
-              top: 0,
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: ScanTicketBackground(
-                topLimit: topLimit,
-                detectorHeight: detectorHeight,
+                overlay: ScanTicketBackground(
+                  topLimit: topLimit,
+                  detectorHeight: detectorHeight,
+                ),
               ),
             ),
             Positioned(
