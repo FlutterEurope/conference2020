@@ -67,9 +67,7 @@ class _TicketPageState extends State<TicketPage> {
                 textCapitalization: TextCapitalization.characters,
               ),
               EuropeTextFormField(
-                hint: 'Type or scan your e-mail',
-                icon: LineIcons.camera,
-                onTap: onTap,
+                hint: 'Type your e-mail',
                 onFieldSubmitted: onEmailSubmitted,
                 controller: emailController,
                 focusNode: emailNode,
