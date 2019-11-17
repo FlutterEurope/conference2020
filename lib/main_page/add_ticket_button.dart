@@ -13,19 +13,25 @@ class AddTicketButton extends StatelessWidget {
       padding: EdgeInsets.all(12.0),
       child: Center(
         child: RaisedButton(
-          shape: BeveledRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
           ),
+          color: Theme.of(context).primaryColor,
+          textTheme: ButtonTextTheme.primary,
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => TicketPage()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => TicketPage()));
           },
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text('Add your ticket'),
-              SizedBox(width: 12),
-              Icon(LineIcons.ticket),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text('Add your ticket'),
+                SizedBox(width: 12),
+                Icon(LineIcons.ticket),
+              ],
+            ),
           ),
         ),
       ),
