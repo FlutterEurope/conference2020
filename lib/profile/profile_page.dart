@@ -33,7 +33,6 @@ class _ProfilePageState extends State<ProfilePage> {
               value: true,
             ),
             AuthenticatorButton(),
-            Spacer(),
             VersionInfo()
           ],
         ),
