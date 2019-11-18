@@ -119,4 +119,5 @@ dependencies {
     api 'com.google.firebase:firebase-ml-vision-image-label-model:17.0.2'
 }
 
+apply plugin: 'io.fabric'
 apply plugin: 'com.google.gms.google-services'
