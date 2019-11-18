@@ -1,5 +1,6 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 
 import 'authenticator_button.dart';
 import 'settings_toggle.dart';
@@ -32,6 +33,17 @@ class _ProfilePageState extends State<ProfilePage> {
               value: true,
             ),
             AuthenticatorButton(),
+            Spacer(),
+            FutureBuilder<PackageInfo>(
+              future: PackageInfo.fromPlatform(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final pkg = snapshot.data;
+                  return Text('Version: ${pkg.version} (${pkg.buildNumber})');
+                }
+                return Container();
+              },
+            )
           ],
         ),
       ),
