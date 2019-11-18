@@ -33,6 +33,12 @@ class _ProfilePageState extends State<ProfilePage> {
               value: true,
             ),
             AuthenticatorButton(),
+            FlatButton(
+              child: Text('Crash the app 🤯'),
+              onPressed: () {
+                final zero = 0 / 0;
+              },
+            ),
             VersionInfo()
           ],
         ),
