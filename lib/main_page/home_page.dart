@@ -21,6 +21,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
+  static const int agenda = 0;
+  static const int mySchedule = 1;
+  static const int notifications = 2;
+  static const int profile = 3;
+
+  final _tabs = {
+    agenda: 'agenda',
+    mySchedule: 'mySchedule',
+    notifications: 'notifications',
+    profile: 'profile',
+  };
+
   @override
   void initState() {
     super.initState();
@@ -60,6 +72,9 @@ class _HomePageState extends State<HomePage> {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
       onTap: (index) {
+        analytics.setCurrentScreen(
+          screenName: '/home/${_tabs[index]}',
+        );
         setState(() {
           _currentIndex = index;
         });
@@ -78,7 +93,7 @@ class _HomePageState extends State<HomePage> {
           ),
           title: BottomBarTitle(
             title: 'Agenda',
-            showTitle: _currentIndex != 0,
+            showTitle: _currentIndex != agenda,
           ),
         ),
         BottomNavigationBarItem(
@@ -88,7 +103,7 @@ class _HomePageState extends State<HomePage> {
           ),
           title: BottomBarTitle(
             title: 'My Schedule',
-            showTitle: _currentIndex != 1,
+            showTitle: _currentIndex != mySchedule,
           ),
         ),
         BottomNavigationBarItem(
@@ -98,7 +113,7 @@ class _HomePageState extends State<HomePage> {
           ),
           title: BottomBarTitle(
             title: 'Notifications',
-            showTitle: _currentIndex != 2,
+            showTitle: _currentIndex != notifications,
           ),
         ),
         BottomNavigationBarItem(
@@ -108,7 +123,7 @@ class _HomePageState extends State<HomePage> {
           ),
           title: BottomBarTitle(
             title: 'Profile',
-            showTitle: _currentIndex != 3,
+            showTitle: _currentIndex != profile,
           ),
         ),
       ],

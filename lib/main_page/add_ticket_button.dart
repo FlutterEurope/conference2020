@@ -20,7 +20,12 @@ class AddTicketButton extends StatelessWidget {
           textTheme: ButtonTextTheme.primary,
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => TicketPage()));
+              context,
+              MaterialPageRoute(
+                builder: (context) => TicketPage(),
+                settings: RouteSettings(name: '/home/ticket_page'),
+              ),
+            );
           },
           child: Padding(
             padding: const EdgeInsets.all(12.0),
