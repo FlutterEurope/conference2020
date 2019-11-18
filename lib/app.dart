@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
 import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
+import 'package:conferenceapp/analytics.dart';
 import 'package:conferenceapp/main_page/home_page.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
@@ -9,6 +10,7 @@ import 'package:conferenceapp/profile/user_repository.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
 import 'package:conferenceapp/ticket/repository/ticket_repository.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,6 +49,9 @@ class MyApp extends StatelessWidget {
               child: MaterialApp(
                 title: title,
                 theme: theme,
+                navigatorObservers: [
+                  FirebaseAnalyticsObserver(analytics: analytics),
+                ],
                 home: HomePage(title: title),
               ),
             ),
