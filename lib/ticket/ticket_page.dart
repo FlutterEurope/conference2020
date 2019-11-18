@@ -101,6 +101,7 @@ class _TicketPageState extends State<TicketPage> {
       context,
       MaterialPageRoute(
         builder: (context) => ScanTicketPage(),
+        settings: RouteSettings(name: '/home/ticket_page/scan_ticket_page'),
       ),
     );
     // extract this to react on controller changes as well as scanning
