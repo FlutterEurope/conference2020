@@ -1,4 +1,5 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 
@@ -34,9 +35,13 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             AuthenticatorButton(),
             FlatButton(
-              child: Text('Crash the app 🤯'),
+              child: Text('Send test crash 🤯'),
               onPressed: () {
-                final zero = 0 / 0;
+                try {
+                  throw Exception();
+                } catch (e, s) {
+                  Crashlytics.instance.recordError(e, s);
+                }
               },
             ),
             VersionInfo()
