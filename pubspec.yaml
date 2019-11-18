@@ -16,6 +16,7 @@ dependencies:
   firebase_messaging: ^5.1.6
   firebase_auth: ^0.14.0+5
   firebase_ml_vision: ^0.9.2+2
+  firebase_crashlytics: ^0.1.1+2
   camera: ^0.5.6+2
   cloud_firestore: ^0.12.9+5
   flutter_bloc: ^2.0.0
