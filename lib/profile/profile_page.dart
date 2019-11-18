@@ -1,5 +1,6 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 
 import 'authenticator_button.dart';
 import 'settings_toggle.dart';
@@ -32,6 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
               value: true,
             ),
             AuthenticatorButton(),
+            VersionInfo()
           ],
         ),
       ),
@@ -43,6 +45,29 @@ class _ProfilePageState extends State<ProfilePage> {
       Theme.of(context).brightness == Brightness.dark
           ? Brightness.light
           : Brightness.dark,
+    );
+  }
+}
+
+class VersionInfo extends StatelessWidget {
+  const VersionInfo({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+      child: FutureBuilder<PackageInfo>(
+        future: PackageInfo.fromPlatform(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final pkg = snapshot.data;
+            return Text('Version: ${pkg.version} (${pkg.buildNumber})');
+          }
+          return Container();
+        },
+      ),
     );
   }
 }

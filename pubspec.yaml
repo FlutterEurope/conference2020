@@ -34,6 +34,7 @@ dependencies:
   equatable: ^0.6.1
   collection: ^1.14.11
   provider: ^3.1.0+1
+  package_info: ^0.4.0+10
 
   cupertino_icons: ^0.1.2
 
