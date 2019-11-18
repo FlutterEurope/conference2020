@@ -34,16 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             AuthenticatorButton(),
             Spacer(),
-            FutureBuilder<PackageInfo>(
-              future: PackageInfo.fromPlatform(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  final pkg = snapshot.data;
-                  return Text('Version: ${pkg.version} (${pkg.buildNumber})');
-                }
-                return Container();
-              },
-            )
+            VersionInfo()
           ],
         ),
       ),
@@ -55,6 +46,29 @@ class _ProfilePageState extends State<ProfilePage> {
       Theme.of(context).brightness == Brightness.dark
           ? Brightness.light
           : Brightness.dark,
+    );
+  }
+}
+
+class VersionInfo extends StatelessWidget {
+  const VersionInfo({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+      child: FutureBuilder<PackageInfo>(
+        future: PackageInfo.fromPlatform(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final pkg = snapshot.data;
+            return Text('Version: ${pkg.version} (${pkg.buildNumber})');
+          }
+          return Container();
+        },
+      ),
     );
   }
 }
