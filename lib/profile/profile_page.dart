@@ -1,3 +1,4 @@
+import 'package:conferenceapp/analytics.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -52,11 +53,16 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void changeBrightness() {
-    DynamicTheme.of(context).setBrightness(
-      Theme.of(context).brightness == Brightness.dark
-          ? Brightness.light
-          : Brightness.dark,
+    final target = Theme.of(context).brightness == Brightness.dark
+        ? Brightness.light
+        : Brightness.dark;
+    final paramValue = target == Brightness.light ? 'light' : 'dark';
+    analytics.logEvent(
+      name: 'settings_theme',
+      parameters: {'target': paramValue},
     );
+    analytics.setUserProperty(name: 'theme', value: paramValue);
+    DynamicTheme.of(context).setBrightness(target);
   }
 }
 
