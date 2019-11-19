@@ -1,8 +1,10 @@
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
+import 'package:conferenceapp/analytics.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/model/user.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:mockito/mockito.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:test/test.dart';
@@ -10,6 +12,8 @@ import 'package:test/test.dart';
 class MockUserRepository extends Mock implements UserRepository {}
 
 class MockTalksRepository extends Mock implements TalkRepository {}
+
+class MockAnalytics extends Mock implements FirebaseAnalytics {}
 
 main() {
   MockUserRepository userRepository;
@@ -20,6 +24,7 @@ main() {
     userRepository = MockUserRepository();
     talksRepository = MockTalksRepository();
     sut = FavoritesRepository(talksRepository, userRepository);
+    analytics = MockAnalytics();
   });
 
   Talk talkFromId(String id) => Talk(id, null, null, null, null, null, null);
