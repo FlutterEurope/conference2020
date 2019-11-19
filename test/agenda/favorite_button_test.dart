@@ -1,5 +1,7 @@
 import 'package:conferenceapp/agenda/talk_card.dart';
+import 'package:conferenceapp/analytics.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -7,11 +9,14 @@ import 'package:mockito/mockito.dart';
 
 class MockFavoritesRepository extends Mock implements FavoritesRepository {}
 
+class MockAnalytics extends Mock implements FirebaseAnalytics {}
+
 main() {
   MockFavoritesRepository favoritesRepo;
 
   setUp(() {
     favoritesRepo = MockFavoritesRepository();
+    analytics = MockAnalytics();
   });
 
   group('FavoriteButton', () {

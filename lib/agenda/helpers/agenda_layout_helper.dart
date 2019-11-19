@@ -1,3 +1,4 @@
+import 'package:conferenceapp/analytics.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,13 @@ class AgendaLayoutHelper with ChangeNotifier {
 
   void toggleCompact() {
     _compact = !_compact;
+    final paramValue = _compact ? 'compact' : 'normal';
+    analytics.logEvent(
+      name: 'agenda_layout_toggle',
+      parameters: {'target': paramValue},
+    );
+    analytics.setUserProperty(name: 'agenda_mode', value: paramValue);
+
     notifyListeners();
   }
 
