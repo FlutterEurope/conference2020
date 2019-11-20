@@ -5,13 +5,9 @@
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
 project 'Runner', {
-  'Debug-dev' => :debug,
-  'Debug-tst' => :debug,
-  'Debug-prod' => :debug,
+  'Debug' => :debug,
   'Profile' => :release,
-  'Release-dev' => :release,
-  'Release-tst' => :release,
-  'Release-prod' => :release,
+  'Release' => :release,
 }
 
 def parse_KV_file(file, separator='=')
