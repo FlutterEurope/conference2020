@@ -97,6 +97,7 @@ class MyScheduleEmptyState extends StatelessWidget {
             'assets/no_data.png',
             height: 200,
             width: 200,
+            fit: BoxFit.contain,
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
