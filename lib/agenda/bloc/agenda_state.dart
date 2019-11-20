@@ -1,3 +1,4 @@
+import 'package:conferenceapp/model/room.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:meta/meta.dart';
 
@@ -15,19 +16,25 @@ class PopulatedAgendaState extends AgendaState {
         .toSet() //this removes duplicates
         .toList()
           ..sort((n, m) => n.compareTo(m));
+    _rooms.addAll(talks.map<Room>((t) => t.room).toSet().toList());
     _talks.addAll({
       for (var i = 0; i < dates.length; i++)
         i: talks
             .where((t) =>
                 (t.dateTime.isAfter(dates[i]) ||
-                    t.dateTime == dates[i]) && //we need talks from the day 't' but also ones starting at 0:00
-                t.dateTime.isBefore(dates[i].add(Duration(days: 1)))) // up to 0:00 of the next day
+                    t.dateTime ==
+                        dates[
+                            i]) && //we need talks from the day 't' but also ones starting at 0:00
+                t.dateTime.isBefore(dates[i]
+                    .add(Duration(days: 1)))) // up to 0:00 of the next day
             .toList()
               ..sort((n, m) => n.compareTo(m))
     });
   }
   final _talks = Map<int, List<Talk>>();
+  final _rooms = List<Room>();
   Map<int, List<Talk>> get talks => _talks;
+  List<Room> get rooms => _rooms;
 }
 
 class ErrorAgendaState extends AgendaState {}

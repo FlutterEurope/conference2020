@@ -41,7 +41,12 @@ class _AgendaPageState extends State<AgendaPage> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           state is PopulatedAgendaState
-              ? PopulatedAgendaTable(state, pageController, currentIndex)
+              ? PopulatedAgendaTable(
+                  state.talks,
+                  state.rooms,
+                  pageController,
+                  currentIndex,
+                )
               : LoadingAgendaTable(),
         ],
       ),

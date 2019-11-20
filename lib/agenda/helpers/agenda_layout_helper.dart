@@ -41,6 +41,9 @@ class AgendaLayoutHelper with ChangeNotifier {
 
   double compactHeight(Talk talk, Talk nextTalk) {
     try {
+      if (talk == null && nextTalk != null) {
+        return _compactTalkHeights[nextTalk.id];
+      }
       final heightT = _compactTalkHeights[talk.id];
       if (nextTalk == null) {
         return heightT;
@@ -58,12 +61,17 @@ class AgendaLayoutHelper with ChangeNotifier {
 
   double normalHeight(Talk talk, Talk nextTalk) {
     try {
-      final heightT = _normalTalkHeights[talk.id];
-      if (nextTalk == null) {
-        return heightT;
+      if (talk == null && nextTalk != null) {
+        return _normalTalkHeights[nextTalk.id];
       }
-      final heightN = _normalTalkHeights[nextTalk.id];
-      return heightT + heightN;
+      if (talk != null) {
+        final heightT = _normalTalkHeights[talk.id];
+        if (nextTalk == null) {
+          return heightT;
+        }
+        final heightN = _normalTalkHeights[nextTalk.id];
+        return heightT + heightN;
+      }
     } catch (e) {
       return 100;
     }
@@ -71,6 +79,9 @@ class AgendaLayoutHelper with ChangeNotifier {
 
   double bottomPositionOfSecondTalkCardWhenCompact(
       String talkId, String nextTalkId) {
+    if (talkId == null && nextTalkId != null) {
+      return 0;
+    }
     if (_compactTalkHeights[talkId] < _compactTalkHeights[nextTalkId]) {
       return 0;
     }
@@ -117,6 +128,9 @@ class AgendaLayoutHelper with ChangeNotifier {
   }
 
   double normalTalkHeight(String id) {
+    if (id == null) {
+      return 0;
+    }
     return _normalTalkHeights[id];
   }
 }
