@@ -353,16 +353,16 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   camera: 38cc83ae9a5667bb5a71c7d9edaf60a91920fd4e
-  cloud_firestore: c9493dd01ad88934d926e18cc5a92a0129bf2c32
+  cloud_firestore: c6e28e89a1bf98faab7fc8fdec20dc6020799cd1
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   Firebase: bc9cfc7a96c73268656d5aaab453ff1b4b530e0e
   firebase_analytics: 2f3ab38886ff9d915b076d5aae2f964dc5ce7549
   firebase_auth: a8e2050a6d6274984e4e02b4e172b49923b15a56
-  firebase_core: 77196106dc5f61b425f58b2f8f050347db10e4e0
+  firebase_core: 971ffa0fb29e49b80a2ad295eb1ad1cdbd680ec4
   firebase_crashlytics: a1e30b46a008ada63588f68e7fe2f9a523635354
   firebase_messaging: b8543d17dd9825f4f24a585477f77db103e5228e
-  firebase_ml_vision: d09b1eb3c242cf8124db4d51c0927376e3dbd9f4
+  firebase_ml_vision: e375046a4edc975d93abd164bcae2c7b5bde03e2
   firebase_performance: fc19b0777eea6d5e74b8e8a100ca0148f5c03546
   FirebaseABTesting: 0d10f3cdc3fa00f3f175b5b56c1003c8e888299f
   FirebaseAnalytics: 0e3ecff2c5d86070f7d4325e21f1edabfbd558dc
