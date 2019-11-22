@@ -3,10 +3,13 @@ import 'package:conferenceapp/analytics.dart';
 import 'package:conferenceapp/bottom_navigation/bottom_bar_title.dart';
 import 'package:conferenceapp/common/appbar.dart';
 import 'package:conferenceapp/main_page/add_ticket_button.dart';
+import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/my_schedule/my_schedule_page.dart';
 import 'package:conferenceapp/notifications/notifications_page.dart';
 import 'package:conferenceapp/profile/profile_page.dart';
+import 'package:conferenceapp/search/search_results_page.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:line_icons/line_icons.dart';
 
 class HomePage extends StatefulWidget {
@@ -41,7 +44,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: FlutterEuropeAppBar(),
+      appBar: FlutterEuropeAppBar(onSearch: () {
+        _showSearch(context);
+      }),
       bottomNavigationBar: createBottomNavigation(),
       body: Stack(
         children: <Widget>[
@@ -127,6 +132,36 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ],
+    );
+  }
+
+  _showSearch(BuildContext context) async {
+    try {
+      final res =
+          await Navigator.push<Talk>(context, _buildSearchPage(context));
+      //TODO navigate to talk details
+      print(res);
+      Fluttertoast.showToast(
+        msg: "$res",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 1,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+        fontSize: 14.0,
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  _buildSearchPage(BuildContext context) {
+    return MaterialPageRoute<Talk>(
+      settings: RouteSettings(
+        name: 'search',
+        isInitialRoute: false,
+      ),
+      builder: (BuildContext context) => SearchResultsPage(),
     );
   }
 }

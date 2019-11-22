@@ -10,12 +10,14 @@ class FlutterEuropeAppBar extends StatelessWidget
     this.back = false,
     this.search = true,
     this.layoutSelector = false,
+    this.onSearch,
   })  : preferredSize = Size.fromHeight(kToolbarHeight),
         super(key: key);
 
   final bool back;
   final bool search;
   final bool layoutSelector;
+  final VoidCallback onSearch;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class FlutterEuropeAppBar extends StatelessWidget
           ? null
           : IconButton(
               icon: Icon(Icons.search),
-              onPressed: () {},
+              onPressed: onSearch,
             ),
       actions: <Widget>[
         search
