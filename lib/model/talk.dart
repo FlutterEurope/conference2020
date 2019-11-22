@@ -44,4 +44,9 @@ class Talk implements Comparable<Talk> {
   int compareTo(Talk other) {
     return dateTime.compareTo(other.dateTime);
   }
+
+  @override
+  String toString() {
+    return "Talk: ${authors.map((f) => f.fullName).join(', ')} - $title";
+  }
 }

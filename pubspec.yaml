@@ -33,7 +33,7 @@ dependencies:
   url_launcher: ^5.2.5
   share: ^0.6.3+1
   shared_preferences: ^0.5.4+5
-  equatable: ^0.6.1
+  equatable: ^1.0.0
   collection: ^1.14.11
   provider: ^3.1.0+1
   package_info: ^0.4.0+10
