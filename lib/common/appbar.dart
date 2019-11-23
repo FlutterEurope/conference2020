@@ -54,7 +54,7 @@ class FlutterEuropeAppBar extends StatelessWidget
               ),
             ),
       actions: <Widget>[
-        search
+        layoutSelector
             ? Semantics(
                 button: true,
                 enabled: true,
@@ -77,8 +77,9 @@ class FlutterEuropeAppBar extends StatelessWidget
                                     size: 22,
                                     key: ValueKey('icon1'),
                                   )),
-                    onPressed: () {
-                      Provider.of<AgendaLayoutHelper>(context).toggleCompact();
+                    onPressed: () async {
+                      await Provider.of<AgendaLayoutHelper>(context)
+                          .toggleCompact();
                     },
                   ),
                 ),
