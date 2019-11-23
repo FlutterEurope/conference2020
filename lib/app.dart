@@ -41,6 +41,12 @@ class MyApp extends StatelessWidget {
         bottomAppBarTheme: Theme.of(context).bottomAppBarTheme.copyWith(
               elevation: 0,
             ),
+        pageTransitionsTheme: PageTransitionsTheme(
+          builders: <TargetPlatform, PageTransitionsBuilder>{
+            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          },
+        ),
       ),
       themedWidgetBuilder: (context, theme) {
         return RepositoryProviders(
