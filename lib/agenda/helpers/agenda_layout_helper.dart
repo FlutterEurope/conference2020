@@ -1,6 +1,7 @@
 import 'package:conferenceapp/analytics.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AgendaLayoutHelper with ChangeNotifier {
   bool _compact;
@@ -9,17 +10,21 @@ class AgendaLayoutHelper with ChangeNotifier {
 
   AgendaLayoutHelper(this._compact);
 
-  isCompact() => _compact;
-  hasHeightsCalculated() => _hasHeightsCalculated;
+  bool isCompact() => _compact;
+  bool hasHeightsCalculated() => _hasHeightsCalculated;
 
-  void toggleCompact() {
+  Future toggleCompact() async {
     _compact = !_compact;
+
     final paramValue = _compact ? 'compact' : 'normal';
     analytics.logEvent(
       name: 'agenda_layout_toggle',
       parameters: {'target': paramValue},
     );
     analytics.setUserProperty(name: 'agenda_mode', value: paramValue);
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('agenda_mode', paramValue);
 
     notifyListeners();
   }
