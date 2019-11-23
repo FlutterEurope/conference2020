@@ -44,9 +44,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: FlutterEuropeAppBar(onSearch: () {
-        _showSearch(context);
-      }),
+      appBar: FlutterEuropeAppBar(
+        onSearch: () {
+          _showSearch(context);
+        },
+        layoutSelector: _currentIndex == agenda || _currentIndex == mySchedule,
+      ),
       bottomNavigationBar: createBottomNavigation(),
       body: Stack(
         children: <Widget>[
@@ -140,16 +143,24 @@ class _HomePageState extends State<HomePage> {
       final res =
           await Navigator.push<Talk>(context, _buildSearchPage(context));
       //TODO navigate to talk details
-      print(res);
-      Fluttertoast.showToast(
-        msg: "$res",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1,
-        backgroundColor: Colors.black,
-        textColor: Colors.white,
-        fontSize: 14.0,
-      );
+      if (res != null) {
+        analytics.logEvent(
+          name: 'search_completed',
+          parameters: {
+            'selected_talk_id': res.id,
+            'selected_talk': '$res',
+          },
+        );
+        Fluttertoast.showToast(
+          msg: "$res",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          fontSize: 14.0,
+        );
+      }
     } catch (e) {
       print(e);
     }

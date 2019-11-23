@@ -79,24 +79,29 @@ class DaySelector extends StatelessWidget {
                 Expanded(
                   child: Material(
                     type: MaterialType.transparency,
-                    child: InkWell(
-                      onTap: () {
-                        pageController.animateToPage(
-                          0,
-                          duration: Duration(milliseconds: 300),
-                          curve: Curves.easeOut,
-                        );
-                      },
-                      child: Container(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Center(
-                            child: Text(
-                              'Day 1',
-                              style: TextStyle(
-                                color: selectedDay == 0
-                                    ? Theme.of(context).primaryColor
-                                    : bgColor,
+                    child: Semantics(
+                      button: true,
+                      enabled: selectedDay != 0,
+                      hint: 'Select day no. 1',
+                      child: InkWell(
+                        onTap: () {
+                          pageController.animateToPage(
+                            0,
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.easeOut,
+                          );
+                        },
+                        child: Container(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Text(
+                                'Day 1',
+                                style: TextStyle(
+                                  color: selectedDay == 0
+                                      ? Theme.of(context).primaryColor
+                                      : bgColor,
+                                ),
                               ),
                             ),
                           ),
@@ -108,24 +113,29 @@ class DaySelector extends StatelessWidget {
                 Expanded(
                   child: Material(
                     type: MaterialType.transparency,
-                    child: InkWell(
-                      onTap: () {
-                        pageController.animateToPage(
-                          1,
-                          duration: Duration(milliseconds: 300),
-                          curve: Curves.easeOut,
-                        );
-                      },
-                      child: Container(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Center(
-                            child: Text(
-                              'Day 2',
-                              style: TextStyle(
-                                color: selectedDay != 0
-                                    ? Theme.of(context).primaryColor
-                                    : bgColor,
+                    child: Semantics(
+                      button: true,
+                      enabled: selectedDay != 1,
+                      hint: 'Select day no. 2',
+                      child: InkWell(
+                        onTap: () {
+                          pageController.animateToPage(
+                            1,
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.easeOut,
+                          );
+                        },
+                        child: Container(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Text(
+                                'Day 2',
+                                style: TextStyle(
+                                  color: selectedDay != 0
+                                      ? Theme.of(context).primaryColor
+                                      : bgColor,
+                                ),
                               ),
                             ),
                           ),

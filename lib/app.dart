@@ -15,11 +15,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key, this.title}) : super(key: key);
+  const MyApp({
+    Key key,
+    this.title,
+    this.sharedPreferences,
+  }) : super(key: key);
 
   final String title;
+  final SharedPreferences sharedPreferences;
 
   @override
   Widget build(BuildContext context) {
@@ -41,18 +47,31 @@ class MyApp extends StatelessWidget {
         bottomAppBarTheme: Theme.of(context).bottomAppBarTheme.copyWith(
               elevation: 0,
             ),
+        pageTransitionsTheme: PageTransitionsTheme(
+          builders: <TargetPlatform, PageTransitionsBuilder>{
+            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          },
+        ),
       ),
       themedWidgetBuilder: (context, theme) {
-        return RepositoryProviders(
-          child: BlocProviders(
-            child: ChangeNotifierProviders(
-              child: MaterialApp(
-                title: title,
-                theme: theme,
-                navigatorObservers: [
-                  FirebaseAnalyticsObserver(analytics: analytics),
-                ],
-                home: HomePage(title: title),
+        return MultiProvider(
+          providers: [
+            Provider<SharedPreferences>.value(
+              value: sharedPreferences,
+            ),
+          ],
+          child: RepositoryProviders(
+            child: BlocProviders(
+              child: ChangeNotifierProviders(
+                child: MaterialApp(
+                  title: title,
+                  theme: theme,
+                  navigatorObservers: [
+                    FirebaseAnalyticsObserver(analytics: analytics),
+                  ],
+                  home: HomePage(title: title),
+                ),
               ),
             ),
           ),
@@ -140,8 +159,11 @@ class ChangeNotifierProviders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sharedPreferences = Provider.of<SharedPreferences>(context);
+    final agendaMode = sharedPreferences.getString('agenda_mode');
+
     return ChangeNotifierProvider<AgendaLayoutHelper>(
-      builder: (_) => AgendaLayoutHelper(false),
+      builder: (_) => AgendaLayoutHelper(agendaMode == 'compact'),
       child: child,
     );
   }
