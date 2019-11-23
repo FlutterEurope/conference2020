@@ -44,9 +44,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: FlutterEuropeAppBar(onSearch: () {
-        _showSearch(context);
-      }),
+      appBar: FlutterEuropeAppBar(
+        onSearch: () {
+          _showSearch(context);
+        },
+        layoutSelector: _currentIndex == agenda || _currentIndex == mySchedule,
+      ),
       bottomNavigationBar: createBottomNavigation(),
       body: Stack(
         children: <Widget>[
