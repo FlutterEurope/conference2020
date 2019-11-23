@@ -41,29 +41,47 @@ class FlutterEuropeAppBar extends StatelessWidget
       elevation: 0,
       leading: back
           ? null
-          : IconButton(
-              icon: Icon(Icons.search),
-              onPressed: onSearch,
+          : Semantics(
+              button: true,
+              enabled: true,
+              focusable: true,
+              child: Tooltip(
+                message: 'Search for a talk or speaker',
+                child: IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: onSearch,
+                ),
+              ),
             ),
       actions: <Widget>[
         search
-            ? IconButton(
-                icon: AnimatedSwitcher(
-                    duration: Duration(milliseconds: 500),
-                    child: Provider.of<AgendaLayoutHelper>(context).isCompact()
-                        ? Icon(
-                            LineIcons.database,
-                            size: 24,
-                            key: ValueKey('icon0'),
-                          )
-                        : Icon(
-                            LineIcons.columns,
-                            size: 22,
-                            key: ValueKey('icon1'),
-                          )),
-                onPressed: () {
-                  Provider.of<AgendaLayoutHelper>(context).toggleCompact();
-                },
+            ? Semantics(
+                button: true,
+                enabled: true,
+                focusable: true,
+                hint: 'Change the layout of the agenda',
+                child: Tooltip(
+                  message: 'Change the layout of the agenda',
+                  child: IconButton(
+                    icon: AnimatedSwitcher(
+                        duration: Duration(milliseconds: 500),
+                        child:
+                            Provider.of<AgendaLayoutHelper>(context).isCompact()
+                                ? Icon(
+                                    LineIcons.database,
+                                    size: 24,
+                                    key: ValueKey('icon0'),
+                                  )
+                                : Icon(
+                                    LineIcons.columns,
+                                    size: 22,
+                                    key: ValueKey('icon1'),
+                                  )),
+                    onPressed: () {
+                      Provider.of<AgendaLayoutHelper>(context).toggleCompact();
+                    },
+                  ),
+                ),
               )
             : Container(),
       ],
