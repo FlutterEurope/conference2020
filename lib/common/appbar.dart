@@ -28,7 +28,7 @@ class FlutterEuropeAppBar extends StatelessWidget
         duration: Duration(milliseconds: 500),
         child: Theme.of(context).brightness == Brightness.light
             ? Image.asset(
-                'assets/logo_negative.png',
+                'assets/flutter_europe.png',
                 height: imageHeight,
                 key: ValueKey('logo_image_1'),
               )
@@ -38,6 +38,7 @@ class FlutterEuropeAppBar extends StatelessWidget
                 key: ValueKey('logo_image_2'),
               ),
       ),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       elevation: 0,
       leading: back
           ? null
@@ -47,9 +48,12 @@ class FlutterEuropeAppBar extends StatelessWidget
               focusable: true,
               child: Tooltip(
                 message: 'Search for a talk or speaker',
-                child: IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: onSearch,
+                child: Container(
+                  child: IconButton(
+                    color: Theme.of(context).accentColor,
+                    icon: Icon(Icons.search),
+                    onPressed: onSearch,
+                  ),
                 ),
               ),
             ),
@@ -63,6 +67,7 @@ class FlutterEuropeAppBar extends StatelessWidget
                 child: Tooltip(
                   message: 'Change the layout of the agenda',
                   child: IconButton(
+                    color: Theme.of(context).accentColor,
                     icon: AnimatedSwitcher(
                         duration: Duration(milliseconds: 500),
                         child:
