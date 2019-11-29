@@ -15,11 +15,11 @@ class DaySelectorContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bgColor = Theme.of(context).brightness == Brightness.light
-        ? Colors.white
+        ? Colors.blue[100]
         : Colors.grey[100];
 
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Container(
@@ -71,7 +71,7 @@ class DaySelector extends StatelessWidget {
               child: Container(
                 color: bgColor,
               ),
-              curve: Curves.easeOut,
+              curve: Curves.easeOutBack,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
