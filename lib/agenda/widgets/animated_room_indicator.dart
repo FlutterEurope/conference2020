@@ -14,7 +14,7 @@ class AnimatedRoomIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textColor = Theme.of(context).brightness == Brightness.light
-        ? Colors.white
+        ? Colors.black54
         : Colors.grey[100];
     return AnimatedSwitcher(
       duration: Duration(milliseconds: 600),
@@ -32,7 +32,7 @@ class AnimatedRoomIndicator extends StatelessWidget {
       child: !compact
           ? SizedBox()
           : Container(
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).scaffoldBackgroundColor,
               child: Padding(
                 padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
                 child: Row(

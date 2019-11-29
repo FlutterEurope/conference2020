@@ -4,6 +4,7 @@ import 'package:conferenceapp/agenda/talk_card.dart';
 import 'package:conferenceapp/model/room.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
+import 'package:conferenceapp/talk/talk_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -81,11 +82,18 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final hours = talksPerHour.keys.toList();
 
+    if (hours.isEmpty) {
+      return Center(
+        child: Text('No talks on this day'),
+      );
+    }
+
     return ListView.builder(
       padding: EdgeInsets.symmetric(
         horizontal: 12.0,
         vertical: 16.0,
       ),
+      physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
       itemCount: talksPerHour.length,
       itemBuilder: (context, index) {
         Talk _leftTalk;
@@ -149,6 +157,7 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
                                           .any((t) => t.id == _leftTalk.id),
                                       first: true,
                                       compact: compact,
+                                      onTap: () => onTap(context, _leftTalk),
                                     ),
                                   ),
                                 if (_rightTalk != null)
@@ -175,6 +184,7 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
                                           .any((t) => t.id == _rightTalk.id),
                                       first: false,
                                       compact: compact,
+                                      onTap: () => onTap(context, _rightTalk),
                                     ),
                                   )
                               ],
@@ -189,6 +199,16 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  void onTap(BuildContext context, Talk talk) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TalkPage(talk.id),
+        settings: RouteSettings(name: 'agenda/${talk.id}'),
+      ),
     );
   }
 }
