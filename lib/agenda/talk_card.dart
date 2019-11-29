@@ -1,4 +1,3 @@
-import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
 import 'package:conferenceapp/model/author.dart';
 import 'package:conferenceapp/model/room.dart';
 import 'package:conferenceapp/model/talk.dart';
@@ -15,12 +14,14 @@ class TalkCard extends StatelessWidget {
     this.isFavorite,
     this.first,
     this.compact = false,
+    this.onTap,
   }) : super(key: key);
 
   final Talk talk;
   final bool isFavorite;
   final bool first;
   final bool compact;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class TalkCard extends StatelessWidget {
       padding: EdgeInsets.only(top: first || compact ? 16.0 : 4.0),
       child: TalkCardDecoration(
         child: InkWell(
-          onTap: () {},
+          onTap: onTap,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
