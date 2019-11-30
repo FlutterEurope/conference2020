@@ -29,17 +29,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orange = Color.fromARGB(255, 240, 89, 41);
+    final blue = Color.fromARGB(255, 33, 153, 227);
     return DynamicTheme(
       defaultBrightness: Brightness.light,
       data: (brightness) => ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: blue,
         scaffoldBackgroundColor: brightness == Brightness.light
             ? Colors.grey[100]
             : Colors.grey[850],
-        accentColor: brightness == Brightness.light
-            ? Colors.orange[300]
-            : Colors.orange[800],
-        toggleableActiveColor: Colors.orange[800],
+        accentColor: orange,
+        toggleableActiveColor: orange,
         dividerColor:
             brightness == Brightness.light ? Colors.white : Colors.white54,
         brightness: brightness,
