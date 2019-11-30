@@ -286,7 +286,6 @@ final _authors = [
 ];
 
 final _dur45 = Duration(minutes: 45);
-final _dur30 = Duration(minutes: 30);
 
 final _titles = [
   'Opening Keynote',

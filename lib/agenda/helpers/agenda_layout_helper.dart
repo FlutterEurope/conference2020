@@ -77,9 +77,8 @@ class AgendaLayoutHelper with ChangeNotifier {
         final heightN = _normalTalkHeights[nextTalk.id];
         return heightT + heightN;
       }
-    } catch (e) {
-      return 100;
-    }
+    } catch (e) {}
+    return 100;
   }
 
   double bottomPositionOfSecondTalkCardWhenCompact(

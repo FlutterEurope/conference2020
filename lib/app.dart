@@ -91,12 +91,12 @@ class BlocProviders extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AgendaBloc>(
-          builder: (BuildContext context) =>
+          create: (BuildContext context) =>
               AgendaBloc(RepositoryProvider.of<TalkRepository>(context))
                 ..add(InitAgenda()),
         ),
         BlocProvider<TicketBloc>(
-          builder: (BuildContext context) =>
+          create: (BuildContext context) =>
               TicketBloc(RepositoryProvider.of<TicketRepository>(context))
                 ..add(FetchTicket()),
         ),
@@ -114,15 +114,15 @@ class RepositoryProviders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      builder: (_) => AuthRepository(FirebaseAuth.instance),
+      create: (_) => AuthRepository(FirebaseAuth.instance),
       child: RepositoryProvider(
-        builder: _userRepositoryBuilder,
+        create: _userRepositoryBuilder,
         child: RepositoryProvider<TalkRepository>(
-          builder: (_) => FirestoreTalkRepository(),
+          create: (_) => FirestoreTalkRepository(),
           child: RepositoryProvider(
-            builder: _favoritesRepositoryBuilder,
+            create: _favoritesRepositoryBuilder,
             child: RepositoryProvider(
-              builder: _ticketRepositoryBuilder,
+              create: _ticketRepositoryBuilder,
               child: child,
             ),
           ),
@@ -163,7 +163,7 @@ class ChangeNotifierProviders extends StatelessWidget {
     final agendaMode = sharedPreferences.getString('agenda_mode');
 
     return ChangeNotifierProvider<AgendaLayoutHelper>(
-      builder: (_) => AgendaLayoutHelper(agendaMode == 'compact'),
+      create: (_) => AgendaLayoutHelper(agendaMode == 'compact'),
       child: child,
     );
   }

@@ -100,7 +100,7 @@ class FavoriteButtonWrapper extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: RepositoryProvider<FavoritesRepository>(
-          builder: (_) => favoritesRepository,
+          create: (_) => favoritesRepository,
           child: Stack(
             children: <Widget>[
               FavoriteButton(
