@@ -164,8 +164,8 @@ class RepositoryProviders extends StatelessWidget {
     return ReactiveTalksRepository(
       repository: ContentfulTalksRepository(
         client: ContentfulClient(
-          config.contentfulSpace,
-          config.contentfulApiKey,
+          appConfig.contentfulSpace,
+          appConfig.contentfulApiKey,
         ),
         fileStorage: FileStorage(
             'talks', () => Directory.systemTemp.createTemp('talks_')),

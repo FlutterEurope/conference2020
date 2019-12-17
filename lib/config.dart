@@ -7,4 +7,4 @@ class AppConfig {
   AppConfig({@required this.contentfulSpace, @required this.contentfulApiKey});
 }
 
-AppConfig config;
+AppConfig appConfig;

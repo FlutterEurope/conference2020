@@ -19,7 +19,7 @@ void mainCommon({@required AppConfig config}) {
   runZoned<Future<void>>(() async {
     WidgetsFlutterBinding.ensureInitialized();
     analytics = FirebaseAnalytics();
-    config = config;
+    appConfig = config;
     final sharedPrefs = await SharedPreferences.getInstance();
 
     runApp(
