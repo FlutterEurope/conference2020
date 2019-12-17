@@ -28,6 +28,7 @@ void main() {
             '',
           )
         ],
+        '',
         DateTime.now(),
         DateTime.now().add(Duration(minutes: 45)),
         Room('', '1'),
@@ -96,6 +97,7 @@ void main() {
         'id1',
         '',
         _authors,
+        '',
         DateTime(2020, 1, day, hour, 0),
         DateTime(2020, 1, day, hour, 45),
         _room,
