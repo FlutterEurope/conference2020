@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:conferenceapp/model/agenda.dart';
 import 'package:conferenceapp/utils/firestore_utils.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -18,35 +19,65 @@ class Talk implements Comparable<Talk> {
   final List<Author> authors;
 
   @JsonKey(fromJson: FirestoreUtils.fromJson, toJson: FirestoreUtils.toJson)
-  final DateTime dateTime;
-
-  @JsonKey(fromJson: durationFromJson, toJson: toDurationJson)
-  final Duration duration;
+  final DateTime startTime;
+  @JsonKey(fromJson: FirestoreUtils.fromJson, toJson: FirestoreUtils.toJson)
+  final DateTime endTime;
   final Room room;
-  final int level;
 
-  Talk(this.id, this.title, this.authors, this.dateTime, this.duration,
-      this.room, this.level);
+  Talk(
+    this.id,
+    this.title,
+    this.authors,
+    this.startTime,
+    this.endTime,
+    this.room,
+  );
+
+  factory Talk.fromContentful(AgendaFields item) {
+    try {
+      final authors = [
+        Author.fromSpeaker(item.fields?.speaker),
+        Author.fromSpeaker(item.fields?.secondSpeaker)
+      ]..removeWhere((n) => n == null);
+
+      return Talk(
+        item.sys.id,
+        item.fields.title,
+        authors,
+        DateTime(
+          2020,
+          1,
+          item.fields.day == Day.day_one ? 23 : 24,
+          int.parse(item.fields.time.substring(0, 2)),
+          int.parse(item.fields.time.substring(3, 5)),
+        ),
+        DateTime(
+          2020,
+          1,
+          item.fields.day == Day.day_one ? 23 : 24,
+          int.parse(item.fields.time.substring(6, 8)),
+          int.parse(item.fields.time.substring(9, 11)),
+        ),
+        Room.fromContentfulType(item.fields.type),
+      );
+    } catch (e, s) {
+      print(e);
+      print(s);
+    }
+    return null;
+  }
 
   factory Talk.fromJson(Map<String, dynamic> json) => _$TalkFromJson(json);
 
   Map<String, dynamic> toJson() => _$TalkToJson(this);
 
-  static Duration durationFromJson(int duration) {
-    return Duration(minutes: duration);
-  }
-
-  static int toDurationJson(Duration duration) {
-    return duration.inMinutes;
-  }
-
   @override
   int compareTo(Talk other) {
-    return dateTime.compareTo(other.dateTime);
+    return startTime.compareTo(other.startTime);
   }
 
   @override
   String toString() {
-    return "Talk: ${authors.map((f) => f.fullName).join(', ')} - $title";
+    return "Talk: $title";
   }
 }
