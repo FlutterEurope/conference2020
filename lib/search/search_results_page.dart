@@ -45,7 +45,7 @@ class SearchResultsPage extends StatelessWidget {
   }
 
   bool filterResults(dynamic value, String criteria) {
-    return "${value.title}${value.authors.map((f) => f.fullName).join(" ")}"
+    return "${value.title}${value.authors.map((f) => f.name).join(" ")}"
         .toLowerCase()
         .trim()
         .contains(

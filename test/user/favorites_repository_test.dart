@@ -27,7 +27,7 @@ main() {
     analytics = MockAnalytics();
   });
 
-  Talk talkFromId(String id) => Talk(id, null, null, null, null, null);
+  Talk talkFromId(String id) => Talk(id, null, null, null, null, null, null);
 
   void makeUserRepoReturn(List<String> favorites) => when(userRepository.user)
       .thenAnswer((_) => Observable.just(User('userId', favorites)));

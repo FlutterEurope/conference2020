@@ -17,6 +17,7 @@ class Talk implements Comparable<Talk> {
   final String id;
   final String title;
   final List<Author> authors;
+  final String description;
 
   @JsonKey(fromJson: FirestoreUtils.fromJson, toJson: FirestoreUtils.toJson)
   final DateTime startTime;
@@ -28,6 +29,7 @@ class Talk implements Comparable<Talk> {
     this.id,
     this.title,
     this.authors,
+    this.description,
     this.startTime,
     this.endTime,
     this.room,
@@ -44,6 +46,7 @@ class Talk implements Comparable<Talk> {
         item.sys.id,
         item.fields.title,
         authors,
+        item.fields.description?.toSimpleString(),
         DateTime(
           2020,
           1,
