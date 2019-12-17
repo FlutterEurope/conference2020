@@ -14,6 +14,7 @@ class PopulatedAgendaTable extends StatelessWidget {
     this.rooms,
     this.pageController,
     this.currentIndex, {
+    this.skipWidgetPreload = false,
     Key key,
   }) : super(key: key);
 
@@ -21,6 +22,7 @@ class PopulatedAgendaTable extends StatelessWidget {
   final List<Room> rooms;
   final PageController pageController;
   final ValueNotifier<int> currentIndex;
+  final bool skipWidgetPreload;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,8 @@ class PopulatedAgendaTable extends StatelessWidget {
         children: <Widget>[
           // We need to calculate sizes of the talk cards before animating them
           if (Provider.of<AgendaLayoutHelper>(context).hasHeightsCalculated() ==
-              false)
+                  false &&
+              !skipWidgetPreload)
             WidgetUsedToCalculateHeightsOfTalkCards(talks: talks),
           Column(
             children: <Widget>[
