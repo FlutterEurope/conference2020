@@ -52,6 +52,8 @@ class TalkTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (talk == null) return Container();
+
     return Row(
       children: <Widget>[
         Flexible(

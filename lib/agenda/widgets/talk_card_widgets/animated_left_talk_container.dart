@@ -58,6 +58,8 @@ class LeftTalkContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (talk == null) return Container();
+
     final hourFormat = DateFormat.Hm();
     final hourStyle = TextStyle(
       fontSize: 16,
@@ -86,4 +88,3 @@ class LeftTalkContainer extends StatelessWidget {
     );
   }
 }
-

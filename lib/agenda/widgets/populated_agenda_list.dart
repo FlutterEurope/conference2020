@@ -211,7 +211,6 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
                           //     ),
                           //   ),
                           // );
-
                           //
                           return AnimatedContainer(
                             duration: Duration(milliseconds: 400),

@@ -17,6 +17,7 @@ class Speakers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (talk == null) return Container();
     return Padding(
       padding: EdgeInsets.only(bottom: topPadding, left: 16.0),
       child: Column(
@@ -87,6 +88,8 @@ class SpeakersHeightEquivalent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (talk == null) return SizedBox(height: 22.0);
+
     return SizedBox(
         height: talk.authors.isEmpty ? 22.0 : talk.authors.length * 28.0);
   }

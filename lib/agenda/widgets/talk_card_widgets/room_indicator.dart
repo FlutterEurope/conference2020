@@ -16,6 +16,7 @@ class RoomIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (talk == null) return Container();
     return AnimatedOpacity(
       duration: Duration(milliseconds: 500),
       opacity: compact ? 0 : 1,
