@@ -41,3 +41,11 @@ You can follow project updates in the respective [MVP project](https://github.co
 ## Contributing
 
 If you want to contribute, please contact us directly. We hope to publish some contribution policy soon.
+
+### Generating model
+
+We're using json_serializable:
+
+```
+flutter pub run build_runner build --define "json_serializable=any_map=true" --delete-conflicting-outputs
+```
