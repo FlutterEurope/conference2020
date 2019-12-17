@@ -1,6 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
 import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
+import 'package:conferenceapp/agenda/repository/contentful_client.dart';
+import 'package:conferenceapp/agenda/repository/contentful_talks_repository.dart';
+import 'package:conferenceapp/agenda/repository/file_storage.dart';
+import 'package:conferenceapp/agenda/repository/reactive_talks_repository.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:conferenceapp/analytics.dart';
 import 'package:conferenceapp/main_page/home_page.dart';
@@ -16,6 +22,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'config.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({
@@ -118,7 +126,8 @@ class RepositoryProviders extends StatelessWidget {
       child: RepositoryProvider(
         create: _userRepositoryBuilder,
         child: RepositoryProvider<TalkRepository>(
-          create: (_) => FirestoreTalkRepository(),
+          create: _talksRepositoryBuilder,
+          // create: (_) => FirestoreTalkRepository(),
           child: RepositoryProvider(
             create: _favoritesRepositoryBuilder,
             child: RepositoryProvider(
@@ -148,6 +157,19 @@ class RepositoryProviders extends StatelessWidget {
   TicketRepository _ticketRepositoryBuilder(BuildContext context) {
     return TicketRepository(
       RepositoryProvider.of<UserRepository>(context),
+    );
+  }
+
+  TalkRepository _talksRepositoryBuilder(BuildContext context) {
+    return ReactiveTalksRepository(
+      repository: ContentfulTalksRepository(
+        client: ContentfulClient(
+          config.contentfulSpace,
+          config.contentfulApiKey,
+        ),
+        fileStorage: FileStorage(
+            'talks', () => Directory.systemTemp.createTemp('talks_')),
+      ),
     );
   }
 }
