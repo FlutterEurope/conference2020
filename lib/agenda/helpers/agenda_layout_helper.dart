@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AgendaLayoutHelper with ChangeNotifier {
-  bool _compact;
+  bool _compact = true;
   bool _hasHeightsCalculated = false;
   int _talksCount;
 
@@ -35,8 +35,8 @@ class AgendaLayoutHelper with ChangeNotifier {
   }
 
   void checkIfNotifyAboutHeight() {
-    if (_compactTalkHeights.length == _talksCount &&
-        _normalTalkHeights.length == _talksCount) {
+    if (_compactTalkHeights.length >= _talksCount &&
+        _normalTalkHeights.length >= _talksCount) {
       finishHeightsCalculation();
     }
   }
@@ -86,7 +86,7 @@ class AgendaLayoutHelper with ChangeNotifier {
     if (talkId == null && nextTalkId != null) {
       return 0;
     }
-    if (talkId != null && nextTalkId == null){
+    if (talkId != null && nextTalkId == null) {
       return 0;
     }
     if (_compactTalkHeights[talkId] < _compactTalkHeights[nextTalkId]) {
