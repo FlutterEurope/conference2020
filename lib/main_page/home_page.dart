@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:conferenceapp/agenda/agenda_page.dart';
 import 'package:conferenceapp/analytics.dart';
 import 'package:conferenceapp/bottom_navigation/bottom_bar_title.dart';
@@ -8,6 +10,7 @@ import 'package:conferenceapp/my_schedule/my_schedule_page.dart';
 import 'package:conferenceapp/notifications/notifications_page.dart';
 import 'package:conferenceapp/profile/profile_page.dart';
 import 'package:conferenceapp/search/search_results_page.dart';
+import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:line_icons/line_icons.dart';
@@ -39,6 +42,15 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    Timer(Duration(milliseconds: 1500), () {
+      FeatureDiscovery.discoverFeatures(
+        context,
+        const <String>{
+          // Feature ids for every feature that you want to showcase in order.
+          'show_how_to_toggle_layout',
+        },
+      );
+    });
   }
 
   @override
