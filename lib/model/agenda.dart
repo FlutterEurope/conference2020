@@ -156,9 +156,7 @@ extension ContentfulHelper on Document {
       this.content.forEach((c) {
         final content = c['content'] as List<dynamic>;
         if (content != null) {
-          content.forEach((d) {
-            buffer.write(d['value']);
-          });
+          parseContentNode(content, buffer);
         }
       });
 
@@ -168,5 +166,17 @@ extension ContentfulHelper on Document {
       print(e);
       return '';
     }
+  }
+
+  void parseContentNode(List<dynamic> content, StringBuffer buffer) {
+    content.forEach((d) {
+      var content = d['content'] as List<dynamic>;
+      if (content != null) {
+        parseContentNode(content, buffer);
+      } else {
+        buffer.write(d['value']);
+        buffer.write('\n');
+      }
+    });
   }
 }
