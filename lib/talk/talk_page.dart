@@ -1,13 +1,15 @@
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:conferenceapp/agenda/widgets/talk_card_widgets/favorite_button.dart';
+import 'package:conferenceapp/model/author.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:expandable/expandable.dart';
 import 'package:extended_image/extended_image.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TalkPage extends StatelessWidget {
@@ -46,176 +48,330 @@ class TalkPageContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        iconTheme: IconThemeData(
-          color: Theme.of(context).brightness == Brightness.light
-              ? Colors.black45
-              : Colors.white54,
-        ),
-        actions: <Widget>[
-          TalkDetailsFavoriteButton(talk: talk),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            floating: false,
+            pinned: false,
+            actions: <Widget>[
+              TalkDetailsFavoriteButton(talk: talk),
+            ],
+            title: Text(talk.title),
+            centerTitle: false,
+          ),
+          SliverList(
+            delegate: new SliverChildListDelegate([
+              TopHeader(talk: talk),
+              TalkTitle(talk: talk),
+              TalkRating(),
+              if (talk.description != null) TalkDetails(talk: talk),
+            ]),
+          ),
         ],
       ),
-      body: SingleChildScrollView(
-        physics: AlwaysScrollableScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
+    );
+  }
+}
+
+class TalkRating extends StatefulWidget {
+  const TalkRating({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _TalkRatingState createState() => _TalkRatingState();
+}
+
+class _TalkRatingState extends State<TalkRating> {
+  double rating = 0.0;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: <Widget>[
+          Text('Rate the talk (not working atm)'),
+          Center(
+            child: SmoothStarRating(
+              allowHalfRating: false,
+              onRatingChanged: (v) {
+                rating = v;
+                setState(() {});
+              },
+              starCount: 5,
+              rating: rating,
+              size: 40.0,
+              color: Theme.of(context).accentColor,
+              borderColor: Theme.of(context).accentColor,
+              spacing: 0.0,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TalkTitle extends StatelessWidget {
+  const TalkTitle({
+    Key key,
+    @required this.talk,
+  }) : super(key: key);
+
+  final Talk talk;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Text(
+        talk.title,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 24),
+      ),
+    );
+  }
+}
+
+class TalkDetails extends StatelessWidget {
+  const TalkDetails({
+    Key key,
+    @required this.talk,
+  }) : super(key: key);
+
+  final Talk talk;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          SizedBox(height: 6),
+          Text(
+            'Description',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          SizedBox(height: 6),
+          CustomExpandablePanel(
+            content: talk.description,
+          ),
+          SizedBox(height: 32),
+          Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  for (var author in talk.authors)
-                    Column(
-                      children: <Widget>[
-                        Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              width: 120,
-                              height: 120,
-                              child: Stack(
-                                children: <Widget>[
-                                  DottedBorder(
-                                    borderType: BorderType.Circle,
-                                    dashPattern: [4, 4],
-                                    child: Center(
-                                      child: CircleAvatar(
-                                        radius: 120,
-                                        backgroundImage:
-                                            ExtendedNetworkImageProvider(
-                                                author.avatar),
-                                        backgroundColor:
-                                            Theme.of(context).primaryColor,
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: Material(
-                                      borderRadius: BorderRadius.circular(32),
-                                      clipBehavior: Clip.antiAlias,
-                                      color: Colors.white,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          print(author.twitter);
-
-                                          openTwitter(author.twitter);
-                                        },
-                                        iconSize: 32,
-                                        tooltip: 'See Twitter profile',
-                                        color: Colors.blue,
-                                        padding: EdgeInsets.all(0.0),
-                                        visualDensity: VisualDensity.compact,
-                                        icon: Icon(LineIcons.twitter),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            child: Text(
-                              author.name,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Container(
-                            child: Text(
-                              author.occupation,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                ],
-              ),
-              Container(
-                child: Text(
-                  talk.title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 24),
+              Text(
+                'Speakers',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               SizedBox(height: 6),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Text(
-                      'Description',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      talk.description ?? 'No description',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
+              for (var author in talk.authors)
+                CustomExpandablePanel(
+                  header: author.name,
+                  content: author.longBio,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Text(
-                      'Speakers',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(height: 6),
-                    for (var author in talk.authors)
-                      RichText(
-                        text: TextSpan(
-                          style: Theme.of(context).textTheme.body2,
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: author.name,
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                            TextSpan(text: ': '),
-                            TextSpan(
-                              text: author.longBio ?? 'No description',
-                            ),
-                          ],
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 56),
             ],
           ),
+          SizedBox(height: 56),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomExpandablePanel extends StatelessWidget {
+  const CustomExpandablePanel({
+    Key key,
+    this.header,
+    @required this.content,
+  }) : super(key: key);
+
+  final String header;
+  final String content;
+
+  @override
+  Widget build(BuildContext context) {
+    return ExpandablePanel(
+      header: header != null
+          ? Row(
+              children: <Widget>[
+                Text(
+                  header,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            )
+          : null,
+      collapsed: ExpandableButton(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Flexible(
+              child: Text(
+                content,
+                softWrap: true,
+                maxLines: 4,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            ExpandableIcon()
+          ],
         ),
+      ),
+      expanded: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Flexible(
+            child: Text(
+              content,
+              softWrap: true,
+            ),
+          ),
+          ExpandableIcon()
+        ],
+      ),
+      tapBodyToCollapse: true,
+      hasIcon: false,
+    );
+  }
+}
+
+class TopHeader extends StatelessWidget {
+  const TopHeader({
+    Key key,
+    @required this.talk,
+  }) : super(key: key);
+
+  final Talk talk;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        for (var author in talk.authors)
+          Column(
+            children: <Widget>[
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: 120,
+                    height: 120,
+                    child: Stack(
+                      children: <Widget>[
+                        DottedBorder(
+                          borderType: BorderType.Circle,
+                          dashPattern: [4, 4],
+                          child: Center(
+                            child: CircleAvatar(
+                              radius: 120,
+                              backgroundImage:
+                                  ExtendedNetworkImageProvider(author.avatar),
+                              backgroundColor: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: TwitterButton(author: author),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SpeakerNameAndJob(author: author),
+            ],
+          ),
+      ],
+    );
+  }
+}
+
+class SpeakerNameAndJob extends StatelessWidget {
+  const SpeakerNameAndJob({
+    Key key,
+    @required this.author,
+  }) : super(key: key);
+
+  final Author author;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: Text(
+              author.name,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Container(
+            child: Text(
+              author.occupation,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class TwitterButton extends StatelessWidget {
+  const TwitterButton({
+    Key key,
+    @required this.author,
+  }) : super(key: key);
+
+  final Author author;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      borderRadius: BorderRadius.circular(32),
+      clipBehavior: Clip.antiAlias,
+      color: Colors.white,
+      child: IconButton(
+        onPressed: () {
+          print(author.twitter);
+
+          openTwitter(author.twitter);
+        },
+        iconSize: 32,
+        tooltip: 'See Twitter profile',
+        color: Colors.blue,
+        padding: EdgeInsets.all(0.0),
+        // visualDensity: VisualDensity.compact,
+        icon: Icon(LineIcons.twitter),
       ),
     );
   }
