@@ -562,9 +562,9 @@ SPEC CHECKSUMS:
   firebase_core_web: d501d8b946b60c8af265428ce483b0fff5ad52d1
   firebase_crashlytics: 0aa7aee0650dc57aff432c5e3fb6ae3ad9fc106b
   firebase_messaging: b8543d17dd9825f4f24a585477f77db103e5228e
-  firebase_ml_vision: e375046a4edc975d93abd164bcae2c7b5bde03e2
-  firebase_performance: fc19b0777eea6d5e74b8e8a100ca0148f5c03546
-  firebase_remote_config: aca16c8db963bba3c789d89cd0f69fc64d888118
+  firebase_ml_vision: a40524ef47717f380239e19567c9dc050d8cc1de
+  firebase_performance: bed42cee45cd3a44aadaf3e4fa18140f2fec3814
+  firebase_remote_config: b909942ae016c4b1dc115bc3846ae6181808a98d
   FirebaseABTesting: 0d10f3cdc3fa00f3f175b5b56c1003c8e888299f
   FirebaseAnalytics: 45f36d9c429fc91d206283900ab75390cd05ee8a
   FirebaseAnalyticsInterop: d48b6ab67bcf016a05e55b71fc39c61c0cb6b7f3
