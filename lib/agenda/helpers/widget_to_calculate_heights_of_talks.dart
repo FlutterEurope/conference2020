@@ -1,10 +1,18 @@
 import 'package:collection/collection.dart';
 import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
-import 'package:conferenceapp/agenda/talk_card.dart';
+import 'package:conferenceapp/agenda/widgets/animated_talk_hour.dart';
+import 'package:conferenceapp/agenda/widgets/talk_card.dart';
+import 'package:conferenceapp/model/agenda.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// This is a hacky workaround to calculate sizes of talk containers
+// before rendering them in the list view.
+// Gathering dimensions of the talks cards allows us to
+// animate their sizes and positions in Stacks.
+// This widget shouldn't be displayed normally
+// but instead rendered once to calculate all the dimensions.
 class WidgetUsedToCalculateHeightsOfTalkCards extends StatefulWidget {
   const WidgetUsedToCalculateHeightsOfTalkCards({
     Key key,
@@ -23,18 +31,26 @@ class _WidgetUsedToCalculateHeightsOfTalkCardsState
   Widget build(BuildContext context) {
     final layoutHelper = Provider.of<AgendaLayoutHelper>(context);
 
-    final talksPerHour = groupBy<Talk, DateTime>(
-        [...widget.talks[0], ...widget.talks[1]], (t) => t.dateTime);
+    if (widget.talks.isEmpty) {
+      return Container();
+    }
 
-    layoutHelper.setTalksCount(talksPerHour.length);
+    final talksPerHour = groupBy<Talk, DateTime>(
+        [...widget.talks[0], ...widget.talks[1]], (t) => t.startTime);
+
+    layoutHelper.setTalksCount(widget.talks[0].length + widget.talks[1].length);
+    final hours = talksPerHour.keys.toList();
 
     final widgets = <Widget>[];
     for (var index = 0; index < talksPerHour.length; index++) {
-      final _talk = talksPerHour[talksPerHour.keys.toList()[index]].first;
-      final _nextTalk =
-          talksPerHour[talksPerHour.keys.toList()[index]].length > 1
-              ? talksPerHour[talksPerHour.keys.toList()[index]][1]
-              : null;
+      final _thisHoursTalks = talksPerHour[hours[index]];
+      final _talk = _thisHoursTalks.firstWhere(
+          (t) => t.room.id != TalkType.advanced.toString(),
+          orElse: () => null);
+      final _nextTalk = _thisHoursTalks.firstWhere(
+          (t) => t.room.id == TalkType.advanced.toString(),
+          orElse: () => null);
+
       widgets.add(
         Column(
           mainAxisSize: MainAxisSize.min,
@@ -47,16 +63,19 @@ class _WidgetUsedToCalculateHeightsOfTalkCardsState
                 Opacity(
                   opacity: 0.0,
                   child: CompactLeftTalkContainer(
-                    talk: _talk,
+                    talk: _talk ?? _nextTalk,
                   ),
                 ),
-                Flexible(
-                  child: CompactPlaceholderTalkCard(
-                    talk: _talk,
-                    compact: true,
-                    helper: layoutHelper,
-                  ),
-                ),
+                if (_talk != null)
+                  Flexible(
+                    child: CompactPlaceholderTalkCard(
+                      talk: _talk,
+                      compact: true,
+                      helper: layoutHelper,
+                    ),
+                  )
+                else
+                  Flexible(child: Container()),
                 SizedBox(width: 10),
                 if (_nextTalk != null)
                   Flexible(
@@ -141,7 +160,7 @@ class CompactPlaceholderTalkCard extends StatelessWidget {
 
     return Opacity(
       key: _keyRed,
-      opacity: 0.0,
+      opacity: talk.title.contains("games") ? 1.0 : 0.0,
       child: Container(
         color: Colors.red,
         child: TalkCard(

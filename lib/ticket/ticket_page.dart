@@ -1,4 +1,4 @@
-import 'package:conferenceapp/agenda/talk_card.dart';
+import 'package:conferenceapp/agenda/widgets/talk_card.dart';
 import 'package:conferenceapp/common/appbar.dart';
 import 'package:conferenceapp/common/europe_text_field.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';

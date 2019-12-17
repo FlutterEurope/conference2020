@@ -1,3 +1,4 @@
+import 'package:conferenceapp/model/agenda.dart';
 import 'package:conferenceapp/model/room.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +42,10 @@ class AnimatedRoomIndicator extends StatelessWidget {
                     Expanded(
                       child: Center(
                         child: Text(
-                          rooms[0].name,
+                          rooms
+                              .firstWhere(
+                                  (t) => t.id == TalkType.beginner.toString())
+                              .name,
                           style: TextStyle(color: textColor),
                         ),
                       ),
@@ -49,7 +53,10 @@ class AnimatedRoomIndicator extends StatelessWidget {
                     Expanded(
                       child: Center(
                         child: Text(
-                          rooms[1].name,
+                          rooms
+                              .firstWhere(
+                                  (t) => t.id == TalkType.advanced.toString())
+                              .name,
                           style: TextStyle(color: textColor),
                         ),
                       ),

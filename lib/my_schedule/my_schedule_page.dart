@@ -65,11 +65,13 @@ class _MySchedulePageState extends State<MySchedulePage> {
       AsyncSnapshot<List<Talk>> snapshot, PopulatedAgendaState state) {
     final talks = {
       0: snapshot.data
-          .where((f) => sameDay(f.dateTime, state.talks[0].first.dateTime))
-          .toList(),
+          .where((f) => sameDay(f.startTime, state.talks[0].first.startTime))
+          .toList()
+            ..sort(),
       1: snapshot.data
-          .where((f) => sameDay(f.dateTime, state.talks[1].first.dateTime))
-          .toList(),
+          .where((f) => sameDay(f.startTime, state.talks[1].first.startTime))
+          .toList()
+            ..sort(),
     };
     return talks;
   }

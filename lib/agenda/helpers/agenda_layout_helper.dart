@@ -86,6 +86,9 @@ class AgendaLayoutHelper with ChangeNotifier {
     if (talkId == null && nextTalkId != null) {
       return 0;
     }
+    if (talkId != null && nextTalkId == null){
+      return 0;
+    }
     if (_compactTalkHeights[talkId] < _compactTalkHeights[nextTalkId]) {
       return 0;
     }

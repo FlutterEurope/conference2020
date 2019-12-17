@@ -26,7 +26,7 @@ class SearchResultsPage extends StatelessWidget {
                               : LineIcons.user,
                           value: v,
                           title: v.title,
-                          subtitle: v.authors.map((f) => f.fullName).join(", "),
+                          subtitle: v.authors.map((f) => f.name).join(", "),
                           criteria: criteria,
                         ))
                     .toList();

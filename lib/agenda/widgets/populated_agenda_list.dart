@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
-import 'package:conferenceapp/agenda/talk_card.dart';
+import 'package:conferenceapp/agenda/widgets/talk_card.dart';
+import 'package:conferenceapp/model/agenda.dart';
 import 'package:conferenceapp/model/room.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
@@ -10,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import 'animated_room_indicator.dart';
-import 'animated_talk_date.dart';
+import 'animated_talk_hour.dart';
 
 class PopulatedAgendaDayList extends StatelessWidget {
   const PopulatedAgendaDayList(
@@ -24,7 +25,8 @@ class PopulatedAgendaDayList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final talksPerHour = groupBy<Talk, DateTime>(talksInDay, (t) => t.dateTime);
+    final talksPerHour =
+        groupBy<Talk, DateTime>(talksInDay, (t) => t.startTime);
 
     final favoritesRepository =
         RepositoryProvider.of<FavoritesRepository>(context);
@@ -96,13 +98,16 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
       physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
       itemCount: talksPerHour.length,
       itemBuilder: (context, index) {
-        Talk _leftTalk;
-        Talk _rightTalk;
-        final thisHoursTalks = talksPerHour[hours[index]];
-        //TODO make it independent of rooms number
-        _leftTalk = thisHoursTalks.firstWhere((t) => t.room == rooms[0],
+        Talk _firstTalk;
+        Talk _secondTalk;
+
+        final _thisHoursTalks = talksPerHour[hours[index]];
+        //TODO: make it independent of rooms number
+        _firstTalk = _thisHoursTalks.firstWhere(
+            (t) => t.room.id != TalkType.advanced.toString(),
             orElse: () => null);
-        _rightTalk = thisHoursTalks.firstWhere((t) => t.room == rooms[1],
+        _secondTalk = _thisHoursTalks.firstWhere(
+            (t) => t.room.id == TalkType.advanced.toString(),
             orElse: () => null);
 
         final favoriteTalks = snapshot.data ?? [];
@@ -111,30 +116,115 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              AnimatedTalkDate(compact: compact, talk: _leftTalk ?? _rightTalk),
+              AnimatedTalkHour(
+                  compact: compact, talk: _firstTalk ?? _secondTalk),
               Flexible(
                 child: Stack(
                   children: <Widget>[
                     if ((compact &&
-                            layoutHelper.compactHeight(_leftTalk, _rightTalk) !=
+                            layoutHelper.compactHeight(
+                                    _firstTalk, _secondTalk) !=
                                 null) ||
                         (!compact &&
-                            layoutHelper.normalHeight(_leftTalk, _rightTalk) !=
+                            layoutHelper.normalHeight(
+                                    _firstTalk, _secondTalk) !=
                                 null))
                       LayoutBuilder(
                         builder: (context, constraints) {
+                          // final animator = Animator(
+                          //   duration: const Duration(milliseconds: 500),
+                          //   resetAnimationOnRebuild: true,
+                          //   tweenMap: {
+                          //     "firstBottom": Tween<double>(
+                          //       begin: layoutHelper
+                          //           .bottomPositionOfFirstTalkCardWhenCompact(
+                          //               _firstTalk?.id, _secondTalk?.id),
+                          //       end: layoutHelper
+                          //           .bottomPositionOfFirstTalkCardWhenNormal(
+                          //               _firstTalk?.id, _secondTalk?.id),
+                          //     ),
+                          //     "firstRight": Tween<double>(
+                          //       begin: constraints.maxWidth / 2 + 5,
+                          //       end: 0,
+                          //     ),
+                          //     "secondTop": Tween<double>(
+                          //       begin: 0,
+                          //       end: layoutHelper
+                          //           .normalTalkHeight(_firstTalk?.id),
+                          //     ),
+                          //     "secondLeft": Tween<double>(
+                          //       begin: constraints.maxWidth / 2 + 5,
+                          //       end: 0,
+                          //     ),
+                          //     "secondBottom": Tween<double>(
+                          //       begin: layoutHelper
+                          //           .bottomPositionOfSecondTalkCardWhenCompact(
+                          //               _firstTalk?.id, _secondTalk?.id),
+                          //       end: 0,
+                          //     )
+                          //   },
+                          //   builderMap: (anim) => AnimatedContainer(
+                          //     duration: Duration(milliseconds: 400),
+                          //     curve: Curves.easeOut,
+                          //     height: compact
+                          //         ? layoutHelper.compactHeight(
+                          //             _firstTalk, _secondTalk)
+                          //         : layoutHelper.normalHeight(
+                          //             _firstTalk, _secondTalk),
+                          //     child: Stack(
+                          //       fit: StackFit.expand,
+                          //       children: <Widget>[
+                          //         if (_firstTalk != null)
+                          //           Positioned(
+                          //             top: 0,
+                          //             left: 0,
+                          //             bottom: anim['firstBottom'].value,
+                          //             right: anim['firstRight'].value,
+                          //             child: TalkCard(
+                          //               key: ValueKey(_firstTalk.id),
+                          //               talk: _firstTalk,
+                          //               isFavorite: favoriteTalks
+                          //                   .any((t) => t.id == _firstTalk.id),
+                          //               first: true,
+                          //               compact: compact,
+                          //               onTap: () => onTap(context, _firstTalk),
+                          //             ),
+                          //           ),
+                          //         if (_secondTalk != null)
+                          //           Positioned(
+                          //             top: anim['secondTop'].value,
+                          //             left: anim['secondLeft'].value,
+                          //             right: 0,
+                          //             bottom: anim['secondBottom'].value,
+                          //             child: TalkCard(
+                          //               key: ValueKey(_secondTalk.id),
+                          //               talk: _secondTalk,
+                          //               isFavorite: favoriteTalks
+                          //                   .any((t) => t.id == _secondTalk.id),
+                          //               first: false,
+                          //               compact: compact,
+                          //               onTap: () =>
+                          //                   onTap(context, _secondTalk),
+                          //             ),
+                          //           )
+                          //       ],
+                          //     ),
+                          //   ),
+                          // );
+
+                          //
                           return AnimatedContainer(
                             duration: Duration(milliseconds: 400),
                             curve: Curves.easeOut,
                             height: compact
                                 ? layoutHelper.compactHeight(
-                                    _leftTalk, _rightTalk)
+                                    _firstTalk, _secondTalk)
                                 : layoutHelper.normalHeight(
-                                    _leftTalk, _rightTalk),
+                                    _firstTalk, _secondTalk),
                             child: Stack(
                               fit: StackFit.expand,
                               children: <Widget>[
-                                if (_leftTalk != null)
+                                if (_firstTalk != null)
                                   AnimatedPositioned(
                                     duration: Duration(milliseconds: 400),
                                     curve: Curves.easeOut,
@@ -143,31 +233,32 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
                                     bottom: compact
                                         ? layoutHelper
                                             .bottomPositionOfFirstTalkCardWhenCompact(
-                                                _leftTalk?.id, _rightTalk?.id)
+                                                _firstTalk?.id, _secondTalk?.id)
                                         : layoutHelper
                                             .bottomPositionOfFirstTalkCardWhenNormal(
-                                                _leftTalk?.id, _rightTalk?.id),
+                                                _firstTalk?.id,
+                                                _secondTalk?.id),
                                     right: compact
                                         ? constraints.maxWidth / 2 + 5
                                         : 0,
                                     child: TalkCard(
-                                      key: ValueKey(_leftTalk.id),
-                                      talk: _leftTalk,
+                                      key: ValueKey(_firstTalk.id),
+                                      talk: _firstTalk,
                                       isFavorite: favoriteTalks
-                                          .any((t) => t.id == _leftTalk.id),
+                                          .any((t) => t.id == _firstTalk.id),
                                       first: true,
                                       compact: compact,
-                                      onTap: () => onTap(context, _leftTalk),
+                                      onTap: () => onTap(context, _firstTalk),
                                     ),
                                   ),
-                                if (_rightTalk != null)
+                                if (_secondTalk != null)
                                   AnimatedPositioned(
                                     duration: Duration(milliseconds: 400),
                                     curve: Curves.easeOut,
                                     top: compact
                                         ? 0
                                         : layoutHelper
-                                            .normalTalkHeight(_leftTalk?.id),
+                                            .normalTalkHeight(_firstTalk?.id),
                                     left: compact
                                         ? constraints.maxWidth / 2 + 5
                                         : 0,
@@ -175,16 +266,16 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
                                     bottom: compact
                                         ? layoutHelper
                                             .bottomPositionOfSecondTalkCardWhenCompact(
-                                                _leftTalk?.id, _rightTalk?.id)
+                                                _firstTalk?.id, _secondTalk?.id)
                                         : 0,
                                     child: TalkCard(
-                                      key: ValueKey(_rightTalk.id),
-                                      talk: _rightTalk,
+                                      key: ValueKey(_secondTalk.id),
+                                      talk: _secondTalk,
                                       isFavorite: favoriteTalks
-                                          .any((t) => t.id == _rightTalk.id),
+                                          .any((t) => t.id == _secondTalk.id),
                                       first: false,
                                       compact: compact,
-                                      onTap: () => onTap(context, _rightTalk),
+                                      onTap: () => onTap(context, _secondTalk),
                                     ),
                                   )
                               ],
