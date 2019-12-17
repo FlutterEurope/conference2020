@@ -33,7 +33,7 @@ class FlutterEuropeAppBar extends StatelessWidget
                 key: ValueKey('logo_image_1'),
               )
             : Image.asset(
-                'assets/logo_negative_dark.png',
+                'assets/flutter_europe_dark.png',
                 height: imageHeight,
                 key: ValueKey('logo_image_2'),
               ),
