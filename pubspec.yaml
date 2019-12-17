@@ -47,6 +47,7 @@ dependencies:
   rxdart: ^0.22.6
   expandable: ^4.0.1
   smooth_star_rating: ^1.0.3
+  feature_discovery: ^0.6.0
 
   cupertino_icons: ^0.1.2
 
