@@ -183,9 +183,10 @@ class ChangeNotifierProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     final sharedPreferences = Provider.of<SharedPreferences>(context);
     final agendaMode = sharedPreferences.getString('agenda_mode');
+    final compactMode = agendaMode == 'compact' || agendaMode == null;
 
     return ChangeNotifierProvider<AgendaLayoutHelper>(
-      create: (_) => AgendaLayoutHelper(agendaMode == 'compact'),
+      create: (_) => AgendaLayoutHelper(compactMode),
       child: child,
     );
   }
