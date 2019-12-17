@@ -160,7 +160,7 @@ class CompactPlaceholderTalkCard extends StatelessWidget {
 
     return Opacity(
       key: _keyRed,
-      opacity: talk.title.contains("games") ? 1.0 : 0.0,
+      opacity: 0.0,
       child: Container(
         color: Colors.red,
         child: TalkCard(
