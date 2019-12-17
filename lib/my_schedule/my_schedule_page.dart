@@ -50,6 +50,7 @@ class _MySchedulePageState extends State<MySchedulePage> {
                     state.rooms,
                     pageController,
                     currentIndex,
+                    skipWidgetPreload: true,
                   ),
                 ],
               );
