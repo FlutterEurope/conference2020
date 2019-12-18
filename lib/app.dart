@@ -43,26 +43,26 @@ class MyApp extends StatelessWidget {
     return DynamicTheme(
       defaultBrightness: Brightness.light,
       data: (brightness) => ThemeData(
-        primaryColor: blue,
-        scaffoldBackgroundColor: brightness == Brightness.light
-            ? Colors.grey[100]
-            : Colors.grey[850],
-        accentColor: orange,
-        toggleableActiveColor: orange,
-        dividerColor:
-            brightness == Brightness.light ? Colors.white : Colors.white54,
-        brightness: brightness,
-        fontFamily: 'PTSans',
-        bottomAppBarTheme: Theme.of(context).bottomAppBarTheme.copyWith(
-              elevation: 0,
-            ),
-        pageTransitionsTheme: PageTransitionsTheme(
-          builders: <TargetPlatform, PageTransitionsBuilder>{
-            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-          },
-        ),
-      ),
+          primaryColor: blue,
+          scaffoldBackgroundColor: brightness == Brightness.light
+              ? Colors.grey[100]
+              : Colors.grey[850],
+          accentColor: orange,
+          toggleableActiveColor: orange,
+          dividerColor:
+              brightness == Brightness.light ? Colors.white : Colors.white54,
+          brightness: brightness,
+          fontFamily: 'PTSans',
+          bottomAppBarTheme: Theme.of(context).bottomAppBarTheme.copyWith(
+                elevation: 0,
+              ),
+          pageTransitionsTheme: PageTransitionsTheme(
+            builders: <TargetPlatform, PageTransitionsBuilder>{
+              TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+              TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+            },
+          ),
+          iconTheme: Theme.of(context).iconTheme.copyWith(color: orange)),
       themedWidgetBuilder: (context, theme) {
         return MultiProvider(
           providers: [
