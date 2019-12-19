@@ -27,6 +27,17 @@
             ],
         },
         {
+            "name": "Flutter Tst Debug",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "program": "lib/main_dev.dart",
+            "args": [
+                "--flavor",
+                "tst"
+            ],
+        },
+        {
             "name": "Flutter Tst",
             "request": "launch",
             "type": "dart",
