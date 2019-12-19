@@ -31,7 +31,7 @@ class TitleWrapper extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               TalkTitle(talk: talk, compact: compact),
-              Flexible(child: SpeakersHeightEquivalent(talk: talk)),
+              Speakers(topPadding: topPadding, talk: talk, compact: compact),
             ],
           ),
         ],
@@ -58,7 +58,7 @@ class TalkTitle extends StatelessWidget {
       children: <Widget>[
         Flexible(
           child: Padding(
-            padding: const EdgeInsets.only(right: 18.0),
+            padding: EdgeInsets.only(right: 18.0),
             child: TalkTitleText(
               title: talk.title,
               compact: compact,
@@ -82,20 +82,6 @@ class TalkTitleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedDefaultTextStyle(
-      duration: Duration(milliseconds: 400),
-      style: compact
-          ? Theme.of(context)
-              .textTheme
-              .body2
-              .copyWith(fontSize: 16, fontWeight: FontWeight.w400)
-          : Theme.of(context)
-              .textTheme
-              .body2
-              .copyWith(fontSize: 20, fontWeight: FontWeight.w400),
-      child: Text(
-        title,
-      ),
-    );
+    return Text(title, style: TextStyle(fontSize: compact ? 14 : 16));
   }
 }

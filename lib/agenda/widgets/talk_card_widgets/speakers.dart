@@ -18,17 +18,15 @@ class Speakers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (talk == null) return Container();
-    return Padding(
-      padding: EdgeInsets.only(bottom: topPadding, left: 16.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          for (var speaker in talk.authors)
-            _TalkSpeaker(speaker: speaker, compact: compact),
-        ],
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        for (var speaker in talk.authors)
+          _TalkSpeaker(speaker: speaker, compact: compact),
+        if (talk.authors.isEmpty) SizedBox(height: 24)
+      ],
     );
   }
 }
@@ -50,26 +48,25 @@ class _TalkSpeaker extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          CircleAvatar(
-            key: ValueKey(speaker.avatar),
-            radius: 10,
-            backgroundImage: speaker.avatar != null
-                ? ExtendedNetworkImageProvider(
-                    speaker.avatar,
-                    cache: true,
-                  )
-                : null,
-          ),
+          if (speaker.avatar != null)
+            Container(
+              width: 20,
+              height: 20,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: ExtendedNetworkImageProvider(
+                    speaker.avatar + '?fit=fill&w=50&h=50',
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
           SizedBox(width: compact ? 5 : 10),
           Flexible(
-            child: AnimatedDefaultTextStyle(
-              duration: Duration(milliseconds: 400),
-              style: compact
-                  ? Theme.of(context).textTheme.body2.copyWith(fontSize: 12)
-                  : Theme.of(context).textTheme.body2.copyWith(fontSize: 14),
-              child: Text(
-                speaker.name,
-              ),
+            child: Text(
+              speaker.name,
+              style: TextStyle(fontSize: compact ? 12 : 14),
             ),
           ),
         ],

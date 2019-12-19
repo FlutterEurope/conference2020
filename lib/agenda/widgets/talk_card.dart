@@ -46,25 +46,18 @@ class TalkCard extends StatelessWidget {
                     TitleWrapper(
                         topPadding: topPadding, talk: talk, compact: compact),
                     Positioned(
-                      bottom: 0,
-                      left: 0,
                       right: 0,
-                      child: Speakers(
-                          topPadding: topPadding, talk: talk, compact: compact),
+                      top: compact ? 0 : null,
+                      bottom: compact ? null : 0,
+                      child: FavoriteButton(
+                        isFavorite: isFavorite,
+                        talkId: talk?.id,
+                      ),
                     ),
                     Positioned(
                       top: 0,
                       right: 0,
                       child: RoomIndicator(compact: compact, talk: talk),
-                    ),
-                    AnimatedAlign(
-                      duration: Duration(milliseconds: 300),
-                      alignment:
-                          compact ? Alignment.topRight : Alignment.bottomRight,
-                      child: FavoriteButton(
-                        isFavorite: isFavorite,
-                        talkId: talk?.id,
-                      ),
                     ),
                   ],
                 ),
@@ -86,16 +79,22 @@ class TalkCardDecoration extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 30,
-            offset: Offset(0, 10),
-            color: Colors.black.withOpacity(0.1),
-            spreadRadius: -10,
-          )
-        ],
-      ),
+          // border: Border.all(color: Colors.black26, width: 2),
+          // boxShadow: [
+          //   BoxShadow(
+          //     blurRadius: 4,
+          //     offset: Offset(2, 2),
+          //     color: Colors.black.withOpacity(0.11),
+          //   ),
+          //   BoxShadow(
+          //     blurRadius: 4,
+          //     offset: Offset(-2, -2),
+          //     color: Colors.white.withOpacity(0.93),
+          //   )
+          // ],
+          ),
       child: Material(
+        // color: Theme.of(context).scaffoldBackgroundColor,
         color: Theme.of(context).cardColor,
         child: child,
       ),

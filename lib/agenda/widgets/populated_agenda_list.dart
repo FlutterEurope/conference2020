@@ -35,19 +35,15 @@ class PopulatedAgendaDayList extends StatelessWidget {
       builder: (context, snapshot) {
         final layoutHelper = Provider.of<AgendaLayoutHelper>(context);
         final compact = layoutHelper.isCompact();
-        final heightsCalculated = layoutHelper.hasHeightsCalculated();
         return Stack(
           children: <Widget>[
-            if (heightsCalculated)
-              PopulatedAgendaDayListContent(
-                talksPerHour: talksPerHour,
-                rooms: rooms,
-                compact: compact,
-                layoutHelper: layoutHelper,
-                snapshot: snapshot,
-              )
-            else
-              Center(child: CircularProgressIndicator()),
+            PopulatedAgendaDayListContent(
+              talksPerHour: talksPerHour,
+              rooms: rooms,
+              compact: compact,
+              layoutHelper: layoutHelper,
+              snapshot: snapshot,
+            ),
             Positioned(
               top: 0,
               left: 0,
@@ -89,206 +85,197 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
         child: Text('No talks on this day'),
       );
     }
+    final favoriteTalks = snapshot.data ?? [];
 
-    return ListView.builder(
-      padding: EdgeInsets.symmetric(
-        horizontal: 12.0,
-        vertical: 16.0,
-      ),
-      physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-      itemCount: talksPerHour.length,
-      itemBuilder: (context, index) {
-        Talk _firstTalk;
-        Talk _secondTalk;
+    final listCompact = compact
+        ? ListView.builder(
+            padding: EdgeInsets.symmetric(
+              horizontal: 12.0,
+              vertical: 16.0,
+            ),
+            physics:
+                AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+            itemCount: talksPerHour.length,
+            itemBuilder: (context, index) {
+              Talk _firstTalk;
+              Talk _secondTalk;
 
-        final _thisHoursTalks = talksPerHour[hours[index]];
-        //TODO: make it independent of rooms number
-        _firstTalk = _thisHoursTalks.firstWhere(
-            (t) => t.room.id != TalkType.advanced.toString(),
-            orElse: () => null);
-        _secondTalk = _thisHoursTalks.firstWhere(
-            (t) => t.room.id == TalkType.advanced.toString(),
-            orElse: () => null);
+              final _thisHoursTalks = talksPerHour[hours[index]];
 
-        final favoriteTalks = snapshot.data ?? [];
+              //TODO: make it independent of rooms number
+              _firstTalk = _thisHoursTalks.firstWhere(
+                  (t) => t.room.id != TalkType.advanced.toString(),
+                  orElse: () => null);
+              _secondTalk = _thisHoursTalks.firstWhere(
+                  (t) => t.room.id == TalkType.advanced.toString(),
+                  orElse: () => null);
 
-        return Container(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              AnimatedTalkHour(
-                  compact: compact, talk: _firstTalk ?? _secondTalk),
-              Flexible(
-                child: Stack(
-                  children: <Widget>[
-                    if ((compact &&
-                            layoutHelper.compactHeight(
-                                    _firstTalk, _secondTalk) !=
-                                null) ||
-                        (!compact &&
-                            layoutHelper.normalHeight(
-                                    _firstTalk, _secondTalk) !=
-                                null))
-                      LayoutBuilder(
-                        builder: (context, constraints) {
-                          // final animator = Animator(
-                          //   duration: const Duration(milliseconds: 500),
-                          //   resetAnimationOnRebuild: true,
-                          //   tweenMap: {
-                          //     "firstBottom": Tween<double>(
-                          //       begin: layoutHelper
-                          //           .bottomPositionOfFirstTalkCardWhenCompact(
-                          //               _firstTalk?.id, _secondTalk?.id),
-                          //       end: layoutHelper
-                          //           .bottomPositionOfFirstTalkCardWhenNormal(
-                          //               _firstTalk?.id, _secondTalk?.id),
-                          //     ),
-                          //     "firstRight": Tween<double>(
-                          //       begin: constraints.maxWidth / 2 + 5,
-                          //       end: 0,
-                          //     ),
-                          //     "secondTop": Tween<double>(
-                          //       begin: 0,
-                          //       end: layoutHelper
-                          //           .normalTalkHeight(_firstTalk?.id),
-                          //     ),
-                          //     "secondLeft": Tween<double>(
-                          //       begin: constraints.maxWidth / 2 + 5,
-                          //       end: 0,
-                          //     ),
-                          //     "secondBottom": Tween<double>(
-                          //       begin: layoutHelper
-                          //           .bottomPositionOfSecondTalkCardWhenCompact(
-                          //               _firstTalk?.id, _secondTalk?.id),
-                          //       end: 0,
-                          //     )
-                          //   },
-                          //   builderMap: (anim) => AnimatedContainer(
-                          //     duration: Duration(milliseconds: 400),
-                          //     curve: Curves.easeOut,
-                          //     height: compact
-                          //         ? layoutHelper.compactHeight(
-                          //             _firstTalk, _secondTalk)
-                          //         : layoutHelper.normalHeight(
-                          //             _firstTalk, _secondTalk),
-                          //     child: Stack(
-                          //       fit: StackFit.expand,
-                          //       children: <Widget>[
-                          //         if (_firstTalk != null)
-                          //           Positioned(
-                          //             top: 0,
-                          //             left: 0,
-                          //             bottom: anim['firstBottom'].value,
-                          //             right: anim['firstRight'].value,
-                          //             child: TalkCard(
-                          //               key: ValueKey(_firstTalk.id),
-                          //               talk: _firstTalk,
-                          //               isFavorite: favoriteTalks
-                          //                   .any((t) => t.id == _firstTalk.id),
-                          //               first: true,
-                          //               compact: compact,
-                          //               onTap: () => onTap(context, _firstTalk),
-                          //             ),
-                          //           ),
-                          //         if (_secondTalk != null)
-                          //           Positioned(
-                          //             top: anim['secondTop'].value,
-                          //             left: anim['secondLeft'].value,
-                          //             right: 0,
-                          //             bottom: anim['secondBottom'].value,
-                          //             child: TalkCard(
-                          //               key: ValueKey(_secondTalk.id),
-                          //               talk: _secondTalk,
-                          //               isFavorite: favoriteTalks
-                          //                   .any((t) => t.id == _secondTalk.id),
-                          //               first: false,
-                          //               compact: compact,
-                          //               onTap: () =>
-                          //                   onTap(context, _secondTalk),
-                          //             ),
-                          //           )
-                          //       ],
-                          //     ),
-                          //   ),
-                          // );
-                          //
-                          return AnimatedContainer(
-                            duration: Duration(milliseconds: 400),
-                            curve: Curves.easeOut,
-                            height: compact
-                                ? layoutHelper.compactHeight(
-                                    _firstTalk, _secondTalk)
-                                : layoutHelper.normalHeight(
-                                    _firstTalk, _secondTalk),
-                            child: Stack(
-                              fit: StackFit.expand,
-                              children: <Widget>[
-                                if (_firstTalk != null)
-                                  AnimatedPositioned(
-                                    duration: Duration(milliseconds: 400),
-                                    curve: Curves.easeOut,
-                                    top: 0,
-                                    left: 0,
-                                    bottom: compact
-                                        ? layoutHelper
-                                            .bottomPositionOfFirstTalkCardWhenCompact(
-                                                _firstTalk?.id, _secondTalk?.id)
-                                        : layoutHelper
-                                            .bottomPositionOfFirstTalkCardWhenNormal(
-                                                _firstTalk?.id,
-                                                _secondTalk?.id),
-                                    right: compact
-                                        ? constraints.maxWidth / 2 + 5
-                                        : 0,
-                                    child: TalkCard(
-                                      key: ValueKey(_firstTalk.id),
-                                      talk: _firstTalk,
-                                      isFavorite: favoriteTalks
-                                          .any((t) => t.id == _firstTalk.id),
-                                      first: true,
-                                      compact: compact,
-                                      onTap: () => onTap(context, _firstTalk),
-                                    ),
-                                  ),
-                                if (_secondTalk != null)
-                                  AnimatedPositioned(
-                                    duration: Duration(milliseconds: 400),
-                                    curve: Curves.easeOut,
-                                    top: compact
-                                        ? 0
-                                        : layoutHelper
-                                            .normalTalkHeight(_firstTalk?.id),
-                                    left: compact
-                                        ? constraints.maxWidth / 2 + 5
-                                        : 0,
-                                    right: 0,
-                                    bottom: compact
-                                        ? layoutHelper
-                                            .bottomPositionOfSecondTalkCardWhenCompact(
-                                                _firstTalk?.id, _secondTalk?.id)
-                                        : 0,
-                                    child: TalkCard(
-                                      key: ValueKey(_secondTalk.id),
-                                      talk: _secondTalk,
-                                      isFavorite: favoriteTalks
-                                          .any((t) => t.id == _secondTalk.id),
-                                      first: false,
-                                      compact: compact,
-                                      onTap: () => onTap(context, _secondTalk),
-                                    ),
-                                  )
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                  ],
-                ),
-              ),
-            ],
+              final firstChild = getCompactTalkCards(
+                  _firstTalk, _secondTalk, favoriteTalks, context);
+
+              return Container(
+                child: firstChild,
+              );
+            },
+          )
+        : Container();
+
+    final listNormal = compact
+        ? Container()
+        : ListView.builder(
+            padding: EdgeInsets.symmetric(
+              horizontal: 12.0,
+              vertical: 16.0,
+            ),
+            physics:
+                AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+            itemCount: talksPerHour.length,
+            itemBuilder: (context, index) {
+              Talk _firstTalk;
+              Talk _secondTalk;
+
+              final _thisHoursTalks = talksPerHour[hours[index]];
+
+              //TODO: make it independent of rooms number
+              _firstTalk = _thisHoursTalks.firstWhere(
+                  (t) => t.room.id != TalkType.advanced.toString(),
+                  orElse: () => null);
+              _secondTalk = _thisHoursTalks.firstWhere(
+                  (t) => t.room.id == TalkType.advanced.toString(),
+                  orElse: () => null);
+
+              final secondChild = getNormalTalkCards(
+                  _firstTalk, favoriteTalks, context, _secondTalk);
+
+              return Container(
+                child: secondChild,
+              );
+            },
+          );
+
+    return AnimatedCrossFade(
+      duration: Duration(milliseconds: 400),
+      crossFadeState:
+          compact ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+      firstChild: listCompact,
+      secondChild: listNormal,
+    );
+
+    // return ListView.builder(
+    //   padding: EdgeInsets.symmetric(
+    //     horizontal: 12.0,
+    //     vertical: 16.0,
+    //   ),
+    //   physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+    //   itemCount: talksPerHour.length,
+    //   itemBuilder: (context, index) {
+    //     Talk _firstTalk;
+    //     Talk _secondTalk;
+
+    //     final _thisHoursTalks = talksPerHour[hours[index]];
+
+    //     //TODO: make it independent of rooms number
+    //     _firstTalk = _thisHoursTalks.firstWhere(
+    //         (t) => t.room.id != TalkType.advanced.toString(),
+    //         orElse: () => null);
+    //     _secondTalk = _thisHoursTalks.firstWhere(
+    //         (t) => t.room.id == TalkType.advanced.toString(),
+    //         orElse: () => null);
+
+    //     final firstChild = getCompactTalkCards(
+    //         _firstTalk, _secondTalk, favoriteTalks, context);
+    //     final secondChild =
+    //         getNormalTalkCards(_firstTalk, favoriteTalks, context, _secondTalk);
+
+    //     return Container(
+    //       child: Row(
+    //         crossAxisAlignment: CrossAxisAlignment.start,
+    //         children: <Widget>[
+    //           Flexible(
+    //             child: Stack(
+    //               children: <Widget>[
+    //                 AnimatedCrossFade(
+    //                   duration: Duration(milliseconds: 400),
+    //                   crossFadeState: compact
+    //                       ? CrossFadeState.showFirst
+    //                       : CrossFadeState.showSecond,
+    //                   firstChild: firstChild,
+    //                   secondChild: secondChild,
+    //                 ),
+    //               ],
+    //             ),
+    //           ),
+    //         ],
+    //       ),
+    //     );
+    //   },
+    // );
+  }
+
+  Column getNormalTalkCards(Talk _firstTalk, List<Talk> favoriteTalks,
+      BuildContext context, Talk _secondTalk) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        if (_firstTalk != null)
+          TalkCard(
+            key: ValueKey(_firstTalk.id),
+            talk: _firstTalk,
+            isFavorite: favoriteTalks.any((t) => t.id == _firstTalk.id),
+            first: true,
+            compact: false,
+            onTap: () => onTap(context, _firstTalk),
           ),
-        );
-      },
+        if (_secondTalk != null)
+          TalkCard(
+            key: ValueKey(_secondTalk.id),
+            talk: _secondTalk,
+            isFavorite: favoriteTalks.any((t) => t.id == _secondTalk.id),
+            first: false,
+            compact: false,
+            onTap: () => onTap(context, _secondTalk),
+          ),
+      ],
+    );
+  }
+
+  Row getCompactTalkCards(Talk _firstTalk, Talk _secondTalk,
+      List<Talk> favoriteTalks, BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        AnimatedTalkHour(compact: compact, talk: _firstTalk ?? _secondTalk),
+        if (_firstTalk != null)
+          Flexible(
+            child: TalkCard(
+              key: ValueKey(_firstTalk.id),
+              talk: _firstTalk,
+              isFavorite: favoriteTalks.any((t) => t.id == _firstTalk.id),
+              first: true,
+              compact: true,
+              onTap: () => onTap(context, _firstTalk),
+            ),
+          )
+        else
+          Flexible(child: Container()),
+        if (_secondTalk != null)
+          SizedBox(
+            width: 12,
+          ),
+        if (_secondTalk != null)
+          Flexible(
+            child: TalkCard(
+              key: ValueKey(_secondTalk.id),
+              talk: _secondTalk,
+              isFavorite: favoriteTalks.any((t) => t.id == _secondTalk.id),
+              first: false,
+              compact: true,
+              onTap: () => onTap(context, _secondTalk),
+            ),
+          )
+        else
+          Flexible(child: Container()),
+      ],
     );
   }
 

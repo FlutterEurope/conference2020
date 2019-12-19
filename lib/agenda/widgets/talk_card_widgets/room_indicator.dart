@@ -17,6 +17,15 @@ class RoomIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (talk == null) return Container();
+    return Visibility(
+      visible: !compact,
+      child: _Triangle(
+        talk.room,
+        color: talk.room.id == TalkType.beginner.toString()
+            ? Theme.of(context).primaryColor
+            : Theme.of(context).accentColor,
+      ),
+    );
     return AnimatedOpacity(
       duration: Duration(milliseconds: 500),
       opacity: compact ? 0 : 1,
