@@ -53,6 +53,9 @@ class TalkPageContent extends StatelessWidget {
           SliverAppBar(
             floating: false,
             pinned: false,
+            backgroundColor: Theme.of(context).brightness == Brightness.light
+                ? Theme.of(context).primaryColor
+                : Theme.of(context).scaffoldBackgroundColor,
             actions: <Widget>[
               TalkDetailsFavoriteButton(talk: talk),
             ],
@@ -279,8 +282,8 @@ class TopHeader extends StatelessWidget {
                           child: Center(
                             child: CircleAvatar(
                               radius: 120,
-                              backgroundImage:
-                                  ExtendedNetworkImageProvider(author.avatar),
+                              backgroundImage: ExtendedNetworkImageProvider(
+                                  author.avatar + '?fit=fill&w=300&h=300'),
                               backgroundColor: Theme.of(context).primaryColor,
                             ),
                           ),
