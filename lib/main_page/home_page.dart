@@ -10,6 +10,7 @@ import 'package:conferenceapp/my_schedule/my_schedule_page.dart';
 import 'package:conferenceapp/notifications/notifications_page.dart';
 import 'package:conferenceapp/profile/profile_page.dart';
 import 'package:conferenceapp/search/search_results_page.dart';
+import 'package:conferenceapp/talk/talk_page.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -42,6 +43,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    //TODO: show only once
     Timer(Duration(milliseconds: 1500), () {
       FeatureDiscovery.discoverFeatures(
         context,
@@ -56,6 +58,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: FlutterEuropeAppBar(
         onSearch: () {
           _showSearch(context);
@@ -154,7 +157,6 @@ class _HomePageState extends State<HomePage> {
     try {
       final res =
           await Navigator.push<Talk>(context, _buildSearchPage(context));
-      //TODO navigate to talk details
       if (res != null) {
         analytics.logEvent(
           name: 'search_completed',
@@ -163,14 +165,12 @@ class _HomePageState extends State<HomePage> {
             'selected_talk': '$res',
           },
         );
-        Fluttertoast.showToast(
-          msg: "$res",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIos: 1,
-          backgroundColor: Colors.black,
-          textColor: Colors.white,
-          fontSize: 14.0,
+        await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TalkPage(res.id),
+            settings: RouteSettings(name: 'agenda/${res.id}'),
+          ),
         );
       }
     } catch (e) {
