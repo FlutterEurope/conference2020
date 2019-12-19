@@ -57,21 +57,21 @@ main() {
             listOfTalks.length == 1 && listOfTalks.first.id == 'id1'),
       );
     });
-  });
 
-  test('addToFavorites calls user repository', () {
-    //given
-    //when
-    sut.addTalkToFavorites('talkId');
-    //then
-    verify(userRepository.addTalkToFavorites('talkId')).called(1);
-  });
+    test('addToFavorites calls user repository', () {
+      //given
+      //when
+      sut.addTalkToFavorites('talkId');
+      //then
+      verify(userRepository.addTalkToFavorites('talkId')).called(1);
+    });
 
-  test('removeFromFavorites calls user repository', () {
-    //given
-    //when
-    sut.removeTalkFromFavorites('talkId');
-    //then
-    verify(userRepository.removeTalkFromFavorites('talkId')).called(1);
+    test('removeFromFavorites calls user repository', () {
+      //given
+      //when
+      sut.removeTalkFromFavorites('talkId');
+      //then
+      verify(userRepository.removeTalkFromFavorites('talkId')).called(1);
+    });
   });
 }

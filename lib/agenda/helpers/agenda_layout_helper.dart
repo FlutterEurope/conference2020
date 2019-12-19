@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AgendaLayoutHelper with ChangeNotifier {
-  bool _compact;
+  bool _compact = true;
   bool _hasHeightsCalculated = false;
   int _talksCount;
 
@@ -35,8 +35,8 @@ class AgendaLayoutHelper with ChangeNotifier {
   }
 
   void checkIfNotifyAboutHeight() {
-    if (_compactTalkHeights.length == _talksCount &&
-        _normalTalkHeights.length == _talksCount) {
+    if (_compactTalkHeights.length >= _talksCount &&
+        _normalTalkHeights.length >= _talksCount) {
       finishHeightsCalculation();
     }
   }
@@ -77,14 +77,16 @@ class AgendaLayoutHelper with ChangeNotifier {
         final heightN = _normalTalkHeights[nextTalk.id];
         return heightT + heightN;
       }
-    } catch (e) {
-      return 100;
-    }
+    } catch (e) {}
+    return 100;
   }
 
   double bottomPositionOfSecondTalkCardWhenCompact(
       String talkId, String nextTalkId) {
     if (talkId == null && nextTalkId != null) {
+      return 0;
+    }
+    if (talkId != null && nextTalkId == null) {
       return 0;
     }
     if (_compactTalkHeights[talkId] < _compactTalkHeights[nextTalkId]) {

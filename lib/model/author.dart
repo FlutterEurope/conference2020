@@ -1,3 +1,4 @@
+import 'package:conferenceapp/model/agenda.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'author.g.dart';
@@ -8,20 +9,36 @@ part 'author.g.dart';
   anyMap: true,
 )
 class Author {
-  Author(this.firstName, this.lastName, this.bio, this.occupation, this.twitter, this.email, this.avatar, this.id);
+  Author(
+    this.id,
+    this.name,
+    this.longBio,
+    this.occupation,
+    this.twitter,
+    this.avatar,
+  );
+
   factory Author.fromJson(Map<String, dynamic> json) => _$AuthorFromJson(json);
   Map<String, dynamic> toJson() => _$AuthorToJson(this);
 
-  final String firstName;
-  final String lastName;
+  factory Author.fromSpeaker(ContentfulSpeaker speaker) {
+    if (speaker == null) {
+      return null;
+    }
+    return Author(
+      speaker.sys?.id,
+      speaker.fields.name,
+      speaker.fields.longBio.toSimpleString(),
+      speaker.fields.bio.toSimpleString(),
+      speaker.fields.twitter,
+      speaker.fields.picture.fields.file.url.replaceAll("//", "http://"),
+    );
+  }
 
-  @JsonKey(ignore: true)
-  String get fullName => "$firstName $lastName";
-
-  final String bio;
+  final String id;
+  final String name;
+  final String longBio;
   final String occupation;
   final String twitter;
-  final String email;
   final String avatar;
-  final int id;
 }

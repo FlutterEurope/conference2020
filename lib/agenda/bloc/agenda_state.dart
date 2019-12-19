@@ -12,20 +12,23 @@ class LoadingAgendaState extends AgendaState {}
 class PopulatedAgendaState extends AgendaState {
   PopulatedAgendaState(List<Talk> talks) {
     final dates = talks
-        .map((t) => DateTime(t.dateTime.year, t.dateTime.month, t.dateTime.day))
+        .map((t) =>
+            DateTime(t.startTime.year, t.startTime.month, t.startTime.day))
         .toSet() //this removes duplicates
         .toList()
           ..sort((n, m) => n.compareTo(m));
+          
     _rooms.addAll(talks.map<Room>((t) => t.room).toSet().toList());
+
     _talks.addAll({
       for (var i = 0; i < dates.length; i++)
         i: talks
             .where((t) =>
-                (t.dateTime.isAfter(dates[i]) ||
-                    t.dateTime ==
+                (t.startTime.isAfter(dates[i]) ||
+                    t.startTime ==
                         dates[
                             i]) && //we need talks from the day 't' but also ones starting at 0:00
-                t.dateTime.isBefore(dates[i]
+                t.startTime.isBefore(dates[i]
                     .add(Duration(days: 1)))) // up to 0:00 of the next day
             .toList()
               ..sort((n, m) => n.compareTo(m))

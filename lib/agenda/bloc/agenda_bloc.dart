@@ -35,7 +35,9 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   }
 
   Stream<AgendaState> mapUpdateToState(AgendaUpdated event) async* {
-    yield PopulatedAgendaState(event.talks);
+    if (event.talks != null) {
+      yield PopulatedAgendaState(event.talks);
+    }
   }
 
   @override

@@ -1,4 +1,4 @@
-import 'package:conferenceapp/agenda/talk_card.dart';
+import 'package:conferenceapp/agenda/widgets/talk_card_widgets/favorite_button.dart';
 import 'package:conferenceapp/analytics.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -100,7 +100,7 @@ class FavoriteButtonWrapper extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: RepositoryProvider<FavoritesRepository>(
-          builder: (_) => favoritesRepository,
+          create: (_) => favoritesRepository,
           child: Stack(
             children: <Widget>[
               FavoriteButton(

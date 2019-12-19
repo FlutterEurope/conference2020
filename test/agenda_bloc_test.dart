@@ -17,12 +17,21 @@ void main() {
     final _tempList = [
       Talk(
         'id1',
+        'Title',
+        [
+          Author(
+            '0',
+            '',
+            '',
+            '',
+            '',
+            '',
+          )
+        ],
         '',
-        [Author('', '', '', '', '', '', '', 0)],
         DateTime.now(),
-        Duration(minutes: 1),
-        Room('', 100, 1),
-        0,
+        DateTime.now().add(Duration(minutes: 45)),
+        Room('', '1'),
       ),
     ];
 
@@ -80,19 +89,18 @@ void main() {
   });
 
   group('AgendaPopulatedState tests', () {
-    final _authors = [Author('', '', '', '', '', '', '', 0)];
-    final _duration = Duration(minutes: 45);
-    final _room = Room('', 100, 1);
+    final _authors = [Author('0', '', '', '', '', '')];
+    final _room = Room('', '0');
     Talk _tempTalk({int day = 23, hour = 9}) {
       print(hour);
       return Talk(
         'id1',
         '',
         _authors,
+        '',
         DateTime(2020, 1, day, hour, 0),
-        _duration,
+        DateTime(2020, 1, day, hour, 45),
         _room,
-        0,
       );
     }
 
@@ -149,8 +157,8 @@ void main() {
       expect(state.talks, isNotNull);
       expect(state.talks.values.first, hasLength(length));
       expect(state.talks, isA<Map<int, List<Talk>>>());
-      assert(state.talks.values.first[0].dateTime
-          .isBefore(state.talks.values.first[1].dateTime));
+      assert(state.talks.values.first[0].startTime
+          .isBefore(state.talks.values.first[1].startTime));
     });
 
     test(
@@ -161,8 +169,8 @@ void main() {
       expect(state.talks, isNotNull);
       expect(state.talks.values.first, hasLength(10));
       expect(state.talks, isA<Map<int, List<Talk>>>());
-      assert(state.talks.values.first[0].dateTime
-          .isBefore(state.talks.values.first[1].dateTime));
+      assert(state.talks.values.first[0].startTime
+          .isBefore(state.talks.values.first[1].startTime));
     });
 
     test(
@@ -174,8 +182,8 @@ void main() {
       expect(state.talks, hasLength(10));
       expect(state.talks.values.first, hasLength(1));
       expect(state.talks, isA<Map<int, List<Talk>>>());
-      assert(state.talks.values.first[0].dateTime
-          .isBefore(state.talks.values.last[0].dateTime));
+      assert(state.talks.values.first[0].startTime
+          .isBefore(state.talks.values.last[0].startTime));
     });
   });
 }

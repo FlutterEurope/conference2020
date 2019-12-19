@@ -43,15 +43,11 @@ class _MySchedulePageState extends State<MySchedulePage> {
                 snapshot.hasData &&
                 snapshot.data.length > 0) {
               final talksMap = getTalksPerDay(snapshot, state);
-              return Column(
-                children: <Widget>[
-                  PopulatedAgendaTable(
-                    talksMap,
-                    state.rooms,
-                    pageController,
-                    currentIndex,
-                  ),
-                ],
+              return PopulatedAgendaTable(
+                talksMap,
+                state.rooms,
+                pageController,
+                skipWidgetPreload: true,
               );
             }
             return MyScheduleEmptyState();
@@ -65,11 +61,13 @@ class _MySchedulePageState extends State<MySchedulePage> {
       AsyncSnapshot<List<Talk>> snapshot, PopulatedAgendaState state) {
     final talks = {
       0: snapshot.data
-          .where((f) => sameDay(f.dateTime, state.talks[0].first.dateTime))
-          .toList(),
+          .where((f) => sameDay(f.startTime, state.talks[0].first.startTime))
+          .toList()
+            ..sort(),
       1: snapshot.data
-          .where((f) => sameDay(f.dateTime, state.talks[1].first.dateTime))
-          .toList(),
+          .where((f) => sameDay(f.startTime, state.talks[1].first.startTime))
+          .toList()
+            ..sort(),
     };
     return talks;
   }
@@ -78,6 +76,12 @@ class _MySchedulePageState extends State<MySchedulePage> {
     return date1.year == date2.year &&
         date1.month == date2.month &&
         date1.day == date2.day;
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
   }
 }
 

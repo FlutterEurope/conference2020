@@ -1,0 +1,4834 @@
+{
+  "sys": {
+    "type": "Array"
+  },
+  "total": 34,
+  "skip": 0,
+  "limit": 100,
+  "items": [
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "25wyjv5N6UKOcY3822P6dP",
+        "type": "Entry",
+        "createdAt": "2019-11-28T10:53:23.803Z",
+        "updatedAt": "2019-12-04T15:50:33.404Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 2,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day two",
+        "time": "16:30-17:15",
+        "title": "Flutter for business",
+        "type": "advanced",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "23beyLJDDpjXmi5czMMf25"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "4MhUjc0OafTESwfxviIsQY",
+        "type": "Entry",
+        "createdAt": "2019-12-04T13:25:56.093Z",
+        "updatedAt": "2019-12-04T13:25:56.093Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 1,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day one",
+        "time": "09:40-10:25",
+        "title": "Opening keynote",
+        "type": "other"
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "51LsQrlZY0QrKQVBtkWeGl",
+        "type": "Entry",
+        "createdAt": "2019-12-04T13:25:38.829Z",
+        "updatedAt": "2019-12-04T13:26:58.750Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 2,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day one",
+        "time": "09:30-09:40",
+        "title": "Conference opening",
+        "type": "other"
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "4pBP09SBP1nAgyGNT5TUKm",
+        "type": "Entry",
+        "createdAt": "2019-10-27T17:42:30.571Z",
+        "updatedAt": "2019-12-04T13:23:47.369Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 10,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day one",
+        "time": "11:45-12:30",
+        "title": "Building games using Flame",
+        "type": "advanced",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "1Rq9bg0Vvh8cEKcqra3fzw"
+          }
+        },
+        "description": {
+          "data": {},
+          "content": [
+            {
+              "data": {},
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "value": "Flame is minimalist Flutter game engine, built using a modular approach over the Flutter APIs to provide a complete set of out-of-the-way solutions for the common problems regarding game development. It contains modules for sprites, animations, game loop, component system, audio, input handling, common integrations, and much more.\n\nIn this talk, we will learn a bit more about game development in general, why Flutter is a perfect fit for mobile games, how the basic concepts around game engines work and, finally, how to actually use Flame to create a simple mobile game, with some live coding.\n\nWe will create a very simple game TBD, exploring some of the basic features of Flame, and you will leave the talk ready to start to deploy your creativity into code and have your game running in matter of minutes.",
+                  "nodeType": "text"
+                }
+              ],
+              "nodeType": "paragraph"
+            }
+          ],
+          "nodeType": "document"
+        },
+        "secondSpeaked": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "7auguBQxUn1Z8ylM2G1jvo"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "3Fbe8Bw4VDIAu57Ecrv4qV",
+        "type": "Entry",
+        "createdAt": "2019-11-24T09:24:05.641Z",
+        "updatedAt": "2019-12-04T13:21:12.289Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 7,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day one",
+        "time": "15:45-16:30",
+        "title": "Server-Side Steroids for your Flutter App!",
+        "type": "beginner",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "34X7VMjCelsVFyHMF16obD"
+          }
+        },
+        "description": {
+          "data": {},
+          "content": [
+            {
+              "data": {},
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "value": "How cool would it be to have an app which is completely controlled by the backend ? No, I don't mean A/B tests or deciding which colour a button should be, or what set of features should be available for a certain user.\n\nI mean EVERYTHING being controlled from the backend. Be it all your app layouts, handling click events, what API calls to make, maintaining local databases, deciding how to display content on different devices, or even what screen to show next ! Customisation and flexibility on Steroids.\n\nThis enables us teams to build, test and iterate on fully native Flutter applications - instantly.\n\nUsing this, it is now possible to build and push new features and screens without updating your app from the PlayStore/AppStore !\n\nAnd no, this is NOT using web views, or a PWA, or an inbuilt browser.\nJUST - PURE - FLUTTER.\n\nJoin me, as we discuss how to architect a truly server side controlled app, building our own Markup and Parser using Flutter, creating reusable generic Widgets and Functions, which give you the ultimate flexibility to let your backend be your master and control your app !\n\nNo more app updates required !",
+                  "nodeType": "text"
+                }
+              ],
+              "nodeType": "paragraph"
+            }
+          ],
+          "nodeType": "document"
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "5OMXsHxN3DBa3dKaBHIxGU",
+        "type": "Entry",
+        "createdAt": "2019-11-24T13:45:25.025Z",
+        "updatedAt": "2019-12-04T13:20:01.854Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 2,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day one",
+        "time": "14:45-15:30",
+        "title": "Multiplatform Flutter. Building Adaptive UI",
+        "type": "advanced",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "e9Qbu0EwPPgvWalmRC81c"
+          }
+        },
+        "description": {
+          "data": {},
+          "content": [
+            {
+              "data": {},
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "value": "Flutter is a new multiplatform framework by Google. It allows you to create applications for different platforms (iOS, Android, Web, Desktop) with the same code base. But different platforms have different screen sizes, different guidelines, different methods of user interaction. How to make UI that looks great on any of the platforms? In his talk, Alexander will tell you how to create an adaptive responsive UI in a Flutter application.",
+                  "nodeType": "text"
+                }
+              ],
+              "nodeType": "paragraph"
+            }
+          ],
+          "nodeType": "document"
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "2pxLChHkFAEEBKzmtsRgVu",
+        "type": "Entry",
+        "createdAt": "2019-11-24T13:43:47.418Z",
+        "updatedAt": "2019-12-04T13:19:36.602Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 2,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day one",
+        "time": "14:45-15:30",
+        "title": "TBD",
+        "type": "beginner",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "I9dhktuXOLGeRtV51lY1x"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "6YNhxcF5BtwHrde85eELMI",
+        "type": "Entry",
+        "createdAt": "2019-11-24T14:11:51.333Z",
+        "updatedAt": "2019-12-04T13:18:46.426Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 3,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day one",
+        "time": "10:45-11:30",
+        "title": "TBD",
+        "type": "advanced",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "2mSuFkcgM8uhytwxwVk9Te"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "1ih3vYxjUUN9lOR5E0PEMF",
+        "type": "Entry",
+        "createdAt": "2019-11-24T13:21:19.291Z",
+        "updatedAt": "2019-12-04T13:18:38.635Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 2,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day one",
+        "time": "10:45-11:30",
+        "title": "Flutter, what are Widgets, RenderObjects and Elements?",
+        "type": "beginner",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "2cCYlQeT9x8bdDxDBQZOiM"
+          }
+        },
+        "description": {
+          "data": {},
+          "content": [
+            {
+              "data": {},
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "value": "How does Flutter turn widgets into pixels? Taking a look at the inner workings of Flutter and understanding the layers beyond the widgets-layer.\n\nWe first take a look at how building an app using bare dart.ui looks like and how that relates to operations in OpenGL. After that, we introduce the first layer of abstraction, the RenderObjects.\n\nWe then take a look at different RenderObjects inside the framework and understand how they work.\nLastly, we investigate the connection between the well-known widgets and RenderObjects, the so-called Elements. We learn what the BuildContext actually is and how everything is connected.\n\nAfter gaining a good overview of the field, we write our very own RenderObject which implements some custom layout and paint algorithm.",
+                  "nodeType": "text"
+                }
+              ],
+              "nodeType": "paragraph"
+            }
+          ],
+          "nodeType": "document"
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "CZLGQi5gfwlYuPFOIqi9F",
+        "type": "Entry",
+        "createdAt": "2019-11-24T14:14:21.259Z",
+        "updatedAt": "2019-12-04T13:20:55.423Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 3,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day one",
+        "time": "15:45-16:30",
+        "title": "Animations 101",
+        "type": "advanced",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "4xOmSrR0ZYMq4rq5IWwjwB"
+          }
+        },
+        "description": {
+          "data": {},
+          "content": [
+            {
+              "data": {},
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "value": "We will discuss how one of Flutter's wonderful aspects, namely animations, works. We will do a review of available Widgets that facilitate working with animations and their use-cases. Finally, we will code a little and see how the theory applies to practice with a few of my secret animation tricks.",
+                  "nodeType": "text"
+                }
+              ],
+              "nodeType": "paragraph"
+            }
+          ],
+          "nodeType": "document"
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "3agyZxKHmmmmXan1Ff5eRH",
+        "type": "Entry",
+        "createdAt": "2019-11-28T10:53:16.869Z",
+        "updatedAt": "2019-12-02T13:22:35.435Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 3,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day two",
+        "time": "16:30-17:15",
+        "title": "Apps for Everyone with Flutter",
+        "type": "beginner",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "2Bz70qIMcLes8IibourcBO"
+          }
+        },
+        "description": {
+          "data": {},
+          "content": [
+            {
+              "data": {},
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "value": "Reaching a larger audience with your apps is not just about targeting as much platforms as possible (mobile, web, desktop) but also about making them accessible for everyone, including those with temporary or permanent disabilities.\n\nNative platforms already provide accessibility mechanisms, and thankfully, Flutter does too!\n\nIn this talk, you will learn how to prepare your Flutter app for a larger audience. You will learn how to support variable size fonts and prepare your app for screen readers, and how to be sure that your designs are accessible too. As well, we will explore some of the current limitations like keyboard based navigation.",
+                  "nodeType": "text"
+                }
+              ],
+              "nodeType": "paragraph"
+            }
+          ],
+          "nodeType": "document"
+        },
+        "secondSpeaked": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "rTCevV9KQ913m53JCYzQo"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "6BYP069Mxz8kr6WL3a0GyS",
+        "type": "Entry",
+        "createdAt": "2019-11-28T11:36:36.224Z",
+        "updatedAt": "2019-11-28T11:36:36.224Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 1,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day one",
+        "time": "13:45-14:30",
+        "title": "TBD",
+        "type": "advanced",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "6276ugLrfMzcYtX6itsaoY"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "wvoqqlLsqUJoQw2tEtBC1",
+        "type": "Entry",
+        "createdAt": "2019-11-28T11:36:25.186Z",
+        "updatedAt": "2019-11-28T11:36:25.186Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 1,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day one",
+        "time": "13:45-14:30",
+        "title": "TBD",
+        "type": "beginner",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "6276ugLrfMzcYtX6itsaoY"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "4bvttzAxM5ImmkdMiHJOHX",
+        "type": "Entry",
+        "createdAt": "2019-11-28T10:47:30.601Z",
+        "updatedAt": "2019-12-04T13:16:21.864Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 3,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day two",
+        "time": "09:30-10:15",
+        "title": "Practical RxDart",
+        "type": "beginner",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "2Pog2FfQJ46zHHGk4YzJz9"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "c8vOKFH5GYVyaeETSiFKS",
+        "type": "Entry",
+        "createdAt": "2019-11-28T10:52:25.149Z",
+        "updatedAt": "2019-11-28T11:05:57.668Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 2,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day two",
+        "time": "14:30-15:15",
+        "title": "Bloc Library: Basics & Beyond",
+        "type": "beginner",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "6niqIrif3ozBcepcdM8Tph"
+          }
+        },
+        "description": {
+          "data": {},
+          "content": [
+            {
+              "data": {},
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "value": "The bloc state management library has over 2.6K stars on GitHub and is one of the preferred state management libraries. The library is currently being used for BMW Mobile Connected application, as well as in many other enterprise applications and projects in the international Flutter Community.\n\nAs the sole creator and maintainer of the library, I will lead participants in an overview of the library including how to build, test, and debug apps using bloc. We will also discuss best practices and take a look under the hood to see how bloc works. On a more granular level, we will discuss events, states, transitions, as well as Flutter-specific components including BlocBuilder, BlocListener, and BlocProvider. We will also go over extensions to the bloc library - such as HydratedBloc and SealedBloc - and how these can be used to enhance the developer experience.",
+                  "nodeType": "text"
+                }
+              ],
+              "nodeType": "paragraph"
+            }
+          ],
+          "nodeType": "document"
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "3rmrLndX7WuMusMwIQIzgp",
+        "type": "Entry",
+        "createdAt": "2019-11-28T10:51:11.989Z",
+        "updatedAt": "2019-11-28T11:15:09.678Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 3,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day two",
+        "time": "10:30-11:15",
+        "title": "Migrating a 1M users production app into Flutter",
+        "type": "beginner",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "17xrPTU7Y3TW0Kp0J64EZI"
+          }
+        },
+        "description": {
+          "data": {},
+          "content": [
+            {
+              "data": {},
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "value": "Flutter has been known to provide high performance and beautiful applications that focus on native end user experiences but most of the apps built on Flutter are written from scratch and works great just out of the box. However, migrating a highly popular and demanding app that is written on both native Android and iOS and serving 1M+ users was a huge challenge to the engineering team at Bounce!\n\nIn this session, I talk about how we are adding common Flutter features into the native Android and iOS codebases of a highly demanding app and the challenges we had to face in terms of the migration of two huge native codebases into Flutter. Further, I will discuss about the architecture we adopted, performance differences, development workflows, help from the community, and implementing a workaround for the non-supported features in Flutter.",
+                  "nodeType": "text"
+                }
+              ],
+              "nodeType": "paragraph"
+            }
+          ],
+          "nodeType": "document"
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "3YcoBiZlHY30yyJv42c3rD",
+        "type": "Entry",
+        "createdAt": "2019-11-28T10:58:50.569Z",
+        "updatedAt": "2019-11-28T10:58:50.569Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 1,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day two",
+        "time": "11:30-12:15",
+        "title": "Flutter at scale",
+        "type": "advanced",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "4h2c5es5M9vJOFcfDYDKya"
+          }
+        },
+        "description": {
+          "data": {},
+          "content": [
+            {
+              "data": {},
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "value": "Flutter has been out of beta for more than a year. It is an amazing framework UI that lets you run your code pretty much anywhere. There's a lot of expectations around it, incredible apps running at 60fps, but... is it ready to be adopted at scale?",
+                  "nodeType": "text"
+                }
+              ],
+              "nodeType": "paragraph"
+            },
+            {
+              "data": {},
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "value": "At BMW, we faced that question a while ago, and the answer was YES! We tried it, we loved it, and we collected all the necessary information to prove that Flutter was the right choice for us. In this talk, let me show you our process to make Flutter our preferred tool for developing applications, and how we enable multiple teams around the world to deliver incredible experiences fast and safely.",
+                  "nodeType": "text"
+                }
+              ],
+              "nodeType": "paragraph"
+            }
+          ],
+          "nodeType": "document"
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "7qLezRJeIrI1wXmOBl1wJF",
+        "type": "Entry",
+        "createdAt": "2019-11-28T10:54:55.730Z",
+        "updatedAt": "2019-11-28T10:54:55.730Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 1,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day two",
+        "time": "12:15-13:30",
+        "title": "Launch break",
+        "type": "other"
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "iFZ4byHpcuezjObe8ZIuT",
+        "type": "Entry",
+        "createdAt": "2019-11-28T10:54:19.688Z",
+        "updatedAt": "2019-11-28T10:54:19.688Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 1,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day two",
+        "time": "17:30-18:15",
+        "title": "Closing keynote",
+        "type": "other"
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "4qWK0jtf4Gj2k0G6UFKtnw",
+        "type": "Entry",
+        "createdAt": "2019-11-28T10:52:58.537Z",
+        "updatedAt": "2019-11-28T10:52:58.537Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 1,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day two",
+        "time": "15:30-16:15",
+        "title": "TBD",
+        "type": "advanced",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "6276ugLrfMzcYtX6itsaoY"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "1UCIT3NfQVIdlFJtjf54P0",
+        "type": "Entry",
+        "createdAt": "2019-11-28T10:52:51.959Z",
+        "updatedAt": "2019-11-28T11:33:22.521Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 3,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day two",
+        "time": "15:30-16:15",
+        "title": "Lessons learned building the Invoice Ninja Flutter app",
+        "type": "beginner",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "6E8EL8mVBkBsjA5qtwWp4F"
+          }
+        },
+        "description": {
+          "data": {},
+          "content": [
+            {
+              "data": {},
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "value": "What's the best way to learn Flutter? It's practice. During the development of Invoice Ninja app I had an opportunity to gain a lot of experience and now I will gladly share it with you.\nSome of the topics covered will include:",
+                  "nodeType": "text"
+                }
+              ],
+              "nodeType": "paragraph"
+            },
+            {
+              "data": {},
+              "content": [
+                {
+                  "data": {},
+                  "content": [
+                    {
+                      "data": {},
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "value": "Comparing Redux to other state management options",
+                          "nodeType": "text"
+                        }
+                      ],
+                      "nodeType": "paragraph"
+                    }
+                  ],
+                  "nodeType": "list-item"
+                },
+                {
+                  "data": {},
+                  "content": [
+                    {
+                      "data": {},
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "value": "Best practices for structuring the codebase",
+                          "nodeType": "text"
+                        }
+                      ],
+                      "nodeType": "paragraph"
+                    }
+                  ],
+                  "nodeType": "list-item"
+                },
+                {
+                  "data": {},
+                  "content": [
+                    {
+                      "data": {},
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "value": "Supporting responsive/tablet layouts",
+                          "nodeType": "text"
+                        }
+                      ],
+                      "nodeType": "paragraph"
+                    }
+                  ],
+                  "nodeType": "list-item"
+                },
+                {
+                  "data": {},
+                  "content": [
+                    {
+                      "data": {},
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "value": "Handling app persistence",
+                          "nodeType": "text"
+                        }
+                      ],
+                      "nodeType": "paragraph"
+                    }
+                  ],
+                  "nodeType": "list-item"
+                },
+                {
+                  "data": {},
+                  "content": [
+                    {
+                      "data": {},
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "value": "Managing forms",
+                          "nodeType": "text"
+                        }
+                      ],
+                      "nodeType": "paragraph"
+                    }
+                  ],
+                  "nodeType": "list-item"
+                },
+                {
+                  "data": {},
+                  "content": [
+                    {
+                      "data": {},
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "value": "Common pitfalls and gotchas",
+                          "nodeType": "text"
+                        }
+                      ],
+                      "nodeType": "paragraph"
+                    }
+                  ],
+                  "nodeType": "list-item"
+                },
+                {
+                  "data": {},
+                  "content": [
+                    {
+                      "data": {},
+                      "content": [
+                        {
+                          "data": {},
+                          "marks": [],
+                          "value": "Using a code generator to reduce boilerplate code",
+                          "nodeType": "text"
+                        }
+                      ],
+                      "nodeType": "paragraph"
+                    }
+                  ],
+                  "nodeType": "list-item"
+                }
+              ],
+              "nodeType": "unordered-list"
+            },
+            {
+              "data": {},
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "value": "",
+                  "nodeType": "text"
+                }
+              ],
+              "nodeType": "paragraph"
+            }
+          ],
+          "nodeType": "document"
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "3i9s9QQ2EErKBY0KYBmfs9",
+        "type": "Entry",
+        "createdAt": "2019-11-28T10:52:32.075Z",
+        "updatedAt": "2019-11-28T11:09:02.658Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 2,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day two",
+        "time": "14:30-15:15",
+        "title": "CI/CD in Flutter",
+        "type": "advanced",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "6idNFD5A8s924X1omD18y0"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "5r4U0nlOtPBajUeQxLR52e",
+        "type": "Entry",
+        "createdAt": "2019-11-28T10:52:14.051Z",
+        "updatedAt": "2019-11-28T10:52:14.051Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 1,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day two",
+        "time": "13:30-14:15",
+        "title": "TBD",
+        "type": "advanced",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "6276ugLrfMzcYtX6itsaoY"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "5xcCg468LZERgn9qCWXGaB",
+        "type": "Entry",
+        "createdAt": "2019-11-28T10:51:37.151Z",
+        "updatedAt": "2019-11-28T10:52:08.112Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 2,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day two",
+        "time": "13:30-14:15",
+        "title": "TBD",
+        "type": "beginner",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "6276ugLrfMzcYtX6itsaoY"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "6XG9Rw5Y5JwWCATv8VD567",
+        "type": "Entry",
+        "createdAt": "2019-11-28T10:51:31.089Z",
+        "updatedAt": "2019-11-28T10:59:45.817Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 2,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day two",
+        "time": "11:30-12:15",
+        "title": "TBD",
+        "type": "beginner",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "2NzqbiVEtK51u1NJSupesy"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "1eEWxQITulnEsg5h4c4vOG",
+        "type": "Entry",
+        "createdAt": "2019-11-28T10:51:19.854Z",
+        "updatedAt": "2019-11-28T11:04:20.158Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 2,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day two",
+        "time": "10:30-11:15",
+        "title": "TBD",
+        "type": "advanced",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "igxfbZXlMRp57MUsTpLq9"
+          }
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "7AvXasDkFkhg3KzXqMIvyn",
+        "type": "Entry",
+        "createdAt": "2019-11-28T10:47:18.925Z",
+        "updatedAt": "2019-11-28T11:19:02.239Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 2,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day two",
+        "time": "09:30-10:15",
+        "title": "Augmented Reality in Flutter",
+        "type": "advanced",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "1hyfQeYQHFhQTuft3c1vob"
+          }
+        },
+        "description": {
+          "data": {},
+          "content": [
+            {
+              "data": {},
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "value": "Augmented Reality is the future of mobile. While big companies invest in hardware development, enthusiasts and artists all over the world work hard creating things which never existed and can't even exist physically! On the other hand, AR is not only about art. It is designed to be practical. From visualizing furniture in your flat during internet shopping to beautiful AR guides and assistant interfaces, AR may enrich your Flutter app right away! In this talk I will show you how!",
+                  "nodeType": "text"
+                }
+              ],
+              "nodeType": "paragraph"
+            }
+          ],
+          "nodeType": "document"
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "2iJSsJj1sZ2kCSFRmXZDNt",
+        "type": "Entry",
+        "createdAt": "2019-11-24T14:23:28.458Z",
+        "updatedAt": "2019-11-24T14:23:28.458Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 1,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day one",
+        "time": "17:45-18:30",
+        "title": "Discussion panel",
+        "type": "other"
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "419BmJZwnKqNQTOE7nKlNg",
+        "type": "Entry",
+        "createdAt": "2019-11-24T14:20:53.732Z",
+        "updatedAt": "2019-11-24T14:21:57.907Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 2,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day one",
+        "time": "20:30-03:00",
+        "title": "Afterparty!",
+        "type": "other"
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "1FX8h8jMYEii1DcKn8xT2x",
+        "type": "Entry",
+        "createdAt": "2019-11-24T14:03:31.069Z",
+        "updatedAt": "2019-11-24T14:03:31.069Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 1,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day one",
+        "time": "16:45-17:30",
+        "title": "Strategic Domain-Driven Design for Improving Flutter architecture",
+        "type": "advanced",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "8MfYDq8udIIoIbKcAJaVc"
+          }
+        },
+        "description": {
+          "data": {},
+          "content": [
+            {
+              "data": {},
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "value": "Since the latest Google IO talk about state management, the package \"provider\"\nis rapidly gaining in popularity.\n\nIn this talk, we will first see what provider is and what are the benefits of\nusing it. Then we will see simple examples of how to implement common use-cases.\n\nThis talk is for newcomers to Flutter/provider. Prior experience in Flutter is\nappreciated but not required.",
+                  "nodeType": "text"
+                }
+              ],
+              "nodeType": "paragraph"
+            }
+          ],
+          "nodeType": "document"
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "2oxRSBcnR6QqMwhR65VnyY",
+        "type": "Entry",
+        "createdAt": "2019-11-24T13:59:50.091Z",
+        "updatedAt": "2019-11-24T14:03:35.324Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 2,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day one",
+        "time": "16:45-17:30",
+        "title": "Everything you need to know about Provider",
+        "type": "beginner",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "6pNBnaebES8WlSp6eR7qeo"
+          }
+        },
+        "description": {
+          "data": {},
+          "content": [
+            {
+              "data": {},
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "value": "Since the latest Google IO talk about state management, the package \"provider\"\nis rapidly gaining in popularity.\n\nIn this talk, we will first see what provider is and what are the benefits of\nusing it. Then we will see simple examples of how to implement common use-cases.\n\nThis talk is for newcomers to Flutter/provider. Prior experience in Flutter is\nappreciated but not required.",
+                  "nodeType": "text"
+                }
+              ],
+              "nodeType": "paragraph"
+            }
+          ],
+          "nodeType": "document"
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "4MIqHVn01sgwrS00qhSqJ9",
+        "type": "Entry",
+        "createdAt": "2019-11-24T13:50:20.912Z",
+        "updatedAt": "2019-11-24T13:50:20.912Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 1,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day one",
+        "time": "12:30-13:45",
+        "title": "Launch break",
+        "type": "other"
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "3cizxSdpuoAidnlvgVO4jd",
+        "type": "Entry",
+        "createdAt": "2019-11-24T13:18:25.128Z",
+        "updatedAt": "2019-11-24T13:18:25.128Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 1,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day one",
+        "time": "11:45-12:30",
+        "title": "Building Voice-First Flutter apps",
+        "type": "beginner",
+        "speaker": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Entry",
+            "id": "3RF0xLR1VoqWA6o16Puqrq"
+          }
+        },
+        "description": {
+          "data": {},
+          "content": [
+            {
+              "data": {},
+              "content": [
+                {
+                  "data": {},
+                  "marks": [],
+                  "value": "Thanks to the latest advancements in Machine Learning, we're now capable of interacting with machines through natural language. The age of voice assistants is here with Alexa, the Google Assistant and others. But, as an Android developer, what can I do on my existing app in relation to conversational features?\n\nWhen we think about developing features that are voice-forward, we think about existing voice assistants such as Alexa and the Google Assistant. What about the fully-capable computers that we have with us all the time, our smartphones? Some moments on our day to day lives are very well suited for voice interactions: while in a car or cooking for example. Let's not forget that voice interactions are extremely accessible, not only in a physical way (for people with dexterity or motion impediments) but also in a cognitive way (I think we all have a loved one in our lives that really struggles with technology, and people from some emerging countries have very limited access to computers and are not at ease with technology).\n\nIn this talk, I'll explain what integrations can be done on Flutter apps:\n- Flutter Packages that take advantage of APIs provided by Google or Apple\n- Other packages that integrate with other solutions such as ML Kit, TensorFlow and Dialogflow\n- 3rd-party solutions such as Porcupine, Snips, Amazon Lex, Snowboy and PocketSphinx\n- On Android: Integration with the Google Assistant via App Actions\n- On iOS: Integration with Siri (SiriKit, Siri Shortcuts)",
+                  "nodeType": "text"
+                }
+              ],
+              "nodeType": "paragraph"
+            }
+          ],
+          "nodeType": "document"
+        }
+      }
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "lpivpmxs5lb8"
+          }
+        },
+        "id": "41ptuk7cceMYD29DHAy7so",
+        "type": "Entry",
+        "createdAt": "2019-10-29T11:40:10.622Z",
+        "updatedAt": "2019-11-24T09:07:42.222Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "revision": 2,
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "programme"
+          }
+        },
+        "locale": "en-US"
+      },
+      "fields": {
+        "day": "day one",
+        "time": "08:30-09:30",
+        "title": "Registration",
+        "type": "other"
+      }
+    }
+  ],
+  "includes": {
+    "Entry": [
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "17xrPTU7Y3TW0Kp0J64EZI",
+          "type": "Entry",
+          "createdAt": "2019-11-28T11:01:37.179Z",
+          "updatedAt": "2019-11-28T11:01:37.179Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Pooja Bhaumik",
+          "twitter": "https://twitter.com/pblead26",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "52QGtocokBtFGVgqgkDIh"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Senior Engineer at Bounce",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Pooja Bhaumik is a Google Developer Expert for Flutter in India. Currently working in Bounce in Bangalore, she is an early Flutter adopter and a respected community member who loves to share her insights through technical blog posts, public speaking and open source contributions. Co-founder of WomenDroid and xxCode communities, she is also passionate about diversity and inclusion and aims to bring a change in the gender ratio in technology.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Migrating a 1M users production app into Flutter"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "1Rq9bg0Vvh8cEKcqra3fzw",
+          "type": "Entry",
+          "createdAt": "2019-11-15T10:25:29.081Z",
+          "updatedAt": "2019-11-24T12:52:46.064Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 4,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Luan Nico",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "CekIzsmrAL6UP8HSNpdzf"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Software Engineer at Faire",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Luan is a Software Craftsman who loves Open Source and the community, currently in love with Dart/Flutter.\n\nHe has worked for more than 6 years professionally and for more years that he can remember as a hobby with a plethora of languages, platforms, and libraries. He likes to solve people's problems with technology, and believes there is always a good solution to every problem and a good problem for every solution; for that reason, he likes most programming languages that he has come in contact with, and is always thrilled to learn something new.\n\nHe also love Physics, and wanted to learn more about how the Universe works since he was a kid. That's why he took Physics as a graduation course, and his love is divided between Physics and Development.\n\nHe truly believes in Open Source and tries to make, if possible, everything he does open (libre) and free.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Building Games using Flame",
+          "level": "Intermidiate",
+          "speakersOrder": 4
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "1hyfQeYQHFhQTuft3c1vob",
+          "type": "Entry",
+          "createdAt": "2019-11-28T11:18:07.564Z",
+          "updatedAt": "2019-11-28T11:18:07.564Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Oleksandr Leuschenko",
+          "twitter": "https://twitter.com/olexale",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "4Sj8vHELeyDusjNyYZc6To"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Head of Mobile department at Ciklum",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Oleksandr is the Head of Mobile department in Ciklum. He started a cross-platform mobile developer career back in 2012, for 4+ years worked as a Xamarin team technical leader. For the last 1.5 years he popularizes Flutter in Ukraine. Oleksandr is a public speaker, lecturer, AR enthusiast, and a mobile developer.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Augmented Reality in Flutter"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "23beyLJDDpjXmi5czMMf25",
+          "type": "Entry",
+          "createdAt": "2019-12-04T15:49:38.440Z",
+          "updatedAt": "2019-12-04T15:49:38.440Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Łukasz Kosman",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "5DCfFWnylvEJ8exwON7cDU"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Cofounder & Managing partner at LeanCode",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Łukasz is cofounder & Managing Partner @LeanCode, Flutter Software Studio based at Warsaw, Poland, Cofounder @FlutterWarsaw and @FlutterEurope. Experienced Product Owner and UX Designer. Formerly CEO @Audioteka, founder in several startups (with exits) and active advisor for digital products. At Flutter Europe responsible for Partners, Sponsorships and Finance. Before breaking an ankle used to be a squash coach, now seeking comfort in tennis.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "He seems to know how to count the money so we use his extraordinary skills, not to went bankrupt.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Flutter for business"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "2Bz70qIMcLes8IibourcBO",
+          "type": "Entry",
+          "createdAt": "2019-10-30T21:18:06.154Z",
+          "updatedAt": "2019-11-17T19:26:32.637Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 3,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Lara Martin",
+          "twitter": "https://twitter.com/@lariki",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "7fGm3ZGWwXlbtYXBhsZFRU"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Flutter GDE",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Lara is a Flutter GDE and Android developer based in Berlin. Lara has been involved with the community since she started programming: sharing knowledge online, organising study groups and finally becoming a GDE.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Accessibility: Apps for Everyone with Flutter",
+          "level": "Beginner"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "2NzqbiVEtK51u1NJSupesy",
+          "type": "Entry",
+          "createdAt": "2019-10-30T21:18:52.433Z",
+          "updatedAt": "2019-11-17T19:25:04.656Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 4,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Emily Fortuna",
+          "twitter": "https://twitter.com/bouncingsheep",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "2tiMD8mkBOYS3rkRi5drM3"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Developer advocate on the Flutter team at Google",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Emily is a developer advocate on the Flutter team at Google. When not educating people about the awesomeness of Flutter, she can be found working on improving fairness in machine learning or acting on the stage and screen. ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "She is an avid member of the nerdy joke appreciation society.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "2Pog2FfQJ46zHHGk4YzJz9",
+          "type": "Entry",
+          "createdAt": "2019-12-04T13:15:34.006Z",
+          "updatedAt": "2019-12-04T13:15:34.006Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Brian Egan",
+          "twitter": "https://twitter.com/brianegan",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "6DkZi0n6pGOYcsXchSVDpw"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Flutter Fanboy • Co-author of the Flutter Cookbook",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Brian Egan is a Montana boy living in Berlin, Germany. He previously worked on popular web and Android applications for SoundCloud and Zappos. He now spends his time writing open source Dart code, developing his business, and scuba diving as often as possible.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "He is the author of and contributor to several Dart libraries, including RxDart, redux, flutter_redux, and flutter_architecture_samples.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "You can find his work at github.com/brianegan.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Practical RxDart"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "2cCYlQeT9x8bdDxDBQZOiM",
+          "type": "Entry",
+          "createdAt": "2019-11-24T09:17:46.453Z",
+          "updatedAt": "2019-11-24T13:14:12.639Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 2,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Norbert Kozsir",
+          "twitter": "https://twitter.com/norbertkozsir",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "31Z8Gw6KXEOV330xcbJVK7"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Flutter dev",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Norbert is a Flutter developer and computer science student.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Flutter, what are Widgets, RenderObjects and Elements?",
+          "level": "Intermidiate"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "2mSuFkcgM8uhytwxwVk9Te",
+          "type": "Entry",
+          "createdAt": "2019-11-24T09:23:43.338Z",
+          "updatedAt": "2019-12-04T13:32:33.729Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 5,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Dominik Roszkowski",
+          "twitter": "https://twitter.com/OrestesGaolin",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "5Nn8IhvPNlQT1BT144ufHh"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Flutter Developer at LeanCode",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Dominik is a Flutter developer, coorganizer of Flutter Warsaw Meetup and blogger at roszkowski.dev. He is a deputy manager of PW-Sat2 student satellite project. The PW-Sat2 satellite was sent into orbit on-board Falcon 9 rocket in December 2018 and till now is still operational.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "He likes ramen.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Efficient flavors in Flutter",
+          "level": "Beginner"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "34X7VMjCelsVFyHMF16obD",
+          "type": "Entry",
+          "createdAt": "2019-11-24T13:57:38.603Z",
+          "updatedAt": "2019-11-24T13:57:38.603Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Chirag Shenoy",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "6h3secYFFPhM6T7FIgxpDS"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Senior Mobile Developer at ShareChat",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Chirag Shenoy works as a senior mobile developer at ShareChat, which is India's largest vernacular social media platform with over 100 Million downloads on the Google Play Store. He is extremely passionate about mobile technology and has worked on both Android and iOS for over 4 years, before falling in love with Flutter. He also he believes in the power of Internet, Software, Design thinking and a Whiteboard in solving some of the problems existing around us – Be it behavioural problems like procrastination or complex problems such as water scarcity or illiteracy.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Server-Side Steroids for your Flutter App!"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "3RF0xLR1VoqWA6o16Puqrq",
+          "type": "Entry",
+          "createdAt": "2019-11-15T10:32:29.941Z",
+          "updatedAt": "2019-11-15T10:32:29.941Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Elaine Dias Batista",
+          "twitter": "https://twitter.com/elainedbatista",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "7gxfZZ1jxf6WL3pYWTPX1d"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Developer Advocate & Team Leader at SFEIR",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Elaine is a Team Leader and Developer Advocate at SFEIR, where she works on projects consisting of mobile and voice technologies. She's passionate about the new interactions that we can have with technology. She's a GDE for the Google Assistant.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Building Voice-First Flutter Apps",
+          "level": "Intermidiate"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "4h2c5es5M9vJOFcfDYDKya",
+          "type": "Entry",
+          "createdAt": "2019-11-24T09:20:00.746Z",
+          "updatedAt": "2019-11-24T09:20:00.746Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Jorge Coca",
+          "twitter": "https://twitter.com/jcocaramos",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "6QkeOMOgNghi11M1ffP5tR"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Senior Engineer at BMW",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Spanish engineer lost in Chicago. He's writing the book \"Dart 2 In Action\" for Manning Publications. Works at BMW, in the mobile core tea, developing the Connected experiences for BMW and MINI. Prior to that, he was the Android dev. Now, he is a Flutter dev. ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Loves working with the community, and has the pleasure of running the Chicago Flutter Meetup, where they work all together to build a welcoming environment for everyone interested in Flutter and Dart.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Flutter at scale",
+          "level": "Intermidiate",
+          "speakersOrder": 0
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "4xOmSrR0ZYMq4rq5IWwjwB",
+          "type": "Entry",
+          "createdAt": "2019-11-24T13:54:18.237Z",
+          "updatedAt": "2019-12-04T13:31:31.834Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 3,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Marcin Szałek",
+          "twitter": "https://twitter.com/marcin_szalek",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "7zpz3wOH9yFRCR1OccyFjh"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Flutter developer and blogger",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "In love with Flutter since alpha release in 2017. Founder of Fidev - a software company specialized in Flutter. Co-organizer and speaker on Flutter Lodz Meetup. Enjoys sharing Flutter knowledge on blog ",
+                    "nodeType": "text"
+                  },
+                  {
+                    "data": {
+                      "uri": "http://fidev.io/"
+                    },
+                    "content": [
+                      {
+                        "data": {},
+                        "marks": [],
+                        "value": "fidev.io",
+                        "nodeType": "text"
+                      }
+                    ],
+                    "nodeType": "hyperlink"
+                  },
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": " and on @FlutterCommunity. Proud collaborator of Material Design and Firebase packages. In free time he likes to find beautiful mobile designs on dribbble and implement them.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Animations 101"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "6276ugLrfMzcYtX6itsaoY",
+          "type": "Entry",
+          "createdAt": "2019-11-28T10:29:53.739Z",
+          "updatedAt": "2019-11-28T10:48:54.829Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 2,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "TBD",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "2lHylP8wpSnr3pGvp5nArh"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": " ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "6E8EL8mVBkBsjA5qtwWp4F",
+          "type": "Entry",
+          "createdAt": "2019-11-28T11:28:22.237Z",
+          "updatedAt": "2019-11-28T11:28:22.237Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Hillel Coren",
+          "twitter": "https://twitter.com/hillelcoren",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "2gq9BoTA8ie3Lsq4souy1i"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Co-Founder at Invoice Ninja",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Hillel is a co-founder of Invoice Ninja, the leading open-source invoicing solution. He's also a devoted husband and father, has a deep love of music and is a Google Developer Expert for Flutter.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Lessons learned building the Invoice Ninja Flutter app"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "6idNFD5A8s924X1omD18y0",
+          "type": "Entry",
+          "createdAt": "2019-11-28T11:08:17.901Z",
+          "updatedAt": "2019-11-28T11:08:17.901Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Priit Lätt",
+          "twitter": "https://github.com/priitlatt",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "74MLpkHGnt3tpSqfv55Km8"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Senior Software Engineer at Nevercode",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Priit is a full stack developer at Nevercode. When he's not writing code he enjoys rock climbing.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "CI/CD with Flutter"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "6niqIrif3ozBcepcdM8Tph",
+          "type": "Entry",
+          "createdAt": "2019-11-15T10:12:16.549Z",
+          "updatedAt": "2019-11-19T16:49:22.481Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 2,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Felix Angelov",
+          "twitter": "https://twitter.com/felangelov",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "auTImiA9NiOTnwG9BzdEe"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Senior Software Engineer at BMW",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "The bloc state management library has over 2.6K stars on GitHub and is one of the preferred state management libraries. The library is currently being used for BMW Mobile Connected application, as well as in many other enterprise applications and projects in the international Flutter Community.\n\nAs the sole creator and maintainer of the library, I will lead participants in an overview of the library including how to build, test, and debug apps using bloc. We will also discuss best practices and take a look under the hood to see how bloc works. On a more granular level, we will discuss events, states, transitions, as well as Flutter-specific components including BlocBuilder, BlocListener, and BlocProvider. We will also go over extensions to the bloc library - such as HydratedBloc and SealedBloc - and how these can be used to enhance the developer experience.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Bloc Library: Basics & Beyond",
+          "level": "Beginner",
+          "speakersOrder": 1
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "6pNBnaebES8WlSp6eR7qeo",
+          "type": "Entry",
+          "createdAt": "2019-10-30T21:19:08.749Z",
+          "updatedAt": "2019-11-19T16:56:28.128Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 5,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Rémi Rousselet",
+          "twitter": "https://twitter.com/@remi_rousselet",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "1U6O9EDmtUFtiH0rBWvbZm"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Maintainer of 'provider' & 'flutter_hooks'.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "A software engineer passionated in Flutter. Maintainer of 'provider' & 'flutter_hooks'.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Deeply in love with Flutter, Remi spends a lot of time exchanging with the flutterverse. He particularly stands out with his presence on StackOverflow, with well over 800 answers to Flutter questions.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Everything you need to know about Provider",
+          "level": "Intermidiate",
+          "speakersOrder": 2
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "7auguBQxUn1Z8ylM2G1jvo",
+          "type": "Entry",
+          "createdAt": "2019-11-24T09:20:09.490Z",
+          "updatedAt": "2019-11-24T09:20:09.490Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Renan C. Araújo",
+          "twitter": "https://twitter.com/__caraujo__",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "60FwdEmfrX9JtYVAb5w50Q"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Software Engineer at Dashdash ",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Renan is software engineer who loves to use math and computer science to create awesome visual experiments",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Building Games using Flame",
+          "level": "Intermidiate"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "8MfYDq8udIIoIbKcAJaVc",
+          "type": "Entry",
+          "createdAt": "2019-11-24T14:03:18.494Z",
+          "updatedAt": "2019-11-24T14:03:18.494Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Majid Hajian",
+          "twitter": "https://twitter.com/mhadaily",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "63SPUHjhsAdAhfUakTaQX2"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Head of Engineering at Softiware AS",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Majid Hajian is a passionate software developer with years of developing and architecting complex web and mobile applications. He is passionate about web platform especially flutter, IoT, PWAs, and performance. He loves sharing his knowledge with the community by writing and speaking, contributing to open source and organizing meetups and events. Majid is the author of \"Progressive web app with Angular\" book by Apress and \"Progressive Web Apps\" video course by PacktPub and Udemy. He is (co)organizer of a few mobile and web meetups in Norway as well as Nordic conferences for mobile and Angular, Mobile Era and ngVikings.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Strategic Domain-Driven Design for Improving Flutter architecture"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "I9dhktuXOLGeRtV51lY1x",
+          "type": "Entry",
+          "createdAt": "2019-10-30T21:18:58.182Z",
+          "updatedAt": "2019-11-17T19:26:15.943Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 4,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Filip Hráček",
+          "twitter": "https://twitter.com/@filiphracek",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "69waF4XeCmUskeWXZ92GK4"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Developer Advocate on the Flutter team",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Filip is a Developer Advocate on the Flutter team. In this role, he specializes in architectural guidance, performance tips, and deep dives.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              },
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Prior to Google, Filip was an independent IT instructor. In his spare time, he builds games, reads books, and occasionally enjoys many pancakes.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "e9Qbu0EwPPgvWalmRC81c",
+          "type": "Entry",
+          "createdAt": "2019-11-15T10:15:04.038Z",
+          "updatedAt": "2019-11-15T10:15:04.038Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Alexandr Denisov",
+          "twitter": "https://twitter.com/shuregdenisov",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "35fhQD6GqKi5RzTylQfSK5"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Co-Head of Flutter Competency at EPAM Systems",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Aleksander is experienced a lot in enterprise development, in IT for more than 15 years. He worked in the field of the nuclear industry, taxation, telecom. Recently, he specialized mainly in a microservice architecture, but now his main interest is Flutter. Aleksandr is a Flutter enthusiast and Co-Head of Flutter Competency in EPAM, organizer of GDG Nizhny Novgorod community, host of podcasts Mobile People Talks and Flutter Dev Podcast.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Multiplatform Flutter. Building Adaptive UI",
+          "level": "Beginner"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "igxfbZXlMRp57MUsTpLq9",
+          "type": "Entry",
+          "createdAt": "2019-11-28T11:04:14.815Z",
+          "updatedAt": "2019-12-11T12:13:30.518Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 3,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Rafał Ślósarz",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "18jZaO3ATGfgXa9f3IjcPW"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Mobile Engineer at Allegro",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Rafał is an Android and Flutter developer with a strong hardware background. He has experience with leading big scale projects. Lastly, he jumped into fresh area of car-sharing and become CTO of Take&Drive. He is also strongly involved in the development of the Flutter community being the founder of Poznan Flutter Developer Group. In his free time, he loves sailing. His biggest dream is to sail around the world and take part in Sydney-Hobart Yacht Race.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Testing Flutter Applications"
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "rTCevV9KQ913m53JCYzQo",
+          "type": "Entry",
+          "createdAt": "2019-10-28T21:37:16.442Z",
+          "updatedAt": "2019-11-17T19:24:20.078Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 7,
+          "contentType": {
+            "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "speaker"
+            }
+          },
+          "locale": "en-US"
+        },
+        "fields": {
+          "name": "Miguel Beltran",
+          "twitter": "https://twitter.com/@MiBLT",
+          "picture": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "3T4mAWg0s8c8xTIMOgyb8p"
+            }
+          },
+          "bio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Flutter freelancer",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "longBio": {
+            "data": {},
+            "content": [
+              {
+                "data": {},
+                "content": [
+                  {
+                    "data": {},
+                    "marks": [],
+                    "value": "Miguel is a freelance Software developer based in Berlin, specialized in Flutter and Android development. He also author at Pluralsight, and publishes videos and blog posts about mobile development. You can find more about him at http://beltran.work.",
+                    "nodeType": "text"
+                  }
+                ],
+                "nodeType": "paragraph"
+              }
+            ],
+            "nodeType": "document"
+          },
+          "topic": "Accessibility: Apps for Everyone with Flutter",
+          "level": "Beginner"
+        }
+      }
+    ],
+    "Asset": [
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "18jZaO3ATGfgXa9f3IjcPW",
+          "type": "Asset",
+          "createdAt": "2019-09-26T15:49:32.958Z",
+          "updatedAt": "2019-09-26T15:49:32.958Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "Rafał",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/18jZaO3ATGfgXa9f3IjcPW/cc415a9941df3f8fa66a53807e8e5ce0/Rafa__.png",
+            "details": {
+              "size": 39295,
+              "image": {
+                "width": 177,
+                "height": 178
+              }
+            },
+            "fileName": "Rafał.png",
+            "contentType": "image/png"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "1U6O9EDmtUFtiH0rBWvbZm",
+          "type": "Asset",
+          "createdAt": "2019-11-07T08:54:10.207Z",
+          "updatedAt": "2019-11-07T08:54:10.207Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "remi_foto",
+          "description": "Remi foto",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/1U6O9EDmtUFtiH0rBWvbZm/67b175a0d96f4ef1a052d2b846696b6f/remi.jpg",
+            "details": {
+              "size": 70898,
+              "image": {
+                "width": 513,
+                "height": 620
+              }
+            },
+            "fileName": "remi.jpg",
+            "contentType": "image/jpeg"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "2gq9BoTA8ie3Lsq4souy1i",
+          "type": "Asset",
+          "createdAt": "2019-11-28T11:27:53.541Z",
+          "updatedAt": "2019-11-28T11:27:53.541Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "hillel",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/2gq9BoTA8ie3Lsq4souy1i/774d7e95344f1d0805384039f7872064/hillel.jpg",
+            "details": {
+              "size": 169852,
+              "image": {
+                "width": 942,
+                "height": 979
+              }
+            },
+            "fileName": "hillel.jpg",
+            "contentType": "image/jpeg"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "2lHylP8wpSnr3pGvp5nArh",
+          "type": "Asset",
+          "createdAt": "2019-11-28T10:29:38.610Z",
+          "updatedAt": "2019-11-28T10:29:38.610Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "TBD",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/2lHylP8wpSnr3pGvp5nArh/af6fa7fadc2d43ecb7ccde21e139ccc4/Projekt_bez_tytu__u.png",
+            "details": {
+              "size": 11864,
+              "image": {
+                "width": 500,
+                "height": 500
+              }
+            },
+            "fileName": "Projekt bez tytułu.png",
+            "contentType": "image/png"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "2tiMD8mkBOYS3rkRi5drM3",
+          "type": "Asset",
+          "createdAt": "2019-08-28T19:51:27.474Z",
+          "updatedAt": "2019-11-07T08:47:07.146Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 3,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "emily_fortuna_foto",
+          "description": "Emily Fortuna foto",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/2tiMD8mkBOYS3rkRi5drM3/d8b9f613bbea6360cc287106caa48aee/Emily_Full__1___5_.jpg",
+            "details": {
+              "size": 3622649,
+              "image": {
+                "width": 3426,
+                "height": 4283
+              }
+            },
+            "fileName": "Emily_Full (1) (5).jpg",
+            "contentType": "image/jpeg"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "31Z8Gw6KXEOV330xcbJVK7",
+          "type": "Asset",
+          "createdAt": "2019-11-15T10:34:12.351Z",
+          "updatedAt": "2019-11-15T10:34:12.351Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "norbert",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/31Z8Gw6KXEOV330xcbJVK7/e8bbe2007c9d7a393509f8466afb85f4/norbert.jpg",
+            "details": {
+              "size": 619061,
+              "image": {
+                "width": 2459,
+                "height": 1844
+              }
+            },
+            "fileName": "norbert.jpg",
+            "contentType": "image/jpeg"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "35fhQD6GqKi5RzTylQfSK5",
+          "type": "Asset",
+          "createdAt": "2019-11-15T10:13:43.871Z",
+          "updatedAt": "2019-11-15T10:13:43.871Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "denisov1a",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/35fhQD6GqKi5RzTylQfSK5/913af81aca455e66291476ab67a633b6/denisov1a.jpg",
+            "details": {
+              "size": 109072,
+              "image": {
+                "width": 603,
+                "height": 590
+              }
+            },
+            "fileName": "denisov1a.jpg",
+            "contentType": "image/jpeg"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "3T4mAWg0s8c8xTIMOgyb8p",
+          "type": "Asset",
+          "createdAt": "2019-11-07T09:49:16.340Z",
+          "updatedAt": "2019-11-07T09:49:16.340Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "miquel-beltran-bw-512",
+          "description": "Miguel Beltran foto",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/3T4mAWg0s8c8xTIMOgyb8p/14f4e0ce74d7cc78a5d6979bd45bc01b/miquel-beltran-bw-512.jpeg",
+            "details": {
+              "size": 39028,
+              "image": {
+                "width": 512,
+                "height": 520
+              }
+            },
+            "fileName": "miquel-beltran-bw-512.jpeg",
+            "contentType": "image/jpeg"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "4Sj8vHELeyDusjNyYZc6To",
+          "type": "Asset",
+          "createdAt": "2019-11-28T11:18:00.012Z",
+          "updatedAt": "2019-11-28T11:18:00.012Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "ava big",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/4Sj8vHELeyDusjNyYZc6To/117f2169864cca40340385d4f833b8fa/ava_big.png",
+            "details": {
+              "size": 1568870,
+              "image": {
+                "width": 1200,
+                "height": 1200
+              }
+            },
+            "fileName": "ava_big.png",
+            "contentType": "image/png"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "52QGtocokBtFGVgqgkDIh",
+          "type": "Asset",
+          "createdAt": "2019-08-28T19:50:19.456Z",
+          "updatedAt": "2019-08-28T19:50:19.456Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "pooja_bhaumik_foto",
+          "description": "Pooja Bhaumik foto",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/52QGtocokBtFGVgqgkDIh/6242098810bf791d0786ea062e483dcd/PoojaBhaumik2.jpg",
+            "details": {
+              "size": 2437395,
+              "image": {
+                "width": 1640,
+                "height": 1832
+              }
+            },
+            "fileName": "PoojaBhaumik2.jpg",
+            "contentType": "image/jpeg"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "5DCfFWnylvEJ8exwON7cDU",
+          "type": "Asset",
+          "createdAt": "2019-09-26T15:45:45.380Z",
+          "updatedAt": "2019-10-14T09:39:48.148Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 2,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "Lukasz",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/5DCfFWnylvEJ8exwON7cDU/854a70e2635a7937ae9ac5edbe0d0981/0058_DSC6384.jpg",
+            "details": {
+              "size": 7848209,
+              "image": {
+                "width": 3787,
+                "height": 5681
+              }
+            },
+            "fileName": "0058_DSC6384.jpg",
+            "contentType": "image/jpeg"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "5Nn8IhvPNlQT1BT144ufHh",
+          "type": "Asset",
+          "createdAt": "2019-09-26T15:48:40.238Z",
+          "updatedAt": "2019-10-14T09:36:25.908Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 2,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "Dominik",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/5Nn8IhvPNlQT1BT144ufHh/1fb0d17fd400c2f9ab3743f92f3afc2e/0166_DSC6390.jpg",
+            "details": {
+              "size": 943852,
+              "image": {
+                "width": 1365,
+                "height": 2048
+              }
+            },
+            "fileName": "0166_DSC6390.jpg",
+            "contentType": "image/jpeg"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "60FwdEmfrX9JtYVAb5w50Q",
+          "type": "Asset",
+          "createdAt": "2019-11-15T10:32:00.452Z",
+          "updatedAt": "2019-11-15T10:32:00.452Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "renan",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/60FwdEmfrX9JtYVAb5w50Q/3fc675daf7f209acabe51c72cec8916f/anotherme.fd86154d.jpg",
+            "details": {
+              "size": 529162,
+              "image": {
+                "width": 960,
+                "height": 960
+              }
+            },
+            "fileName": "anotherme.fd86154d.jpg",
+            "contentType": "image/jpeg"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "63SPUHjhsAdAhfUakTaQX2",
+          "type": "Asset",
+          "createdAt": "2019-11-24T14:02:54.583Z",
+          "updatedAt": "2019-11-24T14:02:54.583Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "majid",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/63SPUHjhsAdAhfUakTaQX2/a91c0da0e617cbe690c49eea9f55f6bd/majid.jpeg",
+            "details": {
+              "size": 245440,
+              "image": {
+                "width": 1710,
+                "height": 1140
+              }
+            },
+            "fileName": "majid.jpeg",
+            "contentType": "image/jpeg"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "69waF4XeCmUskeWXZ92GK4",
+          "type": "Asset",
+          "createdAt": "2019-11-07T08:50:18.309Z",
+          "updatedAt": "2019-11-07T08:50:18.309Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "filip_hracek_foto",
+          "description": "Filip Hracek foto",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/69waF4XeCmUskeWXZ92GK4/746207ccd01460cb78c9693ce36b6d1a/filip_4x.jpg",
+            "details": {
+              "size": 136345,
+              "image": {
+                "width": 700,
+                "height": 933
+              }
+            },
+            "fileName": "filip@4x.jpg",
+            "contentType": "image/jpeg"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "6DkZi0n6pGOYcsXchSVDpw",
+          "type": "Asset",
+          "createdAt": "2019-08-28T19:48:31.037Z",
+          "updatedAt": "2019-08-28T19:48:31.037Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "brian_egan_foto",
+          "description": "Bran Egan foto",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/6DkZi0n6pGOYcsXchSVDpw/1b75768ff4beb9030c20d87106fc91fe/Brian_Egan.jpg",
+            "details": {
+              "size": 336113,
+              "image": {
+                "width": 1000,
+                "height": 667
+              }
+            },
+            "fileName": "Brian Egan.jpg",
+            "contentType": "image/jpeg"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "6QkeOMOgNghi11M1ffP5tR",
+          "type": "Asset",
+          "createdAt": "2019-11-15T10:17:51.244Z",
+          "updatedAt": "2019-11-15T10:17:51.244Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "jorge",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/6QkeOMOgNghi11M1ffP5tR/07eac8020521de988e9931a49e8a7489/jorge.jpeg",
+            "details": {
+              "size": 18356,
+              "image": {
+                "width": 400,
+                "height": 400
+              }
+            },
+            "fileName": "jorge.jpeg",
+            "contentType": "image/jpeg"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "6h3secYFFPhM6T7FIgxpDS",
+          "type": "Asset",
+          "createdAt": "2019-11-24T13:56:43.625Z",
+          "updatedAt": "2019-11-24T13:56:43.625Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "Chirag",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/6h3secYFFPhM6T7FIgxpDS/422ecd05a82ddc53891e8ee8e485adf8/chirag.JPG",
+            "details": {
+              "size": 1002281,
+              "image": {
+                "width": 1794,
+                "height": 2320
+              }
+            },
+            "fileName": "chirag.JPG",
+            "contentType": "image/jpeg"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "74MLpkHGnt3tpSqfv55Km8",
+          "type": "Asset",
+          "createdAt": "2019-11-28T11:08:05.450Z",
+          "updatedAt": "2019-11-28T11:08:05.450Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "pritt",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/74MLpkHGnt3tpSqfv55Km8/3f7318f330d9bc0e2913765c3e49da97/Pekka_600x600.jpg",
+            "details": {
+              "size": 44571,
+              "image": {
+                "width": 600,
+                "height": 600
+              }
+            },
+            "fileName": "Pekka 600x600.jpg",
+            "contentType": "image/jpeg"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "7fGm3ZGWwXlbtYXBhsZFRU",
+          "type": "Asset",
+          "createdAt": "2019-11-07T09:47:06.666Z",
+          "updatedAt": "2019-11-07T09:47:06.666Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "Lara Martin foto",
+          "description": "lara_martin_foto",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/7fGm3ZGWwXlbtYXBhsZFRU/d6f4c5a12783d4729f7a6f40257105a9/lara_flutter.jpg",
+            "details": {
+              "size": 67929,
+              "image": {
+                "width": 592,
+                "height": 592
+              }
+            },
+            "fileName": "lara_flutter.jpg",
+            "contentType": "image/jpeg"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "7gxfZZ1jxf6WL3pYWTPX1d",
+          "type": "Asset",
+          "createdAt": "2019-11-15T10:23:30.829Z",
+          "updatedAt": "2019-11-15T10:23:30.829Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "elaine",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/7gxfZZ1jxf6WL3pYWTPX1d/c5f5979ad2bedf511e2f3b6683dbf60b/elaine.jpg",
+            "details": {
+              "size": 3466296,
+              "image": {
+                "width": 3448,
+                "height": 5166
+              }
+            },
+            "fileName": "elaine.jpg",
+            "contentType": "image/jpeg"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "7zpz3wOH9yFRCR1OccyFjh",
+          "type": "Asset",
+          "createdAt": "2019-10-03T06:22:15.314Z",
+          "updatedAt": "2019-10-03T06:22:15.314Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "Marcin",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/7zpz3wOH9yFRCR1OccyFjh/879db3587fdb5ad55b670c493aa9cc4a/Marcin.png",
+            "details": {
+              "size": 73087,
+              "image": {
+                "width": 201,
+                "height": 200
+              }
+            },
+            "fileName": "Marcin.png",
+            "contentType": "image/png"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "CekIzsmrAL6UP8HSNpdzf",
+          "type": "Asset",
+          "createdAt": "2019-11-15T10:24:48.197Z",
+          "updatedAt": "2019-11-15T10:24:48.197Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "luannico",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/CekIzsmrAL6UP8HSNpdzf/c73ebf2301639f75f8c007c2a7a15572/luannico.png",
+            "details": {
+              "size": 48159,
+              "image": {
+                "width": 256,
+                "height": 256
+              }
+            },
+            "fileName": "luannico.png",
+            "contentType": "image/png"
+          }
+        }
+      },
+      {
+        "sys": {
+          "space": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lpivpmxs5lb8"
+            }
+          },
+          "id": "auTImiA9NiOTnwG9BzdEe",
+          "type": "Asset",
+          "createdAt": "2019-11-15T10:01:12.007Z",
+          "updatedAt": "2019-11-15T10:01:12.007Z",
+          "environment": {
+            "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+            }
+          },
+          "revision": 1,
+          "locale": "en-US"
+        },
+        "fields": {
+          "title": "felix",
+          "file": {
+            "url": "//images.ctfassets.net/lpivpmxs5lb8/auTImiA9NiOTnwG9BzdEe/93460146174d6b7309e1d9654d8058f3/felix.jpeg",
+            "details": {
+              "size": 20864,
+              "image": {
+                "width": 460,
+                "height": 460
+              }
+            },
+            "fileName": "felix.jpeg",
+            "contentType": "image/jpeg"
+          }
+        }
+      }
+    ]
+  }
+}

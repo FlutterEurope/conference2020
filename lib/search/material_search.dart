@@ -182,12 +182,16 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
     }
 
     _controller.addListener(() {
-      setState(() {
-        _criteria = _controller.value.text;
-        if (widget.getResults != null) {
-          _getResultsDebounced();
-        }
-      });
+      print('Controller listener fired');
+      print(_controller.value.text);
+      if (_controller.value.text != null && _controller.value.text.isNotEmpty)
+        setState(() {
+          print('Controller setState fired');
+          _criteria = _controller.value.text;
+          if (widget.getResults != null) {
+            _getResultsDebounced();
+          }
+        });
     });
   }
 
@@ -195,6 +199,7 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
   Future _getResultsDebounced() async {
     if (_results.length == 0) {
       setState(() {
+        print('Setting loading to true');
         _loading = true;
       });
     }
@@ -203,7 +208,8 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
       _resultsTimer.cancel();
     }
 
-    _resultsTimer = new Timer(new Duration(milliseconds: 100), () async {
+    _resultsTimer = new Timer(new Duration(milliseconds: 400), () async {
+      print('Timer fired');
       if (!mounted) {
         return;
       }
@@ -229,6 +235,7 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
   void dispose() {
     super.dispose();
     _resultsTimer?.cancel();
+    _controller.dispose();
   }
 
   @override
@@ -236,11 +243,13 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
     var results =
         (widget.results ?? _results).where((MaterialSearchResult result) {
       if (widget.filter != null) {
+        print('Filtering 1');
         return widget.filter(result.value, _criteria);
       }
       //only apply default filter if used the `results` option
       //because getResults may already have applied some filter if `filter` option was omited.
       else if (widget.results != null) {
+        print('Filtering 2');
         return _filter(result.value, _criteria);
       }
 
@@ -248,6 +257,7 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
     }).toList();
 
     if (widget.sort != null) {
+      print('Sorting');
       results.sort((a, b) => widget.sort(a.value, b.value, _criteria));
     }
 
@@ -256,57 +266,66 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
     IconThemeData iconTheme =
         Theme.of(context).iconTheme.copyWith(color: widget.iconColor);
 
-    return new Scaffold(
-      appBar: new AppBar(
-        elevation: 0,
-        leading: widget.leading,
-        iconTheme: iconTheme,
-        title: new TextField(
-          controller: _controller,
-          autofocus: true,
-          decoration: new InputDecoration.collapsed(
-            hintText: widget.placeholder,
-            hintStyle: TextStyle(
-              color: Colors.white54,
-            ),
-          ),
-          style: TextStyle(color: Colors.white),
-          cursorColor: Colors.white,
-          onSubmitted: (String value) {
-            if (widget.onSubmit != null) {
-              widget.onSubmit(value);
-            }
-          },
-          keyboardAppearance: Theme.of(context).brightness,
-        ),
-        actions: _criteria.length == 0
-            ? []
-            : [
-                new IconButton(
-                    icon: new Icon(Icons.clear),
-                    onPressed: () {
-                      setState(() {
-                        _controller.text = _criteria = '';
-                      });
-                    }),
-              ],
-      ),
-      body: _loading
-          ? new Center(
-              child: new Padding(
-                  padding: const EdgeInsets.only(top: 50.0),
-                  child: new CircularProgressIndicator()),
-            )
-          : new SingleChildScrollView(
-              child: new Column(
-                children: results.map((MaterialSearchResult result) {
-                  return new InkWell(
-                    onTap: () => widget.onSelect(result.value),
-                    child: result,
-                  );
-                }).toList(),
+    return WillPopScope(
+      onWillPop: () async {
+        FocusScope.of(context).requestFocus(FocusNode());
+        return true;
+      },
+      child: new Scaffold(
+        appBar: new AppBar(
+          elevation: 0,
+          leading: widget.leading,
+          iconTheme: iconTheme,
+          backgroundColor: Theme.of(context).brightness == Brightness.light
+              ? Theme.of(context).primaryColor
+              : Theme.of(context).scaffoldBackgroundColor,
+          title: new TextField(
+            controller: _controller,
+            autofocus: true,
+            decoration: new InputDecoration.collapsed(
+              hintText: widget.placeholder,
+              hintStyle: TextStyle(
+                color: Colors.white54,
               ),
             ),
+            style: TextStyle(color: Colors.white),
+            cursorColor: Colors.white,
+            onSubmitted: (String value) {
+              if (widget.onSubmit != null) {
+                widget.onSubmit(value);
+              }
+            },
+            keyboardAppearance: Theme.of(context).brightness,
+          ),
+          actions: _criteria.length == 0
+              ? []
+              : [
+                  new IconButton(
+                      icon: new Icon(Icons.clear),
+                      onPressed: () {
+                        print('Clear pressed');
+                        setState(() {
+                          _controller.text = _criteria = '';
+                        });
+                      }),
+                ],
+        ),
+        body: _loading
+            ? new Center(
+                child: new Padding(
+                    padding: const EdgeInsets.only(top: 50.0),
+                    child: new CircularProgressIndicator()),
+              )
+            : ListView.builder(
+                itemCount: results.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () => widget.onSelect(results[index].value),
+                    child: results[index],
+                  );
+                },
+              ),
+      ),
     );
   }
 }

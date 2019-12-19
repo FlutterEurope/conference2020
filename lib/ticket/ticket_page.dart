@@ -1,4 +1,4 @@
-import 'package:conferenceapp/agenda/talk_card.dart';
+import 'package:conferenceapp/agenda/widgets/talk_card.dart';
 import 'package:conferenceapp/common/appbar.dart';
 import 'package:conferenceapp/common/europe_text_field.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
@@ -43,16 +43,10 @@ class _TicketPageState extends State<TicketPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<TicketBloc, TicketState>(
       builder: (context, state) => Scaffold(
-        appBar: FlutterEuropeAppBar(back: true, search: false),
         body: Form(
           key: _formKey,
           child: TicketPageWrapper(
             children: <Widget>[
-              Container(
-                color: Theme.of(context).primaryColor,
-                height: 80,
-                child: TicketPageTitle(),
-              ),
               if (state is TicketValidState)
                 QrCode(ticketData: ticketData)
               else
@@ -175,20 +169,54 @@ class TicketPageWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final imageHeight = 48.0;
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
       },
-      child: SingleChildScrollView(
-        physics: AlwaysScrollableScrollPhysics(),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Flexible(
+      child: SafeArea(
+        child: CustomScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          slivers: <Widget>[
+            SliverAppBar(
+              expandedHeight: imageHeight,
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              iconTheme: Theme.of(context).iconTheme,
+              title: AnimatedSwitcher(
+                duration: Duration(milliseconds: 500),
+                child: Theme.of(context).brightness == Brightness.light
+                    ? Image.asset(
+                        'assets/flutter_europe.png',
+                        height: imageHeight,
+                        key: ValueKey('logo_image_1'),
+                      )
+                    : Image.asset(
+                        'assets/flutter_europe_dark.png',
+                        height: imageHeight,
+                        key: ValueKey('logo_image_2'),
+                      ),
+              ),
+              pinned: true,
+              bottom: PreferredSize(
+                preferredSize: Size(20, 100),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: ClipPath(
+                    clipper: TicketClipper(true, false),
+                    child: Container(
+                      color: Theme.of(context).primaryColor,
+                      height: 80,
+                      child: TicketPageTitle(),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: ClipPath(
-                  clipper: TicketClipper(),
+                  clipper: TicketClipper(false, true),
                   child: TalkCardDecoration(
                     child: Container(
                       child: Column(
@@ -198,8 +226,7 @@ class TicketPageWrapper extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-            ImageLicenseText(),
+            )
           ],
         ),
       ),

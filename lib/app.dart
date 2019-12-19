@@ -1,6 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
 import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
+import 'package:conferenceapp/agenda/repository/contentful_client.dart';
+import 'package:conferenceapp/agenda/repository/contentful_talks_repository.dart';
+import 'package:conferenceapp/agenda/repository/file_storage.dart';
+import 'package:conferenceapp/agenda/repository/reactive_talks_repository.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:conferenceapp/analytics.dart';
 import 'package:conferenceapp/main_page/home_page.dart';
@@ -10,12 +16,16 @@ import 'package:conferenceapp/profile/user_repository.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
 import 'package:conferenceapp/ticket/repository/ticket_repository.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:feature_discovery/feature_discovery.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'config.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({
@@ -29,17 +39,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orange = Color.fromARGB(255, 240, 89, 41);
+    final blue = Color.fromARGB(255, 33, 153, 227);
     return DynamicTheme(
       defaultBrightness: Brightness.light,
       data: (brightness) => ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: blue,
         scaffoldBackgroundColor: brightness == Brightness.light
             ? Colors.grey[100]
             : Colors.grey[850],
-        accentColor: brightness == Brightness.light
-            ? Colors.orange[300]
-            : Colors.orange[800],
-        toggleableActiveColor: Colors.orange[800],
+        accentColor: orange,
+        toggleableActiveColor: orange,
         dividerColor:
             brightness == Brightness.light ? Colors.white : Colors.white54,
         brightness: brightness,
@@ -53,6 +63,7 @@ class MyApp extends StatelessWidget {
             TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
           },
         ),
+        iconTheme: Theme.of(context).iconTheme.copyWith(color: orange),
       ),
       themedWidgetBuilder: (context, theme) {
         return MultiProvider(
@@ -64,13 +75,15 @@ class MyApp extends StatelessWidget {
           child: RepositoryProviders(
             child: BlocProviders(
               child: ChangeNotifierProviders(
-                child: MaterialApp(
-                  title: title,
-                  theme: theme,
-                  navigatorObservers: [
-                    FirebaseAnalyticsObserver(analytics: analytics),
-                  ],
-                  home: HomePage(title: title),
+                child: FeatureDiscovery(
+                  child: MaterialApp(
+                    title: title,
+                    theme: theme,
+                    navigatorObservers: [
+                      FirebaseAnalyticsObserver(analytics: analytics),
+                    ],
+                    home: HomePage(title: title),
+                  ),
                 ),
               ),
             ),
@@ -91,12 +104,12 @@ class BlocProviders extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AgendaBloc>(
-          builder: (BuildContext context) =>
+          create: (BuildContext context) =>
               AgendaBloc(RepositoryProvider.of<TalkRepository>(context))
                 ..add(InitAgenda()),
         ),
         BlocProvider<TicketBloc>(
-          builder: (BuildContext context) =>
+          create: (BuildContext context) =>
               TicketBloc(RepositoryProvider.of<TicketRepository>(context))
                 ..add(FetchTicket()),
         ),
@@ -114,15 +127,16 @@ class RepositoryProviders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      builder: (_) => AuthRepository(FirebaseAuth.instance),
+      create: (_) => AuthRepository(FirebaseAuth.instance),
       child: RepositoryProvider(
-        builder: _userRepositoryBuilder,
+        create: _userRepositoryBuilder,
         child: RepositoryProvider<TalkRepository>(
-          builder: (_) => FirestoreTalkRepository(),
+          create: _talksRepositoryBuilder,
+          // create: (_) => FirestoreTalkRepository(),
           child: RepositoryProvider(
-            builder: _favoritesRepositoryBuilder,
+            create: _favoritesRepositoryBuilder,
             child: RepositoryProvider(
-              builder: _ticketRepositoryBuilder,
+              create: _ticketRepositoryBuilder,
               child: child,
             ),
           ),
@@ -150,6 +164,19 @@ class RepositoryProviders extends StatelessWidget {
       RepositoryProvider.of<UserRepository>(context),
     );
   }
+
+  TalkRepository _talksRepositoryBuilder(BuildContext context) {
+    return ReactiveTalksRepository(
+      repository: ContentfulTalksRepository(
+        client: ContentfulClient(
+          appConfig.contentfulSpace,
+          appConfig.contentfulApiKey,
+        ),
+        fileStorage: FileStorage(
+            'talks', () => Directory.systemTemp.createTemp('talks_')),
+      ),
+    );
+  }
 }
 
 class ChangeNotifierProviders extends StatelessWidget {
@@ -161,9 +188,10 @@ class ChangeNotifierProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     final sharedPreferences = Provider.of<SharedPreferences>(context);
     final agendaMode = sharedPreferences.getString('agenda_mode');
+    final compactMode = agendaMode == 'compact' || agendaMode == null;
 
     return ChangeNotifierProvider<AgendaLayoutHelper>(
-      builder: (_) => AgendaLayoutHelper(agendaMode == 'compact'),
+      create: (_) => AgendaLayoutHelper(compactMode),
       child: child,
     );
   }
