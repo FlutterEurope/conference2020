@@ -15,8 +15,11 @@ class AnimatedTalkHour extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return CompactLeftTalkContainer(
+      talk: _talk,
+    );
     return AnimatedSwitcher(
-      duration: Duration(milliseconds: 600),
+      duration: Duration(milliseconds: 800),
       switchInCurve: Curves.easeInOut,
       switchOutCurve: Curves.easeInOut,
       transitionBuilder: (Widget child, Animation<double> animation) {
