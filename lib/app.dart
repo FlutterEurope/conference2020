@@ -20,6 +20,7 @@ import 'package:feature_discovery/feature_discovery.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,26 +44,27 @@ class MyApp extends StatelessWidget {
     return DynamicTheme(
       defaultBrightness: Brightness.light,
       data: (brightness) => ThemeData(
-          primaryColor: blue,
-          scaffoldBackgroundColor: brightness == Brightness.light
-              ? Colors.grey[100]
-              : Colors.grey[850],
-          accentColor: orange,
-          toggleableActiveColor: orange,
-          dividerColor:
-              brightness == Brightness.light ? Colors.white : Colors.white54,
-          brightness: brightness,
-          fontFamily: 'PTSans',
-          bottomAppBarTheme: Theme.of(context).bottomAppBarTheme.copyWith(
-                elevation: 0,
-              ),
-          pageTransitionsTheme: PageTransitionsTheme(
-            builders: <TargetPlatform, PageTransitionsBuilder>{
-              TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-              TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-            },
-          ),
-          iconTheme: Theme.of(context).iconTheme.copyWith(color: orange)),
+        primaryColor: blue,
+        scaffoldBackgroundColor: brightness == Brightness.light
+            ? Colors.grey[100]
+            : Colors.grey[850],
+        accentColor: orange,
+        toggleableActiveColor: orange,
+        dividerColor:
+            brightness == Brightness.light ? Colors.white : Colors.white54,
+        brightness: brightness,
+        fontFamily: 'PTSans',
+        bottomAppBarTheme: Theme.of(context).bottomAppBarTheme.copyWith(
+              elevation: 0,
+            ),
+        pageTransitionsTheme: PageTransitionsTheme(
+          builders: <TargetPlatform, PageTransitionsBuilder>{
+            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          },
+        ),
+        iconTheme: Theme.of(context).iconTheme.copyWith(color: orange),
+      ),
       themedWidgetBuilder: (context, theme) {
         return MultiProvider(
           providers: [
