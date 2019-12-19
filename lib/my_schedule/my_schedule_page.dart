@@ -43,16 +43,11 @@ class _MySchedulePageState extends State<MySchedulePage> {
                 snapshot.hasData &&
                 snapshot.data.length > 0) {
               final talksMap = getTalksPerDay(snapshot, state);
-              return Column(
-                children: <Widget>[
-                  PopulatedAgendaTable(
-                    talksMap,
-                    state.rooms,
-                    pageController,
-                    currentIndex,
-                    skipWidgetPreload: true,
-                  ),
-                ],
+              return PopulatedAgendaTable(
+                talksMap,
+                state.rooms,
+                pageController,
+                skipWidgetPreload: true,
               );
             }
             return MyScheduleEmptyState();
@@ -81,6 +76,12 @@ class _MySchedulePageState extends State<MySchedulePage> {
     return date1.year == date2.year &&
         date1.month == date2.month &&
         date1.day == date2.day;
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
   }
 }
 
