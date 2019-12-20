@@ -5,9 +5,9 @@ import './bloc.dart';
 import 'package:conferenceapp/ticket/repository/ticket_repository.dart';
 
 class TicketBloc extends Bloc<TicketEvent, TicketState> {
-  final TicketRepository ticketRepository;
+  final TicketRepository _ticketRepository;
 
-  TicketBloc(this.ticketRepository);
+  TicketBloc(this._ticketRepository);
 
   @override
   TicketState get initialState => NoTicketState();
@@ -19,36 +19,37 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
     if (event is FetchTicket) {
       yield* mapFetchTicketToState(event);
     }
-    if (event is FillTicketData) {
-      yield* mapFillTicketDataToState(event);
-    }
+    // if (event is FillTicketData) {
+    //   yield* mapFillTicketDataToState(event);
+    // }
     if (event is SaveTicket) {
       yield* mapSaveTicketToState(event);
     }
   }
 
   Stream<TicketState> mapFetchTicketToState(FetchTicket event) async* {
-    final ticket = await ticketRepository.getTicket();
+    final ticket = await _ticketRepository.getTicket();
     if (ticket != null) {
-      yield TicketValidState();
+      yield TicketValidState(ticket);
     } else {
       yield NoTicketState();
     }
   }
 
-  Stream<TicketState> mapFillTicketDataToState(FillTicketData event) async* {
-    yield TicketDataFilledState();
-  }
+  // Stream<TicketState> mapFillTicketDataToState(FillTicketData event) async* {
+  //   yield TicketDataFilledState();
+  // }
 
   Stream<TicketState> mapSaveTicketToState(SaveTicket event) async* {
-    if (event.ticketData.email != null && event.ticketData.orderId != null) {
+    if (event.ticketData.ticketId != null || event.ticketData.orderId != null) {
       yield TicketLoadingState();
       await Future.delayed(Duration(seconds: 1));
       // fetch from eventil
-      final ticket = Ticket(event.ticketData.orderId, '', event.ticketData.email, TicketType.Blind);
+      final ticket = Ticket(event.ticketData.orderId, '',
+          event.ticketData.ticketId, TicketType.Blind);
 
-      await ticketRepository.addTicket(ticket);
-      yield TicketValidState();
+      await _ticketRepository.addTicket(ticket);
+      yield TicketValidState(ticket);
     } else {
       yield TicketErrorState();
     }

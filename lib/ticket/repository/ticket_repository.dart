@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:conferenceapp/model/ticket.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TicketRepository {
@@ -12,12 +13,16 @@ class TicketRepository {
   TicketRepository(this._userRepository);
 
   Future<Ticket> getTicket() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final ticketString = prefs.getString(_ticketKey);
-    if (ticketString != null) {
-      final json = jsonDecode(ticketString);
-      final ticket = Ticket.fromJson(json);
-      return ticket;
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      final ticketString = prefs.getString(_ticketKey);
+      if (ticketString != null) {
+        final json = jsonDecode(ticketString);
+        final ticket = Ticket.fromJson(json);
+        return ticket;
+      }
+    } catch (e, s) {
+      Crashlytics.instance.recordError(e, s);
     }
     return null;
   }

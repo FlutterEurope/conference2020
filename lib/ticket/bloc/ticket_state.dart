@@ -1,14 +1,34 @@
+import 'package:conferenceapp/model/ticket.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-abstract class TicketState {}
+abstract class TicketState extends Equatable {}
 
-class NoTicketState extends TicketState {}
+class NoTicketState extends TicketState {
+  @override
+  // TODO: implement props
+  List<Object> get props => null;
+}
 
-class TicketDataFilledState extends TicketValidState {}
+class TicketLoadingState extends TicketState {
+  @override
+  // TODO: implement props
+  List<Object> get props => null;
+}
 
-class TicketLoadingState extends TicketState {}
+class TicketValidState extends TicketState {
+  final Ticket ticket;
 
-class TicketValidState extends TicketState {}
+  TicketValidState(this.ticket);
 
-class TicketErrorState extends TicketState {}
+  @override
+  // TODO: implement props
+  List<Object> get props => [ticket.orderId, ticket.ticketId];
+}
+
+class TicketErrorState extends TicketState {
+  @override
+  // TODO: implement props
+  List<Object> get props => null;
+}

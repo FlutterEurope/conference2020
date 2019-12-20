@@ -1,15 +1,13 @@
 import 'package:conferenceapp/agenda/widgets/talk_card.dart';
-import 'package:conferenceapp/common/appbar.dart';
 import 'package:conferenceapp/common/europe_text_field.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
-import 'package:conferenceapp/ticket/scan_ticket_page.dart';
 import 'package:conferenceapp/ticket/ticket_data.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
 
 import 'widgets/add_ticket_email_info.dart';
-import 'widgets/image_courtesy_text.dart';
 import 'widgets/qr_image.dart';
 import 'widgets/save_ticket_button.dart';
 import 'widgets/scan_your_ticket_placeholder.dart';
@@ -25,8 +23,16 @@ class _TicketPageState extends State<TicketPage> {
   TicketData ticketData;
   TextEditingController orderController;
   TextEditingController emailController;
+  TextEditingController ticketController;
+  TextEditingController personalEmailController;
   FocusNode orderNode;
   FocusNode emailNode;
+  FocusNode ticketNode;
+  FocusNode personalEmailNode;
+
+  bool verifyByOrderNumber = false;
+  bool verifyByTicketNumber = false;
+  bool formValid = false;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -37,6 +43,10 @@ class _TicketPageState extends State<TicketPage> {
     orderNode = FocusNode();
     emailController = TextEditingController();
     emailNode = FocusNode();
+    ticketController = TextEditingController();
+    ticketNode = FocusNode();
+    personalEmailController = TextEditingController();
+    personalEmailNode = FocusNode();
   }
 
   @override
@@ -50,29 +60,122 @@ class _TicketPageState extends State<TicketPage> {
               if (state is TicketValidState)
                 QrCode(ticketData: ticketData)
               else
-                NoQrCode(onTap: onTap),
-              EuropeTextFormField(
-                hint: 'Type or scan order number',
-                icon: LineIcons.camera,
-                onTap: onTap,
-                onFieldSubmitted: onOrderSubmitted,
-                controller: orderController,
-                focusNode: orderNode,
-                textCapitalization: TextCapitalization.characters,
-              ),
-              EuropeTextFormField(
-                hint: 'Type your e-mail',
-                onFieldSubmitted: onEmailSubmitted,
-                controller: emailController,
-                focusNode: emailNode,
-                keyboardType: TextInputType.emailAddress,
-              ),
-              if (state is TicketErrorState) Text('We have some problems 😅'),
-              if (state is TicketDataFilledState) SaveTicketButton(),
-              AddTicketEmailInfo(),
+                NoQrCode(onTap: () {}),
+              if (!(state is TicketValidState))
+                ToggleButtons(
+                  isSelected: [verifyByOrderNumber, verifyByTicketNumber],
+                  onPressed: (index) {
+                    setState(() {
+                      if (index == 0) {
+                        verifyByOrderNumber = true;
+                        verifyByTicketNumber = false;
+                      } else {
+                        verifyByOrderNumber = false;
+                        verifyByTicketNumber = true;
+                      }
+                    });
+                  },
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Order number'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Ticket number'),
+                    )
+                  ],
+                ),
+              if (verifyByOrderNumber && !(state is TicketValidState))
+                EuropeTextFormField(
+                  hint: 'Order number (#XXXXXXX)',
+                  // icon: LineIcons.camera,
+                  // onTap: onTap,
+                  onFieldSubmitted: onSubmit,
+                  controller: orderController,
+                  focusNode: orderNode,
+                  textCapitalization: TextCapitalization.characters,
+                ),
+              if (verifyByTicketNumber && !(state is TicketValidState))
+                EuropeTextFormField(
+                  hint: 'Ticket number (xXxXxXxXxXxXxX)',
+                  // icon: LineIcons.camera,
+                  // onTap: onTap,
+                  onFieldSubmitted: onSubmit,
+                  controller: ticketController,
+                  focusNode: ticketNode,
+                  textCapitalization: TextCapitalization.characters,
+                ),
+              // EuropeTextFormField(
+              //   hint: 'E-mail connected with order',
+              //   onFieldSubmitted: nextNode,
+              //   controller: emailController,
+              //   focusNode: emailNode,
+              //   keyboardType: TextInputType.emailAddress,
+              // ),
+              // EuropeTextFormField(
+              //   hint: 'Your e-mail (not needed if different than order e-mail)',
+              //   onFieldSubmitted: nextNode,
+              //   controller: personalEmailController,
+              //   focusNode: personalEmailNode,
+              //   keyboardType: TextInputType.emailAddress,
+              // ),
+              if (state is TicketErrorState)
+                Text('We have some problems 😅'),
+              if (!(state is TicketValidState))
+                SaveTicketButton(
+                  enabled: formValid,
+                  onSave: onSave,
+                ),
+              if (!(state is TicketValidState))
+                AddTicketEmailInfo(),
+
+              if (state is TicketValidState)
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Text(
+                    'Order number: ${ticketData.orderId}',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              if (state is TicketValidState)
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Text(
+                    'Ticket number: ${ticketData.ticketId}',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              if (state is TicketValidState)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Show this QR code during registration at the event',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              if (state is TicketValidState)
+                ConferenceInfo(),
               Container(
                 color: Theme.of(context).primaryColor,
                 height: 50,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(),
+                    ),
+                    Tooltip(
+                      message: 'Yes, that\'s ToggleButton over there 😉',
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Icon(
+                          LineIcons.question_circle,
+                          color: Colors.white.withOpacity(0.5),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ],
           ),
@@ -87,33 +190,113 @@ class _TicketPageState extends State<TicketPage> {
     emailNode.dispose();
     orderController.dispose();
     orderNode.dispose();
+    personalEmailController.dispose();
+    personalEmailNode.dispose();
+    ticketController.dispose();
+    ticketNode.dispose();
     super.dispose();
   }
 
-  void onTap() async {
-    final result = await Navigator.push<TicketData>(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ScanTicketPage(),
-        settings: RouteSettings(name: '/home/ticket_page/scan_ticket_page'),
-      ),
-    );
-    // extract this to react on controller changes as well as scanning
-    if (result != null) {
-      ticketData = result;
-      orderController.text = ticketData?.orderId;
-      emailController.text = ticketData?.email?.toLowerCase();
+  // void onTap() async {
+  //   final result = await Navigator.push<TicketData>(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => ScanTicketPage(),
+  //       settings: RouteSettings(name: '/home/ticket_page/scan_ticket_page'),
+  //     ),
+  //   );
+  //   // extract this to react on controller changes as well as scanning
+  //   if (result != null) {
+  //     ticketData = result;
+  //     orderController.text = ticketData?.orderId;
+  //     emailController.text = ticketData?.email?.toLowerCase();
 
-      BlocProvider.of<TicketBloc>(context).add(FillTicketData(ticketData));
-    }
-  }
+  //     BlocProvider.of<TicketBloc>(context).add(FillTicketData(ticketData));
+  //   }
+  // }
 
   void onOrderSubmitted(String value) {
     FocusScope.of(context).requestFocus(emailNode);
   }
 
-  void onEmailSubmitted(String value) {
-    FocusScope.of(context).nextFocus();
+  void onSave() {
+    ticketData =
+        TicketData(orderController.value.text, ticketController.value.text);
+    if (verifyByOrderNumber) {
+      BlocProvider.of<TicketBloc>(context).add(SaveTicket(ticketData));
+    } else if (verifyByTicketNumber) {
+      BlocProvider.of<TicketBloc>(context).add(SaveTicket(ticketData));
+    }
+  }
+
+  void onSubmit(String value) {
+    FocusScope.of(context).requestFocus(FocusNode());
+    final valid = _formKey.currentState.validate();
+    print(valid);
+    setState(() {
+      formValid = valid;
+    });
+  }
+}
+
+class ConferenceInfo extends StatelessWidget {
+  const ConferenceInfo({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: DottedBorder(
+        borderType: BorderType.Rect,
+        dashPattern: [4, 4],
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Venue:',
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      'Conference Centre',
+                      textAlign: TextAlign.left,
+                      softWrap: true,
+                      maxLines: 2,
+                    ),
+                    Text(
+                      'Copernicus Science Centre',
+                      textAlign: TextAlign.left,
+                      softWrap: true,
+                      maxLines: 2,
+                    ),
+                    Text(
+                      'Wybrzeże Kościuszkowskie 20',
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      '00-390 Warsaw',
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            IconButton(
+              icon: Icon(LineIcons.map_signs),
+              onPressed: () {},
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -156,7 +339,8 @@ class QrCode extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: QrImage(
-          data: "${ticketData?.orderId} ${ticketData?.email}",
+          //todo
+          data: ticketData?.ticketId ?? ticketData?.orderId,
         ),
       ),
     );

@@ -59,6 +59,11 @@ class FileStorage {
     return file.writeAsString(talks.map((talk) => talk.toJson()).toString());
   }
 
+  Future<DateTime> lastModified() async {
+    final file = await _getLocalFile();
+    return file.lastModified();
+  }
+
   Future<File> _getLocalFile() async {
     final dir = await getDirectory();
 

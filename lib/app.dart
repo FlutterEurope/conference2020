@@ -15,8 +15,8 @@ import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
 import 'package:conferenceapp/ticket/repository/ticket_repository.dart';
+import 'package:conferenceapp/tutorial/tutorial_wrapper.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
-import 'package:feature_discovery/feature_discovery.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
           child: RepositoryProviders(
             child: BlocProviders(
               child: ChangeNotifierProviders(
-                child: FeatureDiscovery(
+                child: TutorialWrapper(
                   child: MaterialApp(
                     title: title,
                     theme: theme,

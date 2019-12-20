@@ -16,12 +16,16 @@ class ScanYourTicketPlaceholder extends StatelessWidget {
             height: 220,
           ),
         ),
-        Text(
-          'Scan your ticket or type manually',
-          style: TextStyle(
-            color: Theme.of(context).brightness == Brightness.light
-                ? Colors.grey[700]
-                : Colors.grey[200],
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'Add your ticket by providing either order number or ticket number',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Colors.grey[700]
+                  : Colors.grey[200],
+            ),
           ),
         )
       ],

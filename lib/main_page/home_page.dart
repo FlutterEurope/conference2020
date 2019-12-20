@@ -44,15 +44,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     //TODO: show only once
-    Timer(Duration(milliseconds: 1500), () {
-      FeatureDiscovery.discoverFeatures(
-        context,
-        const <String>{
-          // Feature ids for every feature that you want to showcase in order.
-          'show_how_to_toggle_layout',
-        },
-      );
-    });
   }
 
   @override

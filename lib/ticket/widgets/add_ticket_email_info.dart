@@ -14,7 +14,7 @@ class AddTicketEmailInfo extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Text(
-          'You received your ticket to your e-mail after the purchase. In case of problems contact us at tickets@fluttereurope.dev.',
+          'You received your ticket to your e-mail after the purchase. In case of problems contact us at tickets@fluttereurope.dev or ask someone from the staff at the conference.',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Theme.of(context).brightness == Brightness.light

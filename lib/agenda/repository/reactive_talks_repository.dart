@@ -91,10 +91,19 @@ class ReactiveTalksRepository implements TalkRepository {
     return talks().transform(transform);
   }
 
+  @override
+  void refresh() {
+    _repository.fetchTalks().then((entities) {
+      _subject.add(List<Talk>.unmodifiable(
+        []..addAll(entities),
+      ));
+    });
+  }
+
   void _loadTodos() {
     _loaded = true;
 
-    _repository.loadTodos().then((entities) {
+    _repository.loadTalks().then((entities) {
       _subject.add(List<Talk>.unmodifiable(
         []..addAll(_subject.value ?? [])..addAll(entities),
       ));
