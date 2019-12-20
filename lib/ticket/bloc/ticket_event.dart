@@ -6,10 +6,10 @@ abstract class TicketEvent {}
 
 class FetchTicket extends TicketEvent {}
 
-class FillTicketData extends TicketEvent {
-  FillTicketData(this.ticketData);
-  final TicketData ticketData;
-}
+// class FillTicketData extends TicketEvent {
+//   FillTicketData(this.ticketData);
+//   final TicketData ticketData;
+// }
 
 class SaveTicket extends TicketEvent {
   SaveTicket(this.ticketData);

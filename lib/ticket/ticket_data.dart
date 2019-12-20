@@ -1,7 +1,8 @@
 class TicketData {
   final String orderId;
-  final String email;
-  bool get filled => orderId != null && email != null;
+  final String ticketId;
+  // final String email;
+  // bool get filled => orderId != null && email != null;
 
-  TicketData(this.orderId, this.email);
+  TicketData(this.orderId, this.ticketId);
 }
