@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
-import 'package:conferenceapp/agenda/widgets/animated_talk_hour.dart';
+import 'package:conferenceapp/agenda/widgets/talk_hour.dart';
 import 'package:conferenceapp/agenda/widgets/talk_card.dart';
 import 'package:conferenceapp/model/agenda.dart';
 import 'package:conferenceapp/model/talk.dart';
