@@ -7,6 +7,11 @@ class MockTalksRepository implements TalkRepository {
   @override
   Stream<List<Talk>> talks() => Stream.fromIterable(Iterable.castFrom(_talks));
   Stream<Talk> talk(id) => Stream.fromFuture(Future.value(_talks[0]));
+
+  @override
+  void refresh() {
+    // TODO: implement refresh
+  }
 }
 
 final _rA = Room('A', '0');

@@ -1,15 +1,14 @@
-import 'package:conferenceapp/agenda/day_selector.dart';
-import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
-import 'package:conferenceapp/agenda/helpers/widget_to_calculate_heights_of_talks.dart';
+import 'dart:async';
+
+import 'package:conferenceapp/agenda/bloc/bloc.dart';
 import 'package:conferenceapp/model/room.dart';
 import 'package:conferenceapp/model/talk.dart';
-import 'package:conferenceapp/notifications/notifications_page.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'populated_agenda_list.dart';
 
-class PopulatedAgendaTable extends StatelessWidget {
+class PopulatedAgendaTable extends StatefulWidget {
   const PopulatedAgendaTable(
     this.talks,
     this.rooms,
@@ -24,14 +23,47 @@ class PopulatedAgendaTable extends StatelessWidget {
   final bool skipWidgetPreload;
 
   @override
+  _PopulatedAgendaTableState createState() => _PopulatedAgendaTableState();
+}
+
+class _PopulatedAgendaTableState extends State<PopulatedAgendaTable> {
+  Completer<void> _refreshCompleter;
+
+  @override
+  void initState() {
+    super.initState();
+    _refreshCompleter = Completer<void>();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return PageView(
-      controller: pageController,
-      physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-      children: <Widget>[
-        PopulatedAgendaDayList(talks[0], rooms),
-        PopulatedAgendaDayList(talks[1], rooms),
-      ],
+    return BlocListener<AgendaBloc, AgendaState>(
+      listener: (context, state) {
+        if (state is PopulatedAgendaState) {
+          _refreshCompleter?.complete();
+          _refreshCompleter = Completer();
+        }
+      },
+      child: PageView(
+        controller: widget.pageController,
+        physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+        children: <Widget>[
+          RefreshIndicator(
+            onRefresh: () async {
+              BlocProvider.of<AgendaBloc>(context).add(FetchAgenda());
+              return _refreshCompleter.future;
+            },
+            child: PopulatedAgendaDayList(widget.talks[0], widget.rooms),
+          ),
+          RefreshIndicator(
+            onRefresh: () async {
+              BlocProvider.of<AgendaBloc>(context).add(FetchAgenda());
+              return _refreshCompleter.future;
+            },
+            child: PopulatedAgendaDayList(widget.talks[1], widget.rooms),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -24,6 +24,9 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
     if (event is AgendaUpdated) {
       yield* mapUpdateToState(event);
     }
+    if (event is FetchAgenda) {
+      yield* mapFetchToState(event);
+    }
   }
 
   Stream<AgendaState> mapInitToState(InitAgenda event) async* {
@@ -38,6 +41,10 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
     if (event.talks != null) {
       yield PopulatedAgendaState(event.talks);
     }
+  }
+
+  Stream<AgendaState> mapFetchToState(FetchAgenda event) async* {
+    talksRepository.refresh();
   }
 
   @override

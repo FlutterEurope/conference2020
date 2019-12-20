@@ -42,4 +42,9 @@ class FirestoreTalkRepository implements TalkRepository {
       return TalkList(DateTime(2000, 1, 1), List<Talk>());
     }
   }
+
+  @override
+  void refresh() {
+    // TODO: implement refresh
+  }
 }

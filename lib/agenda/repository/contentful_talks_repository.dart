@@ -12,16 +12,31 @@ class ContentfulTalksRepository {
     this.client,
   });
 
-  Future<List<Talk>> loadTodos() async {
+  Future<List<Talk>> loadTalks() async {
     try {
-      return await fileStorage.loadTodos();
+      final cached = await fileStorage.loadTodos();
+      if (await cacheExpired()) {
+        return fetchTalks();
+      } else {
+        return cached;
+      }
     } catch (e) {
-      final todos = await client.fetchTalks();
-
-      fileStorage.saveItems(todos);
-
-      return todos;
+      return fetchTalks();
     }
+  }
+
+  Future<bool> cacheExpired() async {
+    final lastModified = await fileStorage.lastModified();
+
+    return lastModified.isBefore(DateTime.now().subtract(Duration(hours: 6)));
+  }
+
+  Future<List<Talk>> fetchTalks() async {
+    final todos = await client.fetchTalks();
+
+    fileStorage.saveItems(todos);
+
+    return todos;
   }
 
   Future saveTalks(List<Talk> todos) {

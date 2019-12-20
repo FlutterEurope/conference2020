@@ -10,8 +10,11 @@ part 'ticket.g.dart';
 class Ticket {
   Ticket(this.orderId, this.ticketId, this.email, this.type);
 
+  @JsonKey(nullable: true)
   final String orderId;
+  @JsonKey(nullable: true)
   final String ticketId;
+  @JsonKey(nullable: true)
   final String email;
   final TicketType type;
 
@@ -20,10 +23,4 @@ class Ticket {
   Map<String, dynamic> toJson() => _$TicketToJson(this);
 }
 
-enum TicketType{
-  Blind,
-  EarlyBird,
-  Regular,
-  LateForTheParty,
-  Student
-}
+enum TicketType { Blind, EarlyBird, Regular, LateForTheParty, Student }

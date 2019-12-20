@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import 'animated_room_indicator.dart';
-import 'animated_talk_hour.dart';
+import 'talk_hour.dart';
 
 class PopulatedAgendaDayList extends StatelessWidget {
   const PopulatedAgendaDayList(
@@ -160,56 +160,6 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
       firstChild: listCompact,
       secondChild: listNormal,
     );
-
-    // return ListView.builder(
-    //   padding: EdgeInsets.symmetric(
-    //     horizontal: 12.0,
-    //     vertical: 16.0,
-    //   ),
-    //   physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-    //   itemCount: talksPerHour.length,
-    //   itemBuilder: (context, index) {
-    //     Talk _firstTalk;
-    //     Talk _secondTalk;
-
-    //     final _thisHoursTalks = talksPerHour[hours[index]];
-
-    //     //TODO: make it independent of rooms number
-    //     _firstTalk = _thisHoursTalks.firstWhere(
-    //         (t) => t.room.id != TalkType.advanced.toString(),
-    //         orElse: () => null);
-    //     _secondTalk = _thisHoursTalks.firstWhere(
-    //         (t) => t.room.id == TalkType.advanced.toString(),
-    //         orElse: () => null);
-
-    //     final firstChild = getCompactTalkCards(
-    //         _firstTalk, _secondTalk, favoriteTalks, context);
-    //     final secondChild =
-    //         getNormalTalkCards(_firstTalk, favoriteTalks, context, _secondTalk);
-
-    //     return Container(
-    //       child: Row(
-    //         crossAxisAlignment: CrossAxisAlignment.start,
-    //         children: <Widget>[
-    //           Flexible(
-    //             child: Stack(
-    //               children: <Widget>[
-    //                 AnimatedCrossFade(
-    //                   duration: Duration(milliseconds: 400),
-    //                   crossFadeState: compact
-    //                       ? CrossFadeState.showFirst
-    //                       : CrossFadeState.showSecond,
-    //                   firstChild: firstChild,
-    //                   secondChild: secondChild,
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     );
-    //   },
-    // );
   }
 
   Column getNormalTalkCards(Talk _firstTalk, List<Talk> favoriteTalks,
@@ -244,7 +194,7 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        AnimatedTalkHour(compact: compact, talk: _firstTalk ?? _secondTalk),
+        CompactLeftTalkContainer(talk: _firstTalk ?? _secondTalk),
         if (_firstTalk != null)
           Flexible(
             child: TalkCard(

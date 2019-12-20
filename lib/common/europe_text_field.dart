@@ -44,6 +44,12 @@ class EuropeTextFormField extends StatelessWidget {
         onFieldSubmitted: onFieldSubmitted,
         focusNode: focusNode,
         keyboardType: keyboardType,
+        validator: (value){
+          if (value.length == 0){
+            return 'Please fill this field';
+          }
+          return null;
+        },
         textInputAction: TextInputAction.next,
         textCapitalization: textCapitalization,
         keyboardAppearance: Theme.of(context).brightness,
