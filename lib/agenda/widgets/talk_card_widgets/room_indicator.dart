@@ -26,16 +26,6 @@ class RoomIndicator extends StatelessWidget {
             : Theme.of(context).accentColor,
       ),
     );
-    return AnimatedOpacity(
-      duration: Duration(milliseconds: 500),
-      opacity: compact ? 0 : 1,
-      child: _Triangle(
-        talk.room,
-        color: talk.room.id == TalkType.beginner.toString()
-            ? Theme.of(context).primaryColor
-            : Theme.of(context).accentColor,
-      ),
-    );
   }
 }
 
