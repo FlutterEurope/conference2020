@@ -30,15 +30,18 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   }
 
   Stream<AgendaState> mapInitToState(InitAgenda event) async* {
+    yield LoadingAgendaState();
     talksSubscription?.cancel();
     talksSubscription = talksRepository.talks().listen(
           (talks) => add(AgendaUpdated(talks)),
         );
-    yield LoadingAgendaState();
   }
 
   Stream<AgendaState> mapUpdateToState(AgendaUpdated event) async* {
     if (event.talks != null) {
+      if (event.talks.length == 0) {
+        yield LoadingAgendaState();
+      }
       yield PopulatedAgendaState(event.talks);
     }
   }

@@ -14,7 +14,10 @@ import 'app.dart';
 void mainCommon({@required AppConfig config}) {
   BlocSupervisor.delegate = SimpleBlocDelegate();
   Crashlytics.instance.enableInDevMode = true;
-  FlutterError.onError = Crashlytics.instance.recordFlutterError;
+  FlutterError.onError = (error) {
+    print(error);
+    Crashlytics.instance.recordFlutterError(error);
+  };
 
   runZoned<Future<void>>(() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -28,5 +31,8 @@ void mainCommon({@required AppConfig config}) {
         sharedPreferences: sharedPrefs,
       ),
     );
-  }, onError: (error, stack) => Crashlytics.instance.recordError(error, stack));
+  }, onError: (error, stack) {
+    print(error);
+    return Crashlytics.instance.recordError(error, stack);
+  });
 }

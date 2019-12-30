@@ -48,6 +48,11 @@ dependencies:
   expandable: ^4.0.1
   smooth_star_rating: ^1.0.3
   feature_discovery: ^0.6.0
+  file_picker: ^1.4.3+2
+  csv: ^4.0.3
+  fast_qr_reader_view:
+    path: plugins/fast_qr_reader_view
+  vibration: ^1.2.2
 
   cupertino_icons: ^0.1.2
 

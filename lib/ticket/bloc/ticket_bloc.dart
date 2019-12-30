@@ -19,39 +19,43 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
     if (event is FetchTicket) {
       yield* mapFetchTicketToState(event);
     }
-    // if (event is FillTicketData) {
-    //   yield* mapFillTicketDataToState(event);
-    // }
     if (event is SaveTicket) {
       yield* mapSaveTicketToState(event);
+    }
+    if (event is RemoveTicket) {
+      yield* mapRemoveTicketToState(event);
     }
   }
 
   Stream<TicketState> mapFetchTicketToState(FetchTicket event) async* {
     final ticket = await _ticketRepository.getTicket();
     if (ticket != null) {
-      yield TicketValidState(ticket);
+      yield TicketAddedState(ticket);
     } else {
       yield NoTicketState();
     }
   }
 
-  // Stream<TicketState> mapFillTicketDataToState(FillTicketData event) async* {
-  //   yield TicketDataFilledState();
-  // }
-
   Stream<TicketState> mapSaveTicketToState(SaveTicket event) async* {
     if (event.ticketData.ticketId != null || event.ticketData.orderId != null) {
       yield TicketLoadingState();
-      await Future.delayed(Duration(seconds: 1));
-      // fetch from eventil
-      final ticket = Ticket(event.ticketData.orderId, '',
-          event.ticketData.ticketId, TicketType.Blind);
+      final ticket =
+          Ticket(event.ticketData.orderId?.toUpperCase(), event.ticketData.ticketId);
 
       await _ticketRepository.addTicket(ticket);
-      yield TicketValidState(ticket);
+      yield TicketAddedState(ticket);
     } else {
       yield TicketErrorState();
+    }
+  }
+
+  Stream<TicketState> mapRemoveTicketToState(RemoveTicket event) async* {
+    final removed = await _ticketRepository.removeTicket();
+    if (removed) {
+      yield NoTicketState();
+    } else {
+      final ticket = await _ticketRepository.getTicket();
+      yield TicketAddedState(ticket);
     }
   }
 }

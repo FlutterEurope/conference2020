@@ -1,7 +1,7 @@
 import 'package:conferenceapp/agenda/widgets/talk_card.dart';
 import 'package:conferenceapp/common/europe_text_field.dart';
+import 'package:conferenceapp/model/ticket.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
-import 'package:conferenceapp/ticket/ticket_data.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +20,6 @@ class TicketPage extends StatefulWidget {
 }
 
 class _TicketPageState extends State<TicketPage> {
-  TicketData ticketData;
   TextEditingController orderController;
   TextEditingController emailController;
   TextEditingController ticketController;
@@ -51,17 +50,18 @@ class _TicketPageState extends State<TicketPage> {
 
   @override
   Widget build(BuildContext context) {
+    final na = 'N/A';
     return BlocBuilder<TicketBloc, TicketState>(
       builder: (context, state) => Scaffold(
         body: Form(
           key: _formKey,
           child: TicketPageWrapper(
             children: <Widget>[
-              if (state is TicketValidState)
-                QrCode(ticketData: ticketData)
+              if (state is TicketAddedState)
+                QrCode(ticketData: state.ticket)
               else
                 NoQrCode(onTap: () {}),
-              if (!(state is TicketValidState))
+              if (!(state is TicketAddedState))
                 ToggleButtons(
                   isSelected: [verifyByOrderNumber, verifyByTicketNumber],
                   onPressed: (index) {
@@ -86,22 +86,22 @@ class _TicketPageState extends State<TicketPage> {
                     )
                   ],
                 ),
-              if (verifyByOrderNumber && !(state is TicketValidState))
+              if (verifyByOrderNumber && !(state is TicketAddedState))
                 EuropeTextFormField(
                   hint: 'Order number (#XXXXXXX)',
-                  // icon: LineIcons.camera,
-                  // onTap: onTap,
                   onFieldSubmitted: onSubmit,
+                  onChanged: validate,
+                  maxLength: 7,
                   controller: orderController,
                   focusNode: orderNode,
                   textCapitalization: TextCapitalization.characters,
                 ),
-              if (verifyByTicketNumber && !(state is TicketValidState))
+              if (verifyByTicketNumber && !(state is TicketAddedState))
                 EuropeTextFormField(
                   hint: 'Ticket number (xXxXxXxXxXxXxX)',
-                  // icon: LineIcons.camera,
-                  // onTap: onTap,
                   onFieldSubmitted: onSubmit,
+                  onChanged: validate,
+                  maxLength: 20,
                   controller: ticketController,
                   focusNode: ticketNode,
                   textCapitalization: TextCapitalization.characters,
@@ -122,31 +122,31 @@ class _TicketPageState extends State<TicketPage> {
               // ),
               if (state is TicketErrorState)
                 Text('We have some problems 😅'),
-              if (!(state is TicketValidState))
+              if (!(state is TicketAddedState))
                 SaveTicketButton(
                   enabled: formValid,
                   onSave: onSave,
                 ),
-              if (!(state is TicketValidState))
+              if (!(state is TicketAddedState))
                 AddTicketEmailInfo(),
 
-              if (state is TicketValidState)
+              if (state is TicketAddedState)
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Text(
-                    'Order number: ${ticketData.orderId}',
+                    'Order number: ${state.ticket.orderId ?? na}',
                     textAlign: TextAlign.center,
                   ),
                 ),
-              if (state is TicketValidState)
+              if (state is TicketAddedState)
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Text(
-                    'Ticket number: ${ticketData.ticketId}',
+                    'Ticket number: ${state.ticket.ticketId ?? na}',
                     textAlign: TextAlign.center,
                   ),
                 ),
-              if (state is TicketValidState)
+              if (state is TicketAddedState)
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
@@ -154,8 +154,23 @@ class _TicketPageState extends State<TicketPage> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-              if (state is TicketValidState)
+              if (state is TicketAddedState)
                 ConferenceInfo(),
+              if (state is TicketAddedState)
+                FlatButton(
+                  textColor: Colors.red,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text('Remove ticket'),
+                      Icon(LineIcons.trash)
+                    ],
+                  ),
+                  onPressed: () {
+                    BlocProvider.of<TicketBloc>(context).add(RemoveTicket());
+                  },
+                ),
               Container(
                 color: Theme.of(context).primaryColor,
                 height: 50,
@@ -164,16 +179,17 @@ class _TicketPageState extends State<TicketPage> {
                     Expanded(
                       child: Container(),
                     ),
-                    Tooltip(
-                      message: 'Yes, that\'s ToggleButton over there 😉',
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Icon(
-                          LineIcons.question_circle,
-                          color: Colors.white.withOpacity(0.5),
+                    if (state is NoTicketState)
+                      Tooltip(
+                        message: 'Yes, that\'s ToggleButton over there 😉',
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Icon(
+                            LineIcons.question_circle,
+                            color: Colors.white.withOpacity(0.5),
+                          ),
                         ),
-                      ),
-                    )
+                      )
                   ],
                 ),
               ),
@@ -197,42 +213,23 @@ class _TicketPageState extends State<TicketPage> {
     super.dispose();
   }
 
-  // void onTap() async {
-  //   final result = await Navigator.push<TicketData>(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => ScanTicketPage(),
-  //       settings: RouteSettings(name: '/home/ticket_page/scan_ticket_page'),
-  //     ),
-  //   );
-  //   // extract this to react on controller changes as well as scanning
-  //   if (result != null) {
-  //     ticketData = result;
-  //     orderController.text = ticketData?.orderId;
-  //     emailController.text = ticketData?.email?.toLowerCase();
-
-  //     BlocProvider.of<TicketBloc>(context).add(FillTicketData(ticketData));
-  //   }
-  // }
-
   void onOrderSubmitted(String value) {
     FocusScope.of(context).requestFocus(emailNode);
   }
 
   void onSave() {
-    ticketData =
-        TicketData(orderController.value.text, ticketController.value.text);
-    if (verifyByOrderNumber) {
-      BlocProvider.of<TicketBloc>(context).add(SaveTicket(ticketData));
-    } else if (verifyByTicketNumber) {
-      BlocProvider.of<TicketBloc>(context).add(SaveTicket(ticketData));
-    }
+    final ticket =
+        Ticket(orderController.value.text, ticketController.value.text);
+    BlocProvider.of<TicketBloc>(context).add(SaveTicket(ticket));
   }
 
   void onSubmit(String value) {
     FocusScope.of(context).requestFocus(FocusNode());
+    validate(value);
+  }
+
+  void validate(String value) {
     final valid = _formKey.currentState.validate();
-    print(valid);
     setState(() {
       formValid = valid;
     });
@@ -328,7 +325,7 @@ class QrCode extends StatelessWidget {
     @required this.ticketData,
   }) : super(key: key);
 
-  final TicketData ticketData;
+  final Ticket ticketData;
 
   @override
   Widget build(BuildContext context) {
@@ -340,7 +337,9 @@ class QrCode extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: QrImage(
           //todo
-          data: ticketData?.ticketId ?? ticketData?.orderId,
+          data: ticketData.ticketId.length > 0
+              ? ticketData?.ticketId
+              : ticketData?.orderId,
         ),
       ),
     );

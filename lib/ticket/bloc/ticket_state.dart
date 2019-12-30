@@ -7,28 +7,24 @@ abstract class TicketState extends Equatable {}
 
 class NoTicketState extends TicketState {
   @override
-  // TODO: implement props
   List<Object> get props => null;
 }
 
 class TicketLoadingState extends TicketState {
   @override
-  // TODO: implement props
   List<Object> get props => null;
 }
 
-class TicketValidState extends TicketState {
+class TicketAddedState extends TicketState {
   final Ticket ticket;
 
-  TicketValidState(this.ticket);
+  TicketAddedState(this.ticket);
 
   @override
-  // TODO: implement props
   List<Object> get props => [ticket.orderId, ticket.ticketId];
 }
 
 class TicketErrorState extends TicketState {
   @override
-  // TODO: implement props
   List<Object> get props => null;
 }

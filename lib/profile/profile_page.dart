@@ -13,6 +13,9 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  int counter = 0;
+  bool authVisible = false;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,18 +37,22 @@ class _ProfilePageState extends State<ProfilePage> {
               onChanged: (_) {},
               value: true,
             ),
-            AuthenticatorButton(),
-            FlatButton(
-              child: Text('Send test crash 🤯'),
-              onPressed: () {
-                try {
-                  throw Exception();
-                } catch (e, s) {
-                  Crashlytics.instance.recordError(e, s);
+            Spacer(),
+            Visibility(
+              visible: authVisible,
+              child: AuthenticatorButton(),
+            ),
+            GestureDetector(
+              onTap: () {
+                counter++;
+                if (counter > 8) {
+                  setState(() {
+                    authVisible = true;
+                  });
                 }
               },
-            ),
-            VersionInfo()
+              child: VersionInfo(),
+            )
           ],
         ),
       ),
@@ -80,7 +87,11 @@ class VersionInfo extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final pkg = snapshot.data;
-            return Text('Version: ${pkg.version} (${pkg.buildNumber})');
+            return Row(
+              children: <Widget>[
+                Text('V. ${pkg.version} (${pkg.buildNumber})'),
+              ],
+            );
           }
           return Container();
         },
