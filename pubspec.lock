@@ -256,7 +256,7 @@ packages:
   fast_qr_reader_view:
     dependency: "direct main"
     description:
-      path: "plugins/fast_qr_reader_view"
+      path: "plugins/fast_qr_reader_view2"
       relative: true
     source: path
     version: "0.1.6"
