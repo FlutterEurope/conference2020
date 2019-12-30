@@ -14,7 +14,7 @@ class ContentfulTalksRepository {
 
   Future<List<Talk>> loadTalks() async {
     try {
-      final cached = await fileStorage.loadTodos();
+      final cached = await fileStorage.loadItems();
       if (await cacheExpired()) {
         return fetchTalks();
       } else {
