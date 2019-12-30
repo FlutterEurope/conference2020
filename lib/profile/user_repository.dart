@@ -16,8 +16,11 @@ class UserRepository {
     });
   }
 
-  Stream<DocumentSnapshot> get _usersSnapshotsStream => _authRepository.userId
-      .asyncExpand((id) => _firestore.document('users/$id').snapshots());
+  Stream<DocumentSnapshot> get _usersSnapshotsStream {
+    return _authRepository.userId.asyncExpand((id) {
+      return _firestore.document('users/$id').snapshots();
+    });
+  }
 
   Stream<User> get user => Observable.combineLatest2(
         _authRepository.userId,
@@ -53,7 +56,7 @@ class UserRepository {
     if (userSnapshot.exists) {
       return User.fromJson(userSnapshot.data);
     } else {
-      return User(id, [], false);
+      return User(id, []);
     }
   }
 }
