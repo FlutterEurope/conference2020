@@ -9,6 +9,8 @@ class EuropeTextFormField extends StatelessWidget {
     this.value,
     this.controller,
     this.onFieldSubmitted,
+    this.onChanged,
+    this.maxLength,
     this.focusNode,
     this.keyboardType,
     this.textCapitalization = TextCapitalization.none,
@@ -20,6 +22,8 @@ class EuropeTextFormField extends StatelessWidget {
   final String value;
   final TextEditingController controller;
   final ValueChanged<String> onFieldSubmitted;
+  final ValueChanged<String> onChanged;
+  final int maxLength;
   final FocusNode focusNode;
   final TextInputType keyboardType;
   final TextCapitalization textCapitalization;
@@ -42,11 +46,16 @@ class EuropeTextFormField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         onFieldSubmitted: onFieldSubmitted,
+        onChanged: onChanged,
         focusNode: focusNode,
         keyboardType: keyboardType,
-        validator: (value){
-          if (value.length == 0){
-            return 'Please fill this field';
+        maxLength: maxLength,
+        validator: (value) {
+          if (value.length == 0) {
+            return 'Please fill this field.';
+          }
+          if (value.length != maxLength) {
+            return 'This field should have $maxLength characters.';
           }
           return null;
         },
