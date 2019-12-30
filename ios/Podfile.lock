@@ -173,6 +173,10 @@ PODS:
   - Crashlytics (3.14.0):
     - Fabric (~> 1.10.2)
   - Fabric (1.10.2)
+  - fast_qr_reader_view (0.0.1):
+    - Flutter
+  - file_picker (0.0.1):
+    - Flutter
   - Firebase/Analytics (6.13.0):
     - Firebase/Core
   - Firebase/Auth (6.13.0):
@@ -434,10 +438,14 @@ PODS:
     - Flutter
   - url_launcher_web (0.0.1):
     - Flutter
+  - vibration (1.2.2):
+    - Flutter
 
 DEPENDENCIES:
   - camera (from `.symlinks/plugins/camera/ios`)
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
+  - fast_qr_reader_view (from `.symlinks/plugins/fast_qr_reader_view/ios`)
+  - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Firebase/MLVisionBarcodeModel
   - Firebase/MLVisionTextModel
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
@@ -461,6 +469,7 @@ DEPENDENCIES:
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
   - url_launcher_macos (from `.symlinks/plugins/url_launcher_macos/ios`)
   - url_launcher_web (from `.symlinks/plugins/url_launcher_web/ios`)
+  - vibration (from `.symlinks/plugins/vibration/ios`)
 
 SPEC REPOS:
   trunk:
@@ -504,6 +513,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/camera/ios"
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
+  fast_qr_reader_view:
+    :path: ".symlinks/plugins/fast_qr_reader_view/ios"
+  file_picker:
+    :path: ".symlinks/plugins/file_picker/ios"
   firebase_analytics:
     :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_auth:
@@ -546,6 +559,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_macos/ios"
   url_launcher_web:
     :path: ".symlinks/plugins/url_launcher_web/ios"
+  vibration:
+    :path: ".symlinks/plugins/vibration/ios"
 
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
@@ -554,6 +569,8 @@ SPEC CHECKSUMS:
   cloud_firestore: 10fd4a09ebffc33efd64708106e2e7de701fe9ae
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
+  fast_qr_reader_view: 53b38a544886e650381ca579e0cdd5ae142fffa6
+  file_picker: 408623be2125b79a4539cf703be3d4b3abe5e245
   Firebase: 458d109512200d1aca2e1b9b6cf7d68a869a4a46
   firebase_analytics: d83001d25b9a58ca5eda8db0ef566c02d7af5258
   firebase_auth: 48dca46d6a22ab8522633c6257715c4ee5afb0f9
@@ -605,6 +622,7 @@ SPEC CHECKSUMS:
   url_launcher: a1c0cc845906122c4784c542523d8cacbded5626
   url_launcher_macos: fd7894421cd39320dce5f292fc99ea9270b2a313
   url_launcher_web: e5527357f037c87560776e36436bf2b0288b965c
+  vibration: 2f659072a9e03ae160974238b728c96e98bce2b5
 
 PODFILE CHECKSUM: dc2318db312c088be3ae1da0f012246903f4c693
 
