@@ -43,7 +43,7 @@ class FileStorage {
     this.getDirectory,
   );
 
-  Future<List<Talk>> loadTodos() async {
+  Future<List<Talk>> loadItems() async {
     final file = await _getLocalFile();
     final string = await file.readAsString();
     final json = JsonDecoder().convert(string);
@@ -56,7 +56,7 @@ class FileStorage {
   Future<File> saveItems(List<Talk> talks) async {
     final file = await _getLocalFile();
 
-    return file.writeAsString(talks.map((talk) => talk.toJson()).toString());
+    return file.writeAsString(jsonEncode(talks.map((talk) => talk.toJson())));
   }
 
   Future<DateTime> lastModified() async {

@@ -30,7 +30,7 @@ void main() {
           bloc,
           emitsInOrder([
             isA<NoTicketState>(),
-            isA<TicketValidState>(),
+            isA<TicketAddedState>(),
           ]));
     });
 
@@ -57,9 +57,8 @@ void main() {
 }
 
 void ticketRepositoryAlwaysWorks(TicketRepository _ticketRepository) {
-  when(_ticketRepository.getTicket()).thenAnswer((_) =>
-      Future.value(Ticket('test', 'test', 'test@test.com', TicketType.Blind)));
+  when(_ticketRepository.getTicket())
+      .thenAnswer((_) => Future.value(Ticket('test', 'test')));
   when(_ticketRepository.addTicket(any)).thenAnswer((_) => Future.value(true));
-  when(_ticketRepository.removeTicket())
-      .thenAnswer((_) => Future.value(true));
+  when(_ticketRepository.removeTicket()).thenAnswer((_) => Future.value(true));
 }

@@ -13,8 +13,8 @@ class TicketRepository {
   TicketRepository(this._userRepository);
 
   Future<Ticket> getTicket() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
       final ticketString = prefs.getString(_ticketKey);
       if (ticketString != null) {
         final json = jsonDecode(ticketString);
@@ -22,7 +22,10 @@ class TicketRepository {
         return ticket;
       }
     } catch (e, s) {
+      print(e);
+      print(s);
       Crashlytics.instance.recordError(e, s);
+      prefs.remove(_ticketKey);
     }
     return null;
   }
@@ -30,7 +33,7 @@ class TicketRepository {
   Future<bool> addTicket(Ticket ticket) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final result =
-        await prefs.setString(_ticketKey, ticket.toJson().toString());
+        await prefs.setString(_ticketKey, jsonEncode(ticket.toJson()));
     return result;
   }
 
