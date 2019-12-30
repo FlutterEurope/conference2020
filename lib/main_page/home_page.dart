@@ -1,19 +1,21 @@
 import 'dart:async';
 
+import 'package:conferenceapp/admin/admin_page.dart';
 import 'package:conferenceapp/agenda/agenda_page.dart';
 import 'package:conferenceapp/analytics.dart';
 import 'package:conferenceapp/bottom_navigation/bottom_bar_title.dart';
 import 'package:conferenceapp/common/appbar.dart';
 import 'package:conferenceapp/main_page/add_ticket_button.dart';
+import 'package:conferenceapp/main_page/learn_features_button.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/my_schedule/my_schedule_page.dart';
 import 'package:conferenceapp/notifications/notifications_page.dart';
+import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:conferenceapp/profile/profile_page.dart';
 import 'package:conferenceapp/search/search_results_page.dart';
 import 'package:conferenceapp/talk/talk_page.dart';
-import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,12 +34,14 @@ class _HomePageState extends State<HomePage> {
   static const int mySchedule = 1;
   static const int notifications = 2;
   static const int profile = 3;
+  static const int admin = 4;
 
   final _tabs = {
     agenda: 'agenda',
     mySchedule: 'mySchedule',
     notifications: 'notifications',
     profile: 'profile',
+    admin: 'admin',
   };
 
   @override
@@ -48,38 +52,53 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: FlutterEuropeAppBar(
-        onSearch: () {
-          _showSearch(context);
-        },
-        layoutSelector: _currentIndex == agenda || _currentIndex == mySchedule,
-      ),
-      bottomNavigationBar: createBottomNavigation(),
-      body: Stack(
-        children: <Widget>[
-          IndexedStack(
-            index: _currentIndex,
-            children: <Widget>[
-              AgendaPage(),
-              MySchedulePage(),
-              NotificationsPage(),
-              ProfilePage(),
-            ],
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: AddTicketButton(),
-          ),
-        ],
-      ),
-    );
+    return StreamBuilder<bool>(
+        stream: RepositoryProvider.of<AuthRepository>(context).isAdmin,
+        builder: (context, snapshot) {
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: FlutterEuropeAppBar(
+              onSearch: () {
+                _showSearch(context);
+              },
+              layoutSelector:
+                  _currentIndex == agenda || _currentIndex == mySchedule,
+            ),
+            bottomNavigationBar: createBottomNavigation(snapshot.data),
+            body: Stack(
+              children: <Widget>[
+                IndexedStack(
+                  index: _currentIndex,
+                  children: <Widget>[
+                    AgendaPage(),
+                    MySchedulePage(),
+                    NotificationsPage(),
+                    ProfilePage(),
+                    if (snapshot.data == true) AdminPage(),
+                  ],
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: AddTicketButton(),
+                ),
+                Visibility(
+                  visible:
+                      _currentIndex == agenda || _currentIndex == mySchedule,
+                  child: Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: LearnFeaturesButton(),
+                  ),
+                )
+              ],
+            ),
+          );
+        });
   }
 
-  BottomNavigationBar createBottomNavigation() {
+  BottomNavigationBar createBottomNavigation([bool isAdmin = false]) {
     final itemHeight = 40.0;
     final textSize = 12.0;
 
@@ -140,6 +159,17 @@ class _HomePageState extends State<HomePage> {
             showTitle: _currentIndex != profile,
           ),
         ),
+        if (isAdmin == true)
+          BottomNavigationBarItem(
+            icon: Container(
+              height: itemHeight,
+              child: Icon(LineIcons.shield),
+            ),
+            title: BottomBarTitle(
+              title: 'Admin',
+              showTitle: _currentIndex != admin,
+            ),
+          ),
       ],
     );
   }
