@@ -10,6 +10,8 @@ import 'package:conferenceapp/agenda/repository/reactive_talks_repository.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:conferenceapp/analytics.dart';
 import 'package:conferenceapp/main_page/home_page.dart';
+import 'package:conferenceapp/notifications/repository/notifications_repository.dart';
+import 'package:conferenceapp/notifications/repository/notifications_unread_repository.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
@@ -66,12 +68,8 @@ class MyApp extends StatelessWidget {
         iconTheme: Theme.of(context).iconTheme.copyWith(color: orange),
       ),
       themedWidgetBuilder: (context, theme) {
-        return MultiProvider(
-          providers: [
-            Provider<SharedPreferences>.value(
-              value: sharedPreferences,
-            ),
-          ],
+        return VariousProviders(
+          sharedPreferences: sharedPreferences,
           child: RepositoryProviders(
             child: BlocProviders(
               child: ChangeNotifierProviders(
@@ -89,6 +87,25 @@ class MyApp extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class VariousProviders extends StatelessWidget {
+  final Widget child;
+  final SharedPreferences sharedPreferences;
+
+  const VariousProviders({Key key, this.child, this.sharedPreferences})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        Provider<SharedPreferences>.value(
+          value: sharedPreferences,
+        ),
+      ],
+      child: child,
     );
   }
 }
@@ -125,6 +142,8 @@ class RepositoryProviders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sharedPreferences = Provider.of<SharedPreferences>(context);
+
     return RepositoryProvider(
       create: (_) => AuthRepository(FirebaseAuth.instance),
       child: RepositoryProvider(
@@ -136,7 +155,15 @@ class RepositoryProviders extends StatelessWidget {
             create: _favoritesRepositoryBuilder,
             child: RepositoryProvider(
               create: _ticketRepositoryBuilder,
-              child: child,
+              child: RepositoryProvider(
+                create: _notificationsRepositoryBuilder,
+                child: RepositoryProvider(
+                  create: (context) =>
+                      _notificationsUnreadStatusRepositoryBuilder(
+                          context, sharedPreferences),
+                  child: child,
+                ),
+              ),
             ),
           ),
         ),
@@ -155,6 +182,20 @@ class RepositoryProviders extends StatelessWidget {
     return FavoritesRepository(
       RepositoryProvider.of<TalkRepository>(context),
       RepositoryProvider.of<UserRepository>(context),
+    );
+  }
+
+  FirestoreNotificationsRepository _notificationsRepositoryBuilder(
+      BuildContext context) {
+    return FirestoreNotificationsRepository(Firestore.instance);
+  }
+
+  AppNotificationsUnreadStatusRepository
+      _notificationsUnreadStatusRepositoryBuilder(
+          BuildContext context, SharedPreferences sharedPreferences) {
+    return AppNotificationsUnreadStatusRepository(
+      RepositoryProvider.of<FirestoreNotificationsRepository>(context),
+      sharedPreferences,
     );
   }
 
