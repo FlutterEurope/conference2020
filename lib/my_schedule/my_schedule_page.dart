@@ -1,4 +1,5 @@
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
+import 'package:conferenceapp/agenda/day_selector.dart';
 import 'package:conferenceapp/agenda/widgets/populated_agenda_table.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
@@ -33,27 +34,34 @@ class _MySchedulePageState extends State<MySchedulePage> {
     final favoritesRepository =
         RepositoryProvider.of<FavoritesRepository>(context);
 
-    return BlocBuilder(
-      bloc: BlocProvider.of<AgendaBloc>(context),
-      builder: (context, AgendaState state) {
-        return StreamBuilder<List<Talk>>(
-          stream: favoritesRepository.favoriteTalks,
-          builder: (context, snapshot) {
-            if (state is PopulatedAgendaState &&
-                snapshot.hasData &&
-                snapshot.data.length > 0) {
-              final talksMap = getTalksPerDay(snapshot, state);
-              return PopulatedAgendaTable(
-                talksMap,
-                state.rooms,
-                pageController,
-                skipWidgetPreload: true,
+    return Column(
+      children: <Widget>[
+        DaySelectorContainer(pageController, currentIndex.value),
+        Flexible(
+          child: BlocBuilder(
+            bloc: BlocProvider.of<AgendaBloc>(context),
+            builder: (context, AgendaState state) {
+              return StreamBuilder<List<Talk>>(
+                stream: favoritesRepository.favoriteTalks,
+                builder: (context, snapshot) {
+                  if (state is PopulatedAgendaState &&
+                      snapshot.hasData &&
+                      snapshot.data.length > 0) {
+                    final talksMap = getTalksPerDay(snapshot, state);
+                    return PopulatedAgendaTable(
+                      talksMap,
+                      state.rooms,
+                      pageController,
+                      skipWidgetPreload: true,
+                    );
+                  }
+                  return MyScheduleEmptyState();
+                },
               );
-            }
-            return MyScheduleEmptyState();
-          },
-        );
-      },
+            },
+          ),
+        ),
+      ],
     );
   }
 
