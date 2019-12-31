@@ -1,12 +1,17 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:conferenceapp/common/europe_text_field.dart';
+import 'package:conferenceapp/model/notification.dart';
+import 'package:conferenceapp/notifications/repository/notifications_repository.dart';
 import 'package:conferenceapp/profile/profile_page.dart';
+import 'package:conferenceapp/profile/settings_toggle.dart';
 import 'package:conferenceapp/ticket_check/ticket_check_page.dart';
 import 'package:csv/csv.dart';
 import 'package:csv/csv_settings_autodetection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
 
 class AdminPage extends StatelessWidget {
@@ -50,6 +55,13 @@ class AdminPage extends StatelessWidget {
                 }
               },
             ),
+            ListTile(
+              title: Text('Add notification'),
+              subtitle: Text(
+                  'Notification will be visible on notifications page for all attendees.'),
+              trailing: Icon(LineIcons.exclamation),
+              onTap: () async => await handleAddingNotification(context),
+            ),
             Spacer(),
             VersionInfo(),
           ],
@@ -58,10 +70,22 @@ class AdminPage extends StatelessWidget {
     );
   }
 
+  Future handleAddingNotification(BuildContext context) async {
+    final notification = await showDialog<AppNotification>(
+      builder: (context) => NotificationDialog(),
+      context: context,
+    );
+    if (notification != null) {
+      final notifRepository =
+          RepositoryProvider.of<FirestoreNotificationsRepository>(context);
+      notifRepository.addNotification(notification);
+    }
+  }
+
   Future<bool> handleCsvTickets() async {
     try {
-      var file = await FilePicker.getFile(
-          type: FileType.CUSTOM, fileExtension: 'csv');
+      var file =
+          await FilePicker.getFile(type: FileType.CUSTOM, fileExtension: 'csv');
       print(file);
 
       if (file == null) return false;
@@ -113,5 +137,92 @@ class AdminPage extends StatelessWidget {
       print(e);
       return false;
     }
+  }
+}
+
+class NotificationDialog extends StatefulWidget {
+  const NotificationDialog({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _NotificationDialogState createState() => _NotificationDialogState();
+}
+
+class _NotificationDialogState extends State<NotificationDialog> {
+  String title;
+  String content;
+  DateTime dateTime = DateTime.now();
+  bool important = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return SimpleDialog(
+      title: Text('Add new notification'),
+      contentPadding: EdgeInsets.all(12.0),
+      children: <Widget>[
+        EuropeTextFormField(
+          hint: 'Title',
+          value: title,
+          onChanged: (value) {
+            setState(() {
+              title = value;
+            });
+          },
+        ),
+        EuropeTextFormField(
+          hint: 'Content',
+          value: content,
+          onChanged: (value) {
+            setState(() {
+              content = value;
+            });
+          },
+        ),
+        FlatButton(
+          child: Text('Date: $dateTime'),
+          onPressed: () async {
+            await showDatePicker(
+              context: context,
+              firstDate: DateTime.now().subtract(Duration(days: 1)),
+              lastDate: DateTime.now().add(Duration(days: 2)),
+              initialDate: DateTime.now(),
+            );
+            await showTimePicker(
+              context: context,
+              initialTime: TimeOfDay.now(),
+            );
+          },
+        ),
+        SettingsToggle(
+          title: 'Important',
+          onChanged: (value) {
+            setState(() {
+              important = value;
+            });
+          },
+          value: important,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            FlatButton(
+              onPressed: () => Navigator.pop<AppNotification>(
+                context,
+                AppNotification(title, dateTime, content, important),
+              ),
+              child: Text('Save'),
+              color: Colors.green,
+            ),
+            SizedBox(width: 16),
+            FlatButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Close'),
+              color: Colors.red,
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }
