@@ -10,6 +10,8 @@ import 'package:conferenceapp/main_page/learn_features_button.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/my_schedule/my_schedule_page.dart';
 import 'package:conferenceapp/notifications/notifications_page.dart';
+import 'package:conferenceapp/notifications/repository/notifications_repository.dart';
+import 'package:conferenceapp/notifications/repository/notifications_unread_repository.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:conferenceapp/profile/profile_page.dart';
 import 'package:conferenceapp/search/search_results_page.dart';
@@ -108,6 +110,12 @@ class _HomePageState extends State<HomePage> {
         analytics.setCurrentScreen(
           screenName: '/home/${_tabs[index]}',
         );
+        if (index == notifications) {
+          final notif =
+              RepositoryProvider.of<AppNotificationsUnreadStatusRepository>(
+                  context);
+          notif.setLatestNotificationReadTime();
+        }
         setState(() {
           _currentIndex = index;
         });
@@ -140,9 +148,11 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         BottomNavigationBarItem(
-          icon: Container(
-            height: itemHeight,
-            child: Icon(LineIcons.bell),
+          icon: NotificationIndicator(
+            child: Container(
+              height: itemHeight,
+              child: Icon(LineIcons.bell),
+            ),
           ),
           title: BottomBarTitle(
             title: 'Notifications',
@@ -206,6 +216,40 @@ class _HomePageState extends State<HomePage> {
         isInitialRoute: false,
       ),
       builder: (BuildContext context) => SearchResultsPage(),
+    );
+  }
+}
+
+class NotificationIndicator extends StatelessWidget {
+  final Widget child;
+
+  const NotificationIndicator({Key key, this.child}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    final notif =
+        RepositoryProvider.of<AppNotificationsUnreadStatusRepository>(context);
+    return StreamBuilder<bool>(
+      stream: notif.hasUnreadNotifications(),
+      builder: (context, snapshot) {
+        return Stack(
+          children: <Widget>[
+            child,
+            if (snapshot.hasData && snapshot.data == true)
+              Positioned(
+                top: 10,
+                right: 5,
+                child: Container(
+                  width: 7,
+                  height: 7,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.red,
+                  ),
+                ),
+              )
+          ],
+        );
+      },
     );
   }
 }
