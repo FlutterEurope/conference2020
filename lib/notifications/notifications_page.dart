@@ -1,13 +1,44 @@
+import 'package:conferenceapp/model/notification.dart';
+import 'package:conferenceapp/notifications/repository/notifications_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: NotificationsEmptyState(),
-      ),
-    );
+    final notificationsRepository =
+        RepositoryProvider.of<FirestoreNotificationsRepository>(context);
+    return StreamBuilder<List<AppNotification>>(
+        stream: notificationsRepository.notifications(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData && snapshot.data.length > 0) {
+            final list = snapshot.data;
+            return ListView.builder(
+              itemCount: list.length,
+              itemBuilder: (context, index) {
+                final notif = list[index];
+                return ListTile(
+                  title: Text(
+                    notif.title ?? '',
+                    style: TextStyle(
+                      fontWeight:
+                          notif.important ? FontWeight.bold : FontWeight.w400,
+                    ),
+                  ),
+                  subtitle: Text(notif.content ?? ''),
+                  trailing: Text(timeago.format(notif.dateTime)),
+                );
+              },
+            );
+          } else {
+            return Container(
+              child: Center(
+                child: NotificationsEmptyState(),
+              ),
+            );
+          }
+        });
   }
 }
 
