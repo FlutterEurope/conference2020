@@ -1,3 +1,4 @@
+import 'package:conferenceapp/common/europe_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -27,15 +28,20 @@ class AuthenticatorButton extends StatelessWidget {
                         'Login to continue',
                         textAlign: TextAlign.center,
                       ),
-                      TextField(
-                        decoration: InputDecoration(hintText: 'e-mail'),
+                      EuropeTextFormField(
+                        hint: 'e-mail',
+                        keyboardType: TextInputType.emailAddress,
                         onChanged: (value) {
                           username = value;
                         },
+                        onFieldSubmitted: (_) {
+                          FocusScope.of(context).nextFocus();
+                        },
                       ),
-                      TextField(
+                      EuropeTextFormField(
                         obscureText: true,
-                        decoration: InputDecoration(hintText: 'password'),
+                        keyboardType: TextInputType.visiblePassword,
+                        hint: 'password',
                         onChanged: (value) {
                           password = value;
                         },
