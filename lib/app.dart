@@ -21,6 +21,7 @@ import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,10 +35,12 @@ class MyApp extends StatelessWidget {
     Key key,
     this.title,
     this.sharedPreferences,
+    this.firebaseMessaging,
   }) : super(key: key);
 
   final String title;
   final SharedPreferences sharedPreferences;
+  final FirebaseMessaging firebaseMessaging;
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +73,7 @@ class MyApp extends StatelessWidget {
       themedWidgetBuilder: (context, theme) {
         return VariousProviders(
           sharedPreferences: sharedPreferences,
+          firebaseMessaging: firebaseMessaging,
           child: RepositoryProviders(
             child: BlocProviders(
               child: ChangeNotifierProviders(
@@ -91,21 +95,60 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class VariousProviders extends StatelessWidget {
+class VariousProviders extends StatefulWidget {
   final Widget child;
   final SharedPreferences sharedPreferences;
+  final FirebaseMessaging firebaseMessaging;
 
-  const VariousProviders({Key key, this.child, this.sharedPreferences})
-      : super(key: key);
+  const VariousProviders({
+    Key key,
+    this.child,
+    this.sharedPreferences,
+    this.firebaseMessaging,
+  }) : super(key: key);
+
+  @override
+  _VariousProvidersState createState() => _VariousProvidersState();
+}
+
+class _VariousProvidersState extends State<VariousProviders> {
+  @override
+  void initState() {
+    super.initState();
+    widget.firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+      },
+      // onBackgroundMessage: (Map<String, dynamic> message) async {
+      //   print("onBackgroundMessage: $message");
+      // },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+      },
+    );
+    widget.firebaseMessaging.subscribeToTopic('notifications');
+    widget.firebaseMessaging.requestNotificationPermissions();
+    final reminders = widget.sharedPreferences.getBool('reminders');
+    if (reminders == null) {
+      widget.sharedPreferences.setBool('reminders', true);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         Provider<SharedPreferences>.value(
-          value: sharedPreferences,
+          value: widget.sharedPreferences,
         ),
+        Provider<FirebaseMessaging>.value(
+          value: widget.firebaseMessaging,
+        )
       ],
-      child: child,
+      child: widget.child,
     );
   }
 }
