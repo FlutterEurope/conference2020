@@ -54,9 +54,15 @@ class FileStorage {
   }
 
   Future<File> saveItems(List<Talk> talks) async {
-    final file = await _getLocalFile();
-
-    return file.writeAsString(jsonEncode(talks.map((talk) => talk.toJson())));
+    try {
+      final file = await _getLocalFile();
+      final map = talks.map((talk)=>talk.toJson()).toList();
+      final json = jsonEncode(map);
+      return file.writeAsString(json);
+    } catch (e) {
+      print(e);
+      return Future.error('Error during save');
+    }
   }
 
   Future<DateTime> lastModified() async {
