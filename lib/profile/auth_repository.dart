@@ -20,6 +20,11 @@ class AuthRepository {
     }
   }
 
+  Future signout() async {
+    await _firebaseAuth.signOut();
+    _init();
+  }
+
   Stream<String> get userId => _firebaseAuth.onAuthStateChanged.map((user) {
         // print('User changed to ${user?.uid}');
         if (user != null)
