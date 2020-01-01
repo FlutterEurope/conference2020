@@ -14,8 +14,8 @@ Talk _$TalkFromJson(Map json) {
         .map((e) => Author.fromJson(Map<String, dynamic>.from(e as Map)))
         .toList(),
     json['description'] as String,
-    FirestoreUtils.fromJson(json['startTime'] as Timestamp),
-    FirestoreUtils.fromJson(json['endTime'] as Timestamp),
+    DateTime.parse(json['startTime'] as String),
+    DateTime.parse(json['endTime'] as String),
     Room.fromJson(Map<String, dynamic>.from(json['room'] as Map)),
   );
 }
@@ -25,7 +25,7 @@ Map<String, dynamic> _$TalkToJson(Talk instance) => <String, dynamic>{
       'title': instance.title,
       'authors': instance.authors.map((e) => e.toJson()).toList(),
       'description': instance.description,
-      'startTime': FirestoreUtils.toJson(instance.startTime),
-      'endTime': FirestoreUtils.toJson(instance.endTime),
+      'startTime': instance.startTime.toIso8601String(),
+      'endTime': instance.endTime.toIso8601String(),
       'room': instance.room.toJson(),
     };

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:conferenceapp/admin/admin_page.dart';
 import 'package:conferenceapp/agenda/agenda_page.dart';
 import 'package:conferenceapp/analytics.dart';
@@ -10,7 +8,6 @@ import 'package:conferenceapp/main_page/learn_features_button.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/my_schedule/my_schedule_page.dart';
 import 'package:conferenceapp/notifications/notifications_page.dart';
-import 'package:conferenceapp/notifications/repository/notifications_repository.dart';
 import 'package:conferenceapp/notifications/repository/notifications_unread_repository.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:conferenceapp/profile/profile_page.dart';
@@ -49,7 +46,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    //TODO: show only once
   }
 
   @override
@@ -57,6 +53,7 @@ class _HomePageState extends State<HomePage> {
     return StreamBuilder<bool>(
         stream: RepositoryProvider.of<AuthRepository>(context).isAdmin,
         builder: (context, snapshot) {
+          final isAdmin = snapshot.data == true;
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: FlutterEuropeAppBar(
@@ -66,24 +63,27 @@ class _HomePageState extends State<HomePage> {
               layoutSelector:
                   _currentIndex == agenda || _currentIndex == mySchedule,
             ),
-            bottomNavigationBar: createBottomNavigation(snapshot.data),
+            bottomNavigationBar: createBottomNavigation(isAdmin),
             body: Stack(
               children: <Widget>[
                 IndexedStack(
-                  index: _currentIndex,
+                  index: _adminAwareIndex(_currentIndex, isAdmin),
                   children: <Widget>[
                     AgendaPage(),
                     MySchedulePage(),
                     NotificationsPage(),
                     ProfilePage(),
-                    if (snapshot.data == true) AdminPage(),
+                    if (isAdmin) AdminPage() else Container(),
                   ],
                 ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: AddTicketButton(),
+                Visibility(
+                  visible: _currentIndex != notifications,
+                  child: Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: AddTicketButton(),
+                  ),
                 ),
                 Visibility(
                   visible:
@@ -105,7 +105,8 @@ class _HomePageState extends State<HomePage> {
     final textSize = 12.0;
 
     return BottomNavigationBar(
-      currentIndex: _currentIndex,
+      // if admin logs out we can't remain on admin page
+      currentIndex: _adminAwareIndex(_currentIndex, isAdmin),
       onTap: (index) {
         analytics.setCurrentScreen(
           screenName: '/home/${_tabs[index]}',
@@ -165,7 +166,7 @@ class _HomePageState extends State<HomePage> {
             child: Icon(LineIcons.user),
           ),
           title: BottomBarTitle(
-            title: 'Profile',
+            title: 'Settings',
             showTitle: _currentIndex != profile,
           ),
         ),
@@ -217,6 +218,10 @@ class _HomePageState extends State<HomePage> {
       ),
       builder: (BuildContext context) => SearchResultsPage(),
     );
+  }
+
+  _adminAwareIndex(int index, bool isAdmin) {
+    return isAdmin == true ? index : (index == admin ? profile : index);
   }
 }
 

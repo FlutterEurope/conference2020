@@ -359,12 +359,14 @@ class TicketPageWrapper extends StatelessWidget {
       },
       child: SafeArea(
         child: CustomScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
+          physics:
+              AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
           slivers: <Widget>[
             SliverAppBar(
               expandedHeight: imageHeight,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               iconTheme: Theme.of(context).iconTheme,
+              centerTitle: true,
               title: AnimatedSwitcher(
                 duration: Duration(milliseconds: 500),
                 child: Theme.of(context).brightness == Brightness.light

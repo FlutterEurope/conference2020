@@ -15,6 +15,8 @@ class NotificationsPage extends StatelessWidget {
           if (snapshot.hasData && snapshot.data.length > 0) {
             final list = snapshot.data;
             return ListView.builder(
+              physics: AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics()),
               itemCount: list.length,
               itemBuilder: (context, index) {
                 final notif = list[index];

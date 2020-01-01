@@ -19,9 +19,9 @@ class Talk implements Comparable<Talk> {
   final List<Author> authors;
   final String description;
 
-  @JsonKey(fromJson: FirestoreUtils.fromJson, toJson: FirestoreUtils.toJson)
+  // @JsonKey(fromJson: FirestoreUtils.fromJson, toJson: FirestoreUtils.toJson)
   final DateTime startTime;
-  @JsonKey(fromJson: FirestoreUtils.fromJson, toJson: FirestoreUtils.toJson)
+  // @JsonKey(fromJson: FirestoreUtils.fromJson, toJson: FirestoreUtils.toJson)
   final DateTime endTime;
   final Room room;
 

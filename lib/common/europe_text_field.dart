@@ -14,6 +14,7 @@ class EuropeTextFormField extends StatelessWidget {
     this.focusNode,
     this.keyboardType,
     this.textCapitalization = TextCapitalization.none,
+    this.obscureText = false,
   }) : super(key: key);
 
   final String hint;
@@ -27,6 +28,7 @@ class EuropeTextFormField extends StatelessWidget {
   final FocusNode focusNode;
   final TextInputType keyboardType;
   final TextCapitalization textCapitalization;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +64,7 @@ class EuropeTextFormField extends StatelessWidget {
         textInputAction: TextInputAction.next,
         textCapitalization: textCapitalization,
         keyboardAppearance: Theme.of(context).brightness,
+        obscureText: obscureText,
         decoration: InputDecoration(
           filled: true,
           enabledBorder: border,
