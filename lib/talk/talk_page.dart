@@ -407,7 +407,7 @@ class TalkDetailsFavoriteButton extends StatelessWidget {
               null;
           return FavoriteButton(
             isFavorite: fav,
-            talkId: talk.id,
+            talk: talk,
           );
         }
         return Container();
