@@ -15,6 +15,7 @@ import 'package:conferenceapp/notifications/repository/notifications_unread_repo
 import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
+import 'package:conferenceapp/talk/talk_page.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
 import 'package:conferenceapp/ticket/repository/ticket_repository.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
@@ -25,6 +26,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -81,6 +83,7 @@ class MyApp extends StatelessWidget {
                   child: MaterialApp(
                       title: title,
                       theme: theme,
+                      navigatorKey: navigatorKey,
                       navigatorObservers: [
                         FirebaseAnalyticsObserver(analytics: analytics),
                       ],
@@ -94,6 +97,8 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 class VariousProviders extends StatefulWidget {
   final Widget child;
@@ -112,6 +117,8 @@ class VariousProviders extends StatefulWidget {
 }
 
 class _VariousProvidersState extends State<VariousProviders> {
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
   @override
   void initState() {
     super.initState();
@@ -135,6 +142,41 @@ class _VariousProvidersState extends State<VariousProviders> {
     if (reminders == null) {
       widget.sharedPreferences.setBool('reminders', true);
     }
+
+    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
+    var initializationSettingsAndroid =
+        new AndroidInitializationSettings('app_icon');
+    var initializationSettingsIOS = IOSInitializationSettings(
+        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    var initializationSettings = InitializationSettings(
+        initializationSettingsAndroid, initializationSettingsIOS);
+    flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onSelectNotification: onSelectNotification,
+    );
+  }
+
+  Future onDidReceiveLocalNotification(
+      int id, String title, String body, String payload) {
+    print(id);
+    print(title);
+    print(body);
+    print(payload);
+    return Future.value(true);
+  }
+
+  Future onSelectNotification(String payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: ' + payload);
+    }
+
+    navigatorKey.currentState.push(
+      MaterialPageRoute(
+        builder: (context) => TalkPage(payload),
+        settings: RouteSettings(name: 'agenda/$payload'),
+      ),
+    );
   }
 
   @override
@@ -146,7 +188,10 @@ class _VariousProvidersState extends State<VariousProviders> {
         ),
         Provider<FirebaseMessaging>.value(
           value: widget.firebaseMessaging,
-        )
+        ),
+        Provider<FlutterLocalNotificationsPlugin>.value(
+          value: flutterLocalNotificationsPlugin,
+        ),
       ],
       child: widget.child,
     );
