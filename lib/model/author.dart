@@ -41,4 +41,9 @@ class Author {
   final String occupation;
   final String twitter;
   final String avatar;
+
+  @override
+  String toString() {
+    return name;
+  }
 }
