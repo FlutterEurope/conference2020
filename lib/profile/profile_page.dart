@@ -2,7 +2,10 @@ import 'package:conferenceapp/analytics.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:package_info/package_info.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'authenticator_button.dart';
 import 'settings_toggle.dart';
@@ -18,6 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final sharedPrefs = Provider.of<SharedPreferences>(context);
     return Container(
       child: Center(
         child: Column(
@@ -29,13 +33,37 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             SettingsToggle(
               title: 'Reminders',
-              onChanged: (_) {},
-              value: true,
+              onChanged: (value) {
+                sharedPrefs.setBool('reminders', value);
+                setState(() {});
+              },
+              value: sharedPrefs.getBool('reminders') == true,
             ),
-            SettingsToggle(
-              title: 'Push Notifications from organizers',
-              onChanged: (_) {},
-              value: true,
+            ListTile(
+              title: Text('Sponsors'),
+              subtitle: Text('See who supported us'),
+              trailing: Icon(LineIcons.angle_right),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text('Organizers'),
+              subtitle: Text('See who created this event'),
+              trailing: Icon(LineIcons.angle_right),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text('Send feedback'),
+              subtitle: Text(
+                  'Let us know if you find any errors or want to share your feedback with us'),
+              trailing: Icon(LineIcons.angle_right),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text('Open source licenses'),
+              trailing: Icon(LineIcons.angle_right),
+              onTap: () {
+                showLicensePage(context: context);
+              },
             ),
             Spacer(),
             Visibility(
