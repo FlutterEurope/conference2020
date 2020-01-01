@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'talk_card_widgets/animated_left_talk_container.dart';
 import 'talk_card_widgets/favorite_button.dart';
 import 'talk_card_widgets/room_indicator.dart';
-import 'talk_card_widgets/speakers.dart';
 import 'talk_card_widgets/talk_title.dart';
 
 class TalkCard extends StatelessWidget {
@@ -51,7 +50,7 @@ class TalkCard extends StatelessWidget {
                       bottom: compact ? null : 0,
                       child: FavoriteButton(
                         isFavorite: isFavorite,
-                        talkId: talk?.id,
+                        talk: talk,
                       ),
                     ),
                     Positioned(
