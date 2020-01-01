@@ -6,7 +6,7 @@ part of 'notification.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AppNotification _$NotificationFromJson(Map json) {
+AppNotification _$AppNotificationFromJson(Map json) {
   return AppNotification(
     json['title'] as String,
     json['dateTime'] == null
@@ -17,7 +17,7 @@ AppNotification _$NotificationFromJson(Map json) {
   );
 }
 
-Map<String, dynamic> _$NotificationToJson(AppNotification instance) =>
+Map<String, dynamic> _$AppNotificationToJson(AppNotification instance) =>
     <String, dynamic>{
       'title': instance.title,
       'dateTime': instance.dateTime?.toIso8601String(),

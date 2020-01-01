@@ -20,8 +20,8 @@ class AppNotification extends Comparable<AppNotification> {
   AppNotification(this.title, this.dateTime, this.content, this.important);
 
   factory AppNotification.fromJson(Map<String, dynamic> json) =>
-      _$NotificationFromJson(json);
-  Map<String, dynamic> toJson() => _$NotificationToJson(this);
+      _$AppNotificationFromJson(json);
+  Map<String, dynamic> toJson() => _$AppNotificationToJson(this);
 
   @override
   int compareTo(other) {
