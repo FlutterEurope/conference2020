@@ -11,7 +11,7 @@ class AppNotificationsUnreadStatusRepository {
   AppNotificationsUnreadStatusRepository(
       this.notificationsRepository, this.sharedPreferences);
 
-  Stream<bool> hasUnreadNotifications() => Observable.combineLatest2(
+  Stream<bool> hasUnreadNotifications() => Rx.combineLatest2(
         notificationsRepository.notifications(),
         _lastNotificationReadTime(),
         _combine,
@@ -22,14 +22,22 @@ class AppNotificationsUnreadStatusRepository {
         _sharedPrefKey, DateTime.now().microsecondsSinceEpoch);
   }
 
+  DateTime latestNotificationReadTime() {
+    var value = sharedPreferences.getInt(_sharedPrefKey);
+    if (value != null)
+      return DateTime.fromMicrosecondsSinceEpoch(value);
+    else
+      return null;
+  }
+
   Stream<int> _lastNotificationReadTime() {
     try {
       final value = sharedPreferences.getInt(_sharedPrefKey);
-      return Observable.just(value);
+      return Stream.value(value);
     } catch (e) {
       // do nothing;
     }
-    return Observable.just(null);
+    return Stream.value(null);
   }
 
   bool _combine(List<AppNotification> list, int lastRead) {

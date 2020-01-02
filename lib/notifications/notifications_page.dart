@@ -1,5 +1,6 @@
 import 'package:conferenceapp/model/notification.dart';
 import 'package:conferenceapp/notifications/repository/notifications_repository.dart';
+import 'package:conferenceapp/notifications/repository/notifications_unread_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -9,6 +10,10 @@ class NotificationsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final notificationsRepository =
         RepositoryProvider.of<FirestoreNotificationsRepository>(context);
+    final notificationUnreadRepository =
+        RepositoryProvider.of<AppNotificationsUnreadStatusRepository>(context);
+    final lastRead = notificationUnreadRepository.latestNotificationReadTime();
+
     return StreamBuilder<List<AppNotification>>(
         stream: notificationsRepository.notifications(),
         builder: (context, snapshot) {
@@ -29,7 +34,23 @@ class NotificationsPage extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(notif.content ?? ''),
-                  trailing: Text(timeago.format(notif.dateTime)),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(timeago.format(notif.dateTime)),
+                      if (lastRead != null && lastRead.isBefore(notif.dateTime))
+                        Padding(
+                          padding: const EdgeInsets.only(left: 6.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Theme.of(context).accentColor),
+                            height: 8,
+                            width: 8,
+                          ),
+                        ),
+                    ],
+                  ),
                 );
               },
             );
