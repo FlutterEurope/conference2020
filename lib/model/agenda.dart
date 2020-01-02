@@ -1,4 +1,3 @@
-import 'package:contentful_rich_text/contentful_rich_text.dart';
 import 'package:contentful_rich_text/types/types.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
