@@ -1,6 +1,6 @@
 import 'package:conferenceapp/model/talk.dart';
+import 'package:conferenceapp/utils/contentful_client.dart';
 
-import 'contentful_client.dart';
 import 'file_storage.dart';
 
 class ContentfulTalksRepository {
