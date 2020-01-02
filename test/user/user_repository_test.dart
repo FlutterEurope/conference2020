@@ -45,7 +45,7 @@ main() {
     when(documentSnapshot.exists).thenReturn(true);
     //return document snapshot
     when(documentReference.snapshots())
-        .thenAnswer((_) => Observable.just(documentSnapshot));
+        .thenAnswer((_) => Stream.value(documentSnapshot));
     when(firestore.document('users/$userId')).thenReturn(documentReference);
   }
 
@@ -54,14 +54,14 @@ main() {
     when(documentSnapshot.exists).thenReturn(false);
     //return document snapshot
     when(documentReference.snapshots())
-        .thenAnswer((_) => Observable.just(documentSnapshot));
+        .thenAnswer((_) => Stream.value(documentSnapshot));
     when(firestore.document('users/$userId')).thenReturn(documentReference);
   }
 
   group('user stream', () {
     test('emits nothing when auth repository emits nothing', () {
       //given
-      when(authRepo.userId).thenAnswer((_) => Observable.empty());
+      when(authRepo.userId).thenAnswer((_) => Stream.empty());
       //when
       _initSut();
       //then
@@ -70,7 +70,7 @@ main() {
 
     test('emits when auth repository emits user id', () {
       //given
-      when(authRepo.userId).thenAnswer((_) => Observable.just('userId'));
+      when(authRepo.userId).thenAnswer((_) => Stream.value('userId'));
       _makeFirestoreReturnData();
       //when
       _initSut();
@@ -84,7 +84,7 @@ main() {
         'userId': 'userId',
         'favoriteTalksIds': ['id1', 'id2'],
       });
-      when(authRepo.userId).thenAnswer((_) => Observable.just('userId'));
+      when(authRepo.userId).thenAnswer((_) => Stream.value('userId'));
 
       //when
       _initSut();
@@ -102,7 +102,7 @@ main() {
         'emits user with id and empty list if firestore returns empty snapshot',
         () {
       //given
-      when(authRepo.userId).thenAnswer((_) => Observable.just('userId'));
+      when(authRepo.userId).thenAnswer((_) => Stream.value('userId'));
       _makeFirestoreReturnEmptySnapshot();
 
       //when
@@ -120,7 +120,7 @@ main() {
   group('addToFavorites', () {
     test('calls firestore with new talkId', () async {
       //given
-      when(authRepo.userId).thenAnswer((_) => Observable.just('userId'));
+      when(authRepo.userId).thenAnswer((_) => Stream.value('userId'));
       _makeFirestoreReturnData();
       _initSut();
       await Future.delayed(Duration(milliseconds: 1));
@@ -135,7 +135,7 @@ main() {
 
     test('doesnt calls firestore if talkId is already liked', () async {
       //given
-      when(authRepo.userId).thenAnswer((_) => Observable.just('userId'));
+      when(authRepo.userId).thenAnswer((_) => Stream.value('userId'));
       _makeFirestoreReturnData(data: {
         'userId': 'userId',
         'favoriteTalksIds': ['talkId'],
@@ -152,7 +152,7 @@ main() {
   group('removeFromFavorites', () {
     test('calls firestore without talkId', () async {
       //given
-      when(authRepo.userId).thenAnswer((_) => Observable.just('userId'));
+      when(authRepo.userId).thenAnswer((_) => Stream.value('userId'));
       _makeFirestoreReturnData(data: {
         'userId': 'userId',
         'favoriteTalksIds': ['talkId'],
@@ -170,7 +170,7 @@ main() {
 
     test('doesnt calls firestore if talkId is not liked', () async {
       //given
-      when(authRepo.userId).thenAnswer((_) => Observable.just('userId'));
+      when(authRepo.userId).thenAnswer((_) => Stream.value('userId'));
       _makeFirestoreReturnData();
       _initSut();
       await Future.delayed(Duration(milliseconds: 1));
