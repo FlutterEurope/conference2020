@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
 import 'package:conferenceapp/agenda/helpers/agenda_layout_helper.dart';
-import 'package:conferenceapp/agenda/repository/contentful_client.dart';
 import 'package:conferenceapp/agenda/repository/contentful_talks_repository.dart';
 import 'package:conferenceapp/agenda/repository/file_storage.dart';
 import 'package:conferenceapp/agenda/repository/reactive_talks_repository.dart';
@@ -15,9 +14,11 @@ import 'package:conferenceapp/notifications/repository/notifications_unread_repo
 import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
+import 'package:conferenceapp/sponsors/sponsors_repository.dart';
 import 'package:conferenceapp/talk/talk_page.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
 import 'package:conferenceapp/ticket/repository/ticket_repository.dart';
+import 'package:conferenceapp/utils/contentful_client.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:firebase_analytics/observer.dart';
@@ -118,33 +119,22 @@ class VariousProviders extends StatefulWidget {
 
 class _VariousProvidersState extends State<VariousProviders> {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  ContentfulClient contentfulClient;
 
   @override
   void initState() {
     super.initState();
-    widget.firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        print("onMessage: $message");
-      },
-      // onBackgroundMessage: (Map<String, dynamic> message) async {
-      //   print("onBackgroundMessage: $message");
-      // },
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-      },
-    );
-    widget.firebaseMessaging.subscribeToTopic('notifications');
-    widget.firebaseMessaging.requestNotificationPermissions();
-    final reminders = widget.sharedPreferences.getBool('reminders');
-    if (reminders == null) {
-      widget.sharedPreferences.setBool('reminders', true);
-    }
-
     flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-    // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
+    contentfulClient = ContentfulClient(
+      appConfig.contentfulSpace,
+      appConfig.contentfulApiKey,
+    );
+
+    initializeRemoteNotifications();
+    initializeLocalNotifications();
+  }
+
+  void initializeLocalNotifications() {
     var initializationSettingsAndroid =
         new AndroidInitializationSettings('app_icon');
     var initializationSettingsIOS = IOSInitializationSettings(
@@ -155,6 +145,25 @@ class _VariousProvidersState extends State<VariousProviders> {
       initializationSettings,
       onSelectNotification: onSelectNotification,
     );
+  }
+
+  void initializeRemoteNotifications() {
+    widget.firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+      },
+    );
+    widget.firebaseMessaging.subscribeToTopic('notifications');
+    final reminders = widget.sharedPreferences.getBool('reminders');
+    if (reminders == null) {
+      widget.sharedPreferences.setBool('reminders', true);
+    }
   }
 
   Future onDidReceiveLocalNotification(
@@ -192,6 +201,9 @@ class _VariousProvidersState extends State<VariousProviders> {
         Provider<FlutterLocalNotificationsPlugin>.value(
           value: flutterLocalNotificationsPlugin,
         ),
+        Provider<ContentfulClient>.value(
+          value: contentfulClient,
+        )
       ],
       child: widget.child,
     );
@@ -231,25 +243,29 @@ class RepositoryProviders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sharedPreferences = Provider.of<SharedPreferences>(context);
+    final client = Provider.of<ContentfulClient>(context);
 
     return RepositoryProvider(
       create: (_) => AuthRepository(FirebaseAuth.instance),
       child: RepositoryProvider(
         create: _userRepositoryBuilder,
         child: RepositoryProvider<TalkRepository>(
-          create: _talksRepositoryBuilder,
+          create: (context) => _talksRepositoryBuilder(context, client),
           // create: (_) => FirestoreTalkRepository(),
           child: RepositoryProvider(
             create: _favoritesRepositoryBuilder,
             child: RepositoryProvider(
-              create: _ticketRepositoryBuilder,
+              create: (context) => _sponsorsRepositoryBuilder(context, client),
               child: RepositoryProvider(
-                create: _notificationsRepositoryBuilder,
+                create: _ticketRepositoryBuilder,
                 child: RepositoryProvider(
-                  create: (context) =>
-                      _notificationsUnreadStatusRepositoryBuilder(
-                          context, sharedPreferences),
-                  child: child,
+                  create: _notificationsRepositoryBuilder,
+                  child: RepositoryProvider(
+                    create: (context) =>
+                        _notificationsUnreadStatusRepositoryBuilder(
+                            context, sharedPreferences),
+                    child: child,
+                  ),
                 ),
               ),
             ),
@@ -273,6 +289,13 @@ class RepositoryProviders extends StatelessWidget {
     );
   }
 
+  SponsorsRepository _sponsorsRepositoryBuilder(
+      BuildContext context, ContentfulClient client) {
+    return SponsorsRepository(
+      client,
+    );
+  }
+
   FirestoreNotificationsRepository _notificationsRepositoryBuilder(
       BuildContext context) {
     return FirestoreNotificationsRepository(Firestore.instance);
@@ -293,13 +316,11 @@ class RepositoryProviders extends StatelessWidget {
     );
   }
 
-  TalkRepository _talksRepositoryBuilder(BuildContext context) {
+  TalkRepository _talksRepositoryBuilder(
+      BuildContext context, ContentfulClient client) {
     return ReactiveTalksRepository(
       repository: ContentfulTalksRepository(
-        client: ContentfulClient(
-          appConfig.contentfulSpace,
-          appConfig.contentfulApiKey,
-        ),
+        client: client,
         fileStorage: FileStorage(
             'talks', () => Directory.systemTemp.createTemp('talks_')),
       ),

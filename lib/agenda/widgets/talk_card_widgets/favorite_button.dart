@@ -31,7 +31,7 @@ class FavoriteButton extends StatelessWidget {
   void _onPressed(BuildContext context) {
     final favoritesRepo = RepositoryProvider.of<FavoritesRepository>(context);
     final flutterLocalNotificationsPlugin =
-        Provider.of<FlutterLocalNotificationsPlugin>(context);
+        Provider.of<FlutterLocalNotificationsPlugin>(context, listen: false);
     if (isFavorite) {
       favoritesRepo.removeTalkFromFavorites(talk?.id);
       cancelNotification(flutterLocalNotificationsPlugin);
@@ -86,10 +86,13 @@ class FavoriteButton extends StatelessWidget {
 
     final reminderTime = _reminderTime();
 
+    final title = '${talk.title}' +
+        (talk.authors.isNotEmpty ? 'by ' : '') +
+        talk.authors.join(", ");
     await flutterLocalNotificationsPlugin.schedule(
       talk.id.hashCode,
       'Next talk starts in 5 minutes',
-      '${talk.title} by ${talk.authors.join(", ")}',
+      title,
       reminderTime,
       platformChannelSpecifics,
       payload: talk.id,
@@ -100,7 +103,7 @@ class FavoriteButton extends StatelessWidget {
     await flutterLocalNotificationsPlugin.schedule(
       talk.id.hashCode + 1,
       'Please rate the talk',
-      '${talk.title} by ${talk.authors.join(", ")}',
+      title,
       ratingTime,
       platformChannelSpecifics,
       payload: talk.id,

@@ -220,7 +220,7 @@ class _SignupDialogDialogState extends State<SignupDialog> {
                 //
                 final FirebaseAuth _auth = FirebaseAuth.instance;
                 try {
-                  final result = await _auth.createUserWithEmailAndPassword(
+                  final _ = await _auth.createUserWithEmailAndPassword(
                     email: email,
                     password: password,
                   );

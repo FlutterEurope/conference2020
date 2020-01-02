@@ -11,7 +11,7 @@ class FavoritesRepository {
 
   FavoritesRepository(this._talksRepository, this._userRepository);
 
-  Observable<List<Talk>> get favoriteTalks => Observable.combineLatest2(
+  Stream<List<Talk>> get favoriteTalks => Rx.combineLatest2(
         _talksRepository.talks(),
         _userRepository.user,
         (List<Talk> talks, User user) => talks

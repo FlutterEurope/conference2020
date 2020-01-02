@@ -1,6 +1,6 @@
 import 'package:conferenceapp/analytics.dart';
+import 'package:conferenceapp/sponsors/sponsors_page.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:package_info/package_info.dart';
@@ -43,7 +43,15 @@ class _ProfilePageState extends State<ProfilePage> {
               title: Text('Sponsors'),
               subtitle: Text('See who supported us'),
               trailing: Icon(LineIcons.angle_right),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SponsorsPage(),
+                    settings: RouteSettings(name: 'sponsors'),
+                  ),
+                );
+              },
             ),
             ListTile(
               title: Text('Organizers'),
@@ -63,6 +71,13 @@ class _ProfilePageState extends State<ProfilePage> {
               trailing: Icon(LineIcons.angle_right),
               onTap: () {
                 showLicensePage(context: context);
+              },
+            ),
+            ListTile(
+              title: Text('Service login'),
+              trailing: Icon(LineIcons.angle_right),
+              onTap: () {
+                AuthenticatorButton().showLoginDialog(context);
               },
             ),
             Spacer(),
