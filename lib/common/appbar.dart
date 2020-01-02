@@ -42,6 +42,9 @@ class FlutterEuropeAppBar extends StatelessWidget
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       elevation: 0,
       brightness: Theme.of(context).brightness,
+      iconTheme: Theme.of(context)
+          .iconTheme
+          .copyWith(color: Theme.of(context).accentColor),
       leading: back
           ? null
           : Semantics(
