@@ -35,7 +35,7 @@ packages:
       name: bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "3.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -263,10 +263,12 @@ packages:
   feature_discovery:
     dependency: "direct main"
     description:
-      name: feature_discovery
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.6.0"
+      path: "."
+      ref: HEAD
+      resolved-ref: e2843138962a1c7beea1f2782e519b468e2ccdbb
+      url: "git@github.com:ayalma/feature_discovery.git"
+    source: git
+    version: "0.6.1"
   file_picker:
     dependency: "direct main"
     description:
@@ -397,7 +399,7 @@ packages:
       name: flutter_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.1"
+    version: "3.1.0"
   flutter_custom_clippers:
     dependency: "direct main"
     description:
@@ -498,7 +500,7 @@ packages:
       name: hydrated_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "3.0.0"
   image:
     dependency: transitive
     description:
@@ -597,6 +599,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.4"
   node_interop:
     dependency: transitive
     description:
@@ -708,7 +717,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.2.0"
+    version: "4.0.1"
   pub_semver:
     dependency: transitive
     description:
@@ -750,7 +759,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.22.6"
+    version: "0.23.1"
   share:
     dependency: "direct main"
     description:
@@ -825,7 +834,7 @@ packages:
       name: smooth_star_rating
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.3"
+    version: "1.0.4+2"
   source_gen:
     dependency: transitive
     description:
