@@ -18,11 +18,12 @@ class UserRepository {
 
   Stream<DocumentSnapshot> get _usersSnapshotsStream {
     return _authRepository.userId.asyncExpand((id) {
+      if (id == null) return null;
       return _firestore.document('users/$id').snapshots();
     });
   }
 
-  Stream<User> get user => Observable.combineLatest2(
+  Stream<User> get user => Rx.combineLatest2(
         _authRepository.userId,
         _usersSnapshotsStream,
         _getUserFromSnapshot,
@@ -53,8 +54,13 @@ class UserRepository {
     String id,
     DocumentSnapshot userSnapshot,
   ) {
+    if (id != userSnapshot.documentID || id != _cachedUser?.userId) {
+      print('Wrong id');
+    }
     if (userSnapshot.exists) {
-      return User.fromJson(userSnapshot.data);
+      final user = User.fromJson(userSnapshot.data);
+      _cachedUser = user;
+      return user;
     } else {
       return User(id, []);
     }

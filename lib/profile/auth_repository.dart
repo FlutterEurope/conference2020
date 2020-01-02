@@ -13,10 +13,11 @@ class AuthRepository {
   void _init() async {
     final user = await _firebaseAuth.currentUser();
     if (user == null) {
-      _firebaseAuth.signInAnonymously();
-    }
-    if (user?.isAnonymous == false || user?.isEmailVerified == true) {
-      print(user.uid);
+      final result = await _firebaseAuth.signInAnonymously();
+      await Firestore.instance.document('users/${result.user.uid}').setData({
+        'userId': result.user.uid,
+        'favoriteTalksIds': [],
+      });
     }
   }
 
@@ -30,12 +31,12 @@ class AuthRepository {
         if (user != null)
           return user.uid;
         else {
-          _firebaseAuth.signInAnonymously();
+          // _firebaseAuth.signInAnonymously();
           return null;
         }
       });
 
-  Stream<bool> get isAdmin => Observable.combineLatest2(
+  Stream<bool> get isAdmin => Rx.combineLatest2(
         userId,
         _adminsSnapshotsStream,
         _isUserAdmin,
