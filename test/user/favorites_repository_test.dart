@@ -6,7 +6,6 @@ import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:mockito/mockito.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:test/test.dart';
 
 class MockUserRepository extends Mock implements UserRepository {}
@@ -30,10 +29,10 @@ main() {
   Talk talkFromId(String id) => Talk(id, null, null, null, null, null, null);
 
   void makeUserRepoReturn(List<String> favorites) => when(userRepository.user)
-      .thenAnswer((_) => Observable.just(User('userId', favorites)));
+      .thenAnswer((_) => Stream.value(User('userId', favorites)));
 
   void makeTalksRepoReturn(List<String> ids) => when(talksRepository.talks())
-      .thenAnswer((_) => Observable.just(ids.map(talkFromId).toList()));
+      .thenAnswer((_) => Stream.value(ids.map(talkFromId).toList()));
 
   group('favoriteTalks', () {
     test('returns empty if there are no matching ids', () {
