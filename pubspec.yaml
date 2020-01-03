@@ -25,7 +25,7 @@ dependencies:
   fast_qr_reader_view:
     path: plugins/fast_qr_reader_view2
   feature_discovery:
-    git: git@github.com:ayalma/feature_discovery.git
+    git: https://github.com/ayalma/feature_discovery.git
   file_picker: ^1.4.3+2
   firebase_analytics: ^5.0.9
   firebase_auth: ^0.15.2
