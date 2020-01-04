@@ -1,8 +1,10 @@
 import 'package:conferenceapp/agenda/widgets/talk_card.dart';
+import 'package:conferenceapp/common/conference_info.dart';
 import 'package:conferenceapp/common/europe_text_field.dart';
 import 'package:conferenceapp/model/ticket.dart';
+import 'package:conferenceapp/model/user.dart';
+import 'package:conferenceapp/profile/user_repository.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
@@ -73,6 +75,8 @@ class _TicketPageState extends State<TicketPage> {
                         verifyByOrderNumber = false;
                         verifyByTicketNumber = true;
                       }
+                      orderController.clear();
+                      ticketController.clear();
                     });
                   },
                   children: <Widget>[
@@ -88,13 +92,20 @@ class _TicketPageState extends State<TicketPage> {
                 ),
               if (verifyByOrderNumber && !(state is TicketAddedState))
                 EuropeTextFormField(
-                  hint: 'Order number (#XXXXXXX)',
+                  hint: 'Order number (OTXXXXXXX)',
                   onFieldSubmitted: onSubmit,
                   onChanged: validate,
-                  maxLength: 7,
+                  maxLength: 9,
                   controller: orderController,
                   focusNode: orderNode,
+                  keyboardType: TextInputType.visiblePassword,
                   textCapitalization: TextCapitalization.characters,
+                  additionalValidator: (value) {
+                    if (!value.startsWith('OT') && !value.startsWith('ot')) {
+                      return 'Order number should start with OT';
+                    }
+                    return null;
+                  },
                 ),
               if (verifyByTicketNumber && !(state is TicketAddedState))
                 EuropeTextFormField(
@@ -104,6 +115,7 @@ class _TicketPageState extends State<TicketPage> {
                   maxLength: 20,
                   controller: ticketController,
                   focusNode: ticketNode,
+                  keyboardType: TextInputType.visiblePassword,
                   textCapitalization: TextCapitalization.characters,
                 ),
               // EuropeTextFormField(
@@ -218,8 +230,8 @@ class _TicketPageState extends State<TicketPage> {
   }
 
   void onSave() {
-    final ticket =
-        Ticket(orderController.value.text, ticketController.value.text);
+    final ticket = Ticket(
+        orderController.value.text.toUpperCase(), ticketController.value.text);
     BlocProvider.of<TicketBloc>(context).add(SaveTicket(ticket));
   }
 
@@ -233,67 +245,6 @@ class _TicketPageState extends State<TicketPage> {
     setState(() {
       formValid = valid;
     });
-  }
-}
-
-class ConferenceInfo extends StatelessWidget {
-  const ConferenceInfo({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: DottedBorder(
-        borderType: BorderType.Rect,
-        dashPattern: [4, 4],
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'Venue:',
-                      textAlign: TextAlign.left,
-                    ),
-                    Text(
-                      'Conference Centre',
-                      textAlign: TextAlign.left,
-                      softWrap: true,
-                      maxLines: 2,
-                    ),
-                    Text(
-                      'Copernicus Science Centre',
-                      textAlign: TextAlign.left,
-                      softWrap: true,
-                      maxLines: 2,
-                    ),
-                    Text(
-                      'Wybrzeże Kościuszkowskie 20',
-                      textAlign: TextAlign.left,
-                    ),
-                    Text(
-                      '00-390 Warsaw',
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            IconButton(
-              icon: Icon(LineIcons.map_signs),
-              onPressed: () {},
-            )
-          ],
-        ),
-      ),
-    );
   }
 }
 
@@ -329,20 +280,31 @@ class QrCode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 260,
-      width: 260,
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: QrImage(
-          //todo
-          data: ticketData.ticketId.length > 0
-              ? ticketData?.ticketId
-              : ticketData?.orderId,
-        ),
-      ),
-    );
+    final userRepo = RepositoryProvider.of<UserRepository>(context);
+    return StreamBuilder<User>(
+        stream: userRepo.user,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final user = snapshot.data;
+            final orderId =
+                ticketData.orderId.length > 0 ? ticketData.orderId : '_';
+            final ticketId =
+                ticketData.ticketId.length > 0 ? ticketData.ticketId : '_';
+            final qrData = '${user.userId} $orderId $ticketId';
+            return Container(
+              height: 260,
+              width: 260,
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: QrImage(
+                  data: qrData,
+                ),
+              ),
+            );
+          } else
+            return Container();
+        });
   }
 }
 

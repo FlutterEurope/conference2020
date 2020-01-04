@@ -27,21 +27,26 @@ class SponsorsPage extends StatelessWidget {
               final grouped = groupBy(snapshot.data, (Sponsor f) => f.level);
               grouped.forEach((g, list) {
                 elems.add(Center(
-                    child:
-                        Text('Sponsor level: ${g.toString().split(".")[1]}')));
+                    child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text('Sponsor level: ${g.toString().split(".")[1]}'),
+                )));
                 list.forEach(
                   (s) => elems.add(
-                    ListTile(
-                      title: ExtendedImage.network(
-                        s.logoUrl + '?w=300&h=300',
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: ListTile(
+                        title: ExtendedImage.network(
+                          s.logoUrl + '?w=500&h=300',
+                        ),
+                        onTap: () async {
+                          if (await canLaunch(s.url)) {
+                            await launch(s.url);
+                          } else {
+                            print('Could not launch ${s.url}');
+                          }
+                        },
                       ),
-                      onTap: () async {
-                        if (await canLaunch(s.url)) {
-                          await launch(s.url);
-                        } else {
-                          print('Could not launch ${s.url}');
-                        }
-                      },
                     ),
                   ),
                 );
@@ -49,6 +54,9 @@ class SponsorsPage extends StatelessWidget {
               });
 
               return ListView(
+                physics: AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics()),
+                padding: EdgeInsets.all(12.0),
                 children: elems,
               );
             } else {

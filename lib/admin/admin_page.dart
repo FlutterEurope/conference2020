@@ -113,7 +113,7 @@ class AdminPage extends StatelessWidget {
   Future<bool> handleCsvTickets() async {
     try {
       var file =
-          await FilePicker.getFile(type: FileType.CUSTOM, fileExtension: 'csv');
+          await FilePicker.getFile(type: FileType.ANY, fileExtension: 'csv');
       print(file);
 
       if (file == null) return false;
@@ -138,11 +138,14 @@ class AdminPage extends StatelessWidget {
         final twitter = att[3];
         final ticketId = att[5];
         final orderId = att[15];
+        final type = att[4];
         final ticket = {
           'name': name64,
           'email': email64,
           'ticketId': ticketId,
           'orderId': orderId,
+          'type': type,
+          'used': false
         };
         tickets.add(ticket);
       }
@@ -155,7 +158,7 @@ class AdminPage extends StatelessWidget {
           await tx.set(ticketDoc, {});
         }
         if (ticketsSnapshot.exists) {
-          await tx.update(ticketDoc, <String, dynamic>{
+          await tx.set(ticketDoc, <String, dynamic>{
             'tickets': tickets,
           });
         }
@@ -269,6 +272,8 @@ class _NotificationDialogState extends State<NotificationDialog> {
         EuropeTextFormField(
           hint: 'Title',
           value: title,
+          keyboardType: TextInputType.text,
+          textCapitalization: TextCapitalization.sentences,
           onChanged: (value) {
             setState(() {
               title = value;
@@ -281,6 +286,8 @@ class _NotificationDialogState extends State<NotificationDialog> {
         EuropeTextFormField(
           hint: 'Content',
           value: content,
+          keyboardType: TextInputType.text,
+          textCapitalization: TextCapitalization.sentences,
           onChanged: (value) {
             setState(() {
               content = value;
