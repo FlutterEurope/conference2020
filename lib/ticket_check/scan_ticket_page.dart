@@ -49,7 +49,7 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
                     state: state,
                   ),
                 if (state is TicketValidatedState)
-                  TicketVerified(
+                  TicketValidated(
                     bloc: widget.bloc,
                     state: state,
                     onClose: startScanning,
@@ -157,8 +157,8 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
   }
 }
 
-class TicketVerified extends StatelessWidget {
-  const TicketVerified({
+class TicketValidated extends StatelessWidget {
+  const TicketValidated({
     Key key,
     this.bloc,
     this.state,

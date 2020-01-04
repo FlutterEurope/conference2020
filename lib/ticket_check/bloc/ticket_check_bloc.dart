@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/model/ticket.dart';
+import 'package:conferenceapp/ticket_check/scan_ticket_page.dart';
 import './bloc.dart';
 
 class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
@@ -23,22 +24,26 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
     }
 
     if (event is TickedValidated) {
-      try {
-        yield LoadingState();
-        final user = Firestore.instance.document('users/${event.userId}');
-        user.setData(
-          {
-            'ticketId': event.ticket.ticketId,
-            'orderId': event.ticket.orderId,
-            'updated': DateTime.now(),
-          },
-          merge: true,
-        );
-        yield TicketValidatedState(event.ticket, event.userId);
-      } catch (e) {
-        print(e);
-        yield TicketErrorState('Error during marking as present.');
-      }
+      yield* handleTicketValidated(event);
+    }
+  }
+
+  Stream<TicketCheckState> handleTicketValidated(TickedValidated event) async* {
+    try {
+      yield LoadingState();
+      final user = Firestore.instance.document('users/${event.userId}');
+      user.setData(
+        {
+          'ticketId': event.ticket.ticketId,
+          'orderId': event.ticket.orderId,
+          'updated': DateTime.now(),
+        },
+        merge: true,
+      );
+      yield TicketValidatedState(event.ticket, event.userId);
+    } catch (e) {
+      print(e);
+      yield TicketErrorState('Error during marking as present.');
     }
   }
 
