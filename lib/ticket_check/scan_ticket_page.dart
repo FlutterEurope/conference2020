@@ -166,7 +166,7 @@ class TicketVerified extends StatelessWidget {
   }) : super(key: key);
 
   final TicketCheckBloc bloc;
-  final TicketCheckState state;
+  final TicketValidatedState state;
   final VoidCallback onClose;
 
   @override
