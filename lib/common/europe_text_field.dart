@@ -15,6 +15,7 @@ class EuropeTextFormField extends StatelessWidget {
     this.keyboardType,
     this.textCapitalization = TextCapitalization.none,
     this.obscureText = false,
+    this.additionalValidator,
   }) : super(key: key);
 
   final String hint;
@@ -29,6 +30,7 @@ class EuropeTextFormField extends StatelessWidget {
   final TextInputType keyboardType;
   final TextCapitalization textCapitalization;
   final bool obscureText;
+  final FormFieldValidator<String> additionalValidator;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +61,7 @@ class EuropeTextFormField extends StatelessWidget {
           if (value.length != maxLength) {
             return 'This field should have $maxLength characters.';
           }
+          if (additionalValidator != null) return additionalValidator(value);
           return null;
         },
         textInputAction: TextInputAction.next,
