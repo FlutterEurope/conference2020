@@ -13,14 +13,17 @@ This is repository of [Flutter Europe](https://fluttereurope.dev/) official conf
 This simple conference app allows:
 
 - [x] displaying the agenda of the event
-- [ ] adding and showing favorite talks
-- [ ] showing details of the talk and speaker
-- [ ] adding and showing the attendee ticket (via form, QR code, scanner, e-mail)
-- [ ] receiving notifications from organizers
+- [x] adding and showing favorite talks
+- [x] showing details of the talk and speaker
+- [x] adding and showing the attendee ticket (via order number or ticket number)
+- [x] receiving notifications from organizers
 - [x] light/dark mode
 - [ ] rating of the talks
-- [ ] receiving reminders about the talks
+- [x] receiving reminders about the talks
 - [ ] adding ticket to the device wallet
+- [x] admin mode to send notifications and new users
+- [x] crash reporting
+- [ ] feedback gathering
 
 It's built with Flutter for iOS and Android.
 
