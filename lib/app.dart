@@ -30,6 +30,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:snapfeed/snapfeed.dart';
 
 import 'config.dart';
 
@@ -81,14 +82,24 @@ class MyApp extends StatelessWidget {
             child: BlocProviders(
               child: ChangeNotifierProviders(
                 child: FeatureDiscovery(
-                  child: MaterialApp(
-                      title: title,
-                      theme: theme,
-                      navigatorKey: navigatorKey,
-                      navigatorObservers: [
-                        FirebaseAnalyticsObserver(analytics: analytics),
-                      ],
-                      home: HomePage(title: title)),
+                  child: Snapfeed(
+                    projectId: appConfig.snapfeedProjectId,
+                    secret: appConfig.snapfeedSecret,
+                    config: SnapfeedConfig.defaultConfig(
+                      teaserMessage:
+                          'Start feedback and navigate to the page you want to ',
+                      feedbackMessage:
+                          'Write down what\'s on your mind. You can also navigate and draw on the screen for better context. Thanks for helping us out!',
+                    ),
+                    child: MaterialApp(
+                        title: title,
+                        theme: theme,
+                        navigatorKey: navigatorKey,
+                        navigatorObservers: [
+                          FirebaseAnalyticsObserver(analytics: analytics),
+                        ],
+                        home: HomePage(title: title)),
+                  ),
                 ),
               ),
             ),
