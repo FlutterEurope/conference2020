@@ -37,3 +37,6 @@ lib/generated_plugin_registrant.dart
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
 fvm
+.flutter-plugins-dependencies
+android/settings_aar.gradle
+ios/Flutter/Flutter.podspec
