@@ -8,6 +8,10 @@ This is repository of [Flutter Europe](https://fluttereurope.dev/) official conf
 
 ![App Logo](docs/logo.png)
 
+| Agenda | Ticket |
+|--------------------|-------|
+|![Agenda screenshot](screenshots/agenda.jpg) | ![Ticket screenshot](screenshots/ticket.jpg) |
+
 ## Getting Started
 
 This simple conference app allows:
