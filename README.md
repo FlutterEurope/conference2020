@@ -8,9 +8,9 @@ This is repository of [Flutter Europe](https://fluttereurope.dev/) official conf
 
 ![App Logo](docs/logo.png)
 
-| Agenda | Ticket |
-|--------------------|-------|
-|![Agenda screenshot](screenshots/agenda.jpg) | ![Ticket screenshot](screenshots/ticket.jpg) |
+| Agenda | Ticket | Dark Mode | Different layouts |
+|--------------------|-------|--------|--------|
+|![Agenda screenshot](screenshots/agenda.jpg) | ![Ticket screenshot](screenshots/ticket.jpg) | ![Dark mode](screenshots/dark.jpg) | ![Different layouts](screenshots/layout.jpg) |
 
 ## Getting Started
 
