@@ -11,6 +11,7 @@ import 'package:conferenceapp/analytics.dart';
 import 'package:conferenceapp/main_page/home_page.dart';
 import 'package:conferenceapp/notifications/repository/notifications_repository.dart';
 import 'package:conferenceapp/notifications/repository/notifications_unread_repository.dart';
+import 'package:conferenceapp/organizers/organizers_repository.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
@@ -24,6 +25,7 @@ import 'package:feature_discovery/feature_discovery.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -145,6 +147,15 @@ class _VariousProvidersState extends State<VariousProviders> {
     initializeLocalNotifications();
   }
 
+  Future<RemoteConfig> initializeRemoteConfig() async {
+    final remoteConfig = await RemoteConfig.instance;
+    await remoteConfig.fetch(expiration: const Duration(seconds: 0));
+    await remoteConfig.activateFetched();
+    final config = remoteConfig.getAll();
+    print(config);
+    return remoteConfig;
+  }
+
   void initializeLocalNotifications() {
     var initializationSettingsAndroid =
         new AndroidInitializationSettings('app_icon');
@@ -214,7 +225,11 @@ class _VariousProvidersState extends State<VariousProviders> {
         ),
         Provider<ContentfulClient>.value(
           value: contentfulClient,
-        )
+        ),
+        FutureProvider<RemoteConfig>(
+          create: (_) async => initializeRemoteConfig(),
+          lazy: false,
+        ),
       ],
       child: widget.child,
     );
@@ -268,14 +283,18 @@ class RepositoryProviders extends StatelessWidget {
             child: RepositoryProvider(
               create: (context) => _sponsorsRepositoryBuilder(context, client),
               child: RepositoryProvider(
-                create: _ticketRepositoryBuilder,
+                create: (context) =>
+                    _organizersRepositoryBuilder(context, client),
                 child: RepositoryProvider(
-                  create: _notificationsRepositoryBuilder,
+                  create: _ticketRepositoryBuilder,
                   child: RepositoryProvider(
-                    create: (context) =>
-                        _notificationsUnreadStatusRepositoryBuilder(
-                            context, sharedPreferences),
-                    child: child,
+                    create: _notificationsRepositoryBuilder,
+                    child: RepositoryProvider(
+                      create: (context) =>
+                          _notificationsUnreadStatusRepositoryBuilder(
+                              context, sharedPreferences),
+                      child: child,
+                    ),
                   ),
                 ),
               ),
@@ -303,6 +322,13 @@ class RepositoryProviders extends StatelessWidget {
   SponsorsRepository _sponsorsRepositoryBuilder(
       BuildContext context, ContentfulClient client) {
     return SponsorsRepository(
+      client,
+    );
+  }
+
+  OrganizersRepository _organizersRepositoryBuilder(
+      BuildContext context, ContentfulClient client) {
+    return OrganizersRepository(
       client,
     );
   }

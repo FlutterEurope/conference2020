@@ -64,8 +64,8 @@ class Sponsor extends Equatable {
 }
 
 enum SponsorLevel {
-  silver,
-  gold,
   platinium,
+  gold,
+  silver,
   bronze,
 }

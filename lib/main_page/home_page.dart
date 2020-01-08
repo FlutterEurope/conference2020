@@ -13,6 +13,7 @@ import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:conferenceapp/profile/profile_page.dart';
 import 'package:conferenceapp/search/search_results_page.dart';
 import 'package:conferenceapp/talk/talk_page.dart';
+import 'package:conferenceapp/ticket_check/ticket_check_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
@@ -33,13 +34,15 @@ class _HomePageState extends State<HomePage> {
   static const int mySchedule = 1;
   static const int notifications = 2;
   static const int profile = 3;
-  static const int admin = 4;
+  static const int ticketer = 4;
+  static const int admin = 5;
 
   final _tabs = {
     agenda: 'agenda',
     mySchedule: 'mySchedule',
     notifications: 'notifications',
     profile: 'profile',
+    ticketer: 'ticketer',
     admin: 'admin',
   };
 
@@ -54,59 +57,70 @@ class _HomePageState extends State<HomePage> {
         stream: RepositoryProvider.of<AuthRepository>(context).isAdmin,
         builder: (context, snapshot) {
           final isAdmin = snapshot.data == true;
-          return Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: FlutterEuropeAppBar(
-              onSearch: () {
-                _showSearch(context);
-              },
-              layoutSelector:
-                  _currentIndex == agenda || _currentIndex == mySchedule,
-            ),
-            bottomNavigationBar: createBottomNavigation(isAdmin),
-            body: Stack(
-              children: <Widget>[
-                IndexedStack(
-                  index: _adminAwareIndex(_currentIndex, isAdmin),
-                  children: <Widget>[
-                    AgendaPage(),
-                    MySchedulePage(),
-                    NotificationsPage(),
-                    ProfilePage(),
-                    if (isAdmin) AdminPage() else Container(),
-                  ],
-                ),
-                Visibility(
-                  visible: _currentIndex != notifications,
-                  child: Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: AddTicketButton(),
+          return StreamBuilder<bool>(
+              stream: RepositoryProvider.of<AuthRepository>(context).isTicketer,
+              builder: (context, ticketerSnapshot) {
+                final isTicketer = ticketerSnapshot.data == true;
+                return Scaffold(
+                  resizeToAvoidBottomInset: false,
+                  appBar: FlutterEuropeAppBar(
+                    onSearch: () {
+                      _showSearch(context);
+                    },
+                    layoutSelector:
+                        _currentIndex == agenda || _currentIndex == mySchedule,
                   ),
-                ),
-                Visibility(
-                  visible:
-                      _currentIndex == agenda || _currentIndex == mySchedule,
-                  child: Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: LearnFeaturesButton(),
+                  bottomNavigationBar:
+                      createBottomNavigation(isAdmin, isTicketer),
+                  body: Stack(
+                    children: <Widget>[
+                      IndexedStack(
+                        index: _adminAwareIndex(
+                            _currentIndex, isAdmin, isTicketer),
+                        children: <Widget>[
+                          AgendaPage(),
+                          MySchedulePage(),
+                          NotificationsPage(),
+                          ProfilePage(),
+                          if (isTicketer) TicketCheckPage(),
+                          if (isAdmin) AdminPage() else Container(),
+                        ],
+                      ),
+                      Visibility(
+                        visible: _currentIndex == agenda ||
+                            _currentIndex == mySchedule ||
+                            _currentIndex == profile,
+                        child: Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: AddTicketButton(),
+                        ),
+                      ),
+                      Visibility(
+                        visible: _currentIndex == agenda ||
+                            _currentIndex == mySchedule,
+                        child: Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: LearnFeaturesButton(),
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
-            ),
-          );
+                );
+              });
         });
   }
 
-  BottomNavigationBar createBottomNavigation([bool isAdmin = false]) {
+  BottomNavigationBar createBottomNavigation(
+      [bool isAdmin = false, bool isTicketer = false]) {
     final itemHeight = 40.0;
     final textSize = 12.0;
 
     return BottomNavigationBar(
       // if admin logs out we can't remain on admin page
-      currentIndex: _adminAwareIndex(_currentIndex, isAdmin),
+      currentIndex: _adminAwareIndex(_currentIndex, isAdmin, isTicketer),
       onTap: (index) {
         analytics.setCurrentScreen(
           screenName: '/home/${_tabs[index]}',
@@ -170,6 +184,17 @@ class _HomePageState extends State<HomePage> {
             showTitle: _currentIndex != profile,
           ),
         ),
+        if (isTicketer == true)
+          BottomNavigationBarItem(
+            icon: Container(
+              height: itemHeight,
+              child: Icon(LineIcons.ticket),
+            ),
+            title: BottomBarTitle(
+              title: 'Bilety',
+              showTitle: _currentIndex != ticketer,
+            ),
+          ),
         if (isAdmin == true)
           BottomNavigationBarItem(
             icon: Container(
@@ -220,8 +245,32 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _adminAwareIndex(int index, bool isAdmin) {
-    return isAdmin == true ? index : (index == admin ? profile : index);
+  _adminAwareIndex(int index, bool isAdmin, bool isTicketer) {
+    if (isAdmin) {
+      if (isTicketer) {
+        return index;
+      } else {
+        if (index == ticketer || index == admin) {
+          return admin - 1;
+        } else {
+          return index;
+        }
+      }
+    } else {
+      if (isTicketer) {
+        if (index == ticketer || index == admin) {
+          return ticketer;
+        } else {
+          return index;
+        }
+      } else {
+        if (index == ticketer || index == admin) {
+          return profile;
+        } else {
+          return index;
+        }
+      }
+    }
   }
 }
 

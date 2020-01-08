@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoriteButton extends StatelessWidget {
   const FavoriteButton({
@@ -32,15 +33,19 @@ class FavoriteButton extends StatelessWidget {
     final favoritesRepo = RepositoryProvider.of<FavoritesRepository>(context);
     final flutterLocalNotificationsPlugin =
         Provider.of<FlutterLocalNotificationsPlugin>(context, listen: false);
+    final sharedPrefs = Provider.of<SharedPreferences>(context, listen: false);
+    final remindersEnabled = sharedPrefs.getBool('reminders') == true;
     if (isFavorite) {
       favoritesRepo.removeTalkFromFavorites(talk?.id);
       cancelNotification(flutterLocalNotificationsPlugin);
     } else {
       favoritesRepo.addTalkToFavorites(talk?.id);
-      scheduleNotification(
-          flutterLocalNotificationsPlugin, favoritesRepo, talk);
+      if (remindersEnabled) {
+        scheduleNotification(
+            flutterLocalNotificationsPlugin, favoritesRepo, talk);
 
-      showInfoAboutNotification(context);
+        showInfoAboutNotification(context);
+      }
     }
   }
 

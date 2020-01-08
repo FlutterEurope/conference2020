@@ -5,6 +5,7 @@ import 'package:rxdart/rxdart.dart';
 class AuthRepository {
   final FirebaseAuth _firebaseAuth;
   final _adminsCollection = Firestore.instance.collection('admins');
+  final _ticketersCollection = Firestore.instance.collection('ticketers');
 
   AuthRepository(this._firebaseAuth) {
     _init();
@@ -27,11 +28,17 @@ class AuthRepository {
   }
 
   Stream<String> get userId => _firebaseAuth.onAuthStateChanged.map((user) {
-        // print('User changed to ${user?.uid}');
         if (user != null)
           return user.uid;
         else {
-          // _firebaseAuth.signInAnonymously();
+          return null;
+        }
+      });
+
+  Stream<FirebaseUser> get user => _firebaseAuth.onAuthStateChanged.map((user) {
+        if (user != null)
+          return user;
+        else {
           return null;
         }
       });
@@ -42,8 +49,17 @@ class AuthRepository {
         _isUserAdmin,
       ).asBroadcastStream();
 
+  Stream<bool> get isTicketer => Rx.combineLatest2(
+        user,
+        _ticketersSnapshotsStream,
+        _isUserTicketer,
+      ).asBroadcastStream();
+
   Stream<List<DocumentSnapshot>> get _adminsSnapshotsStream =>
       _adminsCollection.snapshots().map((docs) => docs.documents.toList());
+
+  Stream<List<DocumentSnapshot>> get _ticketersSnapshotsStream =>
+      _ticketersCollection.snapshots().map((docs) => docs.documents.toList());
 
   bool _isUserAdmin(
     String id,
@@ -55,6 +71,24 @@ class AuthRepository {
           return f.data["id"] == id;
         }, orElse: () => null);
         return isAdmin != null;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
+  bool _isUserTicketer(
+    FirebaseUser user,
+    List<DocumentSnapshot> ticketersSnapshot,
+  ) {
+    try {
+      if (ticketersSnapshot.length > 0) {
+        final isTicketer = ticketersSnapshot.firstWhere((f) {
+          return f.data["email"] == user.email;
+        }, orElse: () => null);
+        return isTicketer != null;
       } else {
         return false;
       }

@@ -90,8 +90,8 @@ T _$enumDecodeNullable<T>(
 }
 
 const _$SponsorLevelEnumMap = {
-  SponsorLevel.silver: 'silver',
-  SponsorLevel.gold: 'gold',
   SponsorLevel.platinium: 'platinium',
+  SponsorLevel.gold: 'gold',
+  SponsorLevel.silver: 'silver',
   SponsorLevel.bronze: 'bronze',
 };
