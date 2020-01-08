@@ -1,4 +1,5 @@
 import 'package:conferenceapp/model/agenda.dart';
+import 'package:conferenceapp/model/organizer.dart';
 import 'package:conferenceapp/model/sponsor.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:contentful/contentful.dart';
@@ -44,6 +45,25 @@ class ContentfulClient {
     } catch (e) {
       print(e);
       return List<Sponsor>();
+    }
+  }
+
+  Future<List<Organizer>> fetchOrganizers() async {
+    try {
+      final _client = Client(space, apiKey);
+
+      final data = await _client.getEntries<OrganizerFields>(
+        {
+          'content_type': 'organizers',
+          'limit': '100',
+        },
+        OrganizerFields.fromJson,
+      );
+
+      return data.items.map((f) => f.fields).toList();
+    } catch (e) {
+      print(e);
+      return List<Organizer>();
     }
   }
 }
