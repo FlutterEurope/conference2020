@@ -143,39 +143,3 @@ class ContentfulSpeakerFields extends Equatable {
   @override
   List<Object> get props => [name, twitter];
 }
-
-extension ContentfulHelper on Document {
-  String toSimpleString() {
-    if (this == null) {
-      return '';
-    }
-    try {
-      var buffer = new StringBuffer();
-
-      this.content.forEach((c) {
-        final content = c['content'] as List<dynamic>;
-        if (content != null) {
-          parseContentNode(content, buffer);
-        }
-      });
-
-      return buffer.toString();
-    } catch (e) {
-      print('Error during parsing Contentful document');
-      print(e);
-      return '';
-    }
-  }
-
-  void parseContentNode(List<dynamic> content, StringBuffer buffer) {
-    content.forEach((d) {
-      var content = d['content'] as List<dynamic>;
-      if (content != null) {
-        parseContentNode(content, buffer);
-      } else {
-        buffer.write(d['value']);
-        buffer.write('\n');
-      }
-    });
-  }
-}
