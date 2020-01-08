@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:conferenceapp/analytics.dart';
+import 'package:conferenceapp/organizers/organizers_page.dart';
 import 'package:conferenceapp/sponsors/sponsors_page.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:package_info/package_info.dart';
@@ -38,6 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             SettingsToggle(
               title: 'Reminders',
+              subtitle: 'Disabling reminders won\'t cancel existing reminders',
               onChanged: (value) {
                 sharedPrefs.setBool('reminders', value);
                 setState(() {});
@@ -62,7 +65,15 @@ class _ProfilePageState extends State<ProfilePage> {
               title: Text('Organizers'),
               subtitle: Text('See who created this event'),
               trailing: Icon(LineIcons.angle_right),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OrganizersPage(),
+                    settings: RouteSettings(name: 'organizers'),
+                  ),
+                );
+              },
             ),
             ListTile(
               title: Text('Send feedback'),
@@ -118,14 +129,17 @@ class _ProfilePageState extends State<ProfilePage> {
                         'Created by Dominik Roszkowski (roszkowski.dev) and Marcin Szałek (fidev.io) for Flutter Europe conference');
               },
             ),
-            ListTile(
-              title: Text('Service login'),
-              subtitle: Text('You can check tickets if you\'re authorized'),
-              trailing: Icon(LineIcons.angle_right),
-              onTap: () {
-                AuthenticatorButton().showLoginDialog(context);
-              },
-            ),
+            if (Provider.of<RemoteConfig>(context, listen: false)
+                    ?.getBool('service_login_enabled') ??
+                false)
+              ListTile(
+                title: Text('Service login'),
+                subtitle: Text('You can check tickets if you\'re authorized'),
+                trailing: Icon(LineIcons.angle_right),
+                onTap: () {
+                  AuthenticatorButton().showLoginDialog(context);
+                },
+              ),
             Spacer(),
             Visibility(
               visible: authVisible,
