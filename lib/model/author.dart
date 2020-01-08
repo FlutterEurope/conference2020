@@ -1,5 +1,6 @@
 import 'package:conferenceapp/model/agenda.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:conferenceapp/utils/contentful_helper.dart';
 
 part 'author.g.dart';
 
