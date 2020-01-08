@@ -10,7 +10,6 @@ import 'package:conferenceapp/ticket_check/ticket_check_page.dart';
 import 'package:csv/csv.dart';
 import 'package:csv/csv_settings_autodetection.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
@@ -26,20 +25,6 @@ class AdminPage extends StatelessWidget {
       child: Center(
         child: Column(
           children: <Widget>[
-            ListTile(
-              title: Text('Start tickets check'),
-              subtitle: Text(
-                  'Point camera at the QR code visible on attendee\'s smartphone screen.'),
-              trailing: Icon(LineIcons.ticket),
-              onTap: () async {
-                await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => TicketCheckPage(),
-                    settings: RouteSettings(name: 'admin/ticket_check'),
-                  ),
-                );
-              },
-            ),
             ListTile(
               title: Text('Load tickets from csv'),
               subtitle: Text(
@@ -64,8 +49,8 @@ class AdminPage extends StatelessWidget {
               onTap: () async => await handleAddingNotification(context),
             ),
             ListTile(
-              title: Text('Create new user'),
-              subtitle: Text('This allows to create new admin user'),
+              title: Text('Create new ticketer'),
+              subtitle: Text('This allows to create new ticketer'),
               trailing: Icon(LineIcons.smile_o),
               onTap: () async => await handleCreateNewUser(context),
             ),
@@ -187,7 +172,7 @@ class _SignupDialogDialogState extends State<SignupDialog> {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      title: Text('Register new user'),
+      title: Text('Add new ticketer'),
       contentPadding: EdgeInsets.all(12.0),
       children: <Widget>[
         EuropeTextFormField(
@@ -202,31 +187,15 @@ class _SignupDialogDialogState extends State<SignupDialog> {
             FocusScope.of(context).nextFocus();
           },
         ),
-        EuropeTextFormField(
-          hint: 'Password',
-          obscureText: true,
-          value: password,
-          onChanged: (value) {
-            setState(() {
-              password = value;
-            });
-          },
-          onFieldSubmitted: (_) {
-            FocusScope.of(context).nextFocus();
-          },
-        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             FlatButton(
               onPressed: () async {
-                //
-                final FirebaseAuth _auth = FirebaseAuth.instance;
                 try {
-                  final _ = await _auth.createUserWithEmailAndPassword(
-                    email: email,
-                    password: password,
-                  );
+                  final doc =
+                      Firestore.instance.collection('ticketers').document();
+                  await doc.setData({'email': email});
                 } catch (e) {
                   print(e);
                 }
