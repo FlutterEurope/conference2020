@@ -28,16 +28,27 @@ class SponsorsPage extends StatelessWidget {
               grouped.forEach((g, list) {
                 elems.add(Center(
                     child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Text('Sponsor level: ${g.toString().split(".")[1]}'),
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text(
+                    'Sponsor level: ${g.toString().split(".")[1]}',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 )));
                 list.forEach(
                   (s) => elems.add(
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
+                      padding: const EdgeInsets.only(bottom: 26.0, top: 18.0),
                       child: ListTile(
-                        title: ExtendedImage.network(
-                          s.logoUrl + '?w=500&h=300',
+                        title: Container(
+                          width: 560,
+                          height: 150,
+                          child: ExtendedImage.network(
+                            s.logoUrl + '?w=560',
+                            width: 560,
+                          ),
                         ),
                         onTap: () async {
                           if (await canLaunch(s.url)) {
