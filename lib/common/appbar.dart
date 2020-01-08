@@ -90,7 +90,8 @@ class ToggleLayoutButton extends StatelessWidget {
           color: Theme.of(context).accentColor,
           icon: AnimatedSwitcher(
               duration: Duration(milliseconds: 500),
-              child: Provider.of<AgendaLayoutHelper>(context).isCompact()
+              child: Provider.of<AgendaLayoutHelper>(context, listen: false)
+                      .isCompact()
                   ? Icon(
                       LineIcons.database,
                       size: 24,
@@ -102,7 +103,8 @@ class ToggleLayoutButton extends StatelessWidget {
                       key: ValueKey('icon1'),
                     )),
           onPressed: () async {
-            await Provider.of<AgendaLayoutHelper>(context).toggleCompact();
+            await Provider.of<AgendaLayoutHelper>(context, listen: false)
+                .toggleCompact();
           },
         ),
       ),
