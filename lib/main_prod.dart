@@ -6,12 +6,15 @@ void main() {
   final apiKey = 'CONTENTFUL_API_KEY';
   final snapfeedProjectId = 'SNAPFEED_PROJECTID';
   final snapfeedSecret = 'SNAPFEED_SECRET';
+  final bugfenderKey = 'BUGFENDER_KEY';
+
   final config = AppConfig(
     contentfulApiKey: apiKey,
     contentfulSpace: space,
     flavor: 'prod',
     snapfeedProjectId: snapfeedProjectId,
     snapfeedSecret: snapfeedSecret,
+    bugfenderKey: bugfenderKey,
   );
   mainCommon(config: config);
 }

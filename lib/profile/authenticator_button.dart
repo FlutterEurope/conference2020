@@ -1,4 +1,5 @@
 import 'package:conferenceapp/common/europe_text_field.dart';
+import 'package:conferenceapp/common/logger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -60,11 +61,10 @@ class AuthenticatorButton extends StatelessWidget {
               onPressed: () async {
                 final FirebaseAuth _auth = FirebaseAuth.instance;
                 try {
-                  final result = await _auth.signInWithEmailAndPassword(
+                  final _ = await _auth.signInWithEmailAndPassword(
                     email: username,
                     password: password,
                   );
-                  print(result);
                   Fluttertoast.showToast(
                     msg: "Logged in",
                     toastLength: Toast.LENGTH_SHORT,
@@ -83,7 +83,7 @@ class AuthenticatorButton extends StatelessWidget {
                       backgroundColor: Colors.red,
                       textColor: Colors.white,
                       fontSize: 16.0);
-                  print(e);
+                  Logger.errorException(e);
                 }
               },
             ),
@@ -107,7 +107,6 @@ class AuthenticatorButton extends StatelessWidget {
                   );
                   Navigator.pop(context);
                 } catch (e) {
-                  print(e);
                   Fluttertoast.showToast(
                     msg: "Error during registration",
                     toastLength: Toast.LENGTH_SHORT,
@@ -117,6 +116,7 @@ class AuthenticatorButton extends StatelessWidget {
                     textColor: Colors.white,
                     fontSize: 16.0,
                   );
+                  Logger.errorException(e);
                   Navigator.pop(context);
                 }
               },

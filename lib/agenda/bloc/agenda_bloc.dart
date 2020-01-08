@@ -8,6 +8,9 @@ import './bloc.dart';
 class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
   AgendaBloc(this.talksRepository);
 
+  @override
+  String toString() => 'AgendaBloc';
+
   final TalkRepository talksRepository;
   StreamSubscription talksSubscription;
 

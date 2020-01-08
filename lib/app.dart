@@ -29,6 +29,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bugfender/flutter_bugfender.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -50,6 +51,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FlutterBugfender.init(appConfig.bugfenderKey);
+
     final orange = Color.fromARGB(255, 240, 89, 41);
     final blue = Color.fromARGB(255, 33, 153, 227);
     return DynamicTheme(
@@ -151,8 +154,7 @@ class _VariousProvidersState extends State<VariousProviders> {
     final remoteConfig = await RemoteConfig.instance;
     await remoteConfig.fetch(expiration: const Duration(seconds: 0));
     await remoteConfig.activateFetched();
-    final config = remoteConfig.getAll();
-    print(config);
+    final _ = remoteConfig.getAll();
     return remoteConfig;
   }
 

@@ -1,3 +1,4 @@
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/organizer.dart';
 import 'package:conferenceapp/utils/contentful_client.dart';
 
@@ -10,8 +11,9 @@ class OrganizersRepository {
       final organizers = await client.fetchOrganizers();
       organizers..sort();
       return organizers;
-    } catch (e) {
-      print(e);
+    } catch (e, s) {
+      Logger.errorException(e, s);
+
       return List<Organizer>();
     }
   }

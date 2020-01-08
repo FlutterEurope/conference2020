@@ -10,6 +10,9 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
   TicketBloc(this._ticketRepository);
 
   @override
+  String toString() => 'TicketBloc';
+
+  @override
   TicketState get initialState => NoTicketState();
 
   @override
@@ -39,8 +42,8 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
   Stream<TicketState> mapSaveTicketToState(SaveTicket event) async* {
     if (event.ticketData.ticketId != null || event.ticketData.orderId != null) {
       yield TicketLoadingState();
-      final ticket =
-          Ticket(event.ticketData.orderId?.toUpperCase(), event.ticketData.ticketId);
+      final ticket = Ticket(
+          event.ticketData.orderId?.toUpperCase(), event.ticketData.ticketId);
 
       await _ticketRepository.addTicket(ticket);
       yield TicketAddedState(ticket);

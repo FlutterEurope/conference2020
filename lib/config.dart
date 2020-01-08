@@ -6,6 +6,7 @@ class AppConfig {
   final String snapfeedProjectId;
   final String snapfeedSecret;
   final String flavor;
+  final String bugfenderKey;
 
   AppConfig({
     @required this.contentfulSpace,
@@ -13,6 +14,7 @@ class AppConfig {
     @required this.flavor,
     @required this.snapfeedProjectId,
     @required this.snapfeedSecret,
+    @required this.bugfenderKey,
   });
 }
 

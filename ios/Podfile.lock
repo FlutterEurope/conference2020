@@ -164,6 +164,9 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.3):
     - BoringSSL-GRPC/Interface (= 0.0.3)
   - BoringSSL-GRPC/Interface (0.0.3)
+  - BugfenderSDK (1.7.0):
+    - BugfenderSDK/Swift (= 1.7.0)
+  - BugfenderSDK/Swift (1.7.0)
   - camera (0.0.1):
     - Flutter
   - cloud_firestore (0.0.1):
@@ -344,6 +347,9 @@ PODS:
     - "GoogleUtilities/NSData+zlib (~> 6.2)"
     - Protobuf (>= 3.9.2, ~> 3.9)
   - Flutter (1.0.0)
+  - flutter_bugfender (1.0.0):
+    - BugfenderSDK
+    - Flutter
   - flutter_local_notifications (0.0.1):
     - Flutter
   - fluttertoast (0.0.2):
@@ -461,6 +467,7 @@ DEPENDENCIES:
   - firebase_performance (from `.symlinks/plugins/firebase_performance/ios`)
   - firebase_remote_config (from `.symlinks/plugins/firebase_remote_config/ios`)
   - Flutter (from `Flutter`)
+  - flutter_bugfender (from `.symlinks/plugins/flutter_bugfender/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
@@ -478,6 +485,7 @@ SPEC REPOS:
   trunk:
     - abseil
     - BoringSSL-GRPC
+    - BugfenderSDK
     - Crashlytics
     - Fabric
     - Firebase
@@ -542,6 +550,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_remote_config/ios"
   Flutter:
     :path: Flutter
+  flutter_bugfender:
+    :path: ".symlinks/plugins/flutter_bugfender/ios"
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
   fluttertoast:
@@ -570,6 +580,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
+  BugfenderSDK: cc587f83e8cec9ae1567ec1d837969a6df7dcbca
   camera: 38cc83ae9a5667bb5a71c7d9edaf60a91920fd4e
   cloud_firestore: 10fd4a09ebffc33efd64708106e2e7de701fe9ae
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
@@ -605,6 +616,7 @@ SPEC CHECKSUMS:
   FirebasePerformance: 22273a775eaed4cd3e072c9b88396a5e4b285c3f
   FirebaseRemoteConfig: 6ad68503c04701b8d9d709240711bc0bf6edaf94
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_bugfender: 25c558370083bde82769e79b87044f7c5c66592c
   flutter_local_notifications: 9e4738ce2471c5af910d961a6b7eadcf57c50186
   fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
   GoogleAPIClientForREST: 4acfffd77f1c3c8741b6be9eaed0e603278efbde

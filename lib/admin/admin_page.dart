@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/common/europe_text_field.dart';
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/notification.dart';
 import 'package:conferenceapp/notifications/repository/notifications_repository.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
@@ -98,7 +99,6 @@ class AdminPage extends StatelessWidget {
     try {
       var file =
           await FilePicker.getFile(type: FileType.ANY, fileExtension: 'csv');
-      print(file);
 
       if (file == null) return false;
 
@@ -149,7 +149,7 @@ class AdminPage extends StatelessWidget {
       });
       return true;
     } catch (e) {
-      print(e);
+      Logger.errorException(e);
       return false;
     }
   }
@@ -196,7 +196,7 @@ class _SignupDialogDialogState extends State<SignupDialog> {
                       Firestore.instance.collection('ticketers').document();
                   await doc.setData({'email': email});
                 } catch (e) {
-                  print(e);
+                  Logger.errorException(e);
                 }
                 Navigator.pop(context);
               },
