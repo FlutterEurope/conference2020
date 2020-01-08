@@ -118,7 +118,6 @@ class ToggleLayoutButton extends StatelessWidget {
           'Tap this icon to change layout to full width. Tap anywhere else to dismiss this info.'),
       backgroundColor: Theme.of(context).primaryColor,
       onComplete: () async {
-        print('complete');
         return true;
       },
       targetColor: Colors.white,

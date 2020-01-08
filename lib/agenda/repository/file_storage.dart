@@ -32,6 +32,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/talk.dart';
 
 class FileStorage {
@@ -56,11 +57,11 @@ class FileStorage {
   Future<File> saveItems(List<Talk> talks) async {
     try {
       final file = await _getLocalFile();
-      final map = talks.map((talk)=>talk.toJson()).toList();
+      final map = talks.map((talk) => talk.toJson()).toList();
       final json = jsonEncode(map);
       return file.writeAsString(json);
     } catch (e) {
-      print(e);
+      Logger.errorException(e);
       return Future.error('Error during save');
     }
   }

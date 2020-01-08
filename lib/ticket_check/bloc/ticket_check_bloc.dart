@@ -9,6 +9,9 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
   final ticketCollection = Firestore.instance.collection('tickets');
 
   @override
+  String toString() => 'TicketCheckBloc';
+
+  @override
   TicketCheckState get initialState => NoTicketCheckState();
 
   @override

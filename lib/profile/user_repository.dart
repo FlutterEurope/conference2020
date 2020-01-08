@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/user.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -55,7 +56,7 @@ class UserRepository {
     DocumentSnapshot userSnapshot,
   ) {
     if (id != userSnapshot.documentID || id != _cachedUser?.userId) {
-      print('Wrong id');
+      Logger.warn('Wrong auth id of cached user');
     }
     if (userSnapshot.exists) {
       final user = User.fromJson(userSnapshot.data);

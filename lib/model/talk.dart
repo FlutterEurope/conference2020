@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/agenda.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -66,8 +67,7 @@ class Talk implements Comparable<Talk> {
         Room.fromContentfulType(item.fields.type),
       );
     } catch (e, s) {
-      print(e);
-      print(s);
+      Logger.errorException(e, s);
     }
     return null;
   }

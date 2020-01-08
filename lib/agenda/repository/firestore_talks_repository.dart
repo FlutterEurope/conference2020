@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/model/talk_list.dart';
 
@@ -37,8 +38,8 @@ class FirestoreTalkRepository implements TalkRepository {
   TalkList getTalks(doc) {
     try {
       return TalkList.fromJson(doc.data);
-    } catch (e) {
-      print(e);
+    } catch (e, s) {
+      Logger.errorException(e, s);
       return TalkList(DateTime(2000, 1, 1), List<Talk>());
     }
   }

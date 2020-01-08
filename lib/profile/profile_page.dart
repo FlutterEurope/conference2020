@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:conferenceapp/analytics.dart';
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/organizers/organizers_page.dart';
 import 'package:conferenceapp/sponsors/sponsors_page.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
@@ -173,7 +174,8 @@ class _ProfilePageState extends State<ProfilePage> {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      print('Could not launch $url, trying typical share');
+      Logger.warn('Could not launch $url, trying typical share');
+
       Share.share(body, subject: body);
     }
   }
