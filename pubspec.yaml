@@ -57,6 +57,7 @@ dependencies:
   url_launcher: ^5.2.7
   vibration: ^1.2.2
   snapfeed: ^0.1.0+1
+  flutter_bugfender: ^1.0.0
 
   cupertino_icons: ^0.1.2
 

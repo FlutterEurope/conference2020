@@ -400,6 +400,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
+  flutter_bugfender:
+    dependency: "direct main"
+    description:
+      name: flutter_bugfender
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   flutter_custom_clippers:
     dependency: "direct main"
     description:
