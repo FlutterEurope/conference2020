@@ -87,32 +87,40 @@ class AuthenticatorButton extends StatelessWidget {
                 }
               },
             ),
-            // FlatButton(
-            //   child: Text('Register'),
-            //   onPressed: () async {
-            //     final FirebaseAuth _auth = FirebaseAuth.instance;
-            //     try {
-            //       final result =
-            //           await _auth.createUserWithEmailAndPassword(
-            //         email: username,
-            //         password: password,
-            //       );
-            //       print(result);
-            //     } catch (e) {
-            //       print(e);
-            //       Fluttertoast.showToast(
-            //         msg: "Error during registration",
-            //         toastLength: Toast.LENGTH_SHORT,
-            //         gravity: ToastGravity.CENTER,
-            //         timeInSecForIos: 1,
-            //         backgroundColor:
-            //             Theme.of(context).backgroundColor,
-            //         fontSize: 16.0,
-            //       );
-            //       Navigator.pop(context);
-            //     }
-            //   },
-            // ),
+            FlatButton(
+              child: Text('Register'),
+              onPressed: () async {
+                final FirebaseAuth _auth = FirebaseAuth.instance;
+                try {
+                  final result = await _auth.createUserWithEmailAndPassword(
+                    email: username,
+                    password: password,
+                  );
+                  print(result);
+                  Fluttertoast.showToast(
+                    msg: "Registered and logged in",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIos: 1,
+                    backgroundColor: Theme.of(context).backgroundColor,
+                    fontSize: 16.0,
+                  );
+                  Navigator.pop(context);
+                } catch (e) {
+                  print(e);
+                  Fluttertoast.showToast(
+                    msg: "Error during registration",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIos: 1,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0,
+                  );
+                  Navigator.pop(context);
+                }
+              },
+            ),
             FlatButton(
               child: Text('Logout'),
               onPressed: () async {
