@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:contentful_rich_text/types/types.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -68,8 +70,16 @@ class Fields extends Equatable {
   final ContentfulSpeaker speaker;
   @JsonKey(nullable: true)
   final ContentfulSpeaker secondSpeaker;
-  @JsonKey(fromJson: _documentFromJson, toJson: _documentToJson)
-  final Document description;
+
+  @JsonKey(ignore: true)
+  Document get descriptionDocument =>
+      _documentFromJson(jsonDecode(description));
+
+  @JsonKey(fromJson: _storeDocumentAsString)
+  final String description;
+
+  @JsonKey(ignore: true)
+  Map get descriptionMap => jsonDecode(description);
 
   Fields(this.day, this.time, this.title, this.type, this.speaker,
       this.secondSpeaker, this.description);
@@ -99,6 +109,10 @@ class Fields extends Equatable {
     }
     return '';
   }
+}
+
+String _storeDocumentAsString(Map doc) {
+  return jsonEncode(doc);
 }
 
 @JsonSerializable(

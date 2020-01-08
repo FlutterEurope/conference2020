@@ -49,7 +49,7 @@ Fields _$FieldsFromJson(Map json) {
     json['secondSpeaker'] == null
         ? null
         : ContentfulSpeaker.fromJson(json['secondSpeaker'] as Map),
-    _documentFromJson(json['description'] as Map),
+    _storeDocumentAsString(json['description'] as Map),
   );
 }
 
@@ -60,7 +60,7 @@ Map<String, dynamic> _$FieldsToJson(Fields instance) => <String, dynamic>{
       'type': _$TalkTypeEnumMap[instance.type],
       'speaker': instance.speaker?.toJson(),
       'secondSpeaker': instance.secondSpeaker?.toJson(),
-      'description': _documentToJson(instance.description),
+      'description': instance.description,
     };
 
 T _$enumDecode<T>(

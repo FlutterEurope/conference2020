@@ -42,8 +42,8 @@ Organizer _$OrganizerFromJson(Map json) {
   return Organizer(
     json['name'] as String,
     Asset.fromJson(Map<String, dynamic>.from(json['picture'] as Map)),
-    _documentFromJson(json['bio'] as Map),
-    _documentFromJson(json['longBio'] as Map),
+    _storeDocumentAsString(json['bio'] as Map),
+    _storeDocumentAsString(json['longBio'] as Map),
     json['order'] as int,
   );
 }
@@ -51,7 +51,7 @@ Organizer _$OrganizerFromJson(Map json) {
 Map<String, dynamic> _$OrganizerToJson(Organizer instance) => <String, dynamic>{
       'name': instance.name,
       'picture': instance.picture.toJson(),
-      'bio': _documentToJson(instance.bio),
-      'longBio': _documentToJson(instance.longBio),
+      'bio': instance.bio,
+      'longBio': instance.longBio,
       'order': instance.order,
     };

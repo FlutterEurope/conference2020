@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:contentful/contentful.dart';
 import 'package:contentful_rich_text/types/types.dart';
 import 'package:equatable/equatable.dart';
@@ -46,13 +48,20 @@ class OrganizerFields extends Entry<Organizer> {
 class Organizer extends Equatable implements Comparable<Organizer> {
   final String name;
   final Asset picture;
-  @JsonKey(ignore: true)
   String get pictureUrl =>
       picture?.fields?.file?.url?.replaceAll("//", "http://");
-  @JsonKey(fromJson: _documentFromJson, toJson: _documentToJson)
-  final Document bio;
-  @JsonKey(fromJson: _documentFromJson, toJson: _documentToJson)
-  final Document longBio;
+
+  @JsonKey(fromJson: _storeDocumentAsString)
+  final String bio;
+
+  Map get bioMap => jsonDecode(bio);
+
+  @JsonKey(fromJson: _storeDocumentAsString)
+  final String longBio;
+
+  Map get longBioMap => jsonDecode(longBio);
+
+  Document get longBioDocument => _documentFromJson(jsonDecode(longBio));
   final int order;
 
   Organizer(this.name, this.picture, this.bio, this.longBio, this.order);
@@ -70,11 +79,15 @@ class Organizer extends Equatable implements Comparable<Organizer> {
   }
 }
 
+String _storeDocumentAsString(Map doc) {
+  return jsonEncode(doc);
+}
+
 String _documentToJson(Document doc) {
   return '''{
 "content": ${doc.content},
 "data": ${doc.data},
-"nodeType": ${doc.nodeType}
+"nodeType": ${doc.nodeType}}
 }
 ''';
 }

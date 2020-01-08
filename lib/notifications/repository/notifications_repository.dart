@@ -28,7 +28,7 @@ class FirestoreNotificationsRepository {
   }
 
   Future<void> addNotification(AppNotification notification) async {
-    final doc = await _notificationsCollection.add(notification.toJson());
+    final _ = await _notificationsCollection.add(notification.toJson());
   }
 
   Future<void> removeNotification(String notificationId) async {
