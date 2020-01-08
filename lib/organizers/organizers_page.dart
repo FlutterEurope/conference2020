@@ -1,10 +1,10 @@
 import 'package:conferenceapp/common/appbar.dart';
 import 'package:conferenceapp/model/organizer.dart';
 import 'package:conferenceapp/organizers/organizers_repository.dart';
+import 'package:contentful_rich_text/contentful_rich_text.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:conferenceapp/utils/contentful_helper.dart';
 
 class OrganizersPage extends StatelessWidget {
   @override
@@ -75,8 +75,9 @@ class OrganizersPage extends StatelessWidget {
                                                 contentPadding:
                                                     EdgeInsets.all(24.0),
                                                 children: <Widget>[
-                                                  Text(f.longBio
-                                                      .toSimpleString())
+                                                  ContentfulRichText(
+                                                          (f.longBioMap))
+                                                      .documentToWidgetTree,
                                                 ],
                                               ));
                                     }),

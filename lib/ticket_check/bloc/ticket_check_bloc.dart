@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/model/ticket.dart';
-import 'package:conferenceapp/ticket_check/scan_ticket_page.dart';
 import './bloc.dart';
 
 class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {

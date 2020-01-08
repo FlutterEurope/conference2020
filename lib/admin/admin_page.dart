@@ -6,7 +6,6 @@ import 'package:conferenceapp/model/notification.dart';
 import 'package:conferenceapp/notifications/repository/notifications_repository.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:conferenceapp/profile/settings_toggle.dart';
-import 'package:conferenceapp/ticket_check/ticket_check_page.dart';
 import 'package:csv/csv.dart';
 import 'package:csv/csv_settings_autodetection.dart';
 import 'package:file_picker/file_picker.dart';

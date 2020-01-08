@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:conferenceapp/model/agenda.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:conferenceapp/utils/contentful_helper.dart';
 
 import 'author.dart';
 import 'room.dart';
@@ -17,6 +18,8 @@ class Talk implements Comparable<Talk> {
   final String title;
   final List<Author> authors;
   final String description;
+
+  Map get descriptionMap => jsonDecode(description);
 
   // @JsonKey(fromJson: FirestoreUtils.fromJson, toJson: FirestoreUtils.toJson)
   final DateTime startTime;
@@ -45,7 +48,7 @@ class Talk implements Comparable<Talk> {
         item.sys.id,
         item.fields.title,
         authors,
-        item.fields.description?.toSimpleString(),
+        item.fields.description,
         DateTime(
           2020,
           1,

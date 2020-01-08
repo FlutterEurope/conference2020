@@ -48,16 +48,19 @@ class OrganizerFields extends Entry<Organizer> {
 class Organizer extends Equatable implements Comparable<Organizer> {
   final String name;
   final Asset picture;
-  @JsonKey(ignore: true)
   String get pictureUrl =>
       picture?.fields?.file?.url?.replaceAll("//", "http://");
-  @JsonKey(fromJson: _documentFromJson, toJson: _documentToJson)
-  final Document bio;
-  
+
+  @JsonKey(fromJson: _storeDocumentAsString)
+  final String bio;
+
+  Map get bioMap => jsonDecode(bio);
+
   @JsonKey(fromJson: _storeDocumentAsString)
   final String longBio;
+
   Map get longBioMap => jsonDecode(longBio);
-  @JsonKey(ignore: true)
+
   Document get longBioDocument => _documentFromJson(jsonDecode(longBio));
   final int order;
 

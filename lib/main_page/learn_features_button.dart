@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:conferenceapp/ticket/ticket_page.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';

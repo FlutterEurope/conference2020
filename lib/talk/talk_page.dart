@@ -3,6 +3,7 @@ import 'package:conferenceapp/agenda/widgets/talk_card_widgets/favorite_button.d
 import 'package:conferenceapp/model/author.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
+import 'package:contentful_rich_text/contentful_rich_text.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:expandable/expandable.dart';
 import 'package:extended_image/extended_image.dart';
@@ -161,9 +162,7 @@ class TalkDetails extends StatelessWidget {
             ),
           ),
           SizedBox(height: 6),
-          CustomExpandablePanel(
-            content: talk.description,
-          ),
+          ContentfulRichText(talk.descriptionMap).documentToWidgetTree,
           SizedBox(height: 32),
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
