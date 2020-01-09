@@ -55,7 +55,7 @@ class SponsorsPage extends StatelessWidget {
                           if (await canLaunch(s.url)) {
                             await launch(s.url);
                           } else {
-                            Logger.info('Could not launch ${s.url}');
+                            logger.info('Could not launch ${s.url}');
                           }
                         },
                       ),

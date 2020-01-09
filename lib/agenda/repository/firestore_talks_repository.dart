@@ -39,7 +39,7 @@ class FirestoreTalkRepository implements TalkRepository {
     try {
       return TalkList.fromJson(doc.data);
     } catch (e, s) {
-      Logger.errorException(e, s);
+      logger.errorException(e, s);
       return TalkList(DateTime(2000, 1, 1), List<Talk>());
     }
   }

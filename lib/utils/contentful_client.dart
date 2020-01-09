@@ -25,7 +25,7 @@ class ContentfulClient {
 
       return data.items.map<Talk>((talk) => Talk.fromContentful(talk)).toList();
     } catch (e) {
-      Logger.errorException(e);
+      logger.errorException(e);
       return List<Talk>();
     }
   }
@@ -44,7 +44,7 @@ class ContentfulClient {
 
       return data.items.map((f) => f.fields).toList();
     } catch (e) {
-      Logger.errorException(e);
+      logger.errorException(e);
       return List<Sponsor>();
     }
   }
@@ -63,7 +63,7 @@ class ContentfulClient {
 
       return data.items.map((f) => f.fields).toList();
     } catch (e) {
-      Logger.errorException(e);
+      logger.errorException(e);
       return List<Organizer>();
     }
   }

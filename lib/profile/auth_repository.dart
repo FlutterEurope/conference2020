@@ -4,10 +4,13 @@ import 'package:rxdart/rxdart.dart';
 
 class AuthRepository {
   final FirebaseAuth _firebaseAuth;
-  final _adminsCollection = Firestore.instance.collection('admins');
-  final _ticketersCollection = Firestore.instance.collection('ticketers');
+  final Firestore _firestore;
+  final CollectionReference _adminsCollection;
+  final CollectionReference _ticketersCollection;
 
-  AuthRepository(this._firebaseAuth) {
+  AuthRepository(this._firebaseAuth, this._firestore)
+      : _adminsCollection = _firestore.collection('admins'),
+        _ticketersCollection = _firestore.collection('ticketers') {
     _init();
   }
 
@@ -15,10 +18,12 @@ class AuthRepository {
     final user = await _firebaseAuth.currentUser();
     if (user == null) {
       final result = await _firebaseAuth.signInAnonymously();
-      await Firestore.instance.document('users/${result.user.uid}').setData({
-        'userId': result.user.uid,
-        'favoriteTalksIds': [],
-      });
+      if (result != null && result.user != null) {
+        await _firestore.document('users/${result.user.uid}')?.setData({
+          'userId': result.user.uid,
+          'favoriteTalksIds': [],
+        });
+      }
     }
   }
 

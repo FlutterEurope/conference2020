@@ -36,7 +36,7 @@ class AddTicketEmailInfo extends StatelessWidget {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      Logger.warn('Could not launch $url, trying typical share');
+      logger.warn('Could not launch $url, trying typical share');
       Share.share(body, subject: body);
     }
   }

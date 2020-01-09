@@ -61,7 +61,7 @@ class FileStorage {
       final json = jsonEncode(map);
       return file.writeAsString(json);
     } catch (e) {
-      Logger.errorException(e);
+      logger.errorException(e);
       return Future.error('Error during save');
     }
   }

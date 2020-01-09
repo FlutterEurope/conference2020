@@ -83,7 +83,7 @@ class AuthenticatorButton extends StatelessWidget {
                       backgroundColor: Colors.red,
                       textColor: Colors.white,
                       fontSize: 16.0);
-                  Logger.errorException(e);
+                  logger.errorException(e);
                 }
               },
             ),
@@ -96,7 +96,7 @@ class AuthenticatorButton extends StatelessWidget {
                     email: username,
                     password: password,
                   );
-                  Logger.info(result.toString());
+                  logger.info(result.toString());
                   Fluttertoast.showToast(
                     msg: "Registered and logged in",
                     toastLength: Toast.LENGTH_SHORT,
@@ -116,7 +116,7 @@ class AuthenticatorButton extends StatelessWidget {
                     textColor: Colors.white,
                     fontSize: 16.0,
                   );
-                  Logger.errorException(e);
+                  logger.errorException(e);
                   Navigator.pop(context);
                 }
               },
@@ -136,7 +136,7 @@ class AuthenticatorButton extends StatelessWidget {
                 try {
                   await _auth.signOut();
                 } catch (e, s) {
-                  Logger.errorException(e, s);
+                  logger.errorException(e, s);
                 }
                 Navigator.pop(context);
               },

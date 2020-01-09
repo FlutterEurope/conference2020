@@ -9,7 +9,7 @@ import 'package:test/test.dart';
 class _MockTicketRepository extends Mock implements TicketRepository {}
 
 void main() {
-  group('Agenda Bloc tests when ticket present in cache', () {
+  group('Ticket Bloc tests when ticket present in cache', () {
     TicketBloc bloc;
     TicketRepository _ticketRepository;
 
@@ -33,22 +33,6 @@ void main() {
             isA<TicketAddedState>(),
           ]));
     });
-
-    // test('Populated state talks have the same length as list in repository',
-    //     () async {
-    //   await initializeBloc(bloc);
-
-    //   expectLater(
-    //       bloc,
-    //       emitsInOrder([
-    //         isA<LoadingAgendaState>(),
-    //         isA<PopulatedAgendaState>().having(
-    //           (e) => e.talks,
-    //           'talks',
-    //           hasLength(_tempList.length),
-    //         ),
-    //       ]));
-    // });
 
     tearDown(() {
       bloc.close();

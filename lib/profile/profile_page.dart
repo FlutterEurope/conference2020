@@ -172,7 +172,7 @@ class _ProfilePageState extends State<ProfilePage> {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      Logger.warn('Could not launch $url, trying typical share');
+      logger.warn('Could not launch $url, trying typical share');
 
       Share.share(body, subject: body);
     }

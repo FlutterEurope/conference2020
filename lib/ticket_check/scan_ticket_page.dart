@@ -149,7 +149,7 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
       });
       widget.bloc.add(InitEvent());
     } catch (e) {
-      Logger.errorException(e);
+      logger.errorException(e);
     }
   }
 

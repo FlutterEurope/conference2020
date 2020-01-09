@@ -3,9 +3,9 @@ import 'package:flutter_bugfender/flutter_bugfender.dart';
 import 'package:stack_trace/stack_trace.dart';
 
 class Logger {
-  static bool printToConsole = false;
+  bool printToConsole = false;
 
-  static info(String message) {
+  void info(String message) {
     final className = Trace.current().frames[1].member.split(".")[0];
     final methodName = Trace.current().frames[1].member.split(".")[1];
     if (printToConsole) debugPrint(message);
@@ -13,7 +13,7 @@ class Logger {
         tag: 'Info', methodName: methodName, className: className);
   }
 
-  static error(String message) {
+  void error(String message) {
     final className = Trace.current().frames[1].member.split(".")[0];
     final methodName = Trace.current().frames[1].member.split(".")[1];
     if (printToConsole) debugPrint(message);
@@ -22,7 +22,7 @@ class Logger {
     FlutterBugfender.forceSendOnce();
   }
 
-  static errorException(Exception e, [StackTrace s]) {
+  void errorException(Exception e, [StackTrace s]) {
     if (printToConsole) print(e);
     if (printToConsole && s != null) print(s);
 
@@ -30,7 +30,7 @@ class Logger {
     FlutterBugfender.forceSendOnce();
   }
 
-  static warn(String message) {
+  void warn(String message) {
     final className = Trace.current().frames[1].member.split(".")[0];
     final methodName = Trace.current().frames[1].member.split(".")[1];
     if (printToConsole) debugPrint(message);
@@ -38,4 +38,10 @@ class Logger {
         tag: 'Warn', methodName: methodName, className: className);
     FlutterBugfender.forceSendOnce();
   }
+
+  void setDeviceString(String key, String userId) {
+    FlutterBugfender.setDeviceString(key, userId);
+  }
 }
+
+Logger logger = Logger();

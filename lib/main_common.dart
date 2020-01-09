@@ -18,7 +18,7 @@ void mainCommon({@required AppConfig config}) {
   BlocSupervisor.delegate = SimpleBlocDelegate();
   Crashlytics.instance.enableInDevMode = true;
   FlutterError.onError = (error) {
-    Logger.error(error.exceptionAsString());
+    logger.error(error.exceptionAsString());
     Crashlytics.instance.recordFlutterError(error);
   };
 
@@ -38,7 +38,7 @@ void mainCommon({@required AppConfig config}) {
       ),
     );
   }, onError: (error, stack) {
-    Logger.errorException(error, stack);
+    logger.errorException(error, stack);
     return Crashlytics.instance.recordError(error, stack);
   });
 }
