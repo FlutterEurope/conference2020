@@ -7,6 +7,7 @@ import 'package:conferenceapp/sponsors/sponsors_page.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bugfender/flutter_bugfender.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
@@ -42,10 +43,7 @@ class _ProfilePageState extends State<ProfilePage> {
             SettingsToggle(
               title: 'Reminders',
               subtitle: 'Disabling reminders won\'t cancel existing reminders',
-              onChanged: (value) {
-                sharedPrefs.setBool('reminders', value);
-                setState(() {});
-              },
+              onChanged: changeReminders,
               value: sharedPrefs.getBool('reminders') == true,
             ),
             ListTile(
@@ -180,6 +178,14 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  void changeReminders(bool value) {
+    final sharedPrefs = Provider.of<SharedPreferences>(context);
+    analytics.setUserProperty(name: 'theme', value: '$value');
+    FlutterBugfender.setDeviceString('theme', '$value');
+    sharedPrefs.setBool('reminders', value);
+    setState(() {});
+  }
+
   void changeBrightness() {
     final target = Theme.of(context).brightness == Brightness.dark
         ? Brightness.light
@@ -190,6 +196,7 @@ class _ProfilePageState extends State<ProfilePage> {
       parameters: {'target': paramValue},
     );
     analytics.setUserProperty(name: 'theme', value: paramValue);
+    FlutterBugfender.setDeviceString('theme', paramValue);
     DynamicTheme.of(context).setBrightness(target);
   }
 }
