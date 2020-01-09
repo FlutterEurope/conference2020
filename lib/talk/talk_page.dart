@@ -95,7 +95,7 @@ class _TalkRatingState extends State<TalkRating> {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: <Widget>[
-          Text('Rate the talk (not working atm)'),
+          Text('Rate the talk'),
           Center(
             child: SmoothStarRating(
               allowHalfRating: false,
