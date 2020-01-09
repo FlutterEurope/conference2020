@@ -67,7 +67,7 @@ class Talk implements Comparable<Talk> {
         Room.fromContentfulType(item.fields.type),
       );
     } catch (e, s) {
-      Logger.errorException(e, s);
+      logger.errorException(e, s);
     }
     return null;
   }

@@ -381,7 +381,7 @@ class TwitterButton extends StatelessWidget {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      Logger.warn('Could not launch $url');
+      logger.warn('Could not launch $url');
     }
   }
 }

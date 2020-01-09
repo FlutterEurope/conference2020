@@ -12,7 +12,7 @@ class OrganizersRepository {
       organizers..sort();
       return organizers;
     } catch (e, s) {
-      Logger.errorException(e, s);
+      logger.errorException(e, s);
 
       return List<Organizer>();
     }

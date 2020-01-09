@@ -45,7 +45,7 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
       );
       yield TicketValidatedState(event.ticket, event.userId);
     } catch (e) {
-      Logger.errorException(e);
+      logger.errorException(e);
       yield TicketErrorState('Error during marking as present.');
     }
   }
@@ -62,7 +62,7 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
       if (matchigTickets.length > 0) {
         final selectedTicket = matchigTickets
             .firstWhere((n) => n['used'] == false, orElse: () => null);
-        Logger.info(selectedTicket);
+        logger.info(selectedTicket);
 
         if (selectedTicket == null) {
           yield TicketErrorState('All valid tickets have already been used.');
@@ -86,7 +86,7 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
         yield TicketErrorState('No valid tickets found.');
       }
     } catch (e) {
-      Logger.errorException(e);
+      logger.errorException(e);
       yield TicketErrorState(
           'There was a problem with processing the scan. Please try again.');
     }

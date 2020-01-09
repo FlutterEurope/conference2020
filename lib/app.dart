@@ -30,7 +30,6 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bugfender/flutter_bugfender.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -174,13 +173,13 @@ class _VariousProvidersState extends State<VariousProviders> {
   void initializeRemoteNotifications() {
     widget.firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
-        Logger.info("onMessage: $message");
+        logger.info("onMessage: $message");
       },
       onLaunch: (Map<String, dynamic> message) async {
-        Logger.info("onLaunch: $message");
+        logger.info("onLaunch: $message");
       },
       onResume: (Map<String, dynamic> message) async {
-        Logger.info("onResume: $message");
+        logger.info("onResume: $message");
       },
     );
     widget.firebaseMessaging.subscribeToTopic('notifications');
@@ -192,16 +191,16 @@ class _VariousProvidersState extends State<VariousProviders> {
 
   Future onDidReceiveLocalNotification(
       int id, String title, String body, String payload) {
-    Logger.info(id.toString());
-    Logger.info(title);
-    Logger.info(body);
-    Logger.info(payload);
+    logger.info(id.toString());
+    logger.info(title);
+    logger.info(body);
+    logger.info(payload);
     return Future.value(true);
   }
 
   Future onSelectNotification(String payload) async {
     if (payload != null) {
-      Logger.info('notification payload: ' + payload);
+      logger.info('notification payload: ' + payload);
     }
 
     navigatorKey.currentState.push(
@@ -274,7 +273,7 @@ class RepositoryProviders extends StatelessWidget {
     final client = Provider.of<ContentfulClient>(context);
 
     return RepositoryProvider(
-      create: (_) => AuthRepository(FirebaseAuth.instance),
+      create: (_) => AuthRepository(FirebaseAuth.instance, Firestore.instance),
       child: RepositoryProvider(
         create: _userRepositoryBuilder,
         child: RepositoryProvider<TalkRepository>(

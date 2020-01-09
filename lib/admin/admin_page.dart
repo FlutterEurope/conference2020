@@ -149,7 +149,7 @@ class AdminPage extends StatelessWidget {
       });
       return true;
     } catch (e) {
-      Logger.errorException(e);
+      logger.errorException(e);
       return false;
     }
   }
@@ -196,7 +196,7 @@ class _SignupDialogDialogState extends State<SignupDialog> {
                       Firestore.instance.collection('ticketers').document();
                   await doc.setData({'email': email});
                 } catch (e) {
-                  Logger.errorException(e);
+                  logger.errorException(e);
                 }
                 Navigator.pop(context);
               },

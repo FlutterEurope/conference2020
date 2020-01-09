@@ -23,7 +23,7 @@ class FirestoreNotificationsRepository {
     try {
       return AppNotification.fromJson(doc.data);
     } catch (e, s) {
-      Logger.errorException(e, s);
+      logger.errorException(e, s);
       return AppNotification('', DateTime.now(), '', false);
     }
   }

@@ -37,7 +37,7 @@ class UserRepository {
       return;
     }
 
-    FlutterBugfender.setDeviceString('userId', _cachedUser.userId);
+    logger.setDeviceString('userId', _cachedUser.userId);
 
     await _firestore.document('users/${_cachedUser.userId}').setData({
       'userId': _cachedUser.userId,
@@ -60,7 +60,7 @@ class UserRepository {
     DocumentSnapshot userSnapshot,
   ) {
     if (id != userSnapshot.documentID || id != _cachedUser?.userId) {
-      Logger.warn('Wrong auth id of cached user');
+      logger.warn('Wrong auth id of cached user');
     }
     if (userSnapshot.exists) {
       final user = User.fromJson(userSnapshot.data);

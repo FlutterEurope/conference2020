@@ -23,7 +23,7 @@ class TicketRepository {
         return ticket;
       }
     } catch (e, s) {
-      Logger.errorException(e, s);
+      logger.errorException(e, s);
       Crashlytics.instance.recordError(e, s);
       prefs.remove(_ticketKey);
     }

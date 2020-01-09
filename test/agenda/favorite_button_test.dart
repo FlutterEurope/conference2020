@@ -5,19 +5,28 @@ import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MockFavoritesRepository extends Mock implements FavoritesRepository {}
 
 class MockAnalytics extends Mock implements FirebaseAnalytics {}
 
+class MockFlutterLocalNotificationsPlugin extends Mock
+    implements FlutterLocalNotificationsPlugin {}
+
+class MockSharedPreferences extends Mock implements SharedPreferences {}
+
 main() {
   MockFavoritesRepository favoritesRepo;
+  MockFlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
   setUp(() {
     favoritesRepo = MockFavoritesRepository();
     analytics = MockAnalytics();
+    flutterLocalNotificationsPlugin = MockFlutterLocalNotificationsPlugin();
   });
 
   group('FavoriteButton', () {
@@ -100,23 +109,29 @@ class FavoriteButtonWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: RepositoryProvider<FavoritesRepository>(
-          create: (_) => favoritesRepository,
-          child: Stack(
-            children: <Widget>[
-              FavoriteButton(
-                talk: Talk(
-                  'talkId',
-                  'title',
-                  [null],
-                  'description',
-                  DateTime.now(),
-                  DateTime.now(),
-                  null,
-                ),
-                isFavorite: isFavorite,
+        body: RepositoryProvider<SharedPreferences>(
+          create: (_) => MockSharedPreferences(),
+          child: RepositoryProvider<FlutterLocalNotificationsPlugin>(
+            create: (_) => MockFlutterLocalNotificationsPlugin(),
+            child: RepositoryProvider<FavoritesRepository>(
+              create: (_) => favoritesRepository,
+              child: Stack(
+                children: <Widget>[
+                  FavoriteButton(
+                    talk: Talk(
+                      'talkId',
+                      'title',
+                      [null],
+                      'description',
+                      DateTime.now(),
+                      DateTime.now(),
+                      null,
+                    ),
+                    isFavorite: isFavorite,
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

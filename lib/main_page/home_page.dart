@@ -232,7 +232,7 @@ class _HomePageState extends State<HomePage> {
         );
       }
     } catch (e) {
-      Logger.errorException(e);
+      logger.errorException(e);
     }
   }
 

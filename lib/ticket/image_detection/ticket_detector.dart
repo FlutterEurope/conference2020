@@ -135,7 +135,7 @@ class _TicketDetectorState extends State<TicketDetector> {
 
               if (correct) {
                 final result = word.toUpperCase();
-                Logger.info(result);
+                logger.info(result);
                 setState(() {
                   widget.onDetected(result);
                 });
@@ -145,9 +145,9 @@ class _TicketDetectorState extends State<TicketDetector> {
           }
         }
       }
-      Logger.info('No results');
+      logger.info('No results');
     } catch (e) {
-      Logger.errorException(e);
+      logger.errorException(e);
     }
     return false;
   }

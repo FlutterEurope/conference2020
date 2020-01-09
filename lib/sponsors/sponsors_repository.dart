@@ -12,7 +12,7 @@ class SponsorsRepository {
       sponsors..sort((n, m) => n.level.index.compareTo(m.level.index));
       return sponsors;
     } catch (e) {
-      Logger.errorException(e);
+      logger.errorException(e);
       return List<Sponsor>();
     }
   }

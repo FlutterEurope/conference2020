@@ -18,8 +18,8 @@ extension ContentfulHelper on Document {
 
       return buffer.toString();
     } catch (e) {
-      Logger.error('Error during parsing Contentful document');
-      Logger.errorException(e);
+      logger.error('Error during parsing Contentful document');
+      logger.errorException(e);
       return '';
     }
   }

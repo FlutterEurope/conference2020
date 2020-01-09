@@ -183,11 +183,11 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
     }
 
     _controller.addListener(() {
-      Logger.info('Controller listener fired');
-      Logger.info(_controller.value.text);
+      logger.info('Controller listener fired');
+      logger.info(_controller.value.text);
       if (_controller.value.text != null && _controller.value.text.isNotEmpty)
         setState(() {
-          Logger.info('Controller setState fired');
+          logger.info('Controller setState fired');
           _criteria = _controller.value.text;
           if (widget.getResults != null) {
             _getResultsDebounced();
@@ -200,7 +200,7 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
   Future _getResultsDebounced() async {
     if (_results.length == 0) {
       setState(() {
-        Logger.info('Setting loading to true');
+        logger.info('Setting loading to true');
         _loading = true;
       });
     }
@@ -210,7 +210,7 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
     }
 
     _resultsTimer = new Timer(new Duration(milliseconds: 400), () async {
-      Logger.info('Timer fired');
+      logger.info('Timer fired');
       if (!mounted) {
         return;
       }
@@ -244,13 +244,13 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
     var results =
         (widget.results ?? _results).where((MaterialSearchResult result) {
       if (widget.filter != null) {
-        Logger.info('Filtering 1');
+        logger.info('Filtering 1');
         return widget.filter(result.value, _criteria);
       }
       //only apply default filter if used the `results` option
       //because getResults may already have applied some filter if `filter` option was omited.
       else if (widget.results != null) {
-        Logger.info('Filtering 2');
+        logger.info('Filtering 2');
         return _filter(result.value, _criteria);
       }
 
@@ -258,7 +258,7 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
     }).toList();
 
     if (widget.sort != null) {
-      Logger.info('Sorting');
+      logger.info('Sorting');
       results.sort((a, b) => widget.sort(a.value, b.value, _criteria));
     }
 
@@ -304,7 +304,7 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
                   new IconButton(
                       icon: new Icon(Icons.clear),
                       onPressed: () {
-                        Logger.info('Clear pressed');
+                        logger.info('Clear pressed');
                         setState(() {
                           _controller.text = _criteria = '';
                         });
