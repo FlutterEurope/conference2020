@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/user.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
+import 'package:flutter_bugfender/flutter_bugfender.dart';
 import 'package:rxdart/rxdart.dart';
 
 class UserRepository {
@@ -20,6 +21,7 @@ class UserRepository {
   Stream<DocumentSnapshot> get _usersSnapshotsStream {
     return _authRepository.userId.asyncExpand((id) {
       if (id == null) return null;
+
       return _firestore.document('users/$id').snapshots();
     });
   }
@@ -34,6 +36,8 @@ class UserRepository {
     if (_cachedUser.favoriteTalksIds.contains(talkId)) {
       return;
     }
+
+    FlutterBugfender.setDeviceString('userId', _cachedUser.userId);
 
     await _firestore.document('users/${_cachedUser.userId}').setData({
       'userId': _cachedUser.userId,
