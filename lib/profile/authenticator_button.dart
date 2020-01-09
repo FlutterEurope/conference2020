@@ -96,7 +96,7 @@ class AuthenticatorButton extends StatelessWidget {
                     email: username,
                     password: password,
                   );
-                  print(result);
+                  Logger.info(result.toString());
                   Fluttertoast.showToast(
                     msg: "Registered and logged in",
                     toastLength: Toast.LENGTH_SHORT,
@@ -135,8 +135,8 @@ class AuthenticatorButton extends StatelessWidget {
                 );
                 try {
                   await _auth.signOut();
-                } catch (e) {
-                  print(e);
+                } catch (e, s) {
+                  Logger.errorException(e, s);
                 }
                 Navigator.pop(context);
               },

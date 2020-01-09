@@ -1,3 +1,4 @@
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/ticket/widgets/ticket_clipper.dart';
 import 'package:conferenceapp/ticket_check/bloc/bloc.dart';
 import 'package:fast_qr_reader_view/fast_qr_reader_view.dart';
@@ -148,7 +149,7 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
       });
       widget.bloc.add(InitEvent());
     } catch (e) {
-      print(e);
+      Logger.errorException(e);
     }
   }
 

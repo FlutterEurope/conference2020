@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/ticket.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -22,8 +23,7 @@ class TicketRepository {
         return ticket;
       }
     } catch (e, s) {
-      print(e);
-      print(s);
+      Logger.errorException(e, s);
       Crashlytics.instance.recordError(e, s);
       prefs.remove(_ticketKey);
     }

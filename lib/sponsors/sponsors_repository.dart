@@ -1,3 +1,4 @@
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/sponsor.dart';
 import 'package:conferenceapp/utils/contentful_client.dart';
 
@@ -11,7 +12,7 @@ class SponsorsRepository {
       sponsors..sort((n, m) => n.level.index.compareTo(m.level.index));
       return sponsors;
     } catch (e) {
-      print(e);
+      Logger.errorException(e);
       return List<Sponsor>();
     }
   }

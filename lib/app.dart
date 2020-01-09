@@ -8,6 +8,7 @@ import 'package:conferenceapp/agenda/repository/file_storage.dart';
 import 'package:conferenceapp/agenda/repository/reactive_talks_repository.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:conferenceapp/analytics.dart';
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/main_page/home_page.dart';
 import 'package:conferenceapp/notifications/repository/notifications_repository.dart';
 import 'package:conferenceapp/notifications/repository/notifications_unread_repository.dart';
@@ -174,13 +175,13 @@ class _VariousProvidersState extends State<VariousProviders> {
   void initializeRemoteNotifications() {
     widget.firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
-        print("onMessage: $message");
+        Logger.info("onMessage: $message");
       },
       onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
+        Logger.info("onLaunch: $message");
       },
       onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
+        Logger.info("onResume: $message");
       },
     );
     widget.firebaseMessaging.subscribeToTopic('notifications');
@@ -192,16 +193,16 @@ class _VariousProvidersState extends State<VariousProviders> {
 
   Future onDidReceiveLocalNotification(
       int id, String title, String body, String payload) {
-    print(id);
-    print(title);
-    print(body);
-    print(payload);
+    Logger.info(id.toString());
+    Logger.info(title);
+    Logger.info(body);
+    Logger.info(payload);
     return Future.value(true);
   }
 
   Future onSelectNotification(String payload) async {
     if (payload != null) {
-      debugPrint('notification payload: ' + payload);
+      Logger.info('notification payload: ' + payload);
     }
 
     navigatorKey.currentState.push(

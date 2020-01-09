@@ -58,8 +58,14 @@ dependencies:
   vibration: ^1.2.2
   snapfeed: ^0.1.0+1
   flutter_bugfender: ^1.0.0
+  stack_trace: ^1.9.3
 
   cupertino_icons: ^0.1.2
+dependency_overrides:
+  flutter_bugfender:
+    git: 
+      url: https://github.com/orestesgaolin/BugfenderSDK-Flutter
+      ref: b155697ef09946e374dda78c1f3bb3af051550cc
 
 dev_dependencies:
   flutter_test:

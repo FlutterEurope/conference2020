@@ -1,3 +1,4 @@
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/agenda.dart';
 import 'package:conferenceapp/model/organizer.dart';
 import 'package:conferenceapp/model/sponsor.dart';
@@ -24,7 +25,7 @@ class ContentfulClient {
 
       return data.items.map<Talk>((talk) => Talk.fromContentful(talk)).toList();
     } catch (e) {
-      print(e);
+      Logger.errorException(e);
       return List<Talk>();
     }
   }
@@ -43,7 +44,7 @@ class ContentfulClient {
 
       return data.items.map((f) => f.fields).toList();
     } catch (e) {
-      print(e);
+      Logger.errorException(e);
       return List<Sponsor>();
     }
   }
@@ -62,7 +63,7 @@ class ContentfulClient {
 
       return data.items.map((f) => f.fields).toList();
     } catch (e) {
-      print(e);
+      Logger.errorException(e);
       return List<Organizer>();
     }
   }

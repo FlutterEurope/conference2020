@@ -1,5 +1,6 @@
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:conferenceapp/agenda/widgets/talk_card_widgets/favorite_button.dart';
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/author.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
@@ -364,8 +365,6 @@ class TwitterButton extends StatelessWidget {
       color: Colors.white,
       child: IconButton(
         onPressed: () {
-          print(author.twitter);
-
           openTwitter(author.twitter);
         },
         iconSize: 32,
@@ -382,7 +381,7 @@ class TwitterButton extends StatelessWidget {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      print('Could not launch $url');
+      Logger.warn('Could not launch $url');
     }
   }
 }

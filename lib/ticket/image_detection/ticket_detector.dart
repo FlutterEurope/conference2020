@@ -1,3 +1,4 @@
+import 'package:conferenceapp/common/logger.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
@@ -134,7 +135,7 @@ class _TicketDetectorState extends State<TicketDetector> {
 
               if (correct) {
                 final result = word.toUpperCase();
-                print(result);
+                Logger.info(result);
                 setState(() {
                   widget.onDetected(result);
                 });
@@ -144,9 +145,9 @@ class _TicketDetectorState extends State<TicketDetector> {
           }
         }
       }
-      print('No results');
+      Logger.info('No results');
     } catch (e) {
-      // print(e);
+      Logger.errorException(e);
     }
     return false;
   }
