@@ -65,7 +65,7 @@ dependency_overrides:
   flutter_bugfender:
     git: 
       url: https://github.com/orestesgaolin/BugfenderSDK-Flutter
-      ref: b155697ef09946e374dda78c1f3bb3af051550cc
+      ref: 89fb02bd9e1e0dc7c21a3b4390a0cd1b958a2eb5
 
 dev_dependencies:
   flutter_test:
