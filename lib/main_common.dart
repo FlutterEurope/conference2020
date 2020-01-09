@@ -28,6 +28,7 @@ void mainCommon({@required AppConfig config}) {
     appConfig = config;
     final sharedPrefs = await SharedPreferences.getInstance();
     final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
+    FlutterBugfender.init(appConfig.bugfenderKey);
 
     runApp(
       MyApp(

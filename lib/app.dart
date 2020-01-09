@@ -52,8 +52,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FlutterBugfender.init(appConfig.bugfenderKey);
-
     final orange = Color.fromARGB(255, 240, 89, 41);
     final blue = Color.fromARGB(255, 33, 153, 227);
     return DynamicTheme(
@@ -98,6 +96,7 @@ class MyApp extends StatelessWidget {
                           'Write down what\'s on your mind. You can also navigate and draw on the screen for better context. Thanks for helping us out!',
                     ),
                     child: MaterialApp(
+                        debugShowCheckedModeBanner: false,
                         title: title,
                         theme: theme,
                         navigatorKey: navigatorKey,
