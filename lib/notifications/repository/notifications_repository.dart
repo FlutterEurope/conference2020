@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/notification.dart';
 
 class FirestoreNotificationsRepository {
@@ -21,8 +22,8 @@ class FirestoreNotificationsRepository {
   AppNotification _getNotifications(DocumentSnapshot doc) {
     try {
       return AppNotification.fromJson(doc.data);
-    } catch (e) {
-      print(e);
+    } catch (e, s) {
+      Logger.errorException(e, s);
       return AppNotification('', DateTime.now(), '', false);
     }
   }

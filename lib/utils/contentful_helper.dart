@@ -1,3 +1,4 @@
+import 'package:conferenceapp/common/logger.dart';
 import 'package:contentful_rich_text/types/types.dart';
 
 extension ContentfulHelper on Document {
@@ -17,8 +18,8 @@ extension ContentfulHelper on Document {
 
       return buffer.toString();
     } catch (e) {
-      print('Error during parsing Contentful document');
-      print(e);
+      Logger.error('Error during parsing Contentful document');
+      Logger.errorException(e);
       return '';
     }
   }

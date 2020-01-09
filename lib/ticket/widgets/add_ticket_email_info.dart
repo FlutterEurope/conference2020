@@ -1,3 +1,4 @@
+import 'package:conferenceapp/common/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -35,7 +36,7 @@ class AddTicketEmailInfo extends StatelessWidget {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      print('Could not launch $url, trying typical share');
+      Logger.warn('Could not launch $url, trying typical share');
       Share.share(body, subject: body);
     }
   }

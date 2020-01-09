@@ -28,9 +28,9 @@ class AuthRepository {
   }
 
   Stream<String> get userId => _firebaseAuth.onAuthStateChanged.map((user) {
-        if (user != null)
+        if (user != null) {
           return user.uid;
-        else {
+        } else {
           return null;
         }
       });

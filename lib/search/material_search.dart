@@ -3,6 +3,7 @@
 // Licensed on MIT License by ian.naph@gmail.com
 import 'dart:async';
 
+import 'package:conferenceapp/common/logger.dart';
 import 'package:flutter/material.dart';
 
 typedef String FormFieldFormatter<T>(T v);
@@ -182,11 +183,11 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
     }
 
     _controller.addListener(() {
-      print('Controller listener fired');
-      print(_controller.value.text);
+      Logger.info('Controller listener fired');
+      Logger.info(_controller.value.text);
       if (_controller.value.text != null && _controller.value.text.isNotEmpty)
         setState(() {
-          print('Controller setState fired');
+          Logger.info('Controller setState fired');
           _criteria = _controller.value.text;
           if (widget.getResults != null) {
             _getResultsDebounced();
@@ -199,7 +200,7 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
   Future _getResultsDebounced() async {
     if (_results.length == 0) {
       setState(() {
-        print('Setting loading to true');
+        Logger.info('Setting loading to true');
         _loading = true;
       });
     }
@@ -209,7 +210,7 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
     }
 
     _resultsTimer = new Timer(new Duration(milliseconds: 400), () async {
-      print('Timer fired');
+      Logger.info('Timer fired');
       if (!mounted) {
         return;
       }
@@ -243,13 +244,13 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
     var results =
         (widget.results ?? _results).where((MaterialSearchResult result) {
       if (widget.filter != null) {
-        print('Filtering 1');
+        Logger.info('Filtering 1');
         return widget.filter(result.value, _criteria);
       }
       //only apply default filter if used the `results` option
       //because getResults may already have applied some filter if `filter` option was omited.
       else if (widget.results != null) {
-        print('Filtering 2');
+        Logger.info('Filtering 2');
         return _filter(result.value, _criteria);
       }
 
@@ -257,7 +258,7 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
     }).toList();
 
     if (widget.sort != null) {
-      print('Sorting');
+      Logger.info('Sorting');
       results.sort((a, b) => widget.sort(a.value, b.value, _criteria));
     }
 
@@ -303,7 +304,7 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
                   new IconButton(
                       icon: new Icon(Icons.clear),
                       onPressed: () {
-                        print('Clear pressed');
+                        Logger.info('Clear pressed');
                         setState(() {
                           _controller.text = _criteria = '';
                         });

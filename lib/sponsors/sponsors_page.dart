@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:conferenceapp/common/appbar.dart';
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/sponsor.dart';
 import 'package:conferenceapp/sponsors/sponsors_repository.dart';
 import 'package:extended_image/extended_image.dart';
@@ -54,7 +55,7 @@ class SponsorsPage extends StatelessWidget {
                           if (await canLaunch(s.url)) {
                             await launch(s.url);
                           } else {
-                            print('Could not launch ${s.url}');
+                            Logger.info('Could not launch ${s.url}');
                           }
                         },
                       ),
