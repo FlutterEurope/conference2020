@@ -12,6 +12,10 @@ This is repository of [Flutter Europe](https://fluttereurope.dev/) official conf
 |--------------------|-------|--------|--------|
 |![Agenda screenshot](screenshots/agenda.jpg) | ![Ticket screenshot](screenshots/ticket.jpg) | ![Dark mode](screenshots/dark.jpg) | ![Different layouts](screenshots/layout.jpg) |
 
+| Google Play | AppStore |
+|---|---|
+| [![Google Play](docs/play.png)]() | [![AppStore](docs/appstore.png)]() |
+
 ## Getting Started
 
 This simple conference app allows:
