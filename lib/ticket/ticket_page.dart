@@ -5,6 +5,7 @@ import 'package:conferenceapp/model/ticket.dart';
 import 'package:conferenceapp/model/user.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
@@ -297,8 +298,19 @@ class QrCode extends StatelessWidget {
               color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: QrImage(
-                  data: qrData,
+                child: Stack(
+                  children: <Widget>[
+                    QrImage(
+                      data: qrData,
+                    ),
+                    if (user.ticketId != null)
+                      FlareActor(
+                        'assets/flare/success.flr',
+                        animation: 'Untitled',
+                        alignment: Alignment.center,
+                        fit: BoxFit.contain,
+                      ),
+                  ],
                 ),
               ),
             );

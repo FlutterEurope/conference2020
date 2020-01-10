@@ -66,7 +66,7 @@ class UserRepository {
       _cachedUser = user;
       return user;
     } else {
-      return User(id, []);
+      return User(id, [], '');
     }
   }
 }

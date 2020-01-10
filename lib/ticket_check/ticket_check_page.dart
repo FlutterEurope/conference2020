@@ -17,6 +17,16 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                  'Aby zeskanować bilet naciśnij "Skanuj bilety", a następnie skieruj aparat na kod QR na ekranie telefonu uczestnika.'),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                  'W przypadku biletów studenckich sprawdź legitymację studencką lub inny dokument upoważniający do zniżki.'),
+            ),
             RaisedButton(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -49,18 +59,24 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
               },
             ),
             RaisedButton(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Wydawanie koszulek',
+                ),
+              ),
+            ),
+            RaisedButton(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Kontrola na imprezie',
+                ),
+              ),
+            ),
+            RaisedButton(
               child: Text('Przeglądaj uczestników'),
               onPressed: null,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                  'Aby zeskanować bilet naciśnij "Skanuj bilety", a następnie skieruj aparat na kod QR na ekranie telefonu uczestnika.'),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                  'W przypadku biletów studenckich sprawdź legitymację studencką lub inny dokument upoważniający do zniżki.'),
             ),
           ],
         ),

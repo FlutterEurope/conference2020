@@ -55,20 +55,20 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
                     state: state,
                     onClose: startScanning,
                   ),
-                if (state is TicketErrorState)
-                  Center(child: Text('Error occured: ${state.reason}')),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: RaisedButton(
-                      onPressed: startScanning,
-                      child: Text('Scan again'),
+                if (state is TicketErrorState) TicketError(state.reason),
+                if (!scanning)
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: RaisedButton(
+                        onPressed: startScanning,
+                        child: Text('Scan again'),
+                      ),
                     ),
-                  ),
-                )
+                  )
               ],
             );
           }),
@@ -168,6 +168,37 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
   }
 }
 
+class TicketError extends StatelessWidget {
+  const TicketError(
+    this.reason, {
+    Key key,
+  }) : super(key: key);
+  final String reason;
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              height: 200,
+              child: FlareActor(
+                'assets/flare/fail.flr',
+                animation: 'animate',
+                alignment: Alignment.center,
+                fit: BoxFit.contain,
+              ),
+            ),
+            Text('Error occured: ${reason}'),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class TicketValidated extends StatelessWidget {
   const TicketValidated({
     Key key,
@@ -190,7 +221,7 @@ class TicketValidated extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text(
-                'Ticket verified',
+                'Bilet sprawdzony',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 12),
@@ -206,8 +237,8 @@ class TicketValidated extends StatelessWidget {
                   ),
                 ),
               ),
-              Text('Order number: ${state.ticket?.orderId}'),
-              Text('Ticket number: ${state.ticket?.ticketId}'),
+              Text('Zamówienie: ${state.ticket?.orderId}'),
+              Text('Bilet: ${state.ticket?.ticketId}'),
               RaisedButton(
                 child: Text('OK'),
                 onPressed: () {
@@ -248,25 +279,47 @@ class TicketInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Please confirm the data',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  'Potwierdź dane z uczestnikiem',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
                 ),
                 SizedBox(height: 12),
-                Text('Order number: ${state.ticket?.orderId}'),
-                Text('Ticket number: ${state.ticket?.ticketId}'),
-                Text('Name: ${state.name}'),
+                Text('Zamówienie: ${state.ticket?.orderId}'),
+                Text('Numer biletu: ${state.ticket?.ticketId}'),
+                Text('Nazwisko: ${state.name}'),
+                SizedBox(height: 12),
+                Text('Dane techniczne'),
+                Text(state.ticketChecked
+                    ? 'Bilet już sprawdzony'
+                    : 'Bilet jeszcze nie sprawdzony'),
+                Text(
+                    'Pozostało biletów w zamówieniu: ${state.leftTicketsInOrderCount}/${state.ticketsInOrderCount}'),
+                SizedBox(height: 12),
                 if (state.student)
                   Text(
-                    'Student ticket - check student id',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    'Bilet studencki - sprawdź legitymację',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                    ),
                   ),
                 SizedBox(height: 12),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RaisedButton(
-                      child: Text('Mark as present'),
+                      child: Text('Anuluj'),
+                      color: Colors.red,
+                      textColor: Colors.white,
+                      onPressed: () {
+                        bloc.add(InitEvent());
+                      },
+                    ),
+                    SizedBox(width: 12),
+                    RaisedButton(
+                      child: Text('Wszystko OK'),
                       color: Colors.green,
                       textColor: Colors.white,
                       onPressed: () {
@@ -274,15 +327,6 @@ class TicketInfo extends StatelessWidget {
                           state.userId,
                           state.ticket,
                         ));
-                      },
-                    ),
-                    SizedBox(width: 12),
-                    RaisedButton(
-                      child: Text('Cancel'),
-                      color: Colors.red,
-                      textColor: Colors.white,
-                      onPressed: () {
-                        bloc.add(InitEvent());
                       },
                     ),
                   ],
@@ -318,7 +362,6 @@ class ScanTopInfo extends StatelessWidget {
               child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              if (!scanning) Text('Press Scan button'),
               if (scanning) Text('Scanning QR Code'),
               if (scanning)
                 Padding(

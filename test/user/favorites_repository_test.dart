@@ -29,7 +29,7 @@ main() {
   Talk talkFromId(String id) => Talk(id, null, null, null, null, null, null);
 
   void makeUserRepoReturn(List<String> favorites) => when(userRepository.user)
-      .thenAnswer((_) => Stream.value(User('userId', favorites)));
+      .thenAnswer((_) => Stream.value(User('userId', favorites, null)));
 
   void makeTalksRepoReturn(List<String> ids) => when(talksRepository.talks())
       .thenAnswer((_) => Stream.value(ids.map(talkFromId).toList()));

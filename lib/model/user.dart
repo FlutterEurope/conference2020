@@ -10,8 +10,10 @@ part 'user.g.dart';
 class User {
   final List<String> favoriteTalksIds;
   final String userId;
+  @JsonKey(nullable: true)
+  final String ticketId;
 
-  User(this.userId, this.favoriteTalksIds);
+  User(this.userId, this.favoriteTalksIds, this.ticketId);
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
