@@ -129,20 +129,30 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
   }
 
   void onCodeRead(dynamic value) {
+    logger.info("Stopping scanning, value detected: $value");
     Vibration.vibrate(duration: 300);
-    print(value);
-    controller.stopScanning();
     setState(() {
       scanning = false;
     });
+    try {
+      controller.stopScanning();
+    } catch (e, s) {
+      logger.errorException(e, s);
+    }
+
     if (value != null) {
       widget.bloc.add(TicketScanned(value));
     }
   }
 
   void startScanning() {
+    logger.info("Starting scanning");
     try {
-      controller.stopScanning();
+      if (scanning == false) controller.stopScanning();
+    } catch (e) {
+      logger.errorException(e);
+    }
+    try {
       controller.startScanning();
       setState(() {
         scanning = true;
