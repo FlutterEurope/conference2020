@@ -404,8 +404,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "89fb02bd9e1e0dc7c21a3b4390a0cd1b958a2eb5"
-      resolved-ref: "89fb02bd9e1e0dc7c21a3b4390a0cd1b958a2eb5"
+      ref: d8ed5c7
+      resolved-ref: d8ed5c7253c33c718d9bf3b05dbaf98e7b08cfd5
       url: "https://github.com/orestesgaolin/BugfenderSDK-Flutter"
     source: git
     version: "1.1.0"

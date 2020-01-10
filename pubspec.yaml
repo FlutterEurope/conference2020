@@ -63,9 +63,10 @@ dependencies:
   cupertino_icons: ^0.1.2
 dependency_overrides:
   flutter_bugfender:
+    # path: ../BugfenderSDK-Flutter
     git: 
       url: https://github.com/orestesgaolin/BugfenderSDK-Flutter
-      ref: 89fb02bd9e1e0dc7c21a3b4390a0cd1b958a2eb5
+      ref: d8ed5c7
 
 dev_dependencies:
   flutter_test:
