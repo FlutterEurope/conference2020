@@ -210,10 +210,9 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
           )
         else
           Flexible(child: Container()),
-        if (_secondTalk != null)
-          SizedBox(
-            width: 12,
-          ),
+        SizedBox(
+          width: 12,
+        ),
         if (_secondTalk != null)
           Flexible(
             child: TalkCard(

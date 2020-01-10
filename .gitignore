@@ -40,3 +40,8 @@ fvm
 .flutter-plugins-dependencies
 android/settings_aar.gradle
 ios/Flutter/Flutter.podspec
+plugins/fast_qr_reader_view2/example/android/.project
+plugins/fast_qr_reader_view2/android/.settings/org.eclipse.buildship.core.prefs
+plugins/fast_qr_reader_view2/android/.project
+android/.project
+android/.settings/org.eclipse.buildship.core.prefs
