@@ -147,7 +147,7 @@ desc "Submit a new build to Firebase App Distribution"
   desc "Deploy a new version to the Google Play"
   lane :prod do
     upload_to_play_store(
-      track: 'internal',
+      track: 'alpha',
       json_key: ENV["GOOGLE_SERVICE_ACCOUNT_KEY"],
       package_name: ENV["APP_ID"],
       aab: ENV["AAB_PATH"],
