@@ -13,8 +13,18 @@ class TicketScannedState extends TicketCheckState {
   final String userId;
   final String name;
   final bool student;
+  final int ticketsInOrderCount;
+  final int leftTicketsInOrderCount;
+  final bool ticketChecked;
 
-  TicketScannedState(this.ticket, this.userId, this.name, this.student);
+  TicketScannedState(
+      this.ticket,
+      this.userId,
+      this.name,
+      this.student,
+      this.ticketsInOrderCount,
+      this.leftTicketsInOrderCount,
+      this.ticketChecked);
 }
 
 class TicketValidatedState extends TicketCheckState {
