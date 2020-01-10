@@ -10,7 +10,10 @@ class Logger {
     final methodName = Trace.current().frames[1].member.split(".")[1];
     if (printToConsole) debugPrint(message);
     FlutterBugfender.l(message,
-        tag: 'Info', methodName: methodName, className: className);
+        logLevel: LogLevel.Info,
+        tag: className,
+        methodName: methodName,
+        className: className);
   }
 
   void error(String message) {
@@ -18,11 +21,14 @@ class Logger {
     final methodName = Trace.current().frames[1].member.split(".")[1];
     if (printToConsole) debugPrint(message);
     FlutterBugfender.l(message,
-        tag: 'Error', methodName: methodName, className: className);
+        logLevel: LogLevel.Error,
+        tag: className,
+        methodName: methodName,
+        className: className);
     FlutterBugfender.forceSendOnce();
   }
 
-  void errorException(Exception e, [StackTrace s]) {
+  void errorException(Object e, [StackTrace s]) {
     if (printToConsole) print(e);
     if (printToConsole && s != null) print(s);
 
@@ -35,7 +41,10 @@ class Logger {
     final methodName = Trace.current().frames[1].member.split(".")[1];
     if (printToConsole) debugPrint(message);
     FlutterBugfender.l(message,
-        tag: 'Warn', methodName: methodName, className: className);
+        logLevel: LogLevel.Warning,
+        tag: className,
+        methodName: methodName,
+        className: className);
     FlutterBugfender.forceSendOnce();
   }
 
