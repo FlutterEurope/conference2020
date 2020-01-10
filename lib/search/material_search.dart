@@ -183,11 +183,9 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
     }
 
     _controller.addListener(() {
-      logger.info('Controller listener fired');
       logger.info(_controller.value.text);
       if (_controller.value.text != null && _controller.value.text.isNotEmpty)
         setState(() {
-          logger.info('Controller setState fired');
           _criteria = _controller.value.text;
           if (widget.getResults != null) {
             _getResultsDebounced();
@@ -244,13 +242,11 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
     var results =
         (widget.results ?? _results).where((MaterialSearchResult result) {
       if (widget.filter != null) {
-        logger.info('Filtering 1');
         return widget.filter(result.value, _criteria);
       }
       //only apply default filter if used the `results` option
       //because getResults may already have applied some filter if `filter` option was omited.
       else if (widget.results != null) {
-        logger.info('Filtering 2');
         return _filter(result.value, _criteria);
       }
 
