@@ -36,28 +36,35 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
   Stream<TicketCheckState> handleTicketValidated(TickedValidated event) async* {
     try {
       yield LoadingState();
-      final user = users.document(event.userId);
-      await user.setData(
-        {
-          'ticketId': event.ticket.ticketId,
-          'orderId': event.ticket.orderId,
-          'updated': DateTime.now(),
-        },
-        merge: true,
-      );
-
-      await checkedTickets.document(event.ticket.ticketId).setData({
-        'userId': event.userId,
-        'ticketId': event.ticket.ticketId,
-        'orderId': event.ticket.orderId,
-        'updated': DateTime.now(),
-      });
+      await updateUser(event);
+      await addToCheckedTickets(event);
 
       yield TicketValidatedState(event.ticket, event.userId);
     } catch (e) {
       logger.errorException(e);
       yield TicketErrorState('Error during marking as present.');
     }
+  }
+
+  Future addToCheckedTickets(TickedValidated event) async {
+    await checkedTickets.document(event.ticket.ticketId).setData({
+      'userId': event.userId,
+      'ticketId': event.ticket.ticketId,
+      'orderId': event.ticket.orderId,
+      'updated': DateTime.now(),
+    });
+  }
+
+  Future updateUser(TickedValidated event) async {
+    final user = users.document(event.userId);
+    await user.setData(
+      {
+        'ticketId': event.ticket.ticketId,
+        'orderId': event.ticket.orderId,
+        'updated': DateTime.now(),
+      },
+      merge: true,
+    );
   }
 
   Stream<TicketCheckState> handleTicketScanned(TicketScanned event) async* {
@@ -71,29 +78,17 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
       final matchingTickets = await getMatchingTickets(orderId, ticketId);
 
       if (matchingTickets.length > 0) {
-        final matchingCheckedTicketsSnapshot = await checkedTickets
-            .where(
-              'ticketId',
-              whereIn: matchingTickets.map((f) => f['ticketId']).toList(),
-            )
-            .getDocuments();
-        final matchingCheckedTickets = matchingCheckedTicketsSnapshot.documents;
+        final matchingCheckedTickets =
+            await getMatchingCheckedTickets(matchingTickets);
         if (matchingCheckedTickets.length == matchingTickets.length) {
           yield TicketErrorState(
               'Wszystkie bilety z zamówienia $orderId zostały już sprawdzone. W zamówieniu było ${matchingTickets.length} biletów. Skonsultuj sytuację z osobą odpowiedzialną za sprawdzanie biletów.');
           return;
         }
         final matchingTicketsWithoutChecked = List();
-
-        matchingTickets.forEach((n) {
-          if (matchingCheckedTickets.firstWhere(
-                  (m) => m['ticketId'] == n['ticketId'],
-                  orElse: () => null) ==
-              null) matchingTicketsWithoutChecked.add(n);
-        });
-
+        filterCheccked(matchingTickets, matchingCheckedTickets,
+            matchingTicketsWithoutChecked);
         final selectedTicket = matchingTicketsWithoutChecked.first;
-
         logger.info(selectedTicket.toString());
 
         final matchingOrderId = selectedTicket['orderId'];
@@ -121,6 +116,27 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
       yield TicketErrorState(
           'Wystąpił problem z odczytaniem lub znalezieniem pasujacego biletu. Spróbuj ponownie.');
     }
+  }
+
+  void filterCheccked(List matchingTickets, List matchingCheckedTickets,
+      List matchingTicketsWithoutChecked) {
+    matchingTickets.forEach((n) {
+      if (matchingCheckedTickets.firstWhere(
+              (m) => m['ticketId'] == n['ticketId'],
+              orElse: () => null) ==
+          null) matchingTicketsWithoutChecked.add(n);
+    });
+    // return matchingTicketsWithoutChecked.first;
+  }
+
+  Future<List> getMatchingCheckedTickets(List matchingTickets) async {
+    final mcts = await checkedTickets
+        .where(
+          'ticketId',
+          whereIn: matchingTickets.map((f) => f['ticketId']).toList(),
+        )
+        .getDocuments();
+    return mcts.documents;
   }
 
   Future<List> getMatchingTickets(String orderId, String ticketId) async {
