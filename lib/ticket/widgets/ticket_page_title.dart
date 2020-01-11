@@ -9,7 +9,7 @@ class TicketPageTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'Your ticket information',
+        'Your ticket',
         style: TextStyle(
           fontSize: 22,
           color: Theme.of(context).brightness == Brightness.light

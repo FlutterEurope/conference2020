@@ -24,6 +24,15 @@ class TicketAddedState extends TicketState {
   List<Object> get props => [ticket.orderId, ticket.ticketId];
 }
 
+class TicketValidatedState extends TicketAddedState {
+  final Ticket ticket;
+
+  TicketValidatedState(this.ticket) : super(ticket);
+
+  @override
+  List<Object> get props => [ticket.orderId, ticket.ticketId];
+}
+
 class TicketErrorState extends TicketState {
   @override
   List<Object> get props => null;
