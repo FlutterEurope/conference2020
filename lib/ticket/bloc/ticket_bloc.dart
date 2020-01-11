@@ -3,7 +3,6 @@ import 'package:bloc/bloc.dart';
 import 'package:conferenceapp/model/ticket.dart';
 import 'package:conferenceapp/model/user.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
-import 'package:vibration/vibration.dart';
 import './bloc.dart';
 import 'package:conferenceapp/ticket/repository/ticket_repository.dart';
 
@@ -47,7 +46,6 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
     if (event is TicketVerified) {
       if (state is TicketAddedState) {
         final ticket = (state as TicketAddedState).ticket;
-        Vibration.vibrate(duration: 300);
         yield TicketValidatedState(ticket);
       }
     }
