@@ -1,6 +1,7 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+import 'package:qr_flutter/qr_flutter.dart' as qr;
 
 class QrImage extends StatelessWidget {
   final String data;
@@ -8,25 +9,40 @@ class QrImage extends StatelessWidget {
   final int errorCorrectionLevel;
   final Color color;
   final Color backgroundColor;
+  final ImageProvider<dynamic> embeddedImage;
+  final Size imageSize;
 
   const QrImage({
     Key key,
     this.data,
     this.version = 4,
-    this.errorCorrectionLevel = QrErrorCorrectLevel.M,
+    this.errorCorrectionLevel = qr.QrErrorCorrectLevel.M,
     this.color = Colors.black,
     this.backgroundColor = Colors.white,
+    this.embeddedImage,
+    this.imageSize,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final QrPainter _painter = QrPainter(
+    final qr.QrPainter _painter = qr.QrPainter(
       data: data,
-      version: QrVersions.auto,
+      version: qr.QrVersions.auto,
       errorCorrectionLevel: errorCorrectionLevel,
       color: color,
       gapless: true,
       emptyColor: backgroundColor,
+    );
+
+    return qr.QrImage(
+      foregroundColor: color,
+      backgroundColor: backgroundColor,
+      data: data,
+      errorCorrectionLevel: errorCorrectionLevel,
+      version: version,
+      embeddedImage: embeddedImage,
+      embeddedImageStyle:
+          imageSize == null ? null : qr.QrEmbeddedImageStyle(size: imageSize),
     );
 
     return FutureBuilder<ByteData>(
