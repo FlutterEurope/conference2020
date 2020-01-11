@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:conferenceapp/model/ticket.dart';
+import 'package:conferenceapp/model/user.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
 import 'package:conferenceapp/ticket/repository/ticket_repository.dart';
@@ -20,6 +21,7 @@ void main() {
     setUp(() {
       _ticketRepository = _MockTicketRepository();
       _userRepository = _MockUserRepository();
+      userRepositoryAlwaysWorks(_userRepository);
       ticketRepositoryAlwaysWorks(_ticketRepository);
       bloc = TicketBloc(
         _ticketRepository,
@@ -54,3 +56,7 @@ void ticketRepositoryAlwaysWorks(TicketRepository _ticketRepository) {
   when(_ticketRepository.addTicket(any)).thenAnswer((_) => Future.value(true));
   when(_ticketRepository.removeTicket()).thenAnswer((_) => Future.value(true));
 }
+
+void userRepositoryAlwaysWorks(UserRepository _userRepository) =>
+    when(_userRepository.user)
+        .thenAnswer((_) => Stream.value(User('userId', [], null)));
