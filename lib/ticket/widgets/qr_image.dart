@@ -34,16 +34,16 @@ class QrImage extends StatelessWidget {
       emptyColor: backgroundColor,
     );
 
-    return qr.QrImage(
-      foregroundColor: color,
-      backgroundColor: backgroundColor,
-      data: data,
-      errorCorrectionLevel: errorCorrectionLevel,
-      version: version,
-      embeddedImage: embeddedImage,
-      embeddedImageStyle:
-          imageSize == null ? null : qr.QrEmbeddedImageStyle(size: imageSize),
-    );
+    // return qr.QrImage(
+    //   foregroundColor: color,
+    //   backgroundColor: backgroundColor,
+    //   data: data,
+    //   errorCorrectionLevel: errorCorrectionLevel,
+    //   version: version,
+    //   embeddedImage: embeddedImage,
+    //   embeddedImageStyle:
+    //       imageSize == null ? null : qr.QrEmbeddedImageStyle(size: imageSize),
+    // );
 
     return FutureBuilder<ByteData>(
       future: _painter.toImageData(300.0),
@@ -84,6 +84,14 @@ class QrImage extends StatelessWidget {
                   key: topChildKey,
                   child: topChild,
                 ),
+                if (embeddedImage != null)
+                  Center(
+                    child: Container(
+                      height: imageSize != null ? imageSize.height : null,
+                      width: imageSize != null ? imageSize.width : null,
+                      child: Image(image: embeddedImage),
+                    ),
+                  )
               ],
             );
           },
