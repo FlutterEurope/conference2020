@@ -60,8 +60,49 @@ class _TicketPageState extends State<TicketPage> {
           key: _formKey,
           child: TicketPageWrapper(
             children: <Widget>[
+              Container(
+                color: Theme.of(context).primaryColor,
+                child: Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: TicketPageTitle(),
+                ),
+              ),
               if (state is TicketAddedState)
-                QrCode(ticketData: state.ticket)
+                AnimatedCrossFade(
+                  duration: Duration(milliseconds: 800),
+                  crossFadeState: state is TicketValidatedState
+                      ? CrossFadeState.showSecond
+                      : CrossFadeState.showFirst,
+                  firstChild: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Show this QR code during registration at the event',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+                  secondChild: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Ticket validated ✔️',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              if (state is TicketAddedState)
+                QrCode(
+                  ticketData: state.ticket,
+                  validated: state is TicketValidatedState,
+                )
               else
                 NoQrCode(onTap: () {}),
               if (!(state is TicketAddedState))
@@ -143,7 +184,7 @@ class _TicketPageState extends State<TicketPage> {
               if (!(state is TicketAddedState))
                 AddTicketEmailInfo(),
 
-              if (state is TicketAddedState)
+              if (state is TicketAddedState && state.ticket.orderId.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Text(
@@ -151,7 +192,7 @@ class _TicketPageState extends State<TicketPage> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-              if (state is TicketAddedState)
+              if (state is TicketAddedState && state.ticket.ticketId.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Text(
@@ -159,17 +200,10 @@ class _TicketPageState extends State<TicketPage> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-              if (state is TicketAddedState)
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Show this QR code during registration at the event',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
+
               if (state is TicketAddedState)
                 ConferenceInfo(),
-              if (state is TicketAddedState)
+              if (state is TicketAddedState && !(state is TicketValidatedState))
                 FlatButton(
                   textColor: Colors.red,
                   child: Row(
@@ -194,7 +228,7 @@ class _TicketPageState extends State<TicketPage> {
                     ),
                     if (state is NoTicketState)
                       Tooltip(
-                        message: 'Yes, that\'s ToggleButton over there 😉',
+                        message: 'Yes, that\'s ToggleButton over there ��',
                         child: Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: Icon(
@@ -275,9 +309,11 @@ class QrCode extends StatelessWidget {
   const QrCode({
     Key key,
     @required this.ticketData,
+    this.validated = false,
   }) : super(key: key);
 
   final Ticket ticketData;
+  final bool validated;
 
   @override
   Widget build(BuildContext context) {
@@ -298,19 +334,11 @@ class QrCode extends StatelessWidget {
               color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: Stack(
-                  children: <Widget>[
-                    QrImage(
-                      data: qrData,
-                    ),
-                    if (user.ticketId != null)
-                      FlareActor(
-                        'assets/flare/success.flr',
-                        animation: 'Untitled',
-                        alignment: Alignment.center,
-                        fit: BoxFit.contain,
-                      ),
-                  ],
+                child: QrImage(
+                  data: qrData,
+                  embeddedImage:
+                      validated ? AssetImage('assets/checked.png') : null,
+                  imageSize: Size(100, 100),
                 ),
               ),
             );
@@ -356,26 +384,12 @@ class TicketPageWrapper extends StatelessWidget {
                       ),
               ),
               pinned: true,
-              bottom: PreferredSize(
-                preferredSize: Size(20, 100),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: ClipPath(
-                    clipper: TicketClipper(true, false),
-                    child: Container(
-                      color: Theme.of(context).primaryColor,
-                      height: 80,
-                      child: TicketPageTitle(),
-                    ),
-                  ),
-                ),
-              ),
             ),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: ClipPath(
-                  clipper: TicketClipper(false, true),
+                  clipper: TicketClipper(true, true),
                   child: TalkCardDecoration(
                     child: Container(
                       child: Column(

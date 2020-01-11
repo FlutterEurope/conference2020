@@ -48,7 +48,7 @@ dependencies:
   package_info: ^0.4.0+10
   pedantic: ^1.8.0+1
   provider: ^4.0.1
-  qr_flutter: ^3.1.0
+  qr_flutter: ^3.2.0
   rxdart: ^0.23.1
   share: ^0.6.3+1
   shared_preferences: ^0.5.4+5
@@ -59,6 +59,7 @@ dependencies:
   snapfeed: ^0.1.0+1
   flutter_bugfender: ^1.0.0
   stack_trace: ^1.9.3
+  flutter_markdown: ^0.3.2
 
   cupertino_icons: ^0.1.2
 dependency_overrides:

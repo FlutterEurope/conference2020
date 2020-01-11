@@ -12,3 +12,5 @@ class SaveTicket extends TicketEvent {
 }
 
 class RemoveTicket extends TicketEvent {}
+
+class TicketVerified extends TicketEvent {}
