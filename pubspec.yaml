@@ -59,6 +59,7 @@ dependencies:
   snapfeed: ^0.1.0+1
   flutter_bugfender: ^1.0.0
   stack_trace: ^1.9.3
+  flutter_markdown: ^0.3.2
 
   cupertino_icons: ^0.1.2
 dependency_overrides:

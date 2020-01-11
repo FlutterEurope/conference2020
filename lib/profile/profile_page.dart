@@ -1,13 +1,16 @@
 import 'dart:io';
 
 import 'package:conferenceapp/analytics.dart';
+import 'package:conferenceapp/common/appbar.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/organizers/organizers_page.dart';
 import 'package:conferenceapp/sponsors/sponsors_page.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bugfender/flutter_bugfender.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
@@ -31,134 +34,161 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final sharedPrefs = Provider.of<SharedPreferences>(context);
-    return Container(
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            SettingsToggle(
-              title: 'Dark Theme',
-              onChanged: (_) => changeBrightness(),
-              value: Theme.of(context).brightness == Brightness.dark,
-            ),
-            SettingsToggle(
-              title: 'Reminders',
-              subtitle: 'Disabling reminders won\'t cancel existing reminders',
-              onChanged: changeReminders,
-              value: sharedPrefs.getBool('reminders') == true,
-            ),
-            ListTile(
-              title: Text('Sponsors'),
-              subtitle: Text('See who supported us'),
-              trailing: Icon(LineIcons.angle_right),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SponsorsPage(),
-                    settings: RouteSettings(name: 'sponsors'),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text('Organizers'),
-              subtitle: Text('See who created this event'),
-              trailing: Icon(LineIcons.angle_right),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => OrganizersPage(),
-                    settings: RouteSettings(name: 'organizers'),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text('Send feedback'),
-              subtitle: Text(
-                  'Let us know if you find any errors or want to share your feedback with us'),
-              trailing: Icon(LineIcons.angle_right),
-              onTap: () async {
-                await showDialog(
-                    context: context,
-                    barrierDismissible: true,
-                    builder: (ctx) => SimpleDialog(
-                          children: <Widget>[
-                            FlatButton(
-                              child: Text('Send e-mail'),
-                              onPressed: () {
-                                sendEmail();
-                                Navigator.pop(ctx);
-                              },
-                            ),
-                            FlatButton(
-                              child: Text(
-                                'Try Snapfeed\n(User feedback tool for Flutter apps)',
-                                textAlign: TextAlign.center,
-                              ),
-                              onPressed: () {
-                                Navigator.pop(ctx);
-                                Snapfeed.of(context).startFeedback();
-                              },
-                            )
-                          ],
-                        ));
-              },
-            ),
-            ListTile(
-              title: Text('Open source licenses'),
-              subtitle:
-                  Text('All the awesome libraries we used to create this app'),
-              trailing: Icon(LineIcons.angle_right),
-              onTap: () async {
-                final version = await PackageInfo.fromPlatform();
-                showLicensePage(
-                    context: context,
-                    applicationIcon: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Image.asset(
-                        'assets/flutter_europe.png',
-                        height: 50,
+    return Positioned.fill(
+      child: ListView(
+        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        children: <Widget>[
+          SettingsToggle(
+            title: 'Dark Theme',
+            onChanged: (_) => changeBrightness(),
+            value: Theme.of(context).brightness == Brightness.dark,
+          ),
+          SettingsToggle(
+            title: 'Reminders',
+            subtitle: 'Disabling reminders won\'t cancel existing reminders',
+            onChanged: changeReminders,
+            value: sharedPrefs.getBool('reminders') == true,
+          ),
+          ListTile(
+            title: Text('Sponsors'),
+            subtitle: Text('See who supported us'),
+            trailing: Icon(LineIcons.angle_right),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SponsorsPage(),
+                  settings: RouteSettings(name: 'sponsors'),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: Text('Organizers'),
+            subtitle: Text('See who created this event'),
+            trailing: Icon(LineIcons.angle_right),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OrganizersPage(),
+                  settings: RouteSettings(name: 'organizers'),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: Text('Code of conduct'),
+            subtitle: Text('Read our rules'),
+            trailing: Icon(LineIcons.angle_right),
+            onTap: () async {
+              final text = await getFileData('assets/coc.md');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Scaffold(
+                    appBar: FlutterEuropeAppBar(
+                      back: true,
+                      search: false,
+                    ),
+                    body: Container(
+                      child: Markdown(
+                        data: text,
                       ),
                     ),
-                    applicationName: 'Flutter Europe 2020',
-                    applicationVersion: '${version?.version}',
-                    applicationLegalese:
-                        'Created by Dominik Roszkowski (roszkowski.dev) and Marcin Szałek (fidev.io) for Flutter Europe conference');
-              },
-            ),
-            if (Provider.of<RemoteConfig>(context, listen: false)
-                    ?.getBool('service_login_enabled') ??
-                false)
-              ListTile(
-                title: Text('Service login'),
-                subtitle: Text('You can check tickets if you\'re authorized'),
-                trailing: Icon(LineIcons.angle_right),
-                onTap: () {
-                  AuthenticatorButton().showLoginDialog(context);
-                },
-              ),
-            Spacer(),
-            Visibility(
-              visible: authVisible,
-              child: AuthenticatorButton(),
-            ),
-            GestureDetector(
+                  ),
+                  settings: RouteSettings(name: 'organizers'),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: Text('Send feedback'),
+            subtitle: Text(
+                'Let us know if you find any errors or want to share your feedback with us'),
+            trailing: Icon(LineIcons.angle_right),
+            onTap: () async {
+              await showDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (ctx) => SimpleDialog(
+                        children: <Widget>[
+                          FlatButton(
+                            child: Text('Send e-mail'),
+                            onPressed: () {
+                              sendEmail();
+                              Navigator.pop(ctx);
+                            },
+                          ),
+                          FlatButton(
+                            child: Text(
+                              'Try Snapfeed\n(User feedback tool for Flutter apps)',
+                              textAlign: TextAlign.center,
+                            ),
+                            onPressed: () {
+                              Navigator.pop(ctx);
+                              Snapfeed.of(context).startFeedback();
+                            },
+                          )
+                        ],
+                      ));
+            },
+          ),
+          ListTile(
+            title: Text('Open source licenses'),
+            subtitle:
+                Text('All the awesome libraries we used to create this app'),
+            trailing: Icon(LineIcons.angle_right),
+            onTap: () async {
+              final version = await PackageInfo.fromPlatform();
+              showLicensePage(
+                  context: context,
+                  applicationIcon: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Image.asset(
+                      'assets/flutter_europe.png',
+                      height: 50,
+                    ),
+                  ),
+                  applicationName: 'Flutter Europe 2020',
+                  applicationVersion: '${version?.version}',
+                  applicationLegalese:
+                      'Created by Dominik Roszkowski (roszkowski.dev) and Marcin Szałek (fidev.io) for Flutter Europe conference');
+            },
+          ),
+          if (Provider.of<RemoteConfig>(context, listen: false)
+                  ?.getBool('service_login_enabled') ??
+              false)
+            ListTile(
+              title: Text('Service login'),
+              subtitle: Text('You can check tickets if you\'re authorized'),
+              trailing: Icon(LineIcons.angle_right),
               onTap: () {
-                counter++;
-                if (counter > 8) {
-                  setState(() {
-                    authVisible = true;
-                  });
-                }
+                AuthenticatorButton().showLoginDialog(context);
               },
-              child: VersionInfo(),
-            )
-          ],
-        ),
+            ),
+          Visibility(
+            visible: authVisible,
+            child: AuthenticatorButton(),
+          ),
+          GestureDetector(
+            onTap: () {
+              counter++;
+              if (counter > 8) {
+                setState(() {
+                  authVisible = true;
+                });
+              }
+            },
+            child: VersionInfo(),
+          )
+        ],
       ),
     );
+  }
+
+  Future<String> getFileData(String path) async {
+    return await rootBundle.loadString(path);
   }
 
   void sendEmail() async {
