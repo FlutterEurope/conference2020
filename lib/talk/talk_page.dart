@@ -115,8 +115,8 @@ class _TalkRatingState extends State<TalkRating> {
           Scaffold.of(context).removeCurrentSnackBar();
           Scaffold.of(context).showSnackBar(
             SnackBar(
-              content:
-                  Text("Talk can be rated after the presentation is finished."),
+              content: Text(
+                  "Talk can be rated 5 minutes before the presentation is finished."),
             ),
           );
         }
