@@ -36,6 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final sharedPrefs = Provider.of<SharedPreferences>(context);
     return Positioned.fill(
       child: ListView(
+        padding: EdgeInsets.only(bottom: 40),
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         children: <Widget>[
           SettingsToggle(
@@ -135,7 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
             },
           ),
           ListTile(
-            title: Text('Open source licenses'),
+            title: Text('About and open source licenses'),
             subtitle:
                 Text('All the awesome libraries we used to create this app'),
             trailing: Icon(LineIcons.angle_right),
@@ -153,7 +154,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   applicationName: 'Flutter Europe 2020',
                   applicationVersion: '${version?.version}',
                   applicationLegalese:
-                      'Created by Dominik Roszkowski (roszkowski.dev), Maciek Korzeniewskie (@korzonkiee) and Marcin Szałek (fidev.io) for Flutter Europe conference');
+                      'Created by Dominik Roszkowski (roszkowski.dev), Maciek Korzeniewski (@korzonkiee) and Marcin Szałek (fidev.io) for the Flutter Europe conference, \n\nSome images are courtesy of https://undraw.co/');
             },
           ),
           if (Provider.of<RemoteConfig>(context, listen: false)
