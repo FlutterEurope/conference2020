@@ -48,10 +48,15 @@ class FirestoreRatingsRepository implements RatingsRepository {
           .firstOrDefault();
 
       if (myTalkRating != null && myTalkRating.exists) {
-        myTalkRating.reference.updateData({"rating": rating});
+        myTalkRating.reference
+            .updateData({"rating": rating, "update_date": Timestamp.now()});
       } else {
-        ratingsCollection
-            .add({"user_id": user.userId, "talk_id": talkId, "rating": rating});
+        ratingsCollection.add({
+          "user_id": user.userId,
+          "talk_id": talkId,
+          "rating": rating,
+          "update_date": Timestamp.now()
+        });
       }
     } catch (e, s) {
       Logger.errorException(e, s);
