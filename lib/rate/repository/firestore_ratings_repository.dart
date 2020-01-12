@@ -18,7 +18,7 @@ class FirestoreRatingsRepository implements RatingsRepository {
     try {
       return _sharedPreferences.getInt(talkId);
     } catch (e, s) {
-      Logger.errorException(e, s);
+      logger.errorException(e, s);
       return null;
     }
   }
@@ -28,14 +28,14 @@ class FirestoreRatingsRepository implements RatingsRepository {
     try {
       _sharedPreferences.setInt(talkId, rating);
     } catch (e, s) {
-      Logger.errorException(e, s);
+      logger.errorException(e, s);
     }
 
     try {
       final user = await _userRepository.user.first;
 
       if (user == null) {
-        Logger.warn("Cannot rate talk $talkId because user is null.");
+        logger.warn("Cannot rate talk $talkId because user is null.");
         return;
       }
 
@@ -59,7 +59,7 @@ class FirestoreRatingsRepository implements RatingsRepository {
         });
       }
     } catch (e, s) {
-      Logger.errorException(e, s);
+      logger.errorException(e, s);
     }
   }
 }

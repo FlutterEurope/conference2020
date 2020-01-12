@@ -42,7 +42,7 @@ class RateBloc extends Bloc<RateEvent, RateState> {
           yield RatingTalkToEarlyErrorState();
         }
       } catch (e, s) {
-        Logger.errorException(e, s);
+        logger.errorException(e, s);
         yield RatingTalkErrorState();
       }
     } else if (event is FetchRateTalk) {
