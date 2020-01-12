@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/rate/repository/ratings_repository.dart';
 import './bloc.dart';
@@ -14,6 +15,17 @@ class RateBloc extends Bloc<RateEvent, RateState> {
 
   @override
   RateState get initialState => InitialRateState();
+
+  @override
+  Stream<RateState> transformEvents(
+      Stream<RateEvent> events, Stream<RateState> Function(RateEvent) next) {
+    final nonRateTalkStream = events.where((event) => event is! RateTalk);
+    final rateTalkStream = events
+        .where((event) => event is RateTalk)
+        .throttleTime(Duration(milliseconds: 500));
+
+    return MergeStream([nonRateTalkStream, rateTalkStream]).switchMap(next);
+  }
 
   @override
   Stream<RateState> mapEventToState(
