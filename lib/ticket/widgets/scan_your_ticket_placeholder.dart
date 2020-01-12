@@ -12,7 +12,7 @@ class ScanYourTicketPlaceholder extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(24.0),
           child: Image.asset(
-            'assets/scan_ticket.png',
+            'assets/ticket_empty.png',
             height: 220,
           ),
         ),
