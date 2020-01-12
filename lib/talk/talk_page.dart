@@ -4,11 +4,14 @@ import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/author.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
+import 'package:conferenceapp/rate/bloc/bloc.dart';
+import 'package:conferenceapp/rate/repository/ratings_repository.dart';
 import 'package:contentful_rich_text/contentful_rich_text.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:expandable/expandable.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -68,7 +71,7 @@ class TalkPageContent extends StatelessWidget {
             delegate: new SliverChildListDelegate([
               TopHeader(talk: talk),
               TalkTitle(talk: talk),
-              TalkRating(),
+              TalkRating(talk: talk),
               if (talk.description != null) TalkDetails(talk: talk),
             ]),
           ),
@@ -81,37 +84,69 @@ class TalkPageContent extends StatelessWidget {
 class TalkRating extends StatefulWidget {
   const TalkRating({
     Key key,
+    @required this.talk,
   }) : super(key: key);
+
+  final Talk talk;
 
   @override
   _TalkRatingState createState() => _TalkRatingState();
 }
 
 class _TalkRatingState extends State<TalkRating> {
+  RateBloc _rateBloc;
   double rating = 0.0;
+
+  @override
+  void dispose() {
+    _rateBloc?.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: <Widget>[
-          Text('Rate the talk'),
-          Center(
-            child: SmoothStarRating(
-              allowHalfRating: false,
-              onRatingChanged: (v) {
-                rating = v;
-                setState(() {});
-              },
-              starCount: 5,
-              rating: rating,
-              size: 40.0,
-              color: Theme.of(context).accentColor,
-              borderColor: Theme.of(context).accentColor,
-              spacing: 0.0,
+    _rateBloc ??= RateBloc(Provider.of<RatingsRepository>(context))
+      ..add(FetchRateTalk(widget.talk));
+
+    return BlocListener<RateBloc, RateState>(
+      bloc: _rateBloc,
+      listener: (context, state) {
+        if (state is RatingTalkToEarlyErrorState) {
+          Scaffold.of(context).removeCurrentSnackBar();
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                  "Talk can be rated 5 minutes before the presentation is finished."),
             ),
-          ),
-        ],
+          );
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: <Widget>[
+            Text('Rate the talk'),
+            Center(
+              child: BlocBuilder<RateBloc, RateState>(
+                bloc: _rateBloc,
+                builder: (context, state) {
+                  return SmoothStarRating(
+                    allowHalfRating: false,
+                    onRatingChanged: (v) {
+                      _rateBloc.add(RateTalk(widget.talk, v));
+                    },
+                    starCount: 5,
+                    rating: _rateBloc.rating ?? 0.0,
+                    size: 40.0,
+                    color: Theme.of(context).accentColor,
+                    borderColor: Theme.of(context).accentColor,
+                    spacing: 0.0,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
