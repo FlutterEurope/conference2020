@@ -16,6 +16,9 @@ import 'package:conferenceapp/organizers/organizers_repository.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
+import 'package:conferenceapp/rate/bloc/rate_bloc.dart';
+import 'package:conferenceapp/rate/repository/firestore_ratings_repository.dart';
+import 'package:conferenceapp/rate/repository/ratings_repository.dart';
 import 'package:conferenceapp/sponsors/sponsors_repository.dart';
 import 'package:conferenceapp/talk/talk_page.dart';
 import 'package:conferenceapp/ticket/bloc/bloc.dart';
@@ -30,7 +33,6 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bugfender/flutter_bugfender.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -279,7 +281,6 @@ class RepositoryProviders extends StatelessWidget {
         create: _userRepositoryBuilder,
         child: RepositoryProvider<TalkRepository>(
           create: (context) => _talksRepositoryBuilder(context, client),
-          // create: (_) => FirestoreTalkRepository(),
           child: RepositoryProvider(
             create: _favoritesRepositoryBuilder,
             child: RepositoryProvider(
@@ -295,7 +296,11 @@ class RepositoryProviders extends StatelessWidget {
                       create: (context) =>
                           _notificationsUnreadStatusRepositoryBuilder(
                               context, sharedPreferences),
-                      child: child,
+                      child: RepositoryProvider<RatingsRepository>(
+                        create: (context) => _ratingsRepositoryBuilder(
+                            context, sharedPreferences, Firestore.instance),
+                        child: child,
+                      ),
                     ),
                   ),
                 ),
@@ -364,6 +369,12 @@ class RepositoryProviders extends StatelessWidget {
             'talks', () => Directory.systemTemp.createTemp('talks_')),
       ),
     );
+  }
+
+  RatingsRepository _ratingsRepositoryBuilder(BuildContext context,
+      SharedPreferences sharedPreferences, Firestore firestore) {
+    return FirestoreRatingsRepository(sharedPreferences, firestore,
+        RepositoryProvider.of<UserRepository>(context));
   }
 }
 
