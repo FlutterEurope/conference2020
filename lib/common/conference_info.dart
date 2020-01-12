@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ConferenceInfo extends StatelessWidget {
   const ConferenceInfo({
@@ -54,7 +55,11 @@ class ConferenceInfo extends StatelessWidget {
             ),
             IconButton(
               icon: Icon(LineIcons.map_signs),
-              onPressed: () {},
+              onPressed: () async {
+                if (await canLaunch('https://goo.gl/maps/ChCCX5G71E5VRmWX6')) {
+                  launch('https://goo.gl/maps/ChCCX5G71E5VRmWX6');
+                }
+              },
             )
           ],
         ),
