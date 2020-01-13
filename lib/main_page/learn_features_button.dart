@@ -30,6 +30,7 @@ class _LearnFeaturesButtonState extends State<LearnFeaturesButton> {
               FeatureDiscovery.discoverFeatures(
                 context,
                 const <String>{
+                  'show_ticket',
                   'show_how_to_toggle_layout',
                 },
               );

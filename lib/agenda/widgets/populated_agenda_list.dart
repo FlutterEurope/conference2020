@@ -197,7 +197,18 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         CompactLeftTalkContainer(talk: _firstTalk ?? _secondTalk),
-        if (_firstTalk != null)
+        if (_firstTalk?.type == TalkType.other)
+          Expanded(
+            child: TalkCard(
+              key: ValueKey(_firstTalk.id),
+              talk: _firstTalk,
+              isFavorite: favoriteTalks.any((t) => t.id == _firstTalk.id),
+              first: true,
+              compact: true,
+              onTap: () => onTap(context, _firstTalk),
+            ),
+          )
+        else if (_firstTalk != null && _firstTalk.type == TalkType.beginner)
           Flexible(
             child: TalkCard(
               key: ValueKey(_firstTalk.id),
@@ -210,10 +221,11 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
           )
         else
           Flexible(child: Container()),
-        SizedBox(
-          width: 12,
-        ),
-        if (_secondTalk != null)
+        if (_firstTalk?.type != TalkType.other)
+          SizedBox(
+            width: 12,
+          ),
+        if (_secondTalk != null && _secondTalk.type == TalkType.advanced)
           Flexible(
             child: TalkCard(
               key: ValueKey(_secondTalk.id),
@@ -224,7 +236,7 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
               onTap: () => onTap(context, _secondTalk),
             ),
           )
-        else
+        else if (_firstTalk?.type != TalkType.other)
           Flexible(child: Container()),
       ],
     );

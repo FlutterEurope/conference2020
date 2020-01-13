@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
+import 'package:conferenceapp/model/agenda.dart';
 import 'package:conferenceapp/model/author.dart';
 import 'package:conferenceapp/model/room.dart';
 import 'package:conferenceapp/model/talk.dart';
@@ -32,6 +33,7 @@ void main() {
         DateTime.now(),
         DateTime.now().add(Duration(minutes: 45)),
         Room('', '1'),
+        TalkType.other,
       ),
     ];
 
@@ -101,6 +103,7 @@ void main() {
         DateTime(2020, 1, day, hour, 0),
         DateTime(2020, 1, day, hour, 45),
         _room,
+        TalkType.other,
       );
     }
 
