@@ -157,6 +157,9 @@ class _VariousProvidersState extends State<VariousProviders> {
     await remoteConfig.fetch(expiration: const Duration(seconds: 0));
     await remoteConfig.activateFetched();
     final _ = remoteConfig.getAll();
+    final shared = await SharedPreferences.getInstance();
+    shared.setInt('cache_duration', remoteConfig.getInt('cache_duration'));
+
     return remoteConfig;
   }
 
@@ -363,8 +366,8 @@ class RepositoryProviders extends StatelessWidget {
 
   TalkRepository _talksRepositoryBuilder(
       BuildContext context, ContentfulClient client) {
-    final remoteConfig = Provider.of<RemoteConfig>(context, listen: false);
-    final cache = remoteConfig.getInt('cache_duration');
+    final sharedPrefs = Provider.of<SharedPreferences>(context, listen: false);
+    final cache = sharedPrefs?.getInt('cache_duration') ?? 90;
     return ReactiveTalksRepository(
       repository: ContentfulTalksRepository(
           client: client,
@@ -373,7 +376,7 @@ class RepositoryProviders extends StatelessWidget {
             () => Directory.systemTemp.createTemp('talks_'),
           ),
           cacheDuration: Duration(
-            minutes: cache == 0 ? 120 : cache,
+            minutes: cache == 0 ? 90 : cache,
           )),
     );
   }
