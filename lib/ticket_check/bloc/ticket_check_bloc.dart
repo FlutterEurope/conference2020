@@ -36,7 +36,7 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
   Stream<TicketCheckState> handleTicketValidated(TickedValidated event) async* {
     try {
       yield LoadingState();
-      await updateUser(event);
+      if (event.userId.isNotEmpty) await updateUser(event);
       await addToCheckedTickets(event);
 
       yield TicketValidatedState(event.ticket, event.userId);
@@ -82,7 +82,7 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
             await getMatchingCheckedTickets(matchingTickets);
         if (matchingCheckedTickets.length == matchingTickets.length) {
           yield TicketErrorState(
-              'Wszystkie bilety z zamówienia $orderId zostały już sprawdzone. W zamówieniu było ${matchingTickets.length} biletów. Skonsultuj sytuację z osobą odpowiedzialną za sprawdzanie biletów.');
+              'Wszystkie bilety z zamówienia $orderId zostały już sprawdzone. W zamówieniu było ${matchingTickets.length} biletów. Skonsultuj sytuację z osobą odpowiedzialną za sprawdzanie biletów.\nSprawdzone bilety:\n${matchingCheckedTickets.map((m) => m['orderId'] + ' ' + m['ticketId'] ).join('\n')}');
           return;
         }
         final matchingTicketsWithoutChecked = List();
