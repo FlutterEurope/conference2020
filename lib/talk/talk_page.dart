@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -117,38 +118,85 @@ class _TalkRatingState extends State<TalkRating> {
             SnackBar(
               content: Text(
                   "Talk can be rated 5 minutes before the presentation is finished."),
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: Theme.of(context).accentColor,
             ),
           );
         }
       },
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            Text('Rate the talk'),
-            Center(
-              child: BlocBuilder<RateBloc, RateState>(
-                bloc: _rateBloc,
-                builder: (context, state) {
-                  return SmoothStarRating(
-                    allowHalfRating: false,
-                    onRatingChanged: (v) {
-                      _rateBloc.add(RateTalk(widget.talk, v));
-                    },
-                    starCount: 5,
-                    rating: _rateBloc.rating ?? 0.0,
-                    size: 40.0,
-                    color: Theme.of(context).accentColor,
-                    borderColor: Theme.of(context).accentColor,
-                    spacing: 0.0,
-                  );
-                },
+      child: BlocBuilder<RateBloc, RateState>(
+        bloc: _rateBloc,
+        builder: (context, state) => Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: <Widget>[
+              Text('Rate the talk'),
+              Center(
+                child: SmoothStarRating(
+                  allowHalfRating: false,
+                  onRatingChanged: (v) {
+                    _rateBloc.add(RateTalk(widget.talk, v));
+                  },
+                  starCount: 5,
+                  rating: _rateBloc.rating ?? 0.0,
+                  size: 40.0,
+                  color: Theme.of(context).accentColor,
+                  borderColor: Theme.of(context).accentColor,
+                  spacing: 0.0,
+                ),
               ),
-            ),
-          ],
+              if (state is TalkRatedState)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FlatButton(
+                    child: RichText(
+                      text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: [
+                            TextSpan(
+                              text: 'Enjoyed the talk? Share it on Twitter! ',
+                            ),
+                            WidgetSpan(
+                              child: Icon(
+                                LineIcons.twitter,
+                                color: Colors.blue,
+                                size: 18,
+                              ),
+                            )
+                          ]),
+                    ),
+                    onPressed: shareToTwitter,
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  void shareToTwitter() {
+    try {
+      final twitters = widget.talk.authors
+          .map((f) => f.twitter?.isNotEmpty == true
+              ? '@' + f.twitter?.split('/')?.last
+              : '')
+          .join(' ');
+      final body =
+          'I really enjoyed talk ${widget.talk.title} by ${widget.talk.authors.join(', ')} at @FlutterEurope #fluttereurope $twitters';
+      Share.share(
+        body,
+        subject: body,
+      );
+    } catch (e, s) {
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text('Ups, we have a problem here.'),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Theme.of(context).accentColor,
+      ));
+      logger.error('Problem during share to Twitter');
+      logger.errorException(e, s);
+    }
   }
 }
 

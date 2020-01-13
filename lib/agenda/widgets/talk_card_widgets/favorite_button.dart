@@ -38,6 +38,7 @@ class FavoriteButton extends StatelessWidget {
     if (isFavorite) {
       favoritesRepo.removeTalkFromFavorites(talk?.id);
       cancelNotification(flutterLocalNotificationsPlugin);
+      hideInfoAboutNotification(context);
     } else {
       favoritesRepo.addTalkToFavorites(talk?.id);
       if (remindersEnabled) {
@@ -64,6 +65,7 @@ class FavoriteButton extends StatelessWidget {
       content: Text(
         'We\'ll let you know when the talk starts$suffix',
       ),
+      behavior: SnackBarBehavior.floating,
       backgroundColor: Theme.of(context).accentColor,
     ));
   }
@@ -129,5 +131,9 @@ class FavoriteButton extends StatelessWidget {
     } else {
       return talk.endTime.subtract(Duration(minutes: 5));
     }
+  }
+
+  void hideInfoAboutNotification(BuildContext context) {
+    Scaffold.of(context).hideCurrentSnackBar();
   }
 }
