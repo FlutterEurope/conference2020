@@ -1,3 +1,4 @@
+import 'package:conferenceapp/common/europe_text_field.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/ticket/widgets/ticket_clipper.dart';
 import 'package:conferenceapp/ticket_check/bloc/bloc.dart';
@@ -6,6 +7,81 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vibration/vibration.dart';
+
+class ManualTicketPage extends StatefulWidget {
+  final TicketCheckBloc bloc;
+
+  const ManualTicketPage({Key key, this.bloc}) : super(key: key);
+
+  @override
+  _ManualTicketPageState createState() => _ManualTicketPageState();
+}
+
+class _ManualTicketPageState extends State<ManualTicketPage> {
+  String value = '';
+  String name = '';
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<TicketCheckBloc, TicketCheckState>(
+      bloc: widget.bloc,
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Manual ticket check'),
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Text(
+                      'Tutaj możesz ręcznie wpisać dane, jeśli nie udało się ich zeskanować'),
+                ),
+                EuropeTextFormField(
+                  hint: 'Order number lub ticket number',
+                  maxLength: 20,
+                  value: value,
+                  onChanged: (val) {
+                    setState(() {
+                      value = val;
+                    });
+                  },
+                ),
+                RaisedButton(
+                  child: Text('Szukaj'),
+                  onPressed: value.length > 0
+                      ? () {
+                          if (value.length > 9)
+                            widget.bloc.add(TicketScanned('_ _ $value'));
+                          else
+                            widget.bloc.add(TicketScanned('_ $value _'));
+                        }
+                      : null,
+                ),
+                if (state is TicketScannedState)
+                  TicketInfo(
+                    bloc: widget.bloc,
+                    state: state,
+                  ),
+                if (state is TicketValidatedState)
+                  TicketValidated(
+                    bloc: widget.bloc,
+                    state: state,
+                    onClose: () {
+                      widget.bloc.add(InitEvent());
+                    },
+                  ),
+                if (state is TicketErrorState) TicketError(state.reason),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
 
 class ScanTicketPage extends StatefulWidget {
   final List<QrCameraDescription> cameras;
@@ -35,41 +111,43 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
       body: BlocBuilder<TicketCheckBloc, TicketCheckState>(
           bloc: widget.bloc,
           builder: (context, state) {
-            return Stack(
-              children: <Widget>[
-                if (state is NoTicketCheckState)
-                  Center(
-                    child: _cameraPreviewWidget(),
-                  ),
-                ScanTopInfo(scanning: scanning),
-                if (state is LoadingState)
-                  Center(child: CircularProgressIndicator()),
-                if (state is TicketScannedState)
-                  TicketInfo(
-                    bloc: widget.bloc,
-                    state: state,
-                  ),
-                if (state is TicketValidatedState)
-                  TicketValidated(
-                    bloc: widget.bloc,
-                    state: state,
-                    onClose: startScanning,
-                  ),
-                if (state is TicketErrorState) TicketError(state.reason),
-                if (!scanning)
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: RaisedButton(
-                        onPressed: startScanning,
-                        child: Text('Scan again'),
-                      ),
+            return SafeArea(
+              child: Stack(
+                children: <Widget>[
+                  if (state is NoTicketCheckState)
+                    Center(
+                      child: _cameraPreviewWidget(),
                     ),
-                  )
-              ],
+                  ScanTopInfo(scanning: scanning),
+                  if (state is LoadingState)
+                    Center(child: CircularProgressIndicator()),
+                  if (state is TicketScannedState)
+                    TicketInfo(
+                      bloc: widget.bloc,
+                      state: state,
+                    ),
+                  if (state is TicketValidatedState)
+                    TicketValidated(
+                      bloc: widget.bloc,
+                      state: state,
+                      onClose: startScanning,
+                    ),
+                  if (state is TicketErrorState) TicketError(state.reason),
+                  if (!scanning)
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: RaisedButton(
+                          onPressed: startScanning,
+                          child: Text('Scan again'),
+                        ),
+                      ),
+                    )
+                ],
+              ),
             );
           }),
     );
