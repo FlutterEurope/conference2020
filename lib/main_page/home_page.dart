@@ -71,6 +71,9 @@ class _HomePageState extends State<HomePage> {
                     layoutSelector:
                         _currentIndex == agenda || _currentIndex == mySchedule,
                   ),
+                  floatingActionButton: AddTicketButton(),
+                  floatingActionButtonLocation:
+                      FloatingActionButtonLocation.centerDocked,
                   bottomNavigationBar:
                       createBottomNavigation(isAdmin, isTicketer),
                   body: Stack(
@@ -87,17 +90,17 @@ class _HomePageState extends State<HomePage> {
                           if (isAdmin) AdminPage() else Container(),
                         ],
                       ),
-                      Visibility(
-                        visible: _currentIndex == agenda ||
-                            _currentIndex == mySchedule ||
-                            _currentIndex == profile,
-                        child: Positioned(
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          child: AddTicketButton(),
-                        ),
-                      ),
+                      // Visibility(
+                      //   visible: _currentIndex == agenda ||
+                      //       _currentIndex == mySchedule ||
+                      //       _currentIndex == profile,
+                      //   child: Positioned(
+                      //     bottom: 0,
+                      //     left: 0,
+                      //     right: 0,
+                      //     child: AddTicketButton(),
+                      //   ),
+                      // ),
                       Visibility(
                         visible: _currentIndex == agenda ||
                             _currentIndex == mySchedule,
@@ -274,6 +277,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 }
+
 
 class NotificationIndicator extends StatelessWidget {
   final Widget child;
