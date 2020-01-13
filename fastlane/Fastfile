@@ -42,12 +42,12 @@ platform :ios do
       xcodeproj: "ios/Runner.xcodeproj",
     )
     set_info_plist_value(
-      path: "./ios/Runner/Info.plist",
+      path: "ios/Runner/Info.plist",
       key: "CFBundleVersion",
       value: ENV["BUILD_NUMBER"]
     )
     set_info_plist_value(
-      path: "./ios/Runner/Info.plist",
+      path: "ios/Runner/Info.plist",
       key: "CFBundleShortVersionString",
       value: ENV["VERSION_NUMBER"]
     )
@@ -97,12 +97,12 @@ platform :ios do
       xcodeproj: "ios/Runner.xcodeproj"
     )
     set_info_plist_value(
-      path: "./ios/Runner/Info.plist",
+      path: "ios/Runner/Info.plist",
       key: "CFBundleVersion",
       value: ENV["BUILD_NUMBER"]
     )
     set_info_plist_value(
-      path: "./ios/Runner/Info.plist",
+      path: "ios/Runner/Info.plist",
       key: "CFBundleShortVersionString",
       value: ENV["VERSION_NUMBER"]
     )
