@@ -1,5 +1,6 @@
 import 'package:conferenceapp/agenda/widgets/talk_card_widgets/favorite_button.dart';
 import 'package:conferenceapp/analytics.dart';
+import 'package:conferenceapp/model/agenda.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -126,6 +127,7 @@ class FavoriteButtonWrapper extends StatelessWidget {
                       DateTime.now(),
                       DateTime.now(),
                       null,
+                      TalkType.other,
                     ),
                     isFavorite: isFavorite,
                   ),
