@@ -164,7 +164,9 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   }
 
   void showInSnackBar(String message) {
-    _scaffoldKey.currentState
-        .showSnackBar(new SnackBar(content: new Text(message)));
+    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: new Text(message),
+      behavior: SnackBarBehavior.floating,
+    ));
   }
 }

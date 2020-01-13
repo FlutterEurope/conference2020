@@ -36,6 +36,7 @@ class AdminPage extends StatelessWidget {
                   Scaffold.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Error during loading of the tickets.'),
+                      behavior: SnackBarBehavior.floating,
                     ),
                   );
                 }

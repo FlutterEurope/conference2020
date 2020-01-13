@@ -164,7 +164,10 @@ class _ScanTicketPageState extends State<ScanTicketPage> {
   }
 
   void showInSnackBar(String message) {
-    Scaffold.of(context).showSnackBar(new SnackBar(content: new Text(message)));
+    Scaffold.of(context).showSnackBar(new SnackBar(
+      content: new Text(message),
+      behavior: SnackBarBehavior.floating,
+    ));
   }
 }
 
