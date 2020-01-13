@@ -363,12 +363,18 @@ class RepositoryProviders extends StatelessWidget {
 
   TalkRepository _talksRepositoryBuilder(
       BuildContext context, ContentfulClient client) {
+    final remoteConfig = Provider.of<RemoteConfig>(context, listen: false);
+    final cache = remoteConfig.getInt('cache_duration');
     return ReactiveTalksRepository(
       repository: ContentfulTalksRepository(
-        client: client,
-        fileStorage: FileStorage(
-            'talks', () => Directory.systemTemp.createTemp('talks_')),
-      ),
+          client: client,
+          fileStorage: FileStorage(
+            'talks',
+            () => Directory.systemTemp.createTemp('talks_'),
+          ),
+          cacheDuration: Duration(
+            minutes: cache == 0 ? 120 : cache,
+          )),
     );
   }
 
