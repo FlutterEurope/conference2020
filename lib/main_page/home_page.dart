@@ -4,6 +4,8 @@ import 'package:conferenceapp/analytics.dart';
 import 'package:conferenceapp/bottom_navigation/bottom_bar_title.dart';
 import 'package:conferenceapp/common/appbar.dart';
 import 'package:conferenceapp/common/logger.dart';
+import 'package:conferenceapp/force_update/force_update.dart';
+import 'package:conferenceapp/force_update/force_update_dialog.dart';
 import 'package:conferenceapp/main_page/add_ticket_button.dart';
 import 'package:conferenceapp/main_page/learn_features_button.dart';
 import 'package:conferenceapp/model/talk.dart';
@@ -50,6 +52,12 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+
+    ForceUpdate.onForceUpdate(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showForceUpdateDialog(context);
+      });
+    });
   }
 
   @override
