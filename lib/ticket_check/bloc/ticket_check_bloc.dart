@@ -145,8 +145,8 @@ class TicketCheckBloc extends Bloc<TicketCheckEvent, TicketCheckState> {
     final checkByOrder = isCheckedByOrder(orderId);
     final matchigTickets = ticketCollection
         .where(checkByOrder
-            ? (t) => t['orderId'] == orderId
-            : (t) => t['ticketId'] == ticketId)
+            ? (t) => t['orderId'] == orderId.toUpperCase()
+            : (t) => t['ticketId'] == ticketId.toLowerCase())
         .toList();
     return matchigTickets;
   }

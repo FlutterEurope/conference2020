@@ -121,8 +121,8 @@ class AdminPage extends StatelessWidget {
         final email = att[2];
         final email64 = base64.encode(utf8.encode(email));
         final twitter = att[3];
-        final ticketId = att[5];
-        final orderId = att[15];
+        final ticketId = att[5].toString().toLowerCase();
+        final orderId = att[15].toString().toUpperCase();
         final type = att[4];
         final ticket = {
           'name': name64,
