@@ -34,6 +34,14 @@ class TalkPage extends StatelessWidget {
             return TalkPageContent(talk: talk);
           } else {
             return Scaffold(
+              appBar: AppBar(
+                backgroundColor:
+                    Theme.of(context).brightness == Brightness.light
+                        ? Theme.of(context).primaryColor
+                        : Theme.of(context).scaffoldBackgroundColor,
+                title: Text(''),
+                centerTitle: false,
+              ),
               body: Center(
                 child: CircularProgressIndicator(),
               ),
