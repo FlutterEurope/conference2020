@@ -36,11 +36,11 @@ class ContentfulTalksRepository {
   }
 
   Future<List<Talk>> fetchTalks() async {
-    final todos = await client.fetchTalks();
+    final talks = await client.fetchTalks();
 
-    fileStorage.saveItems(todos);
+    fileStorage.saveItems(talks);
 
-    return todos;
+    return talks;
   }
 
   Future saveTalks(List<Talk> todos) {
