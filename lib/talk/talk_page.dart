@@ -1,3 +1,4 @@
+import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
 import 'package:conferenceapp/agenda/widgets/talk_card_widgets/favorite_button.dart';
 import 'package:conferenceapp/common/logger.dart';
@@ -7,6 +8,7 @@ import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:conferenceapp/rate/bloc/bloc.dart';
 import 'package:conferenceapp/rate/repository/ratings_repository.dart';
 import 'package:contentful_rich_text/contentful_rich_text.dart';
+import 'package:contentful_rich_text/types/types.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:expandable/expandable.dart';
 import 'package:extended_image/extended_image.dart';
@@ -17,6 +19,7 @@ import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:conferenceapp/utils/contentful_helper.dart';
 
 class TalkPage extends StatelessWidget {
   TalkPage(this.id);
@@ -62,6 +65,29 @@ class TalkPageContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(LineIcons.calendar_plus_o),
+        tooltip: 'Add to calendar',
+        backgroundColor: Theme.of(context).primaryColor,
+        onPressed: () {
+          try {
+            final Event event = Event(
+              title: talk.title,
+              description:
+                  Document.fromJson(talk.descriptionMap).toSimpleString(),
+              location:
+                  'Centrum konferencyjne w Centrum Nauki Kopernik, Wybrzeże Kościuszkowskie 20, 00-390 Warszawa',
+              startDate: talk.startTime,
+              endDate: talk.endTime,
+              allDay: false,
+            );
+
+            Add2Calendar.addEvent2Cal(event);
+          } catch (e, s) {
+            logger.errorException(e, s);
+          }
+        },
+      ),
       body: CustomScrollView(
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         slivers: <Widget>[
