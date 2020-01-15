@@ -396,42 +396,45 @@ class TopHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         for (var author in talk.authors)
-          Column(
-            children: <Widget>[
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    width: 120,
-                    height: 120,
-                    child: Stack(
-                      children: <Widget>[
-                        DottedBorder(
-                          borderType: BorderType.Circle,
-                          dashPattern: [4, 4],
-                          child: Center(
-                            child: CircleAvatar(
-                              radius: 120,
-                              backgroundImage: ExtendedNetworkImageProvider(
-                                  author.avatar + '?fit=fill&w=300&h=300'),
-                              backgroundColor: Theme.of(context).primaryColor,
+          Flexible(
+            child: Column(
+              children: <Widget>[
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 120,
+                      height: 120,
+                      child: Stack(
+                        children: <Widget>[
+                          DottedBorder(
+                            borderType: BorderType.Circle,
+                            dashPattern: [4, 4],
+                            child: Center(
+                              child: CircleAvatar(
+                                radius: 120,
+                                backgroundImage: ExtendedNetworkImageProvider(
+                                    author.avatar + '?fit=fill&w=300&h=300'),
+                                backgroundColor: Theme.of(context).primaryColor,
+                              ),
                             ),
                           ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: TwitterButton(author: author),
-                        ),
-                      ],
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: TwitterButton(author: author),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SpeakerNameAndJob(author: author),
-            ],
+                SpeakerNameAndJob(author: author),
+              ],
+            ),
           ),
       ],
     );
