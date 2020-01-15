@@ -245,12 +245,15 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
   }
 
   void onTap(BuildContext context, Talk talk) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => TalkPage(talk.id),
-        settings: RouteSettings(name: 'agenda/${talk.id}'),
-      ),
-    );
+    if (talk.type == TalkType.other)
+      return;
+    else
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TalkPage(talk.id),
+          settings: RouteSettings(name: 'agenda/${talk.id}'),
+        ),
+      );
   }
 }
