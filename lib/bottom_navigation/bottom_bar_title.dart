@@ -12,8 +12,9 @@ class BottomBarTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
+    final factor = MediaQuery.of(context).textScaleFactor;
     return Container(
-      height: 16,
       child: AnimatedSwitcher(
         duration: Duration(milliseconds: 200),
         child: showTitle
@@ -22,6 +23,7 @@ class BottomBarTitle extends StatelessWidget {
                 key: ValueKey(title),
               )
             : Container(
+                height: 12 * factor * 1.35,
                 key: ValueKey(title + "_idle"),
                 child: Center(
                   child: Container(
