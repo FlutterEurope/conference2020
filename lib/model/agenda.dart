@@ -68,7 +68,7 @@ class Fields extends Equatable {
   final TalkType type;
   @JsonKey(nullable: true)
   final ContentfulSpeaker speaker;
-  @JsonKey(nullable: true)
+  @JsonKey(nullable: true, name: 'secondSpeaked')
   final ContentfulSpeaker secondSpeaker;
 
   @JsonKey(ignore: true)
@@ -108,6 +108,11 @@ class Fields extends Equatable {
       return 'day two';
     }
     return '';
+  }
+
+  @override
+  String toString() {
+    return '$title';
   }
 }
 
