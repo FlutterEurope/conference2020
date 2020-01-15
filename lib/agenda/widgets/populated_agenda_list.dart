@@ -125,9 +125,11 @@ class PopulatedAgendaDayListContent extends StatelessWidget {
     final listNormal = compact
         ? Container()
         : ListView.builder(
-            padding: EdgeInsets.symmetric(
-              horizontal: 12.0,
-              vertical: 16.0,
+            padding: EdgeInsets.only(
+              left: 12.0,
+              right: 12.0,
+              top: 16.0,
+              bottom: 62.0,
             ),
             physics:
                 AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
