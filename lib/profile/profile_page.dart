@@ -54,6 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
             title: Text('Sponsors'),
             subtitle: Text('See who supported us'),
             trailing: Icon(LineIcons.angle_right),
+            contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () {
               logger.info('Sponsors tapped');
               Navigator.push(
@@ -69,6 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
             title: Text('Organizers'),
             subtitle: Text('See who created this event'),
             trailing: Icon(LineIcons.angle_right),
+            contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () {
               logger.info('Organizers tapped');
               Navigator.push(
@@ -84,6 +86,7 @@ class _ProfilePageState extends State<ProfilePage> {
             title: Text('Code of conduct'),
             subtitle: Text('Read our rules'),
             trailing: Icon(LineIcons.angle_right),
+            contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () async {
               final text = await getFileData('assets/coc.md');
               logger.info('Coc tapped');
@@ -111,6 +114,7 @@ class _ProfilePageState extends State<ProfilePage> {
             subtitle: Text(
                 'Let us know if you find any errors or want to share your feedback with us'),
             trailing: Icon(LineIcons.angle_right),
+            contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () async {
               logger.info('Feedback tapped');
               await showDialog(
@@ -145,6 +149,7 @@ class _ProfilePageState extends State<ProfilePage> {
             subtitle:
                 Text('All the awesome libraries we used to create this app'),
             trailing: Icon(LineIcons.angle_right),
+            contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () async {
               final version = await PackageInfo.fromPlatform();
               logger.info('About tapped');
@@ -170,6 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
               title: Text('Service login'),
               subtitle: Text('You can check tickets if you\'re authorized'),
               trailing: Icon(LineIcons.angle_right),
+              contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
               onTap: () {
                 AuthenticatorButton().showLoginDialog(context);
               },
