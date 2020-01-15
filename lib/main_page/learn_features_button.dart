@@ -22,20 +22,23 @@ class _LearnFeaturesButtonState extends State<LearnFeaturesButton> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Padding(
-          padding: EdgeInsets.all(12.0),
-          child: IconButton(
-            color: Theme.of(context).primaryColor,
-            onPressed: () {
-              FeatureDiscovery.discoverFeatures(
-                context,
-                const <String>{
-                  'show_ticket',
-                  'show_how_to_toggle_layout',
-                },
-              );
-            },
-            icon: Icon(LineIcons.question_circle),
+        Material(
+          type: MaterialType.transparency,
+          child: Padding(
+            padding: EdgeInsets.only(right: 12.0, left: 24.0, top: 24.0),
+            child: IconButton(
+              color: Theme.of(context).primaryColor,
+              onPressed: () {
+                FeatureDiscovery.discoverFeatures(
+                  context,
+                  const <String>{
+                    'show_ticket',
+                    'show_how_to_toggle_layout',
+                  },
+                );
+              },
+              icon: Icon(LineIcons.question_circle),
+            ),
           ),
         ),
       ],
