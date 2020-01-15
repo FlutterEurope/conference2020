@@ -45,5 +45,9 @@
 	<false/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>We don&apos;t use the microphone</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>We allow you to add talks to your calendar</string>
+	<key>NSContactsUsageDescription</key>
+	<string>We don't access yout contact data, but we allow you to add talks to your calendar</string>
 </dict>
 </plist>
