@@ -223,8 +223,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void changeReminders(bool value) {
     final sharedPrefs = Provider.of<SharedPreferences>(context);
-    analytics.setUserProperty(name: 'theme', value: '$value');
-    FlutterBugfender.setDeviceString('theme', '$value');
+    analytics.setUserProperty(name: 'reminders', value: '$value');
+    FlutterBugfender.setDeviceString('reminders', '$value');
     sharedPrefs.setBool('reminders', value);
     setState(() {});
   }
