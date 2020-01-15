@@ -8,6 +8,7 @@ import 'package:conferenceapp/force_update/force_update.dart';
 import 'package:conferenceapp/force_update/force_update_dialog.dart';
 import 'package:conferenceapp/main_page/add_ticket_button.dart';
 import 'package:conferenceapp/main_page/learn_features_button.dart';
+import 'package:conferenceapp/model/agenda.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/my_schedule/my_schedule_page.dart';
 import 'package:conferenceapp/notifications/notifications_page.dart';
@@ -234,13 +235,17 @@ class _HomePageState extends State<HomePage> {
             'selected_talk': '$res',
           },
         );
-        await Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TalkPage(res.id),
-            settings: RouteSettings(name: 'agenda/${res.id}'),
-          ),
-        );
+        if (res.type == TalkType.other) {
+          return;
+        } else {
+          await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TalkPage(res.id),
+              settings: RouteSettings(name: 'agenda/${res.id}'),
+            ),
+          );
+        }
       }
     } catch (e) {
       logger.errorException(e);
@@ -285,7 +290,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 }
-
 
 class NotificationIndicator extends StatelessWidget {
   final Widget child;
