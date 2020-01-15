@@ -226,17 +226,6 @@ class _TicketPageState extends State<TicketPage> {
                     Expanded(
                       child: Container(),
                     ),
-                    if (state is NoTicketState)
-                      Tooltip(
-                        message: 'Yes, that\'s ToggleButton over there ��',
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Icon(
-                            LineIcons.question_circle,
-                            color: Colors.white.withOpacity(0.5),
-                          ),
-                        ),
-                      )
                   ],
                 ),
               ),
