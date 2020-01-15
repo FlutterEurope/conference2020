@@ -41,6 +41,7 @@ class UserRepository {
     await _firestore.document('users/${_cachedUser.userId}').setData({
       'userId': _cachedUser.userId,
       'favoriteTalksIds': _cachedUser.favoriteTalksIds..add(talkId),
+      'updated': DateTime.now(),
     });
   }
 
@@ -51,6 +52,7 @@ class UserRepository {
     await _firestore.document('users/${_cachedUser.userId}').setData({
       'userId': _cachedUser.userId,
       'favoriteTalksIds': _cachedUser.favoriteTalksIds..remove(talkId),
+      'updated': DateTime.now(),
     });
   }
 
