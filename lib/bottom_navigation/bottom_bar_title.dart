@@ -13,7 +13,7 @@ class BottomBarTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 12,
+      height: 16,
       child: AnimatedSwitcher(
         duration: Duration(milliseconds: 200),
         child: showTitle

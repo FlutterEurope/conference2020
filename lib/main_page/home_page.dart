@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
 
   BottomNavigationBar createBottomNavigation(
       [bool isAdmin = false, bool isTicketer = false]) {
-    final itemHeight = 40.0;
+    final itemHeight = 22.0;
     final textSize = 12.0;
 
     return BottomNavigationBar(
@@ -155,10 +155,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         BottomNavigationBarItem(
-          icon: Container(
-            height: itemHeight,
-            child: Icon(LineIcons.calendar_check_o),
-          ),
+          icon: Icon(LineIcons.calendar_check_o),
           title: BottomBarTitle(
             title: 'My Schedule',
             showTitle: _currentIndex != mySchedule,
@@ -166,10 +163,7 @@ class _HomePageState extends State<HomePage> {
         ),
         BottomNavigationBarItem(
           icon: NotificationIndicator(
-            child: Container(
-              height: itemHeight,
-              child: Icon(LineIcons.bell),
-            ),
+            child: Icon(LineIcons.bell),
           ),
           title: BottomBarTitle(
             title: 'Notifications',
@@ -177,10 +171,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         BottomNavigationBarItem(
-          icon: Container(
-            height: itemHeight,
-            child: Icon(LineIcons.user),
-          ),
+          icon: Icon(LineIcons.cog),
           title: BottomBarTitle(
             title: 'Settings',
             showTitle: _currentIndex != profile,
@@ -188,10 +179,7 @@ class _HomePageState extends State<HomePage> {
         ),
         if (isTicketer == true)
           BottomNavigationBarItem(
-            icon: Container(
-              height: itemHeight,
-              child: Icon(LineIcons.ticket),
-            ),
+            icon: Icon(LineIcons.ticket),
             title: BottomBarTitle(
               title: 'Bilety',
               showTitle: _currentIndex != ticketer,
@@ -199,10 +187,7 @@ class _HomePageState extends State<HomePage> {
           ),
         if (isAdmin == true)
           BottomNavigationBarItem(
-            icon: Container(
-              height: itemHeight,
-              child: Icon(LineIcons.shield),
-            ),
+            icon: Icon(LineIcons.shield),
             title: BottomBarTitle(
               title: 'Admin',
               showTitle: _currentIndex != admin,
