@@ -1,4 +1,4 @@
-import 'package:conferenceapp/analytics.dart';
+import 'package:conferenceapp/utils/analytics.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

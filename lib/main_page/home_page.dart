@@ -1,6 +1,6 @@
 import 'package:conferenceapp/admin/admin_page.dart';
 import 'package:conferenceapp/agenda/agenda_page.dart';
-import 'package:conferenceapp/analytics.dart';
+import 'package:conferenceapp/utils/analytics.dart';
 import 'package:conferenceapp/bottom_navigation/bottom_bar_title.dart';
 import 'package:conferenceapp/common/appbar.dart';
 import 'package:conferenceapp/common/logger.dart';
@@ -126,6 +126,7 @@ class _HomePageState extends State<HomePage> {
       onTap: (index) {
         analytics.setCurrentScreen(
           screenName: '/home/${_tabs[index]}',
+          screenClassOverride: '${_tabs[index]}',
         );
         if (index == notifications) {
           final notif =

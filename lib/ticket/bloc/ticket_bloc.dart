@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/ticket.dart';
 import 'package:conferenceapp/model/user.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
@@ -54,6 +55,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
   Stream<TicketState> mapFetchTicketToState(FetchTicket event) async* {
     final ticket = await _ticketRepository.getTicket();
     if (ticket != null) {
+      logger.setDeviceString('ticket', '${ticket.orderId} ${ticket.ticketId}');
       yield TicketAddedState(ticket);
     } else {
       yield NoTicketState();
@@ -65,6 +67,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       yield TicketLoadingState();
       final ticket = Ticket(
           event.ticketData.orderId?.toUpperCase(), event.ticketData.ticketId);
+      logger.setDeviceString('ticket', '${ticket.orderId} ${ticket.ticketId}');
 
       await _ticketRepository.addTicket(ticket);
       yield TicketAddedState(ticket);

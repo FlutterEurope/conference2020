@@ -1,15 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:conferenceapp/analytics.dart';
+import 'package:conferenceapp/utils/analytics.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/user.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_bugfender/flutter_bugfender.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:rxdart/rxdart.dart';
 
 class MockLogger extends Mock implements Logger {}
 

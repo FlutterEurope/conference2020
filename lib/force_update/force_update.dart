@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:conferenceapp/common/logger.dart';
+import 'package:conferenceapp/config.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:package_info/package_info.dart';
 
@@ -8,6 +9,8 @@ class ForceUpdate {
   static void onForceUpdate(Function callback) async {
     final packageInfo = await PackageInfo.fromPlatform();
     final remoteConfig = await RemoteConfig.instance;
+
+    if (appConfig.flavor == 'dev') return;
 
     try {
       await remoteConfig.fetch();

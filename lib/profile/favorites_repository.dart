@@ -1,5 +1,5 @@
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
-import 'package:conferenceapp/analytics.dart';
+import 'package:conferenceapp/utils/analytics.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/model/user.dart';

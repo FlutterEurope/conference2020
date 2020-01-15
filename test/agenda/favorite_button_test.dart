@@ -1,5 +1,5 @@
 import 'package:conferenceapp/agenda/widgets/talk_card_widgets/favorite_button.dart';
-import 'package:conferenceapp/analytics.dart';
+import 'package:conferenceapp/utils/analytics.dart';
 import 'package:conferenceapp/model/agenda.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';

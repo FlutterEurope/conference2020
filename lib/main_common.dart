@@ -11,8 +11,8 @@ import 'package:flutter_bugfender/flutter_bugfender.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-import 'analytics.dart';
 import 'app.dart';
+import 'utils/analytics.dart';
 
 void mainCommon({@required AppConfig config}) {
   BlocSupervisor.delegate = SimpleBlocDelegate();

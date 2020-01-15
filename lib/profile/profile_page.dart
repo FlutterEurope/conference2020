@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:conferenceapp/analytics.dart';
+import 'package:conferenceapp/utils/analytics.dart';
 import 'package:conferenceapp/common/appbar.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/organizers/organizers_page.dart';
@@ -136,6 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       onPressed: () {
                         Navigator.pop(ctx);
+                        logger.info('Feedback button tapped');
                         Snapfeed.of(context).startFeedback();
                       },
                     )

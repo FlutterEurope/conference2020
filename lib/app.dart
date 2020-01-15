@@ -7,7 +7,6 @@ import 'package:conferenceapp/agenda/repository/contentful_talks_repository.dart
 import 'package:conferenceapp/agenda/repository/file_storage.dart';
 import 'package:conferenceapp/agenda/repository/reactive_talks_repository.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
-import 'package:conferenceapp/analytics.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/main_page/home_page.dart';
 import 'package:conferenceapp/notifications/repository/notifications_repository.dart';
@@ -16,7 +15,6 @@ import 'package:conferenceapp/organizers/organizers_repository.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
-import 'package:conferenceapp/rate/bloc/rate_bloc.dart';
 import 'package:conferenceapp/rate/repository/firestore_ratings_repository.dart';
 import 'package:conferenceapp/rate/repository/ratings_repository.dart';
 import 'package:conferenceapp/sponsors/sponsors_repository.dart';
@@ -39,6 +37,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snapfeed/snapfeed.dart';
 
 import 'config.dart';
+import 'utils/analytics.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({
