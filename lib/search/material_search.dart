@@ -183,14 +183,15 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
     }
 
     _controller.addListener(() {
-      logger.info(_controller.value.text);
-      if (_controller.value.text != null && _controller.value.text.isNotEmpty)
+      if (_controller.value.text != null) {
+        logger.info(_controller.value.text);
         setState(() {
           _criteria = _controller.value.text;
           if (widget.getResults != null) {
             _getResultsDebounced();
           }
         });
+      }
     });
   }
 
@@ -207,8 +208,7 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
       _resultsTimer.cancel();
     }
 
-    _resultsTimer = new Timer(new Duration(milliseconds: 400), () async {
-      logger.info('Timer fired');
+    _resultsTimer = new Timer(new Duration(milliseconds: 100), () async {
       if (!mounted) {
         return;
       }
