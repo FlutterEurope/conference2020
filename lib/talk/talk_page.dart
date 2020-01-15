@@ -322,7 +322,14 @@ class CustomExpandablePanel extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            ExpandableIcon()
+            ExpandableIcon(
+              theme: ExpandableThemeData.combine(
+                ExpandableThemeData(
+                  iconColor: Theme.of(context).textTheme.body1.color,
+                ),
+                ExpandableThemeData.defaults,
+              ),
+            )
           ],
         ),
       ),
@@ -335,7 +342,14 @@ class CustomExpandablePanel extends StatelessWidget {
               softWrap: true,
             ),
           ),
-          ExpandableIcon()
+          ExpandableIcon(
+            theme: ExpandableThemeData.combine(
+              ExpandableThemeData(
+                iconColor: Theme.of(context).textTheme.body1.color,
+              ),
+              ExpandableThemeData.defaults,
+            ),
+          )
         ],
       ),
       tapBodyToCollapse: true,
