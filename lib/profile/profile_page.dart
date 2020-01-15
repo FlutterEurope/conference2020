@@ -55,6 +55,7 @@ class _ProfilePageState extends State<ProfilePage> {
             subtitle: Text('See who supported us'),
             trailing: Icon(LineIcons.angle_right),
             onTap: () {
+              logger.info('Sponsors tapped');
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -69,6 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
             subtitle: Text('See who created this event'),
             trailing: Icon(LineIcons.angle_right),
             onTap: () {
+              logger.info('Organizers tapped');
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -84,6 +86,7 @@ class _ProfilePageState extends State<ProfilePage> {
             trailing: Icon(LineIcons.angle_right),
             onTap: () async {
               final text = await getFileData('assets/coc.md');
+              logger.info('Coc tapped');
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -109,30 +112,32 @@ class _ProfilePageState extends State<ProfilePage> {
                 'Let us know if you find any errors or want to share your feedback with us'),
             trailing: Icon(LineIcons.angle_right),
             onTap: () async {
+              logger.info('Feedback tapped');
               await showDialog(
-                  context: context,
-                  barrierDismissible: true,
-                  builder: (ctx) => SimpleDialog(
-                        children: <Widget>[
-                          FlatButton(
-                            child: Text('Send e-mail'),
-                            onPressed: () {
-                              sendEmail();
-                              Navigator.pop(ctx);
-                            },
-                          ),
-                          FlatButton(
-                            child: Text(
-                              'Try Snapfeed\n(User feedback tool for Flutter apps)',
-                              textAlign: TextAlign.center,
-                            ),
-                            onPressed: () {
-                              Navigator.pop(ctx);
-                              Snapfeed.of(context).startFeedback();
-                            },
-                          )
-                        ],
-                      ));
+                context: context,
+                barrierDismissible: true,
+                builder: (ctx) => SimpleDialog(
+                  children: <Widget>[
+                    FlatButton(
+                      child: Text('Send e-mail'),
+                      onPressed: () {
+                        sendEmail();
+                        Navigator.pop(ctx);
+                      },
+                    ),
+                    FlatButton(
+                      child: Text(
+                        'Try Snapfeed\n(User feedback tool for Flutter apps)',
+                        textAlign: TextAlign.center,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(ctx);
+                        Snapfeed.of(context).startFeedback();
+                      },
+                    )
+                  ],
+                ),
+              );
             },
           ),
           ListTile(
@@ -142,6 +147,7 @@ class _ProfilePageState extends State<ProfilePage> {
             trailing: Icon(LineIcons.angle_right),
             onTap: () async {
               final version = await PackageInfo.fromPlatform();
+              logger.info('About tapped');
               showLicensePage(
                   context: context,
                   applicationIcon: Padding(
