@@ -15,71 +15,65 @@ class AddTicketButton extends StatelessWidget {
     return BlocBuilder<TicketBloc, TicketState>(
       builder: (context, state) => Padding(
         padding: EdgeInsets.all(12.0),
-        child: FloatingActionButton(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-          backgroundColor: Theme.of(context).primaryColor,
-          tooltip: 'Add your ticket',
-          child: Stack(
-            children: <Widget>[
-              DescribedFeatureOverlay(
-                featureId: 'show_ticket',
-                tapTarget: Icon(LineIcons.ticket),
-                title: Text('Add your ticket'),
-                description: Text(
-                    'Tap this button to add your ticket. You\'ll need your order or ticket number.'),
+        child: state is NoTicketState
+            ? FloatingActionButton.extended(
+                icon: DescribedFeatureOverlay(
+                  featureId: 'show_ticket',
+                  tapTarget: Icon(LineIcons.ticket),
+                  title: Text('Add your ticket'),
+                  description: Text(
+                      'Tap this button to add your ticket. You\'ll need your order or ticket number.'),
+                  backgroundColor: Theme.of(context).primaryColor,
+                  onComplete: () async {
+                    return true;
+                  },
+                  targetColor: Colors.white,
+                  textColor: Colors.white,
+                  child: Icon(LineIcons.ticket),
+                ),
+                shape: StadiumBorder(),
                 backgroundColor: Theme.of(context).primaryColor,
-                onComplete: () async {
-                  return true;
-                },
-                targetColor: Colors.white,
-                textColor: Colors.white,
-                child: Icon(LineIcons.ticket),
+                tooltip: 'Add your ticket',
+                isExtended: true,
+                label: Text(
+                  'Add\nticket',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12),
+                ),
+                onPressed: () => onPressed(context),
+              )
+            : FloatingActionButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
+                backgroundColor: Theme.of(context).primaryColor,
+                tooltip: 'Show your ticket',
+                isExtended: true,
+                child: DescribedFeatureOverlay(
+                  featureId: 'show_ticket',
+                  tapTarget: Icon(LineIcons.ticket),
+                  title: Text('Add your ticket'),
+                  description: Text(
+                      'Tap this button to see your ticket. You should show it during registration or swag pickup.'),
+                  backgroundColor: Theme.of(context).primaryColor,
+                  onComplete: () async {
+                    return true;
+                  },
+                  targetColor: Colors.white,
+                  textColor: Colors.white,
+                  child: Icon(LineIcons.ticket),
+                ),
+                onPressed: () => onPressed(context),
               ),
-            ],
-          ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => TicketPage(),
-                settings: RouteSettings(name: '/home/ticket_page'),
-              ),
-            );
-          },
-        ),
+      ),
+    );
+  }
 
-        // Center(
-        //   child: RaisedButton(
-        //     shape: RoundedRectangleBorder(
-        //       borderRadius: BorderRadius.circular(20),
-        //     ),
-        //     color: Theme.of(context).primaryColor,
-        //     textTheme: ButtonTextTheme.primary,
-        //     onPressed: () {
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(
-        //           builder: (context) => TicketPage(),
-        //           settings: RouteSettings(name: '/home/ticket_page'),
-        //         ),
-        //       );
-        //     },
-        //     child: Padding(
-        //       padding:
-        //           const EdgeInsets.symmetric(horizontal: 4.0, vertical: 12.0),
-        //       child: Row(
-        //         mainAxisSize: MainAxisSize.min,
-        //         children: <Widget>[
-        //           if (state is NoTicketState) Text('Add your ticket'),
-        //           if (state is TicketAddedState) Text('Show your ticket'),
-        //           SizedBox(width: 12),
-        //           Icon(LineIcons.ticket),
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        // ),
+  void onPressed(context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TicketPage(),
+        settings: RouteSettings(name: '/home/ticket_page'),
       ),
     );
   }

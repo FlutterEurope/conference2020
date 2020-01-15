@@ -99,17 +99,6 @@ class _HomePageState extends State<HomePage> {
                           if (isAdmin) AdminPage() else Container(),
                         ],
                       ),
-                      // Visibility(
-                      //   visible: _currentIndex == agenda ||
-                      //       _currentIndex == mySchedule ||
-                      //       _currentIndex == profile,
-                      //   child: Positioned(
-                      //     bottom: 0,
-                      //     left: 0,
-                      //     right: 0,
-                      //     child: AddTicketButton(),
-                      //   ),
-                      // ),
                       Visibility(
                         visible: _currentIndex == agenda ||
                             _currentIndex == mySchedule,
