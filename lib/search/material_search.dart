@@ -184,7 +184,6 @@ class _MaterialSearchState<T> extends State<MaterialSearch> {
 
     _controller.addListener(() {
       if (_controller.value.text != null) {
-        logger.info(_controller.value.text);
         setState(() {
           _criteria = _controller.value.text;
           if (widget.getResults != null) {
