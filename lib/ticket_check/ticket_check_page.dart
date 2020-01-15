@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/profile/auth_repository.dart';
@@ -149,7 +151,8 @@ class UsersListPage extends StatelessWidget {
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('W sumie sprawdzono: ${list.data.documents.length}'),
+                        child: Text(
+                            'W sumie sprawdzono: ${list.data.documents.length}'),
                       ),
                       Flexible(child: TicketsList(list, isAdmin)),
                     ],
@@ -186,8 +189,10 @@ class TicketsList extends StatelessWidget {
       itemBuilder: (ctx, indx) {
         final doc = list.data.documents[indx].data;
         final DateTime date = doc['updated'].toDate();
+        final name = utf8.decode(base64Decode(doc['name']));
         return ListTile(
-          title: SelectableText('${doc["orderId"]} / ${doc['ticketId']}'),
+          title:
+              SelectableText('${doc["orderId"]} / ${doc['ticketId']} / $name'),
           subtitle: Text('$date'),
           trailing: isAdmin.hasData && isAdmin.data == true
               ? IconButton(
