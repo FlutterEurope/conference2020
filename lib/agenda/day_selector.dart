@@ -16,7 +16,7 @@ class DaySelectorContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final bgColor = Theme.of(context).brightness == Brightness.light
         ? Colors.blue[100]
-        : Colors.grey[100];
+        : Colors.blue[900];
 
     return Container(
       color: Theme.of(context).scaffoldBackgroundColor,
@@ -99,8 +99,8 @@ class DaySelector extends StatelessWidget {
                                 'Day 1',
                                 style: TextStyle(
                                   color: selectedDay == 0
-                                      ? Theme.of(context).primaryColor
-                                      : bgColor,
+                                      ? Theme.of(context).brightness == Brightness.light ? Theme.of(context).primaryColor : Colors.white
+                                      : Theme.of(context).brightness == Brightness.light ? bgColor : Colors.grey[300],
                                 ),
                               ),
                             ),
@@ -133,8 +133,8 @@ class DaySelector extends StatelessWidget {
                                 'Day 2',
                                 style: TextStyle(
                                   color: selectedDay != 0
-                                      ? Theme.of(context).primaryColor
-                                      : bgColor,
+                                       ? Theme.of(context).brightness == Brightness.light ? Theme.of(context).primaryColor : Colors.white
+                                      : Theme.of(context).brightness == Brightness.light ? bgColor : Colors.grey[300],
                                 ),
                               ),
                             ),
