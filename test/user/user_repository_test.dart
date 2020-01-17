@@ -135,10 +135,12 @@ main() {
       //when
       await sut.addTalkToFavorites('talkId');
       //then
-      verify(documentReference.setData({
-        'userId': 'userId',
-        'favoriteTalksIds': ['talkId'],
-      })).called(1);
+      verify(documentReference.setData(argThat(
+        isA<Map<String, dynamic>>()
+            .having((x) => x['userId'], 'userId', 'userId')
+            .having(
+                (x) => x['favoriteTalksIds'], 'favoriteTalksIds', ['talkId']),
+      ))).called(1);
     });
 
     test('doesnt calls firestore if talkId is already liked', () async {
@@ -170,10 +172,11 @@ main() {
       //when
       await sut.removeTalkFromFavorites('talkId');
       //then
-      verify(documentReference.setData({
-        'userId': 'userId',
-        'favoriteTalksIds': [],
-      })).called(1);
+      verify(documentReference.setData(argThat(
+        isA<Map<String, dynamic>>()
+            .having((x) => x['userId'], 'userId', 'userId')
+            .having((x) => x['favoriteTalksIds'], 'favoriteTalksIds', []),
+      ))).called(1);
     });
 
     test('doesnt calls firestore if talkId is not liked', () async {
