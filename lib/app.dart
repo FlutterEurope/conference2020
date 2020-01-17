@@ -382,7 +382,9 @@ class RepositoryProviders extends StatelessWidget {
 
   RatingsRepository _ratingsRepositoryBuilder(BuildContext context,
       SharedPreferences sharedPreferences, Firestore firestore) {
-    return FirestoreRatingsRepository(sharedPreferences, firestore,
+    return FirestoreRatingsRepository(
+        sharedPreferences,
+        firestore.collection("ratings"),
         RepositoryProvider.of<UserRepository>(context));
   }
 }

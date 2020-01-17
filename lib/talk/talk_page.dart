@@ -6,7 +6,11 @@ import 'package:conferenceapp/model/author.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/profile/favorites_repository.dart';
 import 'package:conferenceapp/rate/bloc/bloc.dart';
+import 'package:conferenceapp/rate/effects/show_rating_talk_too_early_error.dart';
 import 'package:conferenceapp/rate/repository/ratings_repository.dart';
+import 'package:conferenceapp/rate/widgets/review_button.dart';
+import 'package:conferenceapp/rate/widgets/review_text.dart';
+import 'package:conferenceapp/rate/widgets/star_rating.dart';
 import 'package:contentful_rich_text/contentful_rich_text.dart';
 import 'package:contentful_rich_text/types/types.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -17,7 +21,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:conferenceapp/utils/contentful_helper.dart';
 
@@ -148,15 +151,7 @@ class _TalkRatingState extends State<TalkRating> {
       bloc: _rateBloc,
       listener: (context, state) {
         if (state is RatingTalkToEarlyErrorState) {
-          Scaffold.of(context).removeCurrentSnackBar();
-          Scaffold.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                  "Talk can be rated 5 minutes before the presentation is finished."),
-              behavior: SnackBarBehavior.floating,
-              backgroundColor: Theme.of(context).accentColor,
-            ),
-          );
+          showRatingTalkTooEarlyError(context);
         }
       },
       child: BlocBuilder<RateBloc, RateState>(
@@ -166,20 +161,20 @@ class _TalkRatingState extends State<TalkRating> {
           child: Column(
             children: <Widget>[
               Text('Rate the talk'),
-              Center(
-                child: SmoothStarRating(
-                  allowHalfRating: false,
-                  onRatingChanged: (v) {
-                    _rateBloc.add(RateTalk(widget.talk, v));
-                  },
-                  starCount: 5,
-                  rating: _rateBloc.rating ?? 0.0,
-                  size: 40.0,
-                  color: Theme.of(context).accentColor,
-                  borderColor: Theme.of(context).accentColor,
-                  spacing: 0.0,
-                ),
+              StarRating(
+                onRatingChanged: (r) {
+                  _rateBloc.add(RateTalk(widget.talk, r));
+                },
+                rating: _rateBloc.rating ?? 0.0,
               ),
+              _rateBloc.review != null && _rateBloc.review.isNotEmpty
+                  ? ReviewText(_rateBloc.review,
+                      onReviewSubmitted: this.onReviewSubmitted)
+                  : ReviewButton(
+                      onReviewSubmitted: this.onReviewSubmitted,
+                      canReviewDelegate: () =>
+                          _rateBloc.canRateTalk(widget.talk),
+                    ),
               if (state is TalkRatedState)
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -208,6 +203,12 @@ class _TalkRatingState extends State<TalkRating> {
         ),
       ),
     );
+  }
+
+  void onReviewSubmitted(String review) {
+    if (review != null) {
+      _rateBloc.add(ReviewTalk(widget.talk, review));
+    }
   }
 
   void shareToTwitter() {

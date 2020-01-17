@@ -11,6 +11,12 @@ class RateTalk extends RateEvent {
   final double rating;
 }
 
+class ReviewTalk extends RateEvent {
+  ReviewTalk(this.talk, this.review);
+  final Talk talk;
+  final String review;
+}
+
 class FetchRateTalk extends RateEvent {
   FetchRateTalk(this.talk);
   final Talk talk;
