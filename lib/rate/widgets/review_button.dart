@@ -8,7 +8,7 @@ class ReviewButton extends StatelessWidget {
 
   // `canReviewDelegate` is a delegate, because internally it depends on `DateTime.now()`
   // and we want perform the check everytime user clicks the button.
-  final bool Function() canReviewDelegate;
+  final Future<bool> Function() canReviewDelegate;
 
   const ReviewButton(
       {Key key,
@@ -27,7 +27,7 @@ class ReviewButton extends StatelessWidget {
         ),
       ),
       onPressed: () async {
-        if (canReviewDelegate()) {
+        if (await canReviewDelegate()) {
           final review = await showWriteReviewModalBottomSheet(context);
           if (review != null) {
             this.onReviewSubmitted(review);

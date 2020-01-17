@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:conferenceapp/model/talk.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/rate/repository/ratings_repository.dart';
@@ -10,6 +11,8 @@ class RateBloc extends Bloc<RateEvent, RateState> {
   RateBloc(this._ratingsRepository);
 
   final RatingsRepository _ratingsRepository;
+
+  RemoteConfig _config;
 
   double _rating;
   double get rating => _rating;
@@ -46,7 +49,7 @@ class RateBloc extends Bloc<RateEvent, RateState> {
 
   Stream<RateState> handleRateTalkEvent(RateTalk event) async* {
     try {
-      if (canRateTalk(event.talk)) {
+      if (await canRateTalk(event.talk)) {
         _ratingsRepository.rateTalk(event.talk.id, event.rating.toInt());
         _rating = event.rating;
         yield TalkRatedState();
@@ -68,7 +71,7 @@ class RateBloc extends Bloc<RateEvent, RateState> {
 
   Stream<RateState> handleReviewTalkEvent(ReviewTalk event) async* {
     try {
-      if (canRateTalk(event.talk)) {
+      if (await canRateTalk(event.talk)) {
         _ratingsRepository.reviewTalk(event.talk.id, event.review);
         _review = event.review;
         yield TalkRatedState();
@@ -81,6 +84,12 @@ class RateBloc extends Bloc<RateEvent, RateState> {
     }
   }
 
-  bool canRateTalk(Talk talk) =>
-      DateTime.now().isAfter(talk.endTime.subtract(Duration(minutes: 5)));
+  Future<bool> canRateTalk(Talk talk) async {
+    _config ??= await RemoteConfig.instance;
+
+    final minutes = _config.getInt("minutes_before_talk_can_be_rated") ?? 5;
+    final canRateTime = talk.endTime.subtract(Duration(minutes: minutes));
+
+    return DateTime.now().isAfter(canRateTime);
+  }
 }
