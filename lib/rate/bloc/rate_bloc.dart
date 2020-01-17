@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:conferenceapp/model/talk.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/rate/repository/ratings_repository.dart';
@@ -12,6 +13,9 @@ class RateBloc extends Bloc<RateEvent, RateState> {
 
   double _rating;
   double get rating => _rating;
+
+  String _review;
+  String get review => _review;
 
   @override
   RateState get initialState => InitialRateState();
@@ -32,22 +36,51 @@ class RateBloc extends Bloc<RateEvent, RateState> {
     RateEvent event,
   ) async* {
     if (event is RateTalk) {
-      try {
-        final canRateTime = event.talk.endTime.subtract(Duration(minutes: 5));
-        if (DateTime.now().isAfter(canRateTime)) {
-          _ratingsRepository.rateTalk(event.talk.id, event.rating.toInt());
-          _rating = event.rating;
-          yield TalkRatedState();
-        } else {
-          yield RatingTalkToEarlyErrorState();
-        }
-      } catch (e, s) {
-        logger.errorException(e, s);
-        yield RatingTalkErrorState();
-      }
+      yield* handleRateTalkEvent(event);
+    } else if (event is ReviewTalk) {
+      yield* handleReviewTalkEvent(event);
     } else if (event is FetchRateTalk) {
-      _rating = _ratingsRepository.myRatingOfTalk(event.talk.id)?.toDouble();
-      yield TalkRateFetched();
+      yield* handleFetchRateTalk(event);
     }
   }
+
+  Stream<RateState> handleRateTalkEvent(RateTalk event) async* {
+    try {
+      if (canRateTalk(event.talk)) {
+        _ratingsRepository.rateTalk(event.talk.id, event.rating.toInt());
+        _rating = event.rating;
+        yield TalkRatedState();
+      } else {
+        yield RatingTalkToEarlyErrorState();
+      }
+    } catch (e, s) {
+      logger.errorException(e, s);
+      yield RatingTalkErrorState();
+    }
+  }
+
+  Stream<RateState> handleFetchRateTalk(FetchRateTalk event) async* {
+    _rating = _ratingsRepository.myRatingOfTalk(event.talk.id)?.toDouble();
+    _review = _ratingsRepository.myReviewOfTalk(event.talk.id);
+
+    yield TalkRateFetched();
+  }
+
+  Stream<RateState> handleReviewTalkEvent(ReviewTalk event) async* {
+    try {
+      if (canRateTalk(event.talk)) {
+        _ratingsRepository.reviewTalk(event.talk.id, event.review);
+        _review = event.review;
+        yield TalkRatedState();
+      } else {
+        yield RatingTalkToEarlyErrorState();
+      }
+    } catch (e, s) {
+      logger.errorException(e, s);
+      yield RatingTalkErrorState();
+    }
+  }
+
+  bool canRateTalk(Talk talk) =>
+      DateTime.now().isAfter(talk.endTime.subtract(Duration(minutes: 5)));
 }

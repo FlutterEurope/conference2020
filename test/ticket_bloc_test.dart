@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/ticket.dart';
 import 'package:conferenceapp/model/user.dart';
 import 'package:conferenceapp/profile/user_repository.dart';
@@ -7,6 +8,8 @@ import 'package:conferenceapp/ticket/bloc/bloc.dart';
 import 'package:conferenceapp/ticket/repository/ticket_repository.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
+
+import 'user/auth_repository_test.dart';
 
 class _MockTicketRepository extends Mock implements TicketRepository {}
 
@@ -19,6 +22,7 @@ void main() {
     UserRepository _userRepository;
 
     setUp(() {
+      logger = MockLogger();
       _ticketRepository = _MockTicketRepository();
       _userRepository = _MockUserRepository();
       userRepositoryAlwaysWorks(_userRepository);

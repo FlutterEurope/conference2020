@@ -2,12 +2,15 @@ import 'dart:async';
 
 import 'package:conferenceapp/agenda/bloc/bloc.dart';
 import 'package:conferenceapp/agenda/repository/talks_repository.dart';
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/agenda.dart';
 import 'package:conferenceapp/model/author.dart';
 import 'package:conferenceapp/model/room.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
+
+import 'user/auth_repository_test.dart';
 
 class _MockRepository extends Mock implements TalkRepository {}
 
@@ -39,6 +42,7 @@ void main() {
 
     setUp(() {
       mockRepo = _MockRepository();
+      logger = MockLogger();
       when(mockRepo.talks())
           .thenAnswer((_) => Stream.fromIterable([_tempList]));
       bloc = AgendaBloc(mockRepo);
