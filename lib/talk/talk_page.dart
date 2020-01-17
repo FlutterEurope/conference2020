@@ -33,89 +33,68 @@ class TalkPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final talkStream = Provider.of<TalkRepository>(context).talk(id);
     return StreamBuilder<Talk>(
-        stream: talkStream,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final talk = snapshot.data;
-            return TalkPageContent(talk: talk);
-          } else {
-            return Scaffold(
-              appBar: AppBar(
+      stream: talkStream,
+      builder: (context, snapshot) {
+        final talk = snapshot.hasData ? snapshot.data : null;
+        return Scaffold(
+          floatingActionButton: FloatingActionButton(
+            child: Icon(LineIcons.calendar_plus_o),
+            tooltip: 'Add to calendar',
+            backgroundColor: Theme.of(context).primaryColor,
+            onPressed: talk != null
+                ? () {
+                    try {
+                      final Event event = Event(
+                        title: talk.title,
+                        description: Document.fromJson(talk.descriptionMap)
+                            .toSimpleString(),
+                        location:
+                            'Centrum konferencyjne w Centrum Nauki Kopernik, Wybrzeże Kościuszkowskie 20, 00-390 Warszawa',
+                        startDate: talk.startTime,
+                        endDate: talk.endTime,
+                        allDay: false,
+                      );
+
+                      Add2Calendar.addEvent2Cal(event);
+                    } catch (e, s) {
+                      logger.errorException(e, s);
+                    }
+                  }
+                : null,
+          ),
+          body: CustomScrollView(
+            physics:
+                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            slivers: <Widget>[
+              SliverAppBar(
+                floating: false,
+                pinned: false,
                 backgroundColor:
                     Theme.of(context).brightness == Brightness.light
                         ? Theme.of(context).primaryColor
                         : Theme.of(context).scaffoldBackgroundColor,
-                title: Text(''),
+                actions: talk != null
+                    ? <Widget>[
+                        TalkDetailsFavoriteButton(talk: talk),
+                      ]
+                    : null,
+                title: talk != null ? Text(talk.title) : null,
                 centerTitle: false,
               ),
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-        });
-  }
-}
-
-class TalkPageContent extends StatelessWidget {
-  const TalkPageContent({
-    Key key,
-    @required this.talk,
-  }) : super(key: key);
-
-  final Talk talk;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(LineIcons.calendar_plus_o),
-        tooltip: 'Add to calendar',
-        backgroundColor: Theme.of(context).primaryColor,
-        onPressed: () {
-          try {
-            final Event event = Event(
-              title: talk.title,
-              description:
-                  Document.fromJson(talk.descriptionMap).toSimpleString(),
-              location:
-                  'Centrum konferencyjne w Centrum Nauki Kopernik, Wybrzeże Kościuszkowskie 20, 00-390 Warszawa',
-              startDate: talk.startTime,
-              endDate: talk.endTime,
-              allDay: false,
-            );
-
-            Add2Calendar.addEvent2Cal(event);
-          } catch (e, s) {
-            logger.errorException(e, s);
-          }
-        },
-      ),
-      body: CustomScrollView(
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-        slivers: <Widget>[
-          SliverAppBar(
-            floating: false,
-            pinned: false,
-            backgroundColor: Theme.of(context).brightness == Brightness.light
-                ? Theme.of(context).primaryColor
-                : Theme.of(context).scaffoldBackgroundColor,
-            actions: <Widget>[
-              TalkDetailsFavoriteButton(talk: talk),
+              (talk != null)
+                  ? SliverList(
+                      delegate: new SliverChildListDelegate([
+                        TopHeader(talk: talk),
+                        TalkTitle(talk: talk),
+                        TalkRating(talk: talk),
+                        if (talk.description != null) TalkDetails(talk: talk),
+                      ]),
+                    )
+                  : SliverFillRemaining(child: CircularProgressIndicator()),
             ],
-            title: Text(talk.title),
-            centerTitle: false,
           ),
-          SliverList(
-            delegate: new SliverChildListDelegate([
-              TopHeader(talk: talk),
-              TalkTitle(talk: talk),
-              TalkRating(talk: talk),
-              if (talk.description != null) TalkDetails(talk: talk),
-            ]),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
