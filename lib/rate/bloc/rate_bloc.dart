@@ -12,6 +12,8 @@ class RateBloc extends Bloc<RateEvent, RateState> {
 
   final RatingsRepository _ratingsRepository;
 
+  RemoteConfig _config;
+
   double _rating;
   double get rating => _rating;
 
@@ -83,9 +85,9 @@ class RateBloc extends Bloc<RateEvent, RateState> {
   }
 
   Future<bool> canRateTalk(Talk talk) async {
-    final config = await RemoteConfig.instance;
+    _config ??= await RemoteConfig.instance;
 
-    final minutes = config.getInt("minutes_before_talk_can_be_rated") ?? 5;
+    final minutes = _config.getInt("minutes_before_talk_can_be_rated") ?? 5;
     final canRateTime = talk.endTime.subtract(Duration(minutes: minutes));
 
     return DateTime.now().isAfter(canRateTime);
