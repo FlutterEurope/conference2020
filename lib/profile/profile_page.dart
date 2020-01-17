@@ -166,7 +166,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   applicationName: 'Flutter Europe 2020',
                   applicationVersion: '${version?.version}',
                   applicationLegalese:
-                      'Created by Dominik Roszkowski (roszkowski.dev), Maciek Korzeniewski (@korzonkiee) and Marcin Szałek (fidev.io) for the Flutter Europe conference, \n\nSome images are courtesy of https://undraw.co/\n\nSpecial thanks to Codemagic for support and free build time! ❤️\n\nThanks LeanCode for hosting this on your accounts!\n\nAnd huuuge thank you to all the people who helped design and test this app 🎉');
+                      'Created by Dominik Roszkowski (roszkowski.dev), Maciek Korzeniewski (@korzonkiee), Marcin Szałek (fidev.io) and Robert Odrowąż-Sypniewski for the Flutter Europe conference, \n\nSome images are courtesy of https://undraw.co/\n\nSpecial thanks to Codemagic for support and free build time! ❤️\n\nThanks LeanCode for hosting this on your accounts!\n\nAnd huuuge thank you to all the people who helped design and test this app 🎉');
             },
           ),
           if (Provider.of<RemoteConfig>(context, listen: false)
