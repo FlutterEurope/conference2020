@@ -81,7 +81,7 @@ class _WriteReviewModalBottomSheetState
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    "Review is visible only to the speaker.",
+                    "Review will be visible only to the speaker.",
                     style: TextStyle(fontStyle: FontStyle.italic),
                   ),
                 ),
