@@ -26,7 +26,7 @@ This simple conference app allows:
 - [x] adding and showing the attendee ticket (via order number or ticket number)
 - [x] receiving notifications from organizers
 - [x] light/dark mode
-- [ ] rating of the talks
+- [x] rating of the talks
 - [x] receiving reminders about the talks
 - [ ] adding ticket to the device wallet
 - [x] admin mode to send notifications and new users
