@@ -21,17 +21,26 @@ class DaySelectorContainer extends StatelessWidget {
     return Container(
       color: Theme.of(context).scaffoldBackgroundColor,
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: bgColor,
-              style: BorderStyle.solid,
-              width: 2,
-            ),
-            borderRadius: BorderRadius.circular(4.0),
+        padding: const EdgeInsets.all(12),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(4),
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: bgColor,
+                      style: BorderStyle.solid,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+              ),
+              DaySelector(bgColor, pageController, index),
+            ],
           ),
-          child: DaySelector(bgColor, pageController, index),
         ),
       ),
     );
@@ -63,9 +72,9 @@ class DaySelector extends StatelessWidget {
               bottom: 0,
               left: selectedDay == 0
                   ? 0
-                  : (MediaQuery.of(context).size.width - 24.0) / 2.0,
+                  : (MediaQuery.of(context).size.width - 24) / 2,
               right: selectedDay == 0
-                  ? (MediaQuery.of(context).size.width - 24.0) / 2.0
+                  ? (MediaQuery.of(context).size.width - 24) / 2
                   : 0,
               duration: Duration(milliseconds: 300),
               child: Container(
@@ -93,14 +102,20 @@ class DaySelector extends StatelessWidget {
                         },
                         child: Container(
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8),
                             child: Center(
                               child: Text(
                                 'Day 1',
                                 style: TextStyle(
                                   color: selectedDay == 0
-                                      ? Theme.of(context).brightness == Brightness.light ? Theme.of(context).primaryColor : Colors.white
-                                      : Theme.of(context).brightness == Brightness.light ? bgColor : Colors.grey[300],
+                                      ? Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? Theme.of(context).primaryColor
+                                          : Colors.white
+                                      : Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? bgColor
+                                          : Colors.grey[300],
                                 ),
                               ),
                             ),
@@ -127,14 +142,20 @@ class DaySelector extends StatelessWidget {
                         },
                         child: Container(
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8),
                             child: Center(
                               child: Text(
                                 'Day 2',
                                 style: TextStyle(
                                   color: selectedDay != 0
-                                       ? Theme.of(context).brightness == Brightness.light ? Theme.of(context).primaryColor : Colors.white
-                                      : Theme.of(context).brightness == Brightness.light ? bgColor : Colors.grey[300],
+                                      ? Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? Theme.of(context).primaryColor
+                                          : Colors.white
+                                      : Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? bgColor
+                                          : Colors.grey[300],
                                 ),
                               ),
                             ),

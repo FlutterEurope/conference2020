@@ -102,9 +102,9 @@ class _HomePageState extends State<HomePage> {
                       Visibility(
                         visible: _currentIndex == agenda ||
                             _currentIndex == mySchedule,
-                        child: Positioned(
+                        child: const Positioned(
                           bottom: 0,
-                          right: 0,
+                          right: 12,
                           child: LearnFeaturesButton(),
                         ),
                       )
