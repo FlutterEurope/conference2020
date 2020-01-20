@@ -57,6 +57,7 @@ class _TalkSpeaker extends StatelessWidget {
                 image: DecorationImage(
                   image: ExtendedNetworkImageProvider(
                     speaker.avatar + '?fit=fill&w=50&h=50',
+                    cache: true
                   ),
                   fit: BoxFit.cover,
                 ),

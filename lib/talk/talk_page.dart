@@ -397,7 +397,9 @@ class TopHeader extends StatelessWidget {
                               child: CircleAvatar(
                                 radius: 120,
                                 backgroundImage: ExtendedNetworkImageProvider(
-                                    author.avatar + '?fit=fill&w=300&h=300'),
+                                  author.avatar + '?fit=fill&w=300&h=300',
+                                  cache: true,
+                                ),
                                 backgroundColor: Theme.of(context).primaryColor,
                               ),
                             ),
