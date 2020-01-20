@@ -1,17 +1,10 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conferenceapp/common/logger.dart';
-import 'package:conferenceapp/profile/auth_repository.dart';
 import 'package:conferenceapp/ticket_check/bloc/bloc.dart';
-import 'package:conferenceapp/ticket_check/tickets_list.dart';
 import 'package:conferenceapp/ticket_check/users_list.dart';
 import 'package:flutter/material.dart';
 import 'package:fast_qr_reader_view/fast_qr_reader_view.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:line_icons/line_icons.dart';
 
+import 'scan_party_page.dart';
 import 'scan_ticket_page.dart';
 
 class TicketCheckPage extends StatefulWidget {
@@ -97,17 +90,28 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  'Wydawanie koszulek',
-                ),
-              ),
-            ),
-            RaisedButton(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
                   'Kontrola na imprezie',
                 ),
               ),
+              onPressed: () async {
+                try {
+                  final cameras = await availableCameras();
+                  final permission = await checkCameraPermission();
+                  if (permission != PermissionStatus.granted) {
+                    await requestCameraPermission();
+                  }
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ScanPartyPage(
+                        cameras: cameras,
+                      ),
+                    ),
+                  );
+                } on QRReaderException catch (e) {
+                  logError(e.code, e.description);
+                }
+              },
             ),
             RaisedButton(
               child: Text('Przeglądaj sprawdzone'),
