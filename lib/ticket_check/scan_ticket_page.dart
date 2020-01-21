@@ -30,51 +30,57 @@ class _ManualTicketPageState extends State<ManualTicketPage> {
           appBar: AppBar(
             title: Text('Manual ticket check'),
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: Text(
-                      'Tutaj możesz ręcznie wpisać dane, jeśli nie udało się ich zeskanować'),
-                ),
-                EuropeTextFormField(
-                  hint: 'Order number lub ticket number',
-                  maxLength: 20,
-                  value: value,
-                  onChanged: (val) {
-                    setState(() {
-                      value = val;
-                    });
-                  },
-                ),
-                RaisedButton(
-                  child: Text('Szukaj'),
-                  onPressed: value.length > 0
-                      ? () {
-                          if (value.length > 9)
-                            widget.bloc.add(TicketScanned('_ _ $value'));
-                          else
-                            widget.bloc.add(TicketScanned('_ $value _'));
-                        }
-                      : null,
-                ),
-                if (state is TicketScannedState)
-                  TicketInfo(
-                    bloc: widget.bloc,
-                    state: state,
+          body: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Text(
+                      'Tutaj możesz ręcznie wpisać dane, jeśli nie udało się ich zeskanować',
+                    ),
                   ),
-                if (state is TicketValidatedState)
-                  TicketValidated(
-                    bloc: widget.bloc,
-                    state: state,
-                    onClose: () {
-                      widget.bloc.add(InitEvent());
+                  EuropeTextFormField(
+                    hint: 'Order number lub ticket number',
+                    maxLength: 20,
+                    value: value,
+                    onChanged: (val) {
+                      setState(() {
+                        value = val.toUpperCase();
+                      });
                     },
                   ),
-                if (state is TicketErrorState) TicketError(state.reason),
-              ],
+                  RaisedButton(
+                    child: Text('Szukaj'),
+                    onPressed: value.length > 0
+                        ? () {
+                            if (value.length > 9)
+                              widget.bloc.add(TicketScanned('_ _ $value'));
+                            else
+                              widget.bloc.add(TicketScanned('_ $value _'));
+                          }
+                        : null,
+                  ),
+                  if (state is TicketScannedState)
+                    TicketInfo(
+                      bloc: widget.bloc,
+                      state: state,
+                    ),
+                  if (state is TicketValidatedState)
+                    TicketValidated(
+                      bloc: widget.bloc,
+                      state: state,
+                      onClose: () {
+                        widget.bloc.add(InitEvent());
+                      },
+                    ),
+                  if (state is TicketErrorState) TicketError(state.reason),
+                ],
+              ),
             ),
           ),
         );
@@ -272,7 +278,7 @@ class TicketError extends StatelessWidget {
                 fit: BoxFit.contain,
               ),
             ),
-            Text('Error occured: ${reason}'),
+            Text('Błąd: $reason'),
           ],
         ),
       ),
@@ -443,7 +449,7 @@ class ScanTopInfo extends StatelessWidget {
               child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              if (scanning) Text('Scanning QR Code'),
+              if (scanning) Text('Skanowanie kodu QR'),
               if (scanning)
                 Padding(
                   padding: const EdgeInsets.all(2.0),
