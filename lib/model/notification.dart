@@ -16,8 +16,11 @@ class AppNotification extends Comparable<AppNotification> {
   final String content;
   @JsonKey(nullable: true)
   final bool important;
+  @JsonKey(nullable: true)
+  final String url;
 
-  AppNotification(this.title, this.dateTime, this.content, this.important);
+  AppNotification(
+      this.title, this.dateTime, this.content, this.important, this.url);
 
   factory AppNotification.fromJson(Map<String, dynamic> json) =>
       _$AppNotificationFromJson(json);

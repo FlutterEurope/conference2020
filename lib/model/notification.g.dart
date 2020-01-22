@@ -14,6 +14,7 @@ AppNotification _$AppNotificationFromJson(Map json) {
         : DateTime.parse(json['dateTime'] as String),
     json['content'] as String,
     json['important'] as bool,
+    json['url'] as String,
   );
 }
 
@@ -23,4 +24,5 @@ Map<String, dynamic> _$AppNotificationToJson(AppNotification instance) =>
       'dateTime': instance.dateTime?.toIso8601String(),
       'content': instance.content,
       'important': instance.important,
+      'url': instance.url,
     };
