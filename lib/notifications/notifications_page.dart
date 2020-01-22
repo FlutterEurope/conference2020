@@ -1,9 +1,12 @@
 import 'package:conferenceapp/model/notification.dart';
 import 'package:conferenceapp/notifications/repository/notifications_repository.dart';
 import 'package:conferenceapp/notifications/repository/notifications_unread_repository.dart';
+import 'package:conferenceapp/utils/analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:url_launcher/url_launcher.dart';
 
 class NotificationsPage extends StatelessWidget {
   @override
@@ -37,6 +40,11 @@ class NotificationsPage extends StatelessWidget {
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
+                      if (notif.url != null && notif.url.isNotEmpty)
+                        Icon(
+                          LineIcons.link,
+                          size: 14,
+                        ),
                       Text(timeago.format(notif.dateTime)),
                       if (lastRead != null && lastRead.isBefore(notif.dateTime))
                         Padding(
@@ -51,6 +59,9 @@ class NotificationsPage extends StatelessWidget {
                         ),
                     ],
                   ),
+                  onTap: notif.url != null && notif.url.isNotEmpty
+                      ? () => openNotification(notif)
+                      : null,
                 );
               },
             );
@@ -62,6 +73,15 @@ class NotificationsPage extends StatelessWidget {
             );
           }
         });
+  }
+
+  void openNotification(AppNotification notification) async {
+    if (await canLaunch(notification.url)) {
+      analytics.logEvent(name: 'notif_open', parameters: {
+        'title': notification.title,
+      });
+      await launch(notification.url);
+    }
   }
 }
 

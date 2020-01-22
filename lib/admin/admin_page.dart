@@ -231,6 +231,7 @@ class _NotificationDialogState extends State<NotificationDialog> {
   String content;
   DateTime dateTime = DateTime.now();
   bool important = false;
+  String url;
 
   @override
   Widget build(BuildContext context) {
@@ -266,6 +267,20 @@ class _NotificationDialogState extends State<NotificationDialog> {
             FocusScope.of(context).nextFocus();
           },
         ),
+        EuropeTextFormField(
+          hint: 'Url (not required)',
+          value: url,
+          keyboardType: TextInputType.url,
+          textCapitalization: TextCapitalization.none,
+          onChanged: (value) {
+            setState(() {
+              url = value;
+            });
+          },
+          onFieldSubmitted: (_) {
+            FocusScope.of(context).nextFocus();
+          },
+        ),
         SettingsToggle(
           title: 'Important',
           onChanged: (value) {
@@ -281,7 +296,7 @@ class _NotificationDialogState extends State<NotificationDialog> {
             FlatButton(
               onPressed: () => Navigator.pop<AppNotification>(
                 context,
-                AppNotification(title, dateTime, content, important),
+                AppNotification(title, dateTime, content, important, url),
               ),
               child: Text('Save'),
               color: Colors.green,

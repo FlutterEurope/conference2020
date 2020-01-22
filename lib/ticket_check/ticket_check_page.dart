@@ -4,6 +4,7 @@ import 'package:conferenceapp/ticket_check/users_list.dart';
 import 'package:flutter/material.dart';
 import 'package:fast_qr_reader_view/fast_qr_reader_view.dart';
 
+import 'manual_ticket_check_page.dart';
 import 'scan_party_page.dart';
 import 'scan_ticket_page.dart';
 
@@ -24,11 +25,6 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                   'Aby zeskanować bilet naciśnij "Skanuj bilety", a następnie skieruj aparat na kod QR na ekranie telefonu uczestnika.'),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                  'W przypadku biletów studenckich sprawdź legitymację studencką lub inny dokument upoważniający do zniżki.'),
             ),
             RaisedButton(
               child: Padding(
@@ -61,11 +57,15 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
                 }
               },
             ),
+            SizedBox(
+              height: 30,
+            ),
             RaisedButton(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   'Sprawdź ręcznie',
+                  style: TextStyle(fontSize: 36),
                 ),
               ),
               onPressed: () async {
@@ -85,6 +85,9 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
                   logger.errorException(e, s);
                 }
               },
+            ),
+            SizedBox(
+              height: 30,
             ),
             RaisedButton(
               child: Padding(
@@ -112,6 +115,9 @@ class _TicketCheckPageState extends State<TicketCheckPage> {
                   logError(e.code, e.description);
                 }
               },
+            ),
+            SizedBox(
+              height: 10,
             ),
             RaisedButton(
               child: Text('Przeglądaj sprawdzone'),
