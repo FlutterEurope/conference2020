@@ -4,6 +4,7 @@ import 'package:conferenceapp/ticket_check/users_list.dart';
 import 'package:flutter/material.dart';
 import 'package:fast_qr_reader_view/fast_qr_reader_view.dart';
 
+import 'manual_ticket_check_page.dart';
 import 'scan_party_page.dart';
 import 'scan_ticket_page.dart';
 
