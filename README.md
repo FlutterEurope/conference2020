@@ -14,7 +14,7 @@ This is repository of [Flutter Europe](https://fluttereurope.dev/) official conf
 
 | Google Play | AppStore |
 |---|---|
-| [![Google Play](docs/play.png)]() | [![AppStore](docs/appstore.png)]() |
+| [![Google Play](docs/play.png)](https://play.google.com/store/apps/details?id=dev.fluttereurope.conferenceapp) | [![AppStore](docs/appstore.png)](https://apps.apple.com/us/app/flutter-europe/id1485095896) |
 
 ## Getting Started
 
