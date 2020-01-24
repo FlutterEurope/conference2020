@@ -90,7 +90,14 @@ class TalkPage extends StatelessWidget {
                         if (talk.description != null) TalkDetails(talk: talk),
                       ]),
                     )
-                  : SliverFillRemaining(child: CircularProgressIndicator()),
+                  : SliverFillRemaining(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    ),
             ],
           ),
         );
