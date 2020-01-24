@@ -26,7 +26,7 @@ class ContentfulClient {
       return data.items.map<Talk>((talk) => Talk.fromContentful(talk)).toList();
     } catch (e) {
       logger.errorException(e);
-      return List<Talk>();
+      return null;
     }
   }
 

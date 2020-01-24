@@ -372,7 +372,7 @@ class RepositoryProviders extends StatelessWidget {
           client: client,
           fileStorage: FileStorage(
             'talks',
-            () => Directory.systemTemp.createTemp('talks_'),
+            () => Directory.systemTemp,
           ),
           cacheDuration: Duration(
             minutes: cache == 0 ? 90 : cache,

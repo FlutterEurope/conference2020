@@ -37,7 +37,7 @@ import 'package:conferenceapp/model/talk.dart';
 
 class FileStorage {
   final String tag;
-  final Future<Directory> Function() getDirectory;
+  final Directory Function() getDirectory;
 
   const FileStorage(
     this.tag,
@@ -48,8 +48,7 @@ class FileStorage {
     final file = await _getLocalFile();
     final string = await file.readAsString();
     final json = JsonDecoder().convert(string);
-    final todos =
-        (json['todos']).map<Talk>((todo) => Talk.fromJson(todo)).toList();
+    final todos = json.map<Talk>((item) => Talk.fromJson(item)).toList();
 
     return todos;
   }
@@ -74,7 +73,7 @@ class FileStorage {
   Future<File> _getLocalFile() async {
     final dir = await getDirectory();
 
-    return File('${dir.path}/FlutterEuropeStorage__$tag.json');
+    return File('${dir.path}/FlutterEuropeStorage_$tag.json');
   }
 
   Future<FileSystemEntity> clean() async {

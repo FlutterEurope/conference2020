@@ -1,3 +1,4 @@
+import 'package:conferenceapp/common/logger.dart';
 import 'package:conferenceapp/model/talk.dart';
 import 'package:conferenceapp/utils/contentful_client.dart';
 import 'package:flutter/foundation.dart';
@@ -15,15 +16,16 @@ class ContentfulTalksRepository {
     @required this.cacheDuration,
   });
 
-  Future<List<Talk>> loadTalks() async {
+  Future<List<Talk>> loadTalks([bool force = false]) async {
     try {
       final cached = await fileStorage.loadItems();
-      if (await cacheExpired()) {
+      if ((force || await cacheExpired())) {
         return fetchTalks();
       } else {
         return cached;
       }
-    } catch (e) {
+    } catch (e, s) {
+      logger.errorException(e, s);
       return fetchTalks();
     }
   }
@@ -36,16 +38,21 @@ class ContentfulTalksRepository {
   }
 
   Future<List<Talk>> fetchTalks() async {
-    final talks = await client.fetchTalks();
+    try {
+      final talks = await client.fetchTalks();
 
-    fileStorage.saveItems(talks);
+      await fileStorage.saveItems(talks);
 
-    return talks;
+      return talks;
+    } catch (e, s) {
+      logger.errorException(e, s);
+      return List<Talk>();
+    }
   }
 
-  Future saveTalks(List<Talk> todos) {
+  Future saveTalks(List<Talk> talks) {
     return Future.wait<dynamic>([
-      fileStorage.saveItems(todos),
+      fileStorage.saveItems(talks),
     ]);
   }
 }

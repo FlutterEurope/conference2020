@@ -53,14 +53,48 @@ class _PopulatedAgendaTableState extends State<PopulatedAgendaTable> {
               BlocProvider.of<AgendaBloc>(context).add(FetchAgenda());
               return _refreshCompleter.future;
             },
-            child: PopulatedAgendaDayList(widget.talks[0], widget.rooms),
+            child: widget.talks[0] != null
+                ? PopulatedAgendaDayList(widget.talks[0], widget.rooms)
+                : EmptyPopulated(),
           ),
           RefreshIndicator(
             onRefresh: () async {
               BlocProvider.of<AgendaBloc>(context).add(FetchAgenda());
               return _refreshCompleter.future;
             },
-            child: PopulatedAgendaDayList(widget.talks[1], widget.rooms),
+            child: widget.talks[1] != null
+                ? PopulatedAgendaDayList(widget.talks[1], widget.rooms)
+                : EmptyPopulated(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class EmptyPopulated extends StatelessWidget {
+  const EmptyPopulated({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox.expand(
+      child: ListView(
+        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Image.asset('assets/404.png'),
+          ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                'Seems like we have a connection problem. Try to restart the app.',
+                textAlign: TextAlign.center,
+              ),
+            ),
           ),
         ],
       ),
