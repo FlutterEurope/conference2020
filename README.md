@@ -27,11 +27,11 @@ This simple conference app allows:
 - [x] receiving notifications from organizers
 - [x] light/dark mode
 - [x] rating of the talks
+- [x] feedback gathering
 - [x] receiving reminders about the talks
 - [ ] adding ticket to the device wallet
 - [x] admin mode to send notifications and new users
 - [x] crash reporting
-- [ ] feedback gathering
 
 It's built with Flutter for iOS and Android.
 
@@ -51,7 +51,9 @@ You can follow project updates in the respective [MVP project](https://github.co
 
 ## Contributing
 
-If you want to contribute, please contact us directly. We hope to publish some contribution policy soon.
+If you want to contribute, please contact us directly.
+
+If you want to get access to our Contentful and Firebase backends, please let us know directly.
 
 ### Generating model
 
