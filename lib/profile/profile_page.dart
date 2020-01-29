@@ -146,14 +146,50 @@ class _ProfilePageState extends State<ProfilePage> {
             },
           ),
           ListTile(
-            title: Text('About and open source licenses'),
+            title: Text('About'),
+            trailing: Icon(LineIcons.angle_right),
+            contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
+            onTap: () async {
+              final text = await getFileData('assets/about.md');
+              logger.info('About tapped');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Scaffold(
+                    appBar: AppBar(
+                      title: Text('About the app'),
+                    ),
+                    body: Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Column(
+                        children: <Widget>[
+                          MarkdownBody(
+                            data: text,
+                          ),
+                          FlatButton(
+                            child: Text('Send e-mail'),
+                            onPressed: () {
+                              sendEmail();
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: Text('Open source licenses'),
             subtitle:
                 Text('All the awesome libraries we used to create this app'),
             trailing: Icon(LineIcons.angle_right),
             contentPadding: EdgeInsets.only(left: 16.0, right: 24.0),
             onTap: () async {
               final version = await PackageInfo.fromPlatform();
-              logger.info('About tapped');
+              logger.info('Open source licenses tapped');
               showLicensePage(
                   context: context,
                   applicationIcon: Padding(
@@ -166,7 +202,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   applicationName: 'Flutter Europe 2020',
                   applicationVersion: '${version?.version}',
                   applicationLegalese:
-                      'Created by Dominik Roszkowski (roszkowski.dev), Maciek Korzeniewski (@korzonkiee), Marcin Szałek (fidev.io) and Robert Odrowąż-Sypniewski for the Flutter Europe conference, \n\nSome images are courtesy of https://undraw.co/\n\nSpecial thanks to Codemagic for support and free build time! ❤️\n\nThanks LeanCode for hosting this on your accounts!\n\nAnd huuuge thank you to all the people who helped design and test this app 🎉');
+                      'Created by Dominik Roszkowski (roszkowski.dev), Maciek Korzeniewski (@korzonkiee), Marcin Szałek (fidev.io) and Robert Odrowąż-Sypniewski for the Flutter Europe conference');
             },
           ),
           if (Provider.of<RemoteConfig>(context, listen: false)
