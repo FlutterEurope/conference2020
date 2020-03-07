@@ -128,6 +128,7 @@ class FavoriteButtonWrapper extends StatelessWidget {
                       DateTime.now(),
                       null,
                       TalkType.other,
+                      null,
                     ),
                     isFavorite: isFavorite,
                   ),

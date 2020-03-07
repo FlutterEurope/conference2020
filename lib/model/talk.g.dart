@@ -18,6 +18,7 @@ Talk _$TalkFromJson(Map json) {
     DateTime.parse(json['endTime'] as String),
     Room.fromJson(Map<String, dynamic>.from(json['room'] as Map)),
     _$enumDecode(_$TalkTypeEnumMap, json['type']),
+    json['youtubeUrl'] as String,
   );
 }
 
@@ -27,6 +28,7 @@ Map<String, dynamic> _$TalkToJson(Talk instance) => <String, dynamic>{
       'authors': instance.authors.map((e) => e.toJson()).toList(),
       'description': instance.description,
       'type': _$TalkTypeEnumMap[instance.type],
+      'youtubeUrl': instance.youtubeUrl,
       'startTime': instance.startTime.toIso8601String(),
       'endTime': instance.endTime.toIso8601String(),
       'room': instance.room.toJson(),

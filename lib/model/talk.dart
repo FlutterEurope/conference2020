@@ -20,6 +20,7 @@ class Talk implements Comparable<Talk> {
   final List<Author> authors;
   final String description;
   final TalkType type;
+  final String youtubeUrl;
 
   Map get descriptionMap => jsonDecode(description);
 
@@ -38,6 +39,7 @@ class Talk implements Comparable<Talk> {
     this.endTime,
     this.room,
     this.type,
+    this.youtubeUrl,
   );
 
   factory Talk.fromContentful(AgendaFields item) {
@@ -68,6 +70,7 @@ class Talk implements Comparable<Talk> {
         ),
         Room.fromContentfulType(item.fields.type),
         item.fields.type,
+        item.fields.youtubeUrl,
       );
     } catch (e, s) {
       logger.errorException(e, s);

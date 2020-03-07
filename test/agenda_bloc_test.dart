@@ -37,6 +37,7 @@ void main() {
         DateTime.now().add(Duration(minutes: 45)),
         Room('', '1'),
         TalkType.other,
+        null,
       ),
     ];
 
@@ -108,6 +109,7 @@ void main() {
         DateTime(2020, 1, day, hour, 45),
         _room,
         TalkType.other,
+        null,
       );
     }
 

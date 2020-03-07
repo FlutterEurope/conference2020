@@ -6,13 +6,15 @@ part of 'organizer.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Organizers _$OrganizersFromJson(Map json) {
+Organizers _$OrganizersFromJson(Map<String, dynamic> json) {
   return Organizers(
     total: json['total'] as int,
     skip: json['skip'] as int,
     limit: json['limit'] as int,
     items: (json['items'] as List)
-        ?.map((e) => e == null ? null : OrganizerFields.fromJson(e as Map))
+        ?.map((e) => e == null
+            ? null
+            : OrganizerFields.fromJson(e as Map<String, dynamic>))
         ?.toList(),
   );
 }

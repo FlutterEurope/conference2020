@@ -6,13 +6,15 @@ part of 'sponsor.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Sponsors _$SponsorsFromJson(Map json) {
+Sponsors _$SponsorsFromJson(Map<String, dynamic> json) {
   return Sponsors(
     total: json['total'] as int,
     skip: json['skip'] as int,
     limit: json['limit'] as int,
     items: (json['items'] as List)
-        ?.map((e) => e == null ? null : SponsorFields.fromJson(e as Map))
+        ?.map((e) => e == null
+            ? null
+            : SponsorFields.fromJson(e as Map<String, dynamic>))
         ?.toList(),
   );
 }

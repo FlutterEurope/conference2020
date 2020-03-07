@@ -6,13 +6,14 @@ part of 'agenda.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Agenda _$AgendaFromJson(Map json) {
+Agenda _$AgendaFromJson(Map<String, dynamic> json) {
   return Agenda(
     total: json['total'] as int,
     skip: json['skip'] as int,
     limit: json['limit'] as int,
     items: (json['items'] as List)
-        ?.map((e) => e == null ? null : AgendaFields.fromJson(e as Map))
+        ?.map((e) =>
+            e == null ? null : AgendaFields.fromJson(e as Map<String, dynamic>))
         ?.toList(),
   );
 }
@@ -50,6 +51,7 @@ Fields _$FieldsFromJson(Map json) {
         ? null
         : ContentfulSpeaker.fromJson(json['secondSpeaked'] as Map),
     _storeDocumentAsString(json['description'] as Map),
+    json['youtubeUrl'] as String,
   );
 }
 
@@ -60,6 +62,7 @@ Map<String, dynamic> _$FieldsToJson(Fields instance) => <String, dynamic>{
       'type': _$TalkTypeEnumMap[instance.type],
       'speaker': instance.speaker?.toJson(),
       'secondSpeaked': instance.secondSpeaker?.toJson(),
+      'youtubeUrl': instance.youtubeUrl,
       'description': instance.description,
     };
 

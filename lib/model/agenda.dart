@@ -70,6 +70,8 @@ class Fields extends Equatable {
   final ContentfulSpeaker speaker;
   @JsonKey(nullable: true, name: 'secondSpeaked')
   final ContentfulSpeaker secondSpeaker;
+  @JsonKey(nullable: true)
+  final String youtubeUrl;
 
   @JsonKey(ignore: true)
   Document get descriptionDocument =>
@@ -82,7 +84,7 @@ class Fields extends Equatable {
   Map get descriptionMap => jsonDecode(description);
 
   Fields(this.day, this.time, this.title, this.type, this.speaker,
-      this.secondSpeaker, this.description);
+      this.secondSpeaker, this.description, this.youtubeUrl);
 
   static Fields fromJson(Map<String, dynamic> json) => _$FieldsFromJson(json);
   Map<String, dynamic> toJson() => _$FieldsToJson(this);
