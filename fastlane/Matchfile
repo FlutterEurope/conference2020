@@ -1,4 +1,4 @@
-git_url("git@bitbucket.org:leancode-team/certificates.git")
+git_url("git@github.com:orestesgaolin/certs.git")
 storage_mode("git")
 username(ENV["FASTLANE_USER"])
 team_id(ENV["APPLE_DEVELOPER_TEAM_ID"])
