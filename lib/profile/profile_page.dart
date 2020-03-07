@@ -165,6 +165,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: <Widget>[
                           MarkdownBody(
                             data: text,
+                            onTapLink: (link) async {
+                              if (await canLaunch(link)) {
+                                launch(link);
+                              }
+                            },
                           ),
                           FlatButton(
                             child: Text('Send e-mail'),
