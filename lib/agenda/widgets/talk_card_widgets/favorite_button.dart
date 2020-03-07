@@ -96,14 +96,18 @@ class FavoriteButton extends StatelessWidget {
     final title = '${talk.title}' +
         (talk.authors.isNotEmpty ? 'by ' : '') +
         talk.authors.join(", ");
-    await flutterLocalNotificationsPlugin.schedule(
-      talk.id.hashCode,
-      'Next talk starts in 5 minutes',
-      title,
-      reminderTime,
-      platformChannelSpecifics,
-      payload: talk.id,
-    );
+
+    final talkInFuture = talk?.startTime?.isAfter(DateTime.now()) == true;
+    if (talkInFuture) {
+      await flutterLocalNotificationsPlugin.schedule(
+        talk.id.hashCode,
+        'Next talk starts in 5 minutes',
+        title,
+        reminderTime,
+        platformChannelSpecifics,
+        payload: talk.id,
+      );
+    }
 
     final ratingTime = _ratingTime();
 
