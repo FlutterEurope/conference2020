@@ -43,7 +43,10 @@ class TalkCard extends StatelessWidget {
                 child: Stack(
                   children: <Widget>[
                     TitleWrapper(
-                        topPadding: topPadding, talk: talk, compact: compact),
+                      topPadding: topPadding,
+                      talk: talk,
+                      compact: compact,
+                    ),
                     Positioned(
                       right: 0,
                       top: compact ? 0 : null,

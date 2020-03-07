@@ -1,5 +1,6 @@
 import 'package:conferenceapp/model/talk.dart';
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 
 import 'speakers.dart';
 
@@ -55,6 +56,7 @@ class TalkTitle extends StatelessWidget {
     if (talk == null) return Container();
 
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         Flexible(
           child: Padding(
@@ -62,6 +64,7 @@ class TalkTitle extends StatelessWidget {
             child: TalkTitleText(
               title: talk.title,
               compact: compact,
+              youtube: talk.youtubeUrl != null,
             ),
           ),
         ),
@@ -75,13 +78,33 @@ class TalkTitleText extends StatelessWidget {
     Key key,
     @required this.title,
     @required this.compact,
+    this.youtube = false,
   }) : super(key: key);
 
   final String title;
   final bool compact;
+  final bool youtube;
 
   @override
   Widget build(BuildContext context) {
-    return Text(title, style: TextStyle(fontSize: compact ? 14 : 16));
+    return RichText(
+      text: TextSpan(
+        style: DefaultTextStyle.of(context).style,
+        children: <InlineSpan>[
+          TextSpan(text: title, style: TextStyle(fontSize: compact ? 14 : 16)),
+          if (youtube)
+            WidgetSpan(
+              alignment: PlaceholderAlignment.middle,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 2.0),
+                child: Icon(
+                  LineIcons.youtube_play,
+                  size: 14,
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
   }
 }
