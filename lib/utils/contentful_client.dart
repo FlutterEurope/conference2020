@@ -15,6 +15,8 @@ class ContentfulClient {
     try {
       final _client = Client(space, apiKey);
 
+      logger.info('Fetching talks');
+
       final data = await _client.getEntries<AgendaFields>(
         {
           'content_type': 'programme',
