@@ -94,7 +94,7 @@ class FavoriteButton extends StatelessWidget {
     final reminderTime = _reminderTime();
 
     final title = '${talk.title}' +
-        (talk.authors.isNotEmpty ? 'by ' : '') +
+        (talk.authors.isNotEmpty ? ' by ' : '') +
         talk.authors.join(", ");
 
     final talkInFuture = talk?.startTime?.isAfter(DateTime.now()) == true;
