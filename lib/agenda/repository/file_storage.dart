@@ -71,7 +71,7 @@ class FileStorage {
   }
 
   Future<File> _getLocalFile() async {
-    final dir = await getDirectory();
+    final dir = getDirectory();
 
     return File('${dir.path}/FlutterEuropeStorage_$tag.json');
   }
