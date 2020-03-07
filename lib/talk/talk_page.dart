@@ -81,28 +81,60 @@ class TalkPage extends StatelessWidget {
                 title: talk != null ? Text(talk.title) : null,
                 centerTitle: false,
               ),
-              (talk != null)
-                  ? SliverList(
-                      delegate: new SliverChildListDelegate([
-                        TopHeader(talk: talk),
-                        TalkTitle(talk: talk),
-                        TalkRating(talk: talk),
-                        if (talk.description != null) TalkDetails(talk: talk),
-                      ]),
-                    )
-                  : SliverFillRemaining(
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CircularProgressIndicator(),
-                        ),
-                      ),
+              if (talk != null)
+                SliverList(
+                  delegate: new SliverChildListDelegate([
+                    TopHeader(talk: talk),
+                    TalkTitle(talk: talk),
+                    TalkYouTube(talk: talk),
+                    TalkRating(talk: talk),
+                    if (talk.description != null) TalkDetails(talk: talk),
+                  ]),
+                )
+              else
+                SliverFillRemaining(
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircularProgressIndicator(),
                     ),
+                  ),
+                ),
             ],
           ),
         );
       },
     );
+  }
+}
+
+class TalkYouTube extends StatelessWidget {
+  final Talk talk;
+
+  const TalkYouTube({Key key, this.talk}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (talk.youtubeUrl != null) {
+      return Center(
+        child: OutlineButton.icon(
+          shape: ContinuousRectangleBorder(
+              borderRadius: BorderRadius.circular(18)),
+          color: Colors.red,
+          highlightedBorderColor: Colors.red,
+          textColor: Colors.red[800],
+          icon: Icon(LineIcons.youtube_play),
+          label: Text('Watch on YouTube'),
+          onPressed: () async {
+            if (await canLaunch(talk.youtubeUrl)) {
+              launch(talk.youtubeUrl);
+            }
+          },
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 }
 
